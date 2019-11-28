@@ -21,6 +21,8 @@ public class Display{
             System.out.printl("- " + ListU.get(i).pseudo);
         }
         */
+        ListU = new ArrayList() <Struct U1>;
+        return ListU;
     }
 
 }
