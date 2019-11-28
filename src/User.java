@@ -50,8 +50,13 @@ public class User {
 
     public String getIPAddres() { return "todo";}
 
+    //methodes pour le main
     public Message createM(String msg) {
         return new Message(msg);
     }
+
+    public void writeM(OutputStream out, String msg) {}
+
+    public String readM(InputStream in, byte[] buff) { return "todo"; }
 
 }

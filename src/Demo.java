@@ -26,7 +26,7 @@ public class Demo {
         //creation du client user1
         try {
             InetAddress addr1 = InetAddress.getLocalHost();
-            Socket sock1 = new Socket(addr, 1234);
+            Socket sock1 = new Socket(addr, 1234); //client1 = serveur 2 et inversement
         }
         catch (Exception e){
             System.out.println("Erreur création du socket client user1");
@@ -41,7 +41,7 @@ public class Demo {
 
         //creation du serveur user1
         try {
-            ServerSocket serverSocket1 = new Server(1234); //a voir pour les ports
+            ServerSocket serverSocket1 = new Server(1235); 
             Socket sockS1 = serverSocket1.accept();
         }
         catch (Exception e){
@@ -59,7 +59,7 @@ public class Demo {
         //creation du client user2
         try {
             InetAddress addr2 = InetAddress.getLocalHost();
-            Socket sock2 = new Socket(addr, 1235);
+            Socket sock2 = new Socket(addr, 1235); 
         }
         catch (Exception e){
             System.out.println("Erreur création du socket client user2");
@@ -74,7 +74,7 @@ public class Demo {
 
         //creation du serveur user2
         try {
-            ServerSocket serverSocket2 = new Server(1234); //a voir pour les ports
+            ServerSocket serverSocket2 = new Server(1234); 
             Socket sockS2 = serverSocket2.accept();
         }
         catch (Exception e){
@@ -87,6 +87,9 @@ public class Demo {
         catch (Exception e){
             System.out.println("Erreur création des inS2 et outS2");
         }
+
+        //Envoie et réception de messages
+        // todo -> methodes write et read dans user ?
 
         //fermeture des différents sockets
         sock1.close();
