@@ -1,30 +1,33 @@
 import java.lang.object.*;
-import constantes.java;
+/*
+import Constantes.java; */
 
 public class User {
 
     //attributs
     private int id;
-    private String pseudo:
-    private String passeword;
+    private String pseudo;
+    private String password;
     private Boolean isActive;
-    private ArrayList <Struct U1> listUserConnected;
+    private ArrayList <U1> listUserConnected;
+    public ArrayList<Message> messages;
 
     //constructeur
-    public void User (int id, String pseudo, String passeword) {
+    public void User (int id, String pseudo, String password) {
         this.id = id;
         this.pseudo = pseudo;
-        this.passeword = passeword;
+        this.password = password;
         this.isActive = true;
-        this.listUserConnected = new ArrayList();
+        this.listUserConnected = new ArrayList <U1>();
+        this.messages= new ArrayList <Message>();
     }
 
     // les getters
     public int getId() { return this.id; }
     public String getPseudo() { return this.pseudo; }
-    public String getPasseword() { return this.passeword; }
-    public Boolean getIsActive()) { return this.isActive; }
-    public ArrayList <Struct U1> getListUserConnected() { return this. listUserConnected; }
+    public String getPassword() { return this.password; }
+    public Boolean getIsActive() { return this.isActive; }
+    public ArrayList <U1> getListUserConnected() { return this. listUserConnected; }
 
     // les methodes
     private void sendM(String msg, Session session) {}
@@ -39,12 +42,16 @@ public class User {
 
     private void modifPseudo(String pseudo) {}
 
-    private void logIn(String pseudo, String passeword) {}
+    private void logIn(String pseudo, String password) {}
 
     private void logOut() {}
 
-    private void openSession(String pseudo, String passeword) {}
+    private void openSession(String pseudo, String password) {}
 
     public String getIPAddres() { return "todo";}
+
+    public Message createM(String msg) {
+        return new Message(msg);
+    }
 
 }
