@@ -36,7 +36,6 @@ public class Demo {
         }
 
         //creation du serveur user2
-        /*
         ServerSocket serverSocket2 = null;
         Socket sockS2 = null;
         OutputStream outS2 = null;
@@ -56,8 +55,6 @@ public class Demo {
         catch (Exception e){
             System.out.println("Erreur création des inS2 et outS2");
         }
-        */
-
         //creation du client user1
         /*
         Socket sock1=null;
@@ -100,7 +97,7 @@ public class Demo {
             System.out.println("Erreur création des in2 et out2");
         }
         
-        //Envoie et réception de messages
+        //Envoi et réception de messages
         System.out.println("Debut de la communication");
         user1.writeM(out2, m1.getContent());
         System.out.println("Message envoyé");
