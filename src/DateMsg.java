@@ -1,9 +1,8 @@
-import java.lang.object.*;
-import constantes.java;
+import java.lang.Object.*;
 
 // https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
 
-public class U1 {
+public class DateMsg {
 
     //attributs
     int year;
@@ -14,7 +13,7 @@ public class U1 {
     int sec;
 
     // constructeurs
-    public void U1 (int year, int month, int day, int hour, int min, int sec) {
+    public DateMsg (int year, int month, int day, int hour, int min, int sec) {
         this.year=year;
         this.month=month;
         this.day=day;
@@ -24,11 +23,11 @@ public class U1 {
     }
 
     //getters
-    public String getYear() { return this.year; }
-    public String getMonth() { return this.month; }
-    public String getDay() { return this.day; }
-    public String getMin() { return this.min; }
-    public String getSec() { return this.sec; }
+    public int getYear() { return this.year; }
+    public int getMonth() { return this.month; }
+    public int getDay() { return this.day; }
+    public int getMin() { return this.min; }
+    public int getSec() { return this.sec; }
 
     //setter
     public void setYear(int y) { this.year=y; }

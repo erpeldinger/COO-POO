@@ -1,11 +1,14 @@
+import java.lang.Object.*;
+import java.util.ArrayList;
+
 public class SystConv{
     
     //Attributs
-    private Array <String> connectedUsersL;
+    private ArrayList <String> connectedUsersL;
 
     //Constructeur
-    public void SystConv(Array <String> connectedUsersL){
-        this.connectedUsersL;
+    public void SystConv(ArrayList <String> connectedUsersL){
+        this.connectedUsersL = connectedUsersL;
     }
 
     //Methodes
@@ -19,14 +22,10 @@ public class SystConv{
 
     private void updateConnectedUL(int id){}
 
-    private Boolean convExists(){
-        exist = new Boolean();
-        return exist;
+    private Boolean convExists(){ return false;
     }
 
-    private <Struct Conv> getHistorique(U2 user1, U2 user2){
-        hist = new StructConv();
-        return hist;
+    private Conv getHistorique(U2 user1, U2 user2){ return new Conv();
     }
 
     private void updateHistConv(Conv listNewM){}
@@ -34,8 +33,7 @@ public class SystConv{
     private void notifyModifiedPseudo(U2 user){}
 
     private int findId(U2 user){
-        id = 0;
-        return id;
+        return 5555;
     }
 
 }

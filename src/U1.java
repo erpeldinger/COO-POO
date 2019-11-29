@@ -1,5 +1,4 @@
-import java.lang.object.*;
-import constantes.java;
+import java.lang.Object.*;
 
 public class U1 {
 
@@ -19,7 +18,7 @@ public class U1 {
 
     //setter
     public void setPseudo(String p) { this.pseudo=p; }
-    private void setPassword(String pwd) { this.passwordpwd; }
+    private void setPassword(String pwd) { this.password =pwd; }
 
     //methodes
     

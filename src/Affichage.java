@@ -1,4 +1,7 @@
-public class Display{
+import java.lang.Object.*;
+import java.util.ArrayList;
+
+public class Affichage{
     
     //Attributs
     private int width;
@@ -6,7 +9,7 @@ public class Display{
     private U2 user;
 
     //Constructeur
-    public void Display(int width, int high, U2 user){
+    public Affichage(int width, int high, U2 user){
         this.width = width;
         this.height = height;
         this.user = user;
@@ -21,8 +24,7 @@ public class Display{
             System.out.printl("- " + ListU.get(i).pseudo);
         }
         */
-        ListU = new ArrayList <U1>();
-        return ListU;
+        return new ArrayList <U1>();
     }
 
 }

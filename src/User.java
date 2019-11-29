@@ -1,4 +1,7 @@
-import java.lang.object.*;
+import java.lang.Object.*;
+import java.util.ArrayList;
+import java.io.InputStream;
+import java.io.OutputStream;
 /*
 import Constantes.java; */
 
@@ -13,7 +16,7 @@ public class User {
     public ArrayList<Message> messages;
 
     //constructeur
-    public void User (int id, String pseudo, String password) {
+    public User(int id, String pseudo, String password) {
         this.id = id;
         this.pseudo = pseudo;
         this.password = password;
@@ -27,7 +30,7 @@ public class User {
     public String getPseudo() { return this.pseudo; }
     public String getPassword() { return this.password; }
     public Boolean getIsActive() { return this.isActive; }
-    public ArrayList <U1> getListUserConnected() { return this. listUserConnected; }
+    public ArrayList <U1> getListUserConnected() { return this.listUserConnected; }
 
     // les methodes
     private void sendM(String msg, Session session) {}
@@ -55,8 +58,25 @@ public class User {
         return new Message(msg);
     }
 
-    public void writeM(OutputStream out, String msg) {}
+    public void writeM(OutputStream out, String msg) {
+    	try {
+        out.write(msg.getBytes());
+    	}
+    	catch (Exception e) {
+    		System.out.println("erreur methode writeM");
+    	}
+    			
+    }
 
-    public String readM(InputStream in, byte[] buff) { return "todo"; }
+    public void readM(InputStream in, byte[] buff) { 
+    	try {
+	        while (in.available() <=0 ) {
+	        }
+	        in.read(buff);
+    	}
+    	catch (Exception e) {
+		System.out.println("erreur methode writeM");
+    	}
+    }
 
 }

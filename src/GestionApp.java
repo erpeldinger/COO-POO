@@ -4,7 +4,7 @@ public class GestionApp{
     private String state;
 
     //Constructeur
-    public void GestionApp(String state){
+    public GestionApp(String state){
         this.state = state;
     }
 

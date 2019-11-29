@@ -1,5 +1,4 @@
-import java.lang.object.*;
-import constantes.java;
+import java.lang.Object.*;
 
 public class U2 {
 
@@ -18,12 +17,12 @@ public class U2 {
     //getters
     public String getPseudo() { return this.pseudo; }
     public String getPassWord() { return this.password; }
-    public String getId() { return this.id; }
+    public int getId() { return this.id; }
 
     //setter
     public void setPseudo(String p) { this.pseudo=p; }
-    private void setPassword(String pwd) { this.passwordpwd; }
-    private void setId(String id) { this.id=id; }
+    private void setPassword(String pwd) { this.password = pwd; }
+    private void setId(int newId) { this.id=newId; }
 
     //methodes
     

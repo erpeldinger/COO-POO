@@ -1,13 +1,4 @@
-import java.lang.object.*;
-/*
-import Constantes.java;
-import Affichage.java;
-import GestionApp.java;
-import Message.java;
-import Session.java;
-import SystConv.java;
-import User.java; */
-//import pour client/serveur
+import java.lang.Object.*;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
@@ -23,81 +14,114 @@ public class Demo {
         //creation d'un message par user1
         Message m1 = user1.createM("Bonjour, je suis Toto1");
 
-        //creation du client user1
-        try {
-            InetAddress addr1 = InetAddress.getLocalHost();
-            Socket sock1 = new Socket(addr, 1234); //client1 = serveur 2 et inversement
-        }
-        catch (Exception e){
-            System.out.println("Erreur création du socket client user1");
-        }
-        try {
-            OutputStream out1 = sock1.OutputStream();
-            ImputStream in1 = sock1.InputStream();
-        }
-        catch (Exception e){
-            System.out.println("Erreur création des in1 et out1");
-        }
-
         //creation du serveur user1
+        ServerSocket serverSocket1 = null;
+        Socket sockS1 = null;
+        OutputStream outS1 = null;
+        InputStream inS1 = null;
         try {
-            ServerSocket serverSocket1 = new Server(1235); 
-            Socket sockS1 = serverSocket1.accept();
+            serverSocket1 = new ServerSocket(1235); 
+            sockS1 = serverSocket1.accept();
+            System.out.println("Serveur 1 ok : 1235");
         }
         catch (Exception e){
-            System.out.println("Erreur création du server socket user1");
+            System.out.println("Erreur création du server1");
         }
         try {
-            OutputStream outS1 = sockS1.OutputStream();
-            InputStream inS1 = sockS1.InputStream();
+            outS1 = sockS1.getOutputStream();
+            inS1 = sockS1.getInputStream();
         }
         catch (Exception e){
             System.out.println("Erreur création des inS1 et outS1");
         }
 
+        //creation du serveur user2
+        /*
+        ServerSocket serverSocket2 = null;
+        Socket sockS2 = null;
+        OutputStream outS2 = null;
+        InputStream inS2 = null;
+        try {
+            serverSocket2 = new ServerSocket(1234); 
+            sockS2 = serverSocket2.accept();
+            System.out.println("Serveur 2 ok : 1234");
+        }
+        catch (Exception e){
+            System.out.println("Erreur création du server2");
+        }
+        try {
+            outS2 = sockS2.getOutputStream();
+            inS2 = sockS2.getInputStream();
+        }
+        catch (Exception e){
+            System.out.println("Erreur création des inS2 et outS2");
+        }
+        */
 
+        //creation du client user1
+        /*
+        Socket sock1=null;
+        OutputStream out1 = null;
+        InputStream in1 = null;
+        try {
+            InetAddress addr1 = InetAddress.getLocalHost();
+            sock1 = new Socket(addr1, 1234); //client1 = serveur 2 et inversement
+            System.out.println("Client 1 ok : 1234");
+        }
+        catch (Exception e){
+            System.out.println("Erreur création du socket client user1");
+        }
+        try {
+            out1 = sock1.getOutputStream();
+            in1 = sock1.getInputStream();
+        }
+        catch (Exception e){
+            System.out.println("Erreur création des in1 et out1");
+        }
+        */
+        
         //creation du client user2
+        Socket sock2 = null;
+        OutputStream out2 = null;
+        InputStream in2 = null;
         try {
             InetAddress addr2 = InetAddress.getLocalHost();
-            Socket sock2 = new Socket(addr, 1235); 
+            sock2 = new Socket(addr2, 1235); 
+            System.out.println("Client 2 ok : 1235");
         }
         catch (Exception e){
             System.out.println("Erreur création du socket client user2");
         }
         try {
-            OutputStream out2 = sock2.OutputStream();
-            InputStream in2 = sock2.InputStream();
+            out2 = sock2.getOutputStream();
+            in2 = sock2.getInputStream();
         }
         catch (Exception e){
             System.out.println("Erreur création des in2 et out2");
         }
-
-        //creation du serveur user2
-        try {
-            ServerSocket serverSocket2 = new Server(1234); 
-            Socket sockS2 = serverSocket2.accept();
-        }
-        catch (Exception e){
-            System.out.println("Erreur création du server socket user2");
-        }
-        try {
-            OutputStream outS2 = sockS2.OutputStream();
-            InputStream inS2 = sockS2.InputStream();
-        }
-        catch (Exception e){
-            System.out.println("Erreur création des inS2 et outS2");
-        }
-
+        
         //Envoie et réception de messages
-        // todo -> methodes write et read dans user ?
+        System.out.println("Debut de la communication");
+        user1.writeM(out2, m1.getContent());
+        System.out.println("Message envoyé");
+        byte[] buff = new byte[200];
+        user2.readM(inS1, buff);
+        System.out.println("Message lu");
+        String m1Lu = new String(buff);
+        System.out.println("Le message lu est : " + m1Lu);
 
         //fermeture des différents sockets
-        sock1.close();
+        try {
+        //sock1.close();
         sock2.close();
         sockS1.close();
-        sockS2.close();
+        //sockS2.close();
         serverSocket1.close();
-        serverSocket2.close();
+        //serverSocket2.close();
+        }
+        catch (Exception e) {
+        	System.out.println("Erreur fermeture de sockets");
+        }
 
     }
     

@@ -1,13 +1,13 @@
-import java.lang.object.*;
-import constantes.java;
+import java.lang.Object.*;
+import java.util.Stack;
 
 public class Conv {
 
     //attributs
-    private Stack <Message> stackMessage;
+    private Stack<Message> stackMessage;
 
     // constructeurs
-    public void Conv () {
+    public Conv () {
         this.stackMessage = new Stack <Message>();
     }
 
@@ -15,10 +15,10 @@ public class Conv {
     public Stack <Message> getConv() { return this.stackMessage; }
 
     //setter
-    public void setPConv(String newStack) { this.stackMessage=newStack; }
+    public void setPConv(Stack<Message> stackNew) { this.stackMessage=stackNew; }
 
     //methodes
-    public void addMessage(msg) {this.stack.push(msg);}
-    public void delMessage() {this.stack.pop();}
+    public void addMessage(Message msg) {this.stackMessage.push(msg);}
+    public void delMessage() {this.stackMessage.pop();}
     
 }
