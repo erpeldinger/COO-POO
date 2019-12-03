@@ -83,7 +83,7 @@ public class User {
     	}
     }
     
-    //
+   
     private ArrayList<U1> getUsers(byte[] buff) {
     	ArrayList <U1> maListe = new ArrayList <U1>();
     	//TODO
@@ -99,7 +99,7 @@ public class User {
             DatagramPacket outPacket= new DatagramPacket(msg, len,addrBroadcast, clientPort);
             dgSocket.send(outPacket);
             
-            //timeout de 4secondes
+            // Si on n'a pas de réponse au bout de 4 secondes, on considère qu'on est le seul utilisateur connecté
             dgSocket.setSoTimeout(4000);
 
             // reception du message

@@ -1,10 +1,12 @@
 import java.lang.Object.*;
+import java.net.InetAddress;
 
 public class Message {
 
     //attributs
     private String content;
     private DateMsg date;
+    private byte[] packet ;
 
     // constructeurs
     public Message(String content) {
@@ -17,8 +19,9 @@ public class Message {
     }
 
     //getters
-    public String getContent() { return this.content;}
-    public DateMsg getDate() { return this.date; }
+    public String getContent() {return this.content;}
+    public DateMsg getDate() {return this.date;}
+    public byte[] getPacket() {return this.packet;}
 
     //setter
     public void setDate(DateMsg newDate) { this.date = newDate; }
@@ -26,7 +29,20 @@ public class Message {
 
     //methodes
     public void dateToString() {
-        //todo
+        //TODO
     }
+    
+    /* La forme d'un packet prêt à être envoyé est :
+     * 
+     * addrSrc | addrDest | portS | portD | msg
+     * 
+     */
+    
+    /*
+    public void readyToSend(int portS, int portD, InetAddress addrSrc, InetAddress addrDest) {
+    	String msg = addrSrc.toString() + addrDest.toString() + Integer.toString(portS) + Integer.toString(portD) ;
+    	this.packet = msg.getBytes();
+    }
+    */
     
 }
