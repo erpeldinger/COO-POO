@@ -12,8 +12,9 @@ public class DemoU1 {
     	
         User user = new User(1, "Toto1", "titi");
         Message m = user.createM("Bonjour, je suis Toto1. ");
+        Message mBroadCast = user.createM("Broadcast : qui est là ?");
 
-        //-----------------Création du serveur------------------------------------- 
+        //-----------------Création du serveur TCP------------------------------------- 
         ServerSocket serverSocket = null;
         Socket sockS = null;
         OutputStream outS = null;
@@ -35,7 +36,7 @@ public class DemoU1 {
         }
 
         
-        //---------------Creation du client---------------------------------------------------------------
+        //---------------Creation du client TCP---------------------------------------------------------------
         
         Socket sockC = null;
         OutputStream outC = null;
@@ -58,13 +59,43 @@ public class DemoU1 {
         }
         
         //----------------------Récupération des utilisateurs connectés -------------------------------
-               
-        for(int port = 1;port<1300;port++){
+        
+        // envoie de message en Broadcast, attente de réception et création de la liste des utlisateurs connectes
+        
+        
+        
+        /*
+       	//Création du serveur UDP
+        DatagramSocket  dgSocket = new DatagramSocket(1234);
+        byte[] buffer = new byte[256];
+        DatagramPacket inPacket= new DatagramPacket(buffer, buffer.length);
+        dgSocket.receive(inPacket);
+        InetAddress clientAddress= inPacket.getAddress();
+        int clientPort= inPacket.getPort();
+        String message = new String(inPacket.getData(), 0, inPacket.getLength());
+        DatagramPacket outPacket= new DatagramPacket(response.getBytes(), response.length(),clientAddress, clientPort);
+        dgSocket.send(outPacket);
+        dgSocket.close();
+        
+        // Création du client UDP
+        InetAddress host = ;
+        int port = 3333;
+        DatagramSocket dgSocketClient= new DatagramSocket();
+        DatagramPacket outPacketClient= new DatagramPacket(message.getBytes(), message.length(),host, port);
+        dgSocketClient.send(outPacket);
+        byte[] bufferClient = new byte[256];
+        DatagramPacket inPacketClient= new DatagramPacket(bufferClient, bufferClient.length);
+        dgSocketClient.receive(inPacketClient);
+        String response = new String(inPacketClient.getData(), 0, inPacketClient.getLength());
+        dgSocketClient.close();
+        */
+        
+        
+        /*for(int port = 1;port<1300;port++){
     	    try{           	    	
     	    	//Envoi d'un message en broadcast
-    	        user.writeM(outC, m.getContent());
+    	        user.writeM(outC, mBroadCast.getContent());
     	        //System.out.println("Message envoyé");
-    	        
     	    }   
     	    catch (Exception e) {
     	    	System.out.println();
@@ -74,7 +105,7 @@ public class DemoU1 {
         user.readM(inS, buff);
         System.out.println("Message lu");
         String m1Lu = new String(buff);
-        System.out.println("Le message lu est : " + m1Lu);
+        System.out.println("Le message lu est : " + m1Lu);*/
 	    
         
 	    //------------------ Fermeture des sockets-----------------------------------------------------------

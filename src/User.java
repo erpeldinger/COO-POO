@@ -1,4 +1,7 @@
 import java.lang.Object.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,7 +16,8 @@ public class User {
     private String password;
     private Boolean isActive;
     private ArrayList <U1> listUserConnected;
-    public ArrayList<Message> messages;
+    private ArrayList<Message> messages;
+    private ListenerUDP listener;
 
     //constructeur
     public User(int id, String pseudo, String password) {
@@ -77,6 +81,39 @@ public class User {
     	catch (Exception e) {
 		System.out.println("erreur methode writeM");
     	}
+    }
+    
+    //
+    private ArrayList<U1> getUsers(byte[] buff) {
+    	ArrayList <U1> maListe = new ArrayList <U1>();
+    	//TODO
+    	return maListe;
+    	
+    }
+    
+    // fait un broadcast UDP et récupère les utilisateurs connectés et les mets dans la liste
+    public void createListUserCo(byte[] msg, int len, InetAddress addrBroadcast, int clientPort) {
+    	try {
+            // envoi du message
+            DatagramSocket dgSocket = new DatagramSocket();
+            DatagramPacket outPacket= new DatagramPacket(msg, len,addrBroadcast, clientPort);
+            dgSocket.send(outPacket);
+            
+            //timeout de 4secondes
+            dgSocket.setSoTimeout(4000);
+
+            // reception du message
+            byte[] bufferClient = new byte[256];
+            DatagramPacket inPacketClient= new DatagramPacket(bufferClient, bufferClient.length);
+            dgSocket.receive(inPacketClient);
+            
+            //recuperation des user connectes et création de la liste
+           ArrayList <U1> liste = getUsers(bufferClient);
+           this.listUserConnected = liste;
+        }
+        catch (Exception e) {
+        	System.out.println("Erreur récupération de la liste des utilisateurs connectes");
+        }
     }
 
 }

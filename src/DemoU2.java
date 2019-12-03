@@ -69,35 +69,6 @@ public class DemoU2 {
         
         /* Est-ce qu'il ne faudrait pas faire un if (on a reçu le message broadcast du serveur central) on répond au serveur central ??*/
         
-        /* A mettre dans le serveur 
-         * while(!demande_reçue){
-            while(in.available()<=0){
-            }
-            in.read(b);
-            demande_reçue = true;
-            try{
-                LocalDateTime now = LocalDateTime.now();  
-                out.write((new String (dtf.format(now))).getBytes()); //TO STRING A MODIFIER
-            }
-            catch(Exception e){
-                System.out.println("erreur dans l'envoie de la date");
-            }
-        }
-        
-        
-        dans client :
-        
-        try{
-            while(in.available()<=0){
-            }
-            byte[] b = new byte[200];
-            in.read(b);
-            System.out.println("TIME : " + new String(b));
-        }catch (Exception e){
-            System.out.println("Erreur read");
-        }
-         * */
-        
         
         //Réponse au broadcast du serveur central (DemoU1)
         byte[] buff = new byte[200];
