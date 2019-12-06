@@ -7,6 +7,8 @@ import java.io.IOException;
 public class DemoU1 {
     
     public static void main (String[] args){
+    	
+    	
 
         //-----------------Création d'un user et de son message-------------------------------------
     	
@@ -118,6 +120,7 @@ public class DemoU1 {
 	    }        
 	}                     
 }
+
 
 /*//---------------------Création du scanner------------------------- 
 

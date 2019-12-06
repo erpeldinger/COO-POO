@@ -9,19 +9,21 @@ import java.net.UnknownHostException;
 
 public class ListenerUDP extends Thread {
 
-    //attributs
+    //Attributs
     private DatagramSocket socket;
     private ArrayList <byte[]> messages;
     private static final byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
     
-    // constructeurs
+    //Constructeurs
     public ListenerUDP (int port, String name, InetAddress addrBroadcast) throws SocketException {
     	super(name);
         this.socket = new DatagramSocket(port);
         this.addrBroadcast = addrBroadcast;
         start();
     }
+    
+    //Methodes
 
     private InetAddress getAddr (DatagramPacket inPacket) throws UnknownHostException {
     	return inPacket.getAddress(); 
@@ -36,6 +38,9 @@ public class ListenerUDP extends Thread {
     	Boolean connected = true;
     	while (connected) {
     		try {
+    			
+    			//TODO -> s'ajouter dans sa propre liste de users connectés
+    			
 		    	byte[] buff = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
 		    	socket.receive(inPacket);
@@ -45,6 +50,8 @@ public class ListenerUDP extends Thread {
 		    	if (inPacket.getAddress().getHostAddress().contains(addrBroadcast.toString())) {
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
+		    		
+		    		//Mettre à jour la liste des user connectés (ajouter la personne qui a envoyé le broadcast)
 		    	}
 		    	else {
 		    		//c'est un message d'un clavardage

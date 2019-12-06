@@ -100,7 +100,7 @@ public class User {
             dgSocket.send(outPacket);
             
             // Si on n'a pas de réponse au bout de 4 secondes, on considère qu'on est le seul utilisateur connecté
-            dgSocket.setSoTimeout(4000);
+            dgSocket.setSoTimeout(4000); //à voir, il existe une constante RECEIVING_TIMEOUT
 
             // reception du message
             byte[] bufferClient = new byte[256];
@@ -115,5 +115,14 @@ public class User {
         	System.out.println("Erreur récupération de la liste des utilisateurs connectes");
         }
     }
+    /*
+    
+    public DatagramPacket sendBroadcast(String msg, int port) {
+    	
+    	DatagramSocket dgSocket = new DatagramSocket(port);
+    	
+    	
+    	
+    }*/
 
 }
