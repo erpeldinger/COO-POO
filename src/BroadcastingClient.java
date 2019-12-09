@@ -59,6 +59,14 @@ public class BroadcastingClient {
 	    	InetAddress broadcastAddr = getBroadcastAddress() ;
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,broadcastAddr,port);   	
 	    	socket.send(packet);
+	    	//A mettre ailleurs
+	    	
+	    	byte[] buff = new byte[256];
+	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
+	    	socket.receive(outPacket);
+	    	String rep = new String(outPacket.getData(), 0, outPacket.getLength());
+			System.out.println(rep);
+	    	
     	}
  	
     	catch (Exception e) {

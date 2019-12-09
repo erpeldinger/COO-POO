@@ -12,7 +12,7 @@ public class ListenerUDP extends Thread {
     //Attributs
     private DatagramSocket socket;
     private ArrayList <String> messages;
-    private static final byte[] response = null; //Message comme quoi on est connecté
+    private static byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
     
     //Constructeurs
@@ -52,13 +52,18 @@ public class ListenerUDP extends Thread {
 		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
 				System.out.println(msg);				
 		    	
-		    	messages.add(msg);
-		    	System.out.println("[LISTENER UDP] Add ok");
+				//Le add ne fonctionne pas
+		    	//messages.add(msg);
+		    	//System.out.println("[LISTENER UDP] Add ok");
 		    	
+				//ATTENTION PB IF
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
-		    	if (inPacket.getAddress().getHostAddress().contains(addrBroadcast.toString())) {
+		    	if (inPacket.getAddress().equals(addrBroadcast)) {
 		    		System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
 		    		
+		    		String r = new String("Je suis connecté !");		    		
+		    		response = r.getBytes();
+		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
 		    		
@@ -67,6 +72,7 @@ public class ListenerUDP extends Thread {
 		    	else {
 		    		//c'est un message d'un clavardage
 		    		//TODO
+		    		System.out.println("[LISTENER UDP] Msg de clavardage -> else");
 		    	
     		}
     		}
