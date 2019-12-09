@@ -13,8 +13,7 @@ public class DemoU3 {
     	byte[] buff = new byte[256];
     	DatagramPacket p = new DatagramPacket(buff, buff.length);
     	
-    	BroadcastingClient c1 = new BroadcastingClient(d1, p, 1234);
-    	c1.sendBroadcast();
+    	BroadcastingClient.sendBroadcast();
     	
 
       /*  //-----------------Création d'un user et de son message-------------------------------------

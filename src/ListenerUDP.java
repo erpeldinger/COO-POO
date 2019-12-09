@@ -43,11 +43,16 @@ public class ListenerUDP extends Thread {
     			
 		    	byte[] buff = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
+		    	System.out.println("[LISTENER UDP] Création inPacket ok");
 		    	socket.receive(inPacket);
+		    	System.out.println("[LISTENER UDP] Réception inPacket ok");
 		    	messages.add(buff);
+		    	System.out.println("[LISTENER UDP] Add ok");
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (inPacket.getAddress().getHostAddress().contains(addrBroadcast.toString())) {
+		    		System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
+		    		
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
 		    		
