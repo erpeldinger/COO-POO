@@ -76,7 +76,7 @@ public class DemoU2 {
             System.out.println("Erreur création des inS1 et outS1");
         }
 
-        //-----------------Création du serveur2------------------------------------- 
+        //-------erveur = ----------Création du serveur2------------------------------------- 
         ServerSocket serverSocket2 = null;
         Socket sockS2 = null;
         OutputStream outS2 = null;
