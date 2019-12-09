@@ -6,11 +6,46 @@ import java.lang.Thread;
 
 public class DemoU2 {
     
-    public static void main (String[] args) throws SocketException {
+    public static void main (String[] args) throws SocketException, Exception {
     	
-    	System.out.println(BroadcastingClient.getBroadcastAddress());
+    	//System.out.println(BroadcastingClient.getBroadcastAddress());
+    	//BroadcastingClient.sendBroadcast();
+    	//Serveur
+    	
+    	ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
+    	
+    	
+    			/*
+    	 ServerSocket serverSocket1 = null;
+         Socket sockS1 = null;
+         OutputStream outS1 = null;
+         InputStream inS1 = null;
+         try {
+             serverSocket1 = new ServerSocket(1234); 
+             sockS1 = serverSocket1.accept();
+             System.out.println("Serveur 1 ok : 1234");
+         }
+         catch (Exception e){
+             System.out.println("Erreur création du server1");
+         }
+         try {
+             outS1 = sockS1.getOutputStream();
+             inS1 = sockS1.getInputStream();
+         }
+         catch (Exception e){
+             System.out.println("Erreur création des inS1 et outS1");
+         }
+    	
+         serverSocket1.se
+    	*/
+    	
+    	
+    	
+    	
+    	
     	
     	/*
+    
     	//-----------------Création d'un user et de son message-------------------------------------
     	
         User user1 = new User(1, "Toto1", "titi");

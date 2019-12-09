@@ -6,7 +6,16 @@ import java.lang.Thread;
 
 public class DemoU3 {
     
-    public static void main (String[] args) {
+    public static void main (String[] args) throws SocketException, Exception {
+    	
+    	//clients
+    	DatagramSocket d1 = new DatagramSocket(1234);
+    	byte[] buff = new byte[256];
+    	DatagramPacket p = new DatagramPacket(buff, buff.length);
+    	
+    	BroadcastingClient c1 = new BroadcastingClient(d1, p, 1234);
+    	c1.sendBroadcast();
+    	
 
       /*  //-----------------Création d'un user et de son message-------------------------------------
         User user = new User(3, "Toto3", "titi");
@@ -29,6 +38,7 @@ public class DemoU3 {
             outS = sockS.getOutputStream();
             inS = sockS.getInputStream();
         }
+        
         catch (Exception e){
             System.out.println("Erreur création des inS3 et outS3");
         }

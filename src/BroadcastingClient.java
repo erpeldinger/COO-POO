@@ -49,9 +49,10 @@ public class BroadcastingClient {
     }
     
     //ATTENTION : je crois que c'est redondant avec createListUserCo dans User...
-    
+    /* Avec cette méthode, on écrit en dur le n° de port pour le broadcast !!!
+     */
     public static void sendBroadcast() throws Exception {
-    	
+    	//créer socket ici
     	String msg = "Hello, who is there ?";
     	
     	try {
