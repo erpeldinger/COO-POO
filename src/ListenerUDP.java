@@ -46,7 +46,13 @@ public class ListenerUDP extends Thread {
 		    	System.out.println("[LISTENER UDP] Création inPacket ok");
 		    	socket.receive(inPacket);
 		    	System.out.println("[LISTENER UDP] Réception inPacket ok");
-		    	messages.add(buff);
+		    	
+		    	//Print message broadcast
+		    	/*
+		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
+				System.out.println(msg);
+				*/
+		    	/*messages.add(buff);
 		    	System.out.println("[LISTENER UDP] Add ok");
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
@@ -61,7 +67,8 @@ public class ListenerUDP extends Thread {
 		    	else {
 		    		//c'est un message d'un clavardage
 		    		//TODO
-		    	}
+		    	
+    		}*/
     		}
     		catch (Exception e) {
     			System.out.println("[LISTENER UDP] Erreur run");
