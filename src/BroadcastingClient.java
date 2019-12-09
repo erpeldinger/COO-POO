@@ -32,6 +32,8 @@ public class BroadcastingClient {
      * telle ou telle manière.
      * Pour l'instant, on considère que l'on récupère l'adresse de broadcast sur eth0.
      */
+    
+    //ATTENTION : RENVOIE L'ADRESSE SOUS AVEC '/' DEVANT...
     public static InetAddress getBroadcastAddress() throws SocketException {
     	
     	InetAddress broadcast = null;
@@ -39,16 +41,9 @@ public class BroadcastingClient {
     	Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
     	while (interfaces.hasMoreElements()) {
     	    NetworkInterface networkInterface = interfaces.nextElement();
-    	    if (networkInterface.isLoopback()) {
-    	        continue;    // On n'utilise pas l'adresse de loop back
-    	    }
-    	    for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
-    	    	if(networkInterface.getDisplayName().contains("eth0")) {
-    	    		if (broadcast != null) {
-    	    			broadcast = interfaceAddress.getBroadcast();   	    
-        	        }
-    	    	}     
-    	    }
+    		if (networkInterface.getDisplayName().contains("eth0")) {
+    			broadcast = networkInterface.getInterfaceAddresses().get(1).getBroadcast();   	    
+	        }
     	}
     	return broadcast;  
     }
