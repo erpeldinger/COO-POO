@@ -59,7 +59,8 @@ public class BroadcastingClient {
 	    	InetAddress broadcastAddr = getBroadcastAddress() ;
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,broadcastAddr,port);   	
 	    	socket.send(packet);
-	    	//A mettre ailleurs
+	    	
+	    	//PB avec ça -> le client reçoit "hello who is there?" (= msg broadcast)
 	    	
 	    	/*byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
