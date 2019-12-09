@@ -56,16 +56,14 @@ public class BroadcastingClient {
     	String msg = "Hello, who is there ?";
     	
     	try {
-    		socket = new DatagramSocket(port);
+	    	socket.setBroadcast(true);
+	    	InetAddress broadcastAddr = getBroadcastAddress() ;
+	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,broadcastAddr,port);   	
+	    	socket.send(packet);
     	}
+ 	
     	catch (Exception e) {
-    		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur création socket");
+    		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast");
     	}
-
-    	socket.setBroadcast(true);
-    	InetAddress broadcastAddr = getBroadcastAddress() ;
-    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,broadcastAddr,port);   	
-    	socket.send(packet);
-    	socket.close();
     }
 }
