@@ -12,7 +12,7 @@ public class DemoU2 {
     	//BroadcastingClient.sendBroadcast();
     	//Serveur
     	
-    	ListenerUDP serveur = new ListenerUDP (3333,"serveur1",BroadcastingClient.getBroadcastAddress());
+    	ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
     	
     	
     			/*
