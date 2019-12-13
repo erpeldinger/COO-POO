@@ -63,11 +63,10 @@ public class BroadcastingClient {
 			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
-	    	while () {
-	    	
-				socket.receive(outPacket);				
-				System.out.println(rep);
-			}
+
+			//socket.receive(outPacket);				
+			//System.out.println(rep);
+			
     	}
  	
     	catch (Exception e) {
