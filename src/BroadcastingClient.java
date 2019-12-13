@@ -64,6 +64,7 @@ public class BroadcastingClient {
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
+    		System.out.println("[BROADCASTING CLIENT - sendBroadcast] zzz");
 			//socket.receive(outPacket);				
 			//System.out.println(rep);
 			
