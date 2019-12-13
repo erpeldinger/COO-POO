@@ -15,8 +15,11 @@ public class DemoU3 {
         InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
 
         ListenerUDP serveur2 = new ListenerUDP (1235,"serveur2",addrbr);
+        System.out.println("Serveur 2 ok");
         serveur2.allowBroadcast(new BroadcastingClient(serveur2.getDatagramSocket(),p,1236));
-        BroadcastingClient.sendBroadcast(addrbr);
+        System.out.println("AllowBroadcastok");
+        serveur2.broadcast.sendBroadcast(addrbr);
+        System.out.println("send broadcast ok");
     	
 
       /*  //-----------------Création d'un user et de son message-------------------------------------
