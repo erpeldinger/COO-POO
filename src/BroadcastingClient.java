@@ -60,13 +60,14 @@ public class BroadcastingClient {
 	    	socket.send(packet);
 	    	
 	    	//PB avec ça -> le client reçoit "hello who is there?" (= msg broadcast)
-	    	
-	    	byte[] buff = new byte[256];
+			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
-	    	socket.receive(outPacket);
-	    	String rep = new String(outPacket.getData(), 0, outPacket.getLength());
-			System.out.println(rep);
+			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
+	    	while () {
 	    	
+				socket.receive(outPacket);				
+				System.out.println(rep);
+			}
     	}
  	
     	catch (Exception e) {

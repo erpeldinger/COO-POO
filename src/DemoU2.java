@@ -11,8 +11,13 @@ public class DemoU2 {
     	//System.out.println(BroadcastingClient.getBroadcastAddress());
     	//BroadcastingClient.sendBroadcast();
     	//Serveur
+    	DatagramSocket d1 = new DatagramSocket(1230);
+    	byte[] buff = new byte[256];
+    	DatagramPacket p = new DatagramPacket(buff, buff.length);
     	
-    	ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
+    	ListenerUDP serveur = new ListenerUDP (1230,"serveur1",BroadcastingClient.getBroadcastAddress());
+    	ListenerUDP serveur2 = new ListenerUDP (1230,"serveur2",BroadcastingClient.getBroadcastAddress());
+        serveur2.allowBroadcast(new BroadcastingClient(d1, p, 1230));
     	
     	
     			/*

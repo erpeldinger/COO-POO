@@ -9,11 +9,11 @@ public class DemoU3 {
     public static void main (String[] args) throws SocketException, Exception {
     	
     	//clients
-    	DatagramSocket d1 = new DatagramSocket(1234);
+    	DatagramSocket d1 = new DatagramSocket(1230);
     	byte[] buff = new byte[256];
     	DatagramPacket p = new DatagramPacket(buff, buff.length);
     	
-    	BroadcastingClient c1 = new BroadcastingClient(d1, p, 1234);
+    	BroadcastingClient c1 = new BroadcastingClient(d1, p, 1230);
     	c1.sendBroadcast();
     	
 
