@@ -12,9 +12,12 @@ public class DemoU3 {
     	DatagramSocket d1 = new DatagramSocket(1230);
     	byte[] buff = new byte[256];
     	DatagramPacket p = new DatagramPacket(buff, buff.length);
+
+        ListenerUDP serveur2 = new ListenerUDP (1230,"serveur2",BroadcastingClient.getBroadcastAddress());
+        serveur2.allowBroadcast(new BroadcastingClient(d1, p, 1230));
     	
-    	BroadcastingClient c1 = new BroadcastingClient(d1, p, 1230);
-    	c1.sendBroadcast();
+    	//BroadcastingClient c1 = new BroadcastingClient(d1, p, 1230);
+    	serveur2.broadcast.sendBroadcast();
     	
 
       /*  //-----------------Création d'un user et de son message-------------------------------------
