@@ -9,13 +9,14 @@ public class DemoU3 {
     public static void main (String[] args) throws SocketException, Exception {
     	
     	//clients
-    	DatagramSocket d1 = new DatagramSocket(1235);
+    	//DatagramSocket d1 = new DatagramSocket(1234);
     	byte[] buff = new byte[256];
     	DatagramPacket p = new DatagramPacket(buff, buff.length);
         InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
 
         ListenerUDP serveur2 = new ListenerUDP (1235,"serveur2",addrbr);
-        BroadcastingClient.sendBroadcast(1235, addrbr);
+        serveur2.allowBroadcast(new BroadcastingClient(serveur2.getDatagramSocket(),p,1236));
+        BroadcastingClient.sendBroadcast(addrbr);
     	
 
       /*  //-----------------Création d'un user et de son message-------------------------------------

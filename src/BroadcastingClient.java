@@ -50,13 +50,13 @@ public class BroadcastingClient {
     //ATTENTION : je crois que c'est redondant avec createListUserCo dans User...
     /* Avec cette méthode, on écrit en dur le n° de port pour le broadcast !!!
      */
-    public static void sendBroadcast(int portSource, InetAddress addrBr) throws Exception {
+    public static void sendBroadcast(InetAddress addrbr) throws Exception {
     	String msg = "Hello, who is there ?";
     	
     	try {
 	    	socket.setBroadcast(true);
 	    	InetAddress broadcastAddr = getBroadcastAddress() ;
-	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrBr,portSource);   	
+	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
 	    	socket.send(packet);
 	    	
 			byte[] buff = new byte[256];
