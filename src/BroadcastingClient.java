@@ -33,7 +33,6 @@ public class BroadcastingClient {
      * Pour l'instant, on considère que l'on récupère l'adresse de broadcast sur eth0.
      */
     
-    //ATTENTION : RENVOIE L'ADRESSE SOUS AVEC '/' DEVANT...
     public static InetAddress getBroadcastAddress() throws SocketException {
     	
     	InetAddress broadcast = null;
@@ -62,12 +61,12 @@ public class BroadcastingClient {
 	    	
 	    	//PB avec ça -> le client reçoit "hello who is there?" (= msg broadcast)
 	    	
-	    	/*byte[] buff = new byte[256];
+	    	byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
 	    	socket.receive(outPacket);
 	    	String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 			System.out.println(rep);
-	    	*/
+	    	
     	}
  	
     	catch (Exception e) {
