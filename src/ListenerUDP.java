@@ -40,9 +40,11 @@ public class ListenerUDP extends Thread {
     public void run() {
   
     	Boolean connected = true;
+		int iter = 0;
     	while (connected) {
     		try {
-    			
+    			System.out.println("Nb iteration : " + iter + "\n");
+				iter++;
     			//TODO -> s'ajouter dans sa propre liste de users connectés
     			
 		    	byte[] buff = new byte[256];

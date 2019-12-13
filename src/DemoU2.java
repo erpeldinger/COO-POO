@@ -15,7 +15,7 @@ public class DemoU2 {
     	byte[] buff = new byte[256];
     	DatagramPacket p = new DatagramPacket(buff, buff.length);*/
     	
-    	ListenerUDP serveur = new ListenerUDP (1230,"serveur1",BroadcastingClient.getBroadcastAddress());
+    	ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
 
     	
     	
