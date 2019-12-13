@@ -16,11 +16,15 @@ public class DemoU3 {
 
         ListenerUDP serveur2 = new ListenerUDP (1235,"serveur2",addrbr);
         System.out.println("Serveur 2 ok");
-        serveur2.allowBroadcast(new BroadcastingClient(serveur2.getDatagramSocket(),p,1236));
+        serveur2.allowBroadcast(new BroadcastingClient(serveur2.getDatagramSocket(),p,1234));
         System.out.println("AllowBroadcastok");
         serveur2.broadcast.sendBroadcast(addrbr);
         System.out.println("send broadcast ok");
-    	
+
+        /* TOPO
+            Le broadcast fonctionne MAIS il faut maintenant différencier les messages de broadcast de ceux normal
+            Pour le moment ce n'est pas le cas, donc lors d'un envoie de boradcast on se répond en boucle
+    	*/
 
       /*  //-----------------Création d'un user et de son message-------------------------------------
         User user = new User(3, "Toto3", "titi");
