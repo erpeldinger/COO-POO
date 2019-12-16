@@ -44,7 +44,8 @@ public class ListenerUDP extends Thread {
     }
     
 	private boolean isBroadcastPacket(String msg) {
-		return msg.contains("BROADCAST");
+		CharSequence s =  "BROADCAST";
+		return msg.contains(s);
 	}
 
     public void run() {
