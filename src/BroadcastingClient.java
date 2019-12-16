@@ -51,7 +51,7 @@ public class BroadcastingClient {
     /* Avec cette méthode, on écrit en dur le n° de port pour le broadcast !!!
      */
     public static void sendBroadcast(InetAddress addrbr) throws Exception {
-    	String msg = "Hello, who is there ?";
+    	String msg = "BROADCAST : Hello, who is there ?";
     	
     	try {
 	    	socket.setBroadcast(true);
