@@ -66,7 +66,7 @@ public class ListenerUDP extends Thread {
 		    	
 				//ATTENTION PB IF -> condition NOK
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
-		    	//if (inPacket.getAddress().equals(addrBroadcast)) {
+		    	if (inPacket.getAddress().equals(addrBroadcast)) {
 		    		System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
 		    		
 		    		String r = new String("Je suis connecté !");		    		
@@ -76,12 +76,12 @@ public class ListenerUDP extends Thread {
 		    		socket.send(outPacket);
 		    		
 		    		//Mettre à jour la liste des user connectés (ajouter la personne qui a envoyé le broadcast)
-		    	/*}
+		    	}
 		    	else {
 		    		//c'est un message d'un clavardage
 		    		//TODO
 		    		System.out.println("[LISTENER UDP] Msg de clavardage -> else");
-		    	*/
+				}
     		}
     		//}
     		catch (Exception e) {
