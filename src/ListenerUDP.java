@@ -26,6 +26,10 @@ public class ListenerUDP extends Thread {
     //getters 
 	public DatagramSocket getDatagramSocket() {return socket;}
 
+	public InetAddress getAddrBr(){
+    	return this.addrBroadcast; 
+    }
+
     //Methodes
 	public void allowBroadcast (BroadcastingClient c) { 
 		broadcast = c;

@@ -16,6 +16,7 @@ public class DemoU2 {
     	DatagramPacket p = new DatagramPacket(buff, buff.length);*/
     	
     	ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
+        System.out.println("addr br serveur : " + serveur.getAddrBr());
 
     	
     	
