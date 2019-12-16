@@ -55,6 +55,7 @@ public class Clavardage implements ActionListener {
                 30) //right
                 );
         
+        labelError.setForeground(Color.red);
         return pane;
     }
     
