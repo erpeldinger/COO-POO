@@ -38,6 +38,10 @@ public class Connect {
                 + "    name text NOT NULL,\n"
                 + "    capacity real\n"
                 + ");";
+        // EXPLOITER ARRAY LIST TABLSQL POUR REMPLIR LA REQUETE SQL
+        for (TableSQL courant : data) {
+        	sql += courant.getName() + " " + courant.getType() + " " + courant.getOption(); // Y A T IL TJRS OPTION ?
+        }
         
         try (Connection conn = DriverManager.getConnection(url);
                 Statement stmt = conn.createStatement()) {
@@ -52,6 +56,6 @@ public class Connect {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        createNewTable("database.db", "testTable", new ArrayList <String>());
+        createNewTable("database.db", "testTable", new ArrayList <TableSQL>());
     }
 }
