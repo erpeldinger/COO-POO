@@ -11,10 +11,11 @@ public class ListenerUDP extends Thread {
 
     //Attributs
     private DatagramSocket socket;
-    private ArrayList <String> messages;
+    //private ArrayList <String> messages;
     private static byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
 	public BroadcastingClient broadcast;
+	private ArrayList<Integer> connectedUsers[] = null ;
     
     //Constructeurs
     public ListenerUDP (int port, String name, InetAddress addrBroadcast) throws SocketException {
@@ -45,8 +46,8 @@ public class ListenerUDP extends Thread {
     
 	private boolean isBroadcastPacket(String msg) {
 		CharSequence s =  "BROADCAST";
-		System.out.println(msg);
-		System.out.println(msg.contains(s));
+		//System.out.println(msg);
+		//System.out.println(msg.contains(s));
 		return msg.contains(s);
 	}
 
@@ -77,7 +78,7 @@ public class ListenerUDP extends Thread {
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (isBroadcastPacket(msg)) {
-		    		System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
+		    		//System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
 		    		
 		    		String r = new String("Je suis connecté !");		    		
 		    		response = r.getBytes();
@@ -92,6 +93,11 @@ public class ListenerUDP extends Thread {
 		    		//TODO
 		    		System.out.println("[LISTENER UDP] Msg de clavardage -> else");
 				}
+
+				//add id user dans tableau des users connectés
+				connectedUsers.add(msg.getId());
+				System.out.println(" id sender = " + msg.getId());
+				System.out.println(" id sender dans tableau = " + connectedUsers.get(0));
     		}
     		//}
     		catch (Exception e) {

@@ -72,5 +72,8 @@ public class BroadcastingClient {
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast");
     	}
+
+		//add l'id de la personne qui répond
+		//TODO
     }
 }
