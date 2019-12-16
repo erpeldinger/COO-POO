@@ -37,16 +37,19 @@ public class Message {
     private void setId(int newId) { this.id=newId; }
 
     //methodes
-    /*public void dateToString() {
-        //TODO
-    }*/
+    public static DateMsg toDateMsg(String s) {
+        String[] parts = s.split(":");
+        return new DateMsg(Integer.parseInt(parts[0]),Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),Integer.parseInt(parts[3]),Integer.parseInt(parts[4]),Integer.parseInt(parts[5]));
+    }
 
-    public String toString(int id, String content, DateMsg date){
-        return new String(Integer.toString(id) + ":" + content.toString() + ":" + date.toString());
+    public static String toString(int id, String content, DateMsg date){
+        return new String(Integer.toString(id) + "#" + content.toString() + "#" + date.toString());
     }
     
-    public Message toMessage(String s){
-        return (new Message(content, date, id));
+    public static Message toMessage(String s){
+        String[] parts = s.split("#");
+        //trouver fonction qui découpe message avec :
+        return (new Message(parts[1],toDateMsg(parts[0]),Integer.parseInt(parts[2])));
     }
 
     /* La forme d'un packet prêt à être envoyé est :

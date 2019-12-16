@@ -65,10 +65,15 @@ public class ListenerUDP extends Thread {
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
 		    	System.out.println("[LISTENER UDP] Création inPacket ok");
 		    	socket.receive(inPacket);
+
+				//toMessage sur le inPacket pour get l'id
+				//TODO			
+
+
 		    	System.out.println("[LISTENER UDP] Réception inPacket ok");
 		    	
 		    	//Print message broadcast
-		    
+		    	//A MODIFIER EN FONCTION DU toMessage au dessus
 		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
 				System.out.println(msg);				
 		    	

@@ -56,6 +56,10 @@ public class BroadcastingClient {
     	try {
 	    	socket.setBroadcast(true);
 	    	InetAddress broadcastAddr = getBroadcastAddress() ;
+
+			//toString sur le Message, qu'on donne dans le inPacket
+			//TODO
+			
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
 	    	socket.send(packet);
 	    	
