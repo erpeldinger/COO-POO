@@ -43,6 +43,10 @@ public class ListenerUDP extends Thread {
     	return inPacket.getPort();
     }
     
+	private boolean isBroadcastPacket(String msg) {
+		return msg.contains("BROADCAST");
+	}
+
     public void run() {
   
     	Boolean connected = true;
@@ -68,12 +72,8 @@ public class ListenerUDP extends Thread {
 		    	//messages.add(msg);
 		    	//System.out.println("[LISTENER UDP] Add ok");
 		    	
-				//ATTENTION PB IF -> condition NOK
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
-				System.out.println("addr if : "+inPacket.getAddress());
-				System.out.println("addr vieux : "+inPacket.getAddress().getHostAddress());
-				System.out.println("addr br"+ this.addrBroadcast);
-		    	if (inPacket.getAddress().equals(addrBroadcast)) {
+		    	if (isBroadcastPacket(msg)) {
 		    		System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
 		    		
 		    		String r = new String("Je suis connecté !");		    		
