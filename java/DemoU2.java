@@ -9,7 +9,7 @@ public class DemoU2 {
     public static void main (String[] args) throws SocketException, Exception {
 
         String test = "8#coucou#17:26:00:00:00:00";
-        String[] parts = test.split("#");
+
         Message m = Message.toMessage(test);
         System.out.println(m.getContent());
 

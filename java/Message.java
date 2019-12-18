@@ -41,30 +41,56 @@ public class Message {
 
 
     //methodes
+    
+    // On suppose qu'on a un message de la forme "8#coucou#17:26:00:00:00:00"
     public static DateMsg toDateMsg(String s) {
-        String[] parts = s.split(":");
-        return new DateMsg(Integer.parseInt(parts[0]),Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),Integer.parseInt(parts[3]),Integer.parseInt(parts[4]),Integer.parseInt(parts[5]));
+    	
+    	String[] other = s.split("#"); 
+    	String[] parts= null;
+        DateMsg date = null;
+        int year, month, day, hour, min, sec;
+        
+    	try {
+    		parts = other[2].split(":");
+    	}
+        catch (Exception e) {
+        	System.out.println("[Message.java - toDateMsg()] Erreur split 1");
+        }
+        try {
+        	year = Integer.parseInt(parts[0]);
+        	month = Integer.parseInt(parts[1]);
+        	day = Integer.parseInt(parts[2]);
+        	hour = Integer.parseInt(parts[3]);
+        	min = Integer.parseInt(parts[4]);
+        	sec = Integer.parseInt(parts[5]);
+        	date = new DateMsg(year, month, day, hour, min, sec);
+        }
+        catch (Exception e) {
+        	System.out.println("[Message.java - toDateMsg()] Erreur split 2");
+        }        
+        return date;
     }
 
     public static String toString(int id, String content, DateMsg date){
         return new String(Integer.toString(id) + "#" + content.toString() + "#" + date.toString());
     }
     
+    // On suppose qu'on a un message de la forme "8#coucou#17:26:00:00:00:00"
     public static Message toMessage(String s){
-        String[] parts = s.split("#");
-        if (parts.length = 3){
-            //ok on traite les msg
-            String c = parts[1];
-            String d = parts[0];
-            String i = parts[2];
+    	String[] parts = s.split("#");
+        String c= "",d="",i="";
+        Message m = null;
+        
+        try {
+            c = parts[1];
+            i = parts[0];
+            m = new Message(c,Message.toDateMsg(s),Integer.parseInt(i));
+        }
+        catch (Exception e) {
+        	System.out.println("[Message.java - toMessage()] Erreur ");
         }
 
-        else {
-            System.out.println("[Message.java - toMessage()] Erreur, pas le bon nombre d'arguments");
-        } 
-
-        //trouver fonction qui découpe message avec :
-        return (new Message(c,toDateMsg(d),Integer.parseInt(i)));
+        return m;
     }
 
     /* La forme d'un packet prêt à être envoyé est :

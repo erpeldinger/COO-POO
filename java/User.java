@@ -37,7 +37,7 @@ public class User {
     public ArrayList <U1> getListUserConnected() { return this.listUserConnected; }
 
     // les methodes
-    private void sendM(String msg, Session session) {}
+    //private void sendM(String msg, Session session) {}
 
     private void recvM() {}
 

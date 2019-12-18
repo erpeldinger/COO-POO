@@ -51,14 +51,14 @@ public class BroadcastingClient {
     /* Avec cette méthode, on écrit en dur le n° de port pour le broadcast !!!
      */
     public static void sendBroadcast(InetAddress addrbr) throws Exception {
-    	String msg = "BROADCAST : Hello, who is there ?";
+    	String mBr = "BROADCAST : Hello, who is there ?";
+    	
+    	// Création d'un paquet de format : "id sender | message | date"
+    	String msg = (User.getId(),mBr,User.getDate());
     	
     	try {
 	    	socket.setBroadcast(true);
 	    	InetAddress broadcastAddr = getBroadcastAddress() ;
-
-			//toString sur le Message, qu'on donne dans le inPacket
-			//TODO
 			
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
 	    	socket.send(packet);
@@ -70,14 +70,15 @@ public class BroadcastingClient {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast");
 			//socket.receive(outPacket);				
 			//System.out.println(rep);
+    		
+    		//Ajoute l'id de la personne qui répond
+    		int idConnected = Message.toMessage(rep).getId();
+    		//ajouter dans tableau
 			
     	}
  	
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast");
     	}
-
-		//add l'id de la personne qui répond
-		//TODO
     }
 }

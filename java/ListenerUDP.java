@@ -60,26 +60,18 @@ public class ListenerUDP extends Thread {
     			System.out.println("Nb iteration : " + iter + "\n");
 				iter++;
     			//TODO -> s'ajouter dans sa propre liste de users connectés
+				//ou alors on le fait dans le user
     			
 		    	byte[] buff = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
 		    	System.out.println("[LISTENER UDP] Création inPacket ok");
 		    	socket.receive(inPacket);
-
-				//toMessage sur le inPacket pour get l'id
-				//TODO			
-
-
 		    	System.out.println("[LISTENER UDP] Réception inPacket ok");
 		    	
 		    	//Print message broadcast
 		    	//A MODIFIER EN FONCTION DU toMessage au dessus
 		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
-				System.out.println(msg);				
-		    	
-				//Le add ne fonctionne pas
-		    	//messages.add(msg);
-		    	//System.out.println("[LISTENER UDP] Add ok");
+				System.out.println(msg);	
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (isBroadcastPacket(msg)) {
@@ -90,19 +82,25 @@ public class ListenerUDP extends Thread {
 		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
-		    		
-		    		//Mettre à jour la liste des user connectés (ajouter la personne qui a envoyé le broadcast)
+
 		    	}
 		    	else {
 		    		//c'est un message d'un clavardage
 		    		//TODO
 		    		System.out.println("[LISTENER UDP] Msg de clavardage -> else");
 				}
+		    	
+	    		
+				//Ajoute l'id de la personne qui envoie le message
+	    		int idConnected = Message.toMessage(msg).getId();
+	    		//ajouter dans tableau		
+		    	//System.out.println("[LISTENER UDP] Add ok");
 
+		    	//ATTENTION A VOIR AVEC USER CE QUON FAIT OU / QUAND
 				//add id user dans tableau des users connectés
-				connectedUsers.add(msg.getId());
-				System.out.println(" id sender = " + msg.getId());
-				System.out.println(" id sender dans tableau = " + connectedUsers.get(0));
+				//connectedUsers.add(msg.getId());
+				//System.out.println(" id sender = " + msg.getId());
+				System.out.println(" id sender dans tableau = " + connectedUsers[0]);
     		}
     		//}
     		catch (Exception e) {
