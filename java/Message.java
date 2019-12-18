@@ -36,6 +36,10 @@ public class Message {
     private void setContent(String newContent) { this.content=newContent; }
     private void setId(int newId) { this.id=newId; }
 
+
+    // REFAIRE LES toString() etc. avec des try catch
+
+
     //methodes
     public static DateMsg toDateMsg(String s) {
         String[] parts = s.split(":");
@@ -48,8 +52,19 @@ public class Message {
     
     public static Message toMessage(String s){
         String[] parts = s.split("#");
+        if (parts.length = 3){
+            //ok on traite les msg
+            String c = parts[1];
+            String d = parts[0];
+            String i = parts[2];
+        }
+
+        else {
+            System.out.println("[Message.java - toMessage()] Erreur, pas le bon nombre d'arguments");
+        } 
+
         //trouver fonction qui découpe message avec :
-        return (new Message(parts[1],toDateMsg(parts[0]),Integer.parseInt(parts[2])));
+        return (new Message(c,toDateMsg(d),Integer.parseInt(i)));
     }
 
     /* La forme d'un packet prêt à être envoyé est :
