@@ -15,7 +15,8 @@ public class ListenerUDP extends Thread {
     private static byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
 	public BroadcastingClient broadcast;
-	private ArrayList<Integer> connectedUsers[] = null ;
+	private User user;
+	//private ArrayList<Integer> connectedUsers[] = null ;
     
     //Constructeurs
     public ListenerUDP (int port, String name, InetAddress addrBroadcast) throws SocketException {
@@ -59,8 +60,8 @@ public class ListenerUDP extends Thread {
     		try {
     			System.out.println("Nb iteration : " + iter + "\n");
 				iter++;
-    			//TODO -> s'ajouter dans sa propre liste de users connectés
-				//ou alors on le fait dans le user
+				//On ajoute son id sans la liste de users connectés
+				user.getListIdUserConnected().add(user.getId());
     			
 		    	byte[] buff = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
@@ -88,21 +89,13 @@ public class ListenerUDP extends Thread {
 		    		//c'est un message d'un clavardage
 		    		//TODO
 		    		System.out.println("[LISTENER UDP] Msg de clavardage -> else");
-				}
-		    	
+				}		    	
 	    		
 				//Ajoute l'id de la personne qui envoie le message
-	    		int idConnected = Message.toMessage(msg).getId();
-	    		//ajouter dans tableau		
-		    	//System.out.println("[LISTENER UDP] Add ok");
-
-		    	//ATTENTION A VOIR AVEC USER CE QUON FAIT OU / QUAND
-				//add id user dans tableau des users connectés
-				//connectedUsers.add(msg.getId());
-				//System.out.println(" id sender = " + msg.getId());
-				System.out.println(" id sender dans tableau = " + connectedUsers[0]);
+	    		user.getListIdUserConnected().add(Message.toMessage(msg).getId());
+		    	System.out.println("[LISTENER UDP] Add ok");
     		}
-    		//}
+    		
     		catch (Exception e) {
     			System.out.println("[LISTENER UDP] Erreur run");
     		}

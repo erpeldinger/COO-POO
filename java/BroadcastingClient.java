@@ -50,11 +50,15 @@ public class BroadcastingClient {
     //ATTENTION : je crois que c'est redondant avec createListUserCo dans User...
     /* Avec cette méthode, on écrit en dur le n° de port pour le broadcast !!!
      */
-    public static void sendBroadcast(InetAddress addrbr) throws Exception {
+    
+    //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
+    public static ArrayList <Integer> sendBroadcast(InetAddress addrbr) throws Exception {
     	String mBr = "BROADCAST : Hello, who is there ?";
     	
     	// Création d'un paquet de format : "id sender | message | date"
     	String msg = (User.getId(),mBr,User.getDate());
+    	// IL FAUT LIER BROADCASTING CLIENT ET LISTENER UDP
+    	ArrayList <Integer> idUsersCo = null;
     	
     	try {
 	    	socket.setBroadcast(true);
@@ -68,17 +72,17 @@ public class BroadcastingClient {
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast");
-			//socket.receive(outPacket);				
-			//System.out.println(rep);
+    		this.socket.setSoTimeout(3000); //attend une réponse pendant 3000 ms
+			socket.receive(outPacket);				
+			System.out.println(rep);
     		
     		//Ajoute l'id de la personne qui répond
-    		int idConnected = Message.toMessage(rep).getId();
-    		//ajouter dans tableau
-			
+    		idUsersCo.add(Message.toMessage(rep).getId());
     	}
- 	
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast");
     	}
+		
+		return idUsersCo;
     }
 }

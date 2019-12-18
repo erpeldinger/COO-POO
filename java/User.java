@@ -2,6 +2,7 @@ import java.lang.Object.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,17 +17,19 @@ public class User {
     private String password;
     private Boolean isActive;
     private ArrayList <U1> listUserConnected;
+    private ArrayList <Integer> listIdUserConnected;
     private ArrayList<Message> messages;
     private ListenerUDP listener;
 
     //constructeur
-    public User(int id, String pseudo, String password) {
+    public User(int id, String pseudo, String password, int port, InetAddress addrbr) throws SocketException {
         this.id = id;
         this.pseudo = pseudo;
         this.password = password;
         this.isActive = true;
         this.listUserConnected = new ArrayList <U1>();
         this.messages= new ArrayList <Message>();
+        this.listener = new ListenerUDP (port,pseudo,addrbr);
     }
 
     // les getters
@@ -35,6 +38,7 @@ public class User {
     public String getPassword() { return this.password; }
     public Boolean getIsActive() { return this.isActive; }
     public ArrayList <U1> getListUserConnected() { return this.listUserConnected; }
+    public ArrayList <Integer> getListIdUserConnected() { return this.listIdUserConnected; }
 
     // les methodes
     //private void sendM(String msg, Session session) {}
@@ -90,6 +94,12 @@ public class User {
     	return maListe;
     	
     }
+    
+    public void createListUserCo() {
+    	this.listener.listen();
+    	
+    }
+    
     
     // fait un broadcast UDP et récupère les utilisateurs connectés et les mets dans la liste
     public void createListUserCo(byte[] msg, int len, InetAddress addrBroadcast, int clientPort) {
