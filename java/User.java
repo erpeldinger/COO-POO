@@ -86,21 +86,14 @@ public class User {
 		System.out.println("erreur methode writeM");
     	}
     }
-    
-   
+       
     private ArrayList<U1> getUsers(byte[] buff) {
     	ArrayList <U1> maListe = new ArrayList <U1>();
     	//TODO
-    	return maListe;
-    	
+    	return maListe;    	
     }
     
-    public void createListUserCo() {
-    	this.listener.listen();
-    	
-    }
-    
-    
+    /*
     // fait un broadcast UDP et récupère les utilisateurs connectés et les mets dans la liste
     public void createListUserCo(byte[] msg, int len, InetAddress addrBroadcast, int clientPort) {
     	try {
@@ -125,7 +118,7 @@ public class User {
         	System.out.println("Erreur récupération de la liste des utilisateurs connectes");
         }
     }
-    /*
+    
     
     public DatagramPacket sendBroadcast(String msg, int port) {
     	
@@ -133,6 +126,7 @@ public class User {
     	
     	
     	
-    }*/
+    }
+    */
 
 }
