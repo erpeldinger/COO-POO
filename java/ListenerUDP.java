@@ -34,7 +34,7 @@ public class ListenerUDP extends Thread {
 
     //Methodes
 	public void allowBroadcast (BroadcastingClient c) { 
-		broadcast = c;
+		this.broadcast = c;
 	}
 
     private InetAddress getAddr (DatagramPacket inPacket) throws UnknownHostException {
@@ -61,7 +61,7 @@ public class ListenerUDP extends Thread {
     			System.out.println("Nb iteration : " + iter + "\n");
 				iter++;
 				//On ajoute son id sans la liste de users connectés
-				user.getListIdUserConnected().add(user.getId());
+				//user.getListIdUserConnected().add(user.getId());
     			
 		    	byte[] buff = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);

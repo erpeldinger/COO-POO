@@ -24,7 +24,7 @@ public class DemoU2 {
         */
 
         /*------------------------ TEST envoi broadcast serveur-------------------------------------------- */
-        //ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
+        ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
     	
     	//System.out.println(BroadcastingClient.getBroadcastAddress());
     	//BroadcastingClient.sendBroadcast();
