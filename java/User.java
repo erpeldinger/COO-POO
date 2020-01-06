@@ -29,7 +29,7 @@ public class User {
         this.isActive = true;
         this.listUserConnected = new ArrayList <U1>();
         this.messages= new ArrayList <Message>();
-        this.listener = new ListenerUDP (port,pseudo,addrbr);
+        this.listener = new ListenerUDP (port,pseudo,addrbr);        
     }
 
     // les getters
@@ -39,7 +39,8 @@ public class User {
     public Boolean getIsActive() { return this.isActive; }
     public ArrayList <U1> getListUserConnected() { return this.listUserConnected; }
     public ArrayList <Integer> getListIdUserConnected() { return this.listIdUserConnected; }
-
+    public ListenerUDP getListener() { return this.listener;}
+    
     // les methodes
     //private void sendM(String msg, Session session) {}
 

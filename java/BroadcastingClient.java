@@ -21,11 +21,12 @@ public class BroadcastingClient {
     private ArrayList<Integer> idUsersCo = new ArrayList<Integer>();
     
     //Constructeurs
-    public BroadcastingClient(DatagramSocket s, DatagramPacket p, int port) {
+    public BroadcastingClient(DatagramSocket s, DatagramPacket p, int port, User user) {
     	this.socket = s;
     	this.packet = p;
     	this.port = port;
     	this.msg = "Hello, who is there ?";
+    	this.user = user;
     }
     
     //Methodes

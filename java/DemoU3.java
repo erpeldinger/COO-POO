@@ -14,11 +14,13 @@ public class DemoU3 {
     	DatagramPacket p = new DatagramPacket(buff, buff.length);
         InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
 
-        ListenerUDP serveur2 = new ListenerUDP (1235,"serveur2",addrbr);
+        User u2 = new User(88,"test88","mdp",1246,addrbr);
+        
+        //ListenerUDP serveur2 = new ListenerUDP (1235,"serveur2",addrbr);
         System.out.println("Serveur 2 ok");
-        serveur2.allowBroadcast(new BroadcastingClient(serveur2.getDatagramSocket(),p,1234));
+        u2.getListener().allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),p,1234, u2));
         System.out.println("AllowBroadcastok");
-        serveur2.broadcast.sendBroadcast(addrbr);
+        BroadcastingClient.sendBroadcast(addrbr);
         System.out.println("send broadcast ok");
 
         /* TOPO
