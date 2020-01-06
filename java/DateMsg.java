@@ -1,5 +1,5 @@
 import java.lang.Object.*;
-
+import java.util.Date;
 // https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
 
 public class DateMsg {
@@ -39,6 +39,11 @@ public class DateMsg {
     //methodes
     public static String toString(DateMsg date){
         return new String(Integer.toString(date.year) + ":" + Integer.toString(date.month) + ":" + Integer.toString(date.day) + ":" + Integer.toString(date.hour) + ":" + Integer.toString(date.min) + ":" + Integer.toString(date.sec));
+    }
+    
+    public static DateMsg getDate() {
+    	Date d = new Date(System.currentTimeMillis());
+    	return new DateMsg(2020, d.getMonth(), d.getDay(), d.getHours(), d.getMinutes(), d.getSeconds());
     }
     
     

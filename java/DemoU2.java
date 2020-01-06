@@ -1,4 +1,5 @@
 import java.lang.Object.*;
+import java.util.Date;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
@@ -8,20 +9,29 @@ public class DemoU2 {
     
     public static void main (String[] args) throws SocketException, Exception {
 
-        String test = "8#coucou#17:26:00:00:00:00";
+    	/*----------------------- TEST dates --------------------------------------------*/
+    	/*  String test = "8#coucou#17:26:00:00:00:00";
 
         Message m = Message.toMessage(test);
         System.out.println(m.getContent());
+        
+    	Date d = new Date(System.currentTimeMillis());
+        System.out.println(System.currentTimeMillis());
+        System.out.println(new Date(System.currentTimeMillis()));
+        System.out.println(d.getHours());
+        
+        System.out.println(DateMsg.toString(DateMsg.getDate()));
+        */
 
         /*------------------------ TEST envoi broadcast serveur-------------------------------------------- */
-        //ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
+        ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
     	
     	//System.out.println(BroadcastingClient.getBroadcastAddress());
     	//BroadcastingClient.sendBroadcast();
     	//Serveur
-    	/*DatagramSocket d1 = new DatagramSocket(1230);
+    	DatagramSocket d1 = new DatagramSocket(1230);
     	byte[] buff = new byte[256];
-    	DatagramPacket p = new DatagramPacket(buff, buff.length);*/
+    	DatagramPacket p = new DatagramPacket(buff, buff.length);
     	
     	
         //System.out.println("addr br serveur : " + serveur.getAddrBr());

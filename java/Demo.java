@@ -8,8 +8,8 @@ public class Demo {
     public static void main (String[] args) {
 
         //creation de deux user
-        User user1 = new User(1, "Toto1", "titi");
-        User user2 = new User(2, "Tata2", "tutu");
+        User user1 = null;//new User(1, "Toto1", "titi");
+        User user2 = null; //new User(2, "Tata2", "tutu");
 
         //creation d'un message par user1
         Message m1 = user1.createM("Bonjour, je suis Toto1");

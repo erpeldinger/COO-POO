@@ -17,6 +17,8 @@ public class BroadcastingClient {
     private static DatagramPacket packet;
     private static int port;
     private String msg ="";
+    private static User user;
+    private ArrayList<Integer> idUsersCo = new ArrayList<Integer>();
     
     //Constructeurs
     public BroadcastingClient(DatagramSocket s, DatagramPacket p, int port) {
@@ -54,9 +56,10 @@ public class BroadcastingClient {
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
     public static ArrayList <Integer> sendBroadcast(InetAddress addrbr) throws Exception {
     	String mBr = "BROADCAST : Hello, who is there ?";
+    	Message m = new Message(mBr,DateMsg.getDate(), user.getId());
     	
     	// Création d'un paquet de format : "id sender | message | date"
-    	String msg = (User.getId(),mBr,User.getDate());
+    	String msg = Message.toString(m.getId(),mBr,m.getDate()); 
     	// IL FAUT LIER BROADCASTING CLIENT ET LISTENER UDP
     	ArrayList <Integer> idUsersCo = null;
     	
@@ -72,7 +75,7 @@ public class BroadcastingClient {
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast");
-    		this.socket.setSoTimeout(3000); //attend une réponse pendant 3000 ms
+    		socket.setSoTimeout(3000); //attend une réponse pendant 3000 ms
 			socket.receive(outPacket);				
 			System.out.println(rep);
     		

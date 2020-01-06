@@ -12,10 +12,11 @@ public class DemoU1 {
 
         //-----------------Création d'un user et de son message-------------------------------------
     	
-        User user = new User(1, "Toto1", "titi");
+        /*User user = new User(1, "Toto1", "titi");
         Message m = user.createM("Bonjour, je suis Toto1. ");
         Message mBroadCast = user.createM("Broadcast : qui est là ?");
-
+		*/
+    	
         //-----------------Création du serveur TCP------------------------------------- 
         ServerSocket serverSocket = null;
         Socket sockS = null;
