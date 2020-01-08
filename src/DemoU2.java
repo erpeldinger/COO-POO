@@ -8,7 +8,7 @@ import java.lang.Thread;
 public class DemoU2 {
     
     public static void main (String[] args) throws SocketException, Exception {
-
+    	//Serveur
     	/*----------------------- TEST dates --------------------------------------------*/
     	/*  String test = "8#coucou#17:26:00:00:00:00";
 
