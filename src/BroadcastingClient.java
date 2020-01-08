@@ -21,13 +21,17 @@ public class BroadcastingClient {
     private ArrayList<Integer> idUsersCo = new ArrayList<Integer>();
     
     //Constructeurs
-    public BroadcastingClient(DatagramSocket s, DatagramPacket p, int port, User user) {
+    public BroadcastingClient(DatagramSocket s, DatagramPacket p, int port, User user) throws SocketException {
     	this.socket = s;
     	this.packet = p;
     	this.port = port;
     	this.msg = "Hello, who is there ?";
     	this.user = user;
     	System.out.println("User : " + user.getPseudo() + " ; Socket BroadcastingClient : " + port + "\n");
+    	try {
+        BroadcastingClient.sendBroadcast(BroadcastingClient.getBroadcastAddress());
+        System.out.println("send broadcast ok");}
+    	catch (Exception e) {}
     }
     
     //Methodes
@@ -62,16 +66,16 @@ public class BroadcastingClient {
     	
     	// Création d'un paquet de format : "id sender | message | date"
     	String msg = Message.toString(m.getId(),mBr,m.getDate()); 
-    	// IL FAUT LIER BROADCASTING CLIENT ET LISTENER UDP
     	ArrayList <Integer> idUsersCo = null;
     	
     	try {
-	    	socket.setBroadcast(true);
-	    	InetAddress broadcastAddr = getBroadcastAddress() ;
-			
+    		System.out.println("debut send-1");
+	    	//socket.setBroadcast(true);
+	    	System.out.println("debut send0");
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
+	    	System.out.println("debut send1");
 	    	socket.send(packet);
-	    	
+	    	System.out.println("debut send2");
 			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());

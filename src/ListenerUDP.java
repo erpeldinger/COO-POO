@@ -14,7 +14,6 @@ public class ListenerUDP extends Thread {
     //private ArrayList <String> messages;
     private static byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
-	public BroadcastingClient broadcast;
 	private User user;
 	//private ArrayList<Integer> connectedUsers[] = null ;
     
@@ -34,9 +33,6 @@ public class ListenerUDP extends Thread {
     }
 
     //Methodes
-	public void allowBroadcast (BroadcastingClient c) { 
-		this.broadcast = c;
-	}
 
     private InetAddress getAddr (DatagramPacket inPacket) throws UnknownHostException {
     	return inPacket.getAddress(); 

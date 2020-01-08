@@ -8,19 +8,18 @@ public class DemoU3 {
     
     public static void main (String[] args) throws SocketException, Exception {
     	
-    	//clients
+    	//CLIENT
+    	
     	//DatagramSocket d1 = new DatagramSocket(1234);
     	byte[] buff = new byte[256];
     	DatagramPacket p = new DatagramPacket(buff, buff.length);
         InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
 
-        User u2 = new User(88,"test88","mdp",1246,addrbr);
-        
-        //ListenerUDP serveur2 = new ListenerUDP (1235,"serveur2",addrbr);
+        User u2 = new User(88,"UserEnvoieBroadcast","mdp",1246,addrbr);
         System.out.println("Serveur 2 ok");
-        u2.getListener().allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),p,1234, u2));
+        u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),p,1234, u2));
         System.out.println("AllowBroadcastok");
-        BroadcastingClient.sendBroadcast(addrbr);
+        //BroadcastingClient.sendBroadcast(addrbr);
         System.out.println("send broadcast ok");
 
         /* TOPO
