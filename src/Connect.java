@@ -264,10 +264,34 @@ public class Connect {
       
       /* ------------------------------------------QUERY--------------------------------------*/
       
-      // Récupération d'un utilisateur, s'il existe [retourne l'id sous forme de string s'il existe, "" sinon]
+      // Récupération de l'id d'un utilisateur
       public static ArrayList<String> queryUser(String filename, String pseudo, String pass) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT id FROM User WHERE pseudo = " + pseudo + ", password = " + pass + ";";
+          String sql = "SELECT id FROM User WHERE pseudo = '" + pseudo + "' AND password = '" + pass + "';";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter = "";
+
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter="";
+                          resInter += Integer.valueOf(rs.getInt(("id")));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
+              return resultat;
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY]" + e.getMessage());
+          }
+          return resultat;
+      }
+      //verification pseudo
+      public static ArrayList<String> queryUserPseudo(String filename, String pseudo) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT id FROM User WHERE pseudo = '" + pseudo + "';";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
@@ -279,9 +303,62 @@ public class Connect {
               // loop through the result set
               while (rs.next()) {
                   resInter="";
-                          resInter += rs.getInt(Integer.valueOf("id"));
+                          resInter += Integer.valueOf(rs.getInt(("id")));
                   resultat.add(resInter);
               }
+              resultat.add("end");
+              return resultat;
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY]" + e.getMessage());
+          }
+          return resultat;
+      }
+      //verification password
+      public static ArrayList<String> queryUserPassword(String filename, String password) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT id FROM User WHERE password = '" + password + "';";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter = "";
+
+          System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter="";
+                          resInter += Integer.valueOf(rs.getInt(("id")));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
+              return resultat;
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY]" + e.getMessage());
+          }
+          return resultat;
+      }
+      
+      
+      // Récupération d'un utilisateur dans LUC
+      public static ArrayList<String> queryUserLUC(String filename, String pseudo, String pass) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT id FROM ListUserConnected WHERE pseudo = '" + pseudo + "' AND password = '" + pass + "';";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter = "";
+
+          System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter="";
+                          resInter += Integer.valueOf(rs.getInt(("id")));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
               return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
@@ -292,7 +369,7 @@ public class Connect {
       // Récupération d'une conversation entre id1 et id2 dans la liste Conversation. retourne une liste de String de forme : content||date
       public static ArrayList<String> queryConversation(String filename, int id1, int id2) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT content, date FROM Conversation WHERE idUser1 = " + Integer.valueOf(id1) + " , idUser2 = " + Integer.valueOf(id2) + ";";
+          String sql = "SELECT content, date FROM Conversation WHERE idUser1 = '" + Integer.valueOf(id1) + "' , idUser2 = '" + Integer.valueOf(id2) + "';";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
@@ -305,16 +382,40 @@ public class Connect {
                   resInter="";
                           resInter += rs.getString("content") + "||"; 
                           resInter += rs.getString("date");
+                          resultat.add(resInter);
                   }
-                  resultat.add(resInter);
+              resultat.add("end");
               return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
           return resultat;
       }
-
       
+      /*------------------------------------------VERIFICATION USER EXISTANT ------------------------------------- */
+      public static boolean checkIsUser(String filename, String pseudo, String pass) {
+          ArrayList<String> resultat = queryUser(filename, pseudo, pass);
+          return (resultat.get(0) != "end" );
+      }
+      
+      /*------------------------------------------VERIFICATION VALIDITE PSEUDO ET PASSWORD (new user) ------------------------------------- */
+      // test l'unicité du pseudo
+      public static boolean checkPseudo(String filename, String pseudo) {
+          ArrayList<String> resultat = queryUserPseudo(filename, pseudo);
+          return !(resultat.get(0) != "end" );
+      }
+      // test de la validite du mot de passe (au minimum 10 caractères + ne contient pas le pseudo de l'utilisateur)
+      public static boolean checkPassword(String filename, String pseudo, String pass) {
+    	  boolean isValid = true;
+    	  if (pass.length() <= 10) {
+    		  isValid = false;
+    	  }
+    	  else if (pass.contains(pseudo)) {
+    		  isValid = false;
+    	  }
+          return isValid;
+      }
+
       /*------------------------------------------METHODES GENERALISTES-------------------------------------
 
       //INSERTIOn de données dans la bd
@@ -480,8 +581,20 @@ public class Connect {
     	deleteTable("database.db", "User");
         createNewTableUser("database.db");
         insertUser("database.db", "Toto", "titi", 1);
-        ArrayList<String> query = queryUser("database.db", "Toto", "titi");
-        //System.out.println(query.get(0));
-        //System.out.println(query.get(1));
+        /*
+        boolean query = checkIsUser("database.db", "Toto", "titi");
+        System.out.println("Toto existe ? " + query);
+        */
+        boolean v1 = checkPseudo("database.db", "Toto");
+        boolean v2 = checkPseudo("database.db", "toto");
+        boolean v3 = checkPassword("database.db", "toto", "titi");
+        boolean v4 = checkPassword("database.db", "toto", "xxtoto2356481545751867");
+        boolean v5 = checkPassword("database.db", "toto", "xxtoto2");
+        System.out.println("validite du pseudo Toto : " + v1);
+        System.out.println("validite du pseudo toto : " + v2);
+        System.out.println("validite du password titi : " + v3);
+        System.out.println("validite du password xxtoto2356481545751867 : " + v4);
+        System.out.println("validite du password xxtoto2 : " + v5);
+        
     }
 }
