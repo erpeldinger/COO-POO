@@ -72,7 +72,7 @@ public class Message {
     }
 
     public static String toString(int id, String content, DateMsg date){
-        return new String(Integer.toString(id) + "#" + content.toString() + "#" + date.toString());
+        return new String(Integer.toString(id) + "#" + content.toString() + "#" + DateMsg.toString(date));
     }
     
     // On suppose qu'on a un message de la forme "8#coucou#17:26:00:00:00:00"

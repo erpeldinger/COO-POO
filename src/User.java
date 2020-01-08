@@ -20,6 +20,7 @@ public class User {
     private ArrayList <Integer> listIdUserConnected;
     private ArrayList<Message> messages;
     private ListenerUDP listener;
+    private BroadcastingClient broadcast;
 
     //constructeur
     public User(int id, String pseudo, String password, int port, InetAddress addrbr) throws SocketException {
@@ -40,9 +41,13 @@ public class User {
     public ArrayList <U1> getListUserConnected() { return this.listUserConnected; }
     public ArrayList <Integer> getListIdUserConnected() { return this.listIdUserConnected; }
     public ListenerUDP getListener() { return this.listener;}
+    public BroadcastingClient getBroadcast() { return this.broadcast; }
     
     // les methodes
     //private void sendM(String msg, Session session) {}
+	public void allowBroadcast (BroadcastingClient c) { 
+		this.broadcast = c;
+	}
 
     private void recvM() {}
 
