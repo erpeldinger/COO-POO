@@ -22,6 +22,7 @@ public class ListenerUDP extends Thread {
     public ListenerUDP (int port, String name, InetAddress addrBroadcast) throws SocketException {
     	super(name);
         this.socket = new DatagramSocket(port);
+        System.out.println("User : " + name + " ; Socket ListenerUDP : " + port + "\n");
         this.addrBroadcast = addrBroadcast;
         start();
     }

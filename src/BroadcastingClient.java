@@ -27,6 +27,7 @@ public class BroadcastingClient {
     	this.port = port;
     	this.msg = "Hello, who is there ?";
     	this.user = user;
+    	System.out.println("User : " + user.getPseudo() + " ; Socket BroadcastingClient : " + port + "\n");
     }
     
     //Methodes
