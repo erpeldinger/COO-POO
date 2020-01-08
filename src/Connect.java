@@ -65,7 +65,7 @@ public class Connect {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS User(\n"
                 + "    pseudo text NOT NULL,\n"
-                + "    pass text NOT NULL,\n"
+                + "    password text NOT NULL,\n"
                 + "    id PRIMARY KEY NOT NULL\n"
                 + ");";
         
@@ -121,6 +121,23 @@ public class Connect {
             System.out.println(e.getMessage());
         }
     }
+    
+    /* ------------------------------------------SUPPRESSION DES TABLES--------------------------------------*/
+  //creation de la table Conversation
+    public static void deleteTable(String filename, String tablename) {
+        // SQLite connection string
+        String url = "jdbc:sqlite:./database/"+filename;
+        String sql = "DROP TABLE " + tablename + ";";
+        
+        try (Connection conn = DriverManager.getConnection(url);
+                Statement stmt = conn.createStatement()) {
+            // delete the table
+            stmt.execute(sql);
+            System.out.println("A table has been deleted");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     
     /* ------------------------------------------INSERTION--------------------------------------*/
@@ -136,6 +153,7 @@ public class Connect {
                     pstmt.setString(2, pass);
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
+            System.out.println("A User has been created in User");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT]" + e.getMessage());
         }
@@ -150,13 +168,14 @@ public class Connect {
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, id);
             pstmt.executeUpdate();
+            System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT]" + e.getMessage());
         }
     }
 
     //Insertion d'un nouveau message dans la table Conversation
-      public static void insertUserLUC(String filename, int id1, int id2, String content, String date) {
+      public static void insertConversation(String filename, int id1, int id2, String content, String date) {
       	String url = "jdbc:sqlite:./database/"+filename;
           String sql = "INSERT INTO Conversation (idUser1, idUser2, content, date) VALUES (?, ?, ?, ?);";
           
@@ -167,6 +186,7 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
+              System.out.println("A Conversation has been created");
           } catch (SQLException e) {
               System.out.println("[ERROR INSERT]" + e.getMessage());
           }
@@ -177,12 +197,13 @@ public class Connect {
       // Suppression d'un utilisateur dans la table User
       public static void deleteUser(String filename, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "DELETE FROM User WHERE id = ? ;";
+          String sql = "DELETE FROM User WHERE id = ?;";
           
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id);
               pstmt.executeUpdate();
+              System.out.println("An user has been deleted");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -191,21 +212,22 @@ public class Connect {
       // Suppression d'un utilisateur dans la table ListUserConnected
       public static void deleteUserLUC(String filename, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "DELETE FROM ListUserConnected WHERE id = ? ;";
+          String sql = "DELETE FROM ListUserConnected WHERE id = ?;";
           
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id);
               pstmt.executeUpdate();
+              System.out.println("A user has been deleted in LUC");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
       }
 
       // Suppression d'un message dans la table Conversation
-      public static void deleteUserLUC(String filename, int id1, int id2, String content, String date) {
+      public static void deleteConversation(String filename, int id1, int id2, String content, String date) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "DELETE FROM Conversation WHERE idUser1 = ?, idUser2 = ?, content = ?, date = ? ;";
+          String sql = "DELETE FROM Conversation WHERE idUser1 = ?, idUser2 = ?, content = ?, date = ?;";
           
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -214,6 +236,7 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
+              System.out.println("A message has been deleted in Conversation");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -223,7 +246,7 @@ public class Connect {
    // Update un utilisateur dans la table User
       public static void update(String filename, String pseudo, String pass, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "UPDATE User SET pseudo = ?, pass = ? WHERE id = ? ;";
+          String sql = "UPDATE User SET pseudo = ?, pass = ? WHERE id = ?;";
           
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -232,6 +255,7 @@ public class Connect {
                       pstmt.setInt(3, id);
               // update 
               pstmt.executeUpdate();
+              System.out.println("Table User has been updated");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -243,10 +267,11 @@ public class Connect {
       // Récupération d'un utilisateur, s'il existe [retourne l'id sous forme de string s'il existe, "" sinon]
       public static ArrayList<String> queryUser(String filename, String pseudo, String pass) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT id FROM User WHERE pseudo = " + pseudo + " , pass = " + pass + " ;";
+          String sql = "SELECT id FROM User WHERE pseudo = " + pseudo + ", password = " + pass + ";";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
+          System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -267,7 +292,7 @@ public class Connect {
       // Récupération d'une conversation entre id1 et id2 dans la liste Conversation. retourne une liste de String de forme : content||date
       public static ArrayList<String> queryConversation(String filename, int id1, int id2) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT content, date FROM Conversation WHERE idUser1 = " + Integer.valueOf(id1) + " , idUser2 = " + Integer.valueOf(id2) + " ;";
+          String sql = "SELECT content, date FROM Conversation WHERE idUser1 = " + Integer.valueOf(id1) + " , idUser2 = " + Integer.valueOf(id2) + ";";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
@@ -452,9 +477,10 @@ public class Connect {
      */
     public static void main(String[] args) {
     	createNewDatabase("database.db");
-        //createNewTableUser("database.db");
-        //insertUser("database.db", "Toto", "titi", 1);
-        //ArrayList<String> query = queryUser("database.db", "Toto", "titi");
+    	deleteTable("database.db", "User");
+        createNewTableUser("database.db");
+        insertUser("database.db", "Toto", "titi", 1);
+        ArrayList<String> query = queryUser("database.db", "Toto", "titi");
         //System.out.println(query.get(0));
         //System.out.println(query.get(1));
     }
