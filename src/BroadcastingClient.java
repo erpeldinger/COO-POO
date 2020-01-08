@@ -82,7 +82,7 @@ public class BroadcastingClient {
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast");
-    		//socket.setSoTimeout(500); //attend une réponse pendant 3000 ms
+    		socket.setSoTimeout(500); //attend une réponse pendant 3000 ms
 			socket.receive(outPacket);				
 			System.out.println(rep);
     		
