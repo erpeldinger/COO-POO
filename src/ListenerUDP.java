@@ -86,6 +86,11 @@ public class ListenerUDP extends Thread {
 		    		//c'est un message d'un clavardage
 		    		//TODO
 		    		System.out.println("[LISTENER UDP] Msg de clavardage -> else");
+			    	DatagramPacket inPacket2 = new DatagramPacket(buff, buff.length);
+		    		socket.receive(inPacket2);
+		    		String msg2 = new String(inPacket2.getData(), 0, inPacket2.getLength());
+					System.out.println(msg2);
+		    		
 				}		    	
 	    		
 				//Ajoute l'id de la personne qui envoie le message
