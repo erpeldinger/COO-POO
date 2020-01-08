@@ -1,4 +1,5 @@
 import java.lang.Object.*;
+import java.util.Calendar;
 import java.util.Date;
 // https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
 
@@ -21,6 +22,16 @@ public class DateMsg {
         this.min=min;
         this.sec=sec;
     }
+    
+    public DateMsg() {
+    	Calendar now = Calendar.getInstance();
+    	this.year = now.get(Calendar.YEAR);
+    	this.month = now.get(Calendar.MONTH) + 1;
+    	this.day = now.get(Calendar.DAY_OF_MONTH);
+    	this.hour = now.get(Calendar.HOUR_OF_DAY);
+    	this.min = now.get(Calendar.MINUTE);
+    	this.sec = now.get(Calendar.SECOND);    
+    }
 
     //getters
     public int getYear() { return this.year; }
@@ -40,12 +51,5 @@ public class DateMsg {
     public static String toString(DateMsg date){
         return new String(Integer.toString(date.year) + ":" + Integer.toString(date.month) + ":" + Integer.toString(date.day) + ":" + Integer.toString(date.hour) + ":" + Integer.toString(date.min) + ":" + Integer.toString(date.sec));
     }
-    
-    public static DateMsg getDate() {
-    	Date d = new Date(System.currentTimeMillis());
-    	return new DateMsg(2020, d.getMonth(), d.getDay(), d.getHours(), d.getMinutes(), d.getSeconds());
-    }
-    
-    
     
 }

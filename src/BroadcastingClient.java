@@ -62,10 +62,11 @@ public class BroadcastingClient {
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
     public static ArrayList <Integer> sendBroadcast(InetAddress addrbr) throws Exception {
     	String mBr = "BROADCAST : Hello, who is there ?";
-    	Message m = new Message(mBr,DateMsg.getDate(), user.getId());
+    	Message m = new Message(mBr,new DateMsg(), user.getId());
     	
     	// Création d'un paquet de format : "id sender | message | date"
     	String msg = Message.toString(m.getId(),mBr,m.getDate()); 
+    	System.out.println("Message : " + msg);
     	ArrayList <Integer> idUsersCo = null;
     	
     	try {
