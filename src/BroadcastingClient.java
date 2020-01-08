@@ -70,13 +70,13 @@ public class BroadcastingClient {
     	ArrayList <Integer> idUsersCo = null;
     	
     	try {
-    		System.out.println("debut send-1");
+    		//System.out.println("debut send-1");
 	    	//socket.setBroadcast(true);
-	    	System.out.println("debut send0");
+	    	//System.out.println("debut send0");
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
-	    	System.out.println("debut send1");
+	    	//System.out.println("debut send1");
 	    	socket.send(packet);
-	    	System.out.println("debut send2");
+	    	//System.out.println("debut send2");
 			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
