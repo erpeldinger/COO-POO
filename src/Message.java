@@ -24,6 +24,11 @@ public class Message {
         this.date=date;
         this.id=id;
     }
+    
+    public Message (String content, int id) {
+        this.content=content;
+        this.id=id;
+    }
 
     //getters
     public String getContent() {return this.content;}
@@ -73,6 +78,10 @@ public class Message {
 
     public static String toString(int id, String content, DateMsg date){
         return new String(Integer.toString(id) + "#" + content.toString() + "#" + DateMsg.toString(date));
+    }
+    
+    public static String toString(int id, String content){
+        return new String(Integer.toString(id) + "#" + content.toString());
     }
     
     // On suppose qu'on a un message de la forme "8#coucou#17:26:00:00:00:00"

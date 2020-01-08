@@ -62,10 +62,10 @@ public class BroadcastingClient {
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
     public static ArrayList <Integer> sendBroadcast(InetAddress addrbr) throws Exception {
     	String mBr = "BROADCAST : Hello, who is there ?";
-    	Message m = new Message(mBr,new DateMsg(), user.getId());
+    	Message m = new Message(mBr, user.getId());
     	
     	// Création d'un paquet de format : "id sender | message | date"
-    	String msg = Message.toString(m.getId(),mBr,m.getDate()); 
+    	String msg = Message.toString(m.getId(),mBr); 
     	System.out.println("Message : " + msg);
     	ArrayList <Integer> idUsersCo = null;
     	
@@ -82,7 +82,7 @@ public class BroadcastingClient {
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast");
-    		socket.setSoTimeout(3000); //attend une réponse pendant 3000 ms
+    		//socket.setSoTimeout(500); //attend une réponse pendant 3000 ms
 			socket.receive(outPacket);				
 			System.out.println(rep);
     		
