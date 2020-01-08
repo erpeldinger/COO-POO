@@ -9,19 +9,7 @@ public class DemoU2 {
     
     public static void main (String[] args) throws SocketException, Exception {
     	//Serveur
-    	/*----------------------- TEST dates --------------------------------------------*/
-    	/*  String test = "8#coucou#17:26:00:00:00:00";
 
-        Message m = Message.toMessage(test);
-        System.out.println(m.getContent());
-        
-    	Date d = new Date(System.currentTimeMillis());
-        System.out.println(System.currentTimeMillis());
-        System.out.println(new Date(System.currentTimeMillis()));
-        System.out.println(d.getHours());
-        
-        System.out.println(DateMsg.toString(DateMsg.getDate()));
-        */
 
         /*------------------------ TEST envoi broadcast serveur-------------------------------------------- */
     	User u1 = new User(77,"UserAttendBroadcast","mdp",1288,BroadcastingClient.getBroadcastAddress());

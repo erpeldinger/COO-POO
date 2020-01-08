@@ -18,7 +18,6 @@ public class BroadcastingClient {
     private static int port;
     private String msg ="";
     private static User user;
-    private ArrayList<Integer> idUsersCo = new ArrayList<Integer>();
     
     //Constructeurs
     public BroadcastingClient(DatagramSocket s, DatagramPacket p, int port, User user) throws SocketException {
@@ -33,6 +32,7 @@ public class BroadcastingClient {
         System.out.println("send broadcast ok");}
     	catch (Exception e) {}
     }
+    
     
     //Methodes
 
@@ -55,44 +55,47 @@ public class BroadcastingClient {
     	return broadcast;  
     }
     
-    //ATTENTION : je crois que c'est redondant avec createListUserCo dans User...
-    /* Avec cette mÃ©thode, on Ã©crit en dur le nÂ° de port pour le broadcast !!!
-     */
-    
     //Envoie un message broadcast pour rÃ©cupÃ©rer une liste des ids des utilisateurs connectÃ©s
-    public static ArrayList <Integer> sendBroadcast(InetAddress addrbr) throws Exception {
+    public static void sendBroadcast(InetAddress addrbr) throws Exception {
+    	
+    	//On s'ajoute dans la liste des users connectés
+    	user.getListIdUserConnected().add(user.getId());
+    	System.out.println("Je me suis ajouté dans ma liste des users connectés.\n");    	
+    	
     	String mBr = "BROADCAST : Hello, who is there ?";
     	Message m = new Message(mBr, user.getId());
     	
     	// CrÃ©ation d'un paquet de format : "id sender | message | date"
     	String msg = Message.toString(m.getId(),mBr); 
     	System.out.println("Message : " + msg);
-    	ArrayList <Integer> idUsersCo = null;
     	
     	try {
-    		//System.out.println("debut send-1");
-	    	//socket.setBroadcast(true);
-	    	//System.out.println("debut send0");
+    		//System.out.println("debut send");
+	    	socket.setBroadcast(true);
+	    	//System.out.println("set broadcast ok");
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
-	    	//System.out.println("debut send1");
+	    	//System.out.println("création dtg packet");
 	    	socket.send(packet);
-	    	//System.out.println("debut send2");
+	    	//System.out.println("socket.send(packet)");
 			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast");
-    		socket.setSoTimeout(500); //attend une rÃ©ponse pendant 3000 ms
+    		socket.setSoTimeout(2000); //attend une réponse pendant 2000 ms
 			socket.receive(outPacket);				
 			System.out.println(rep);
+			
+			//????????????? A tester, je l'ai ajoute ?????????????
+			socket.close();
+			System.out.println("Socket.close()");
     		
     		//Ajoute l'id de la personne qui rÃ©pond
-    		idUsersCo.add(Message.toMessage(rep).getId());
+    		user.getListIdUserConnected().add(Message.toMessage(rep).getId());
+        	System.out.println("Ajout users dans liste des users connectés ok.\n"); 
     	}
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast");
     	}
-		
-		return idUsersCo;
     }
 }

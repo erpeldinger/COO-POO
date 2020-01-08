@@ -15,7 +15,6 @@ public class ListenerUDP extends Thread {
     private static byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
 	private User user;
-	//private ArrayList<Integer> connectedUsers[] = null ;
     
     //Constructeurs
     public ListenerUDP (int port, String name, InetAddress addrBroadcast) throws SocketException {
@@ -51,14 +50,13 @@ public class ListenerUDP extends Thread {
 
     public void run() {
   
-    	Boolean connected = true;
+    	//Boolean connected = true;
 		int iter = 0;
-    	while (connected) {
+		//j'ai chang� la condition pour que ce soit plus propre, avant : while (connected)
+    	while (!this.socket.isClosed()) {
     		try {
     			System.out.println("Nb iteration : " + iter + "\n");
 				iter++;
-				//On ajoute son id sans la liste de users connectés
-				//user.getListIdUserConnected().add(user.getId());
     			
 		    	byte[] buff = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
@@ -67,7 +65,6 @@ public class ListenerUDP extends Thread {
 		    	System.out.println("[LISTENER UDP] Réception inPacket ok");
 		    	
 		    	//Print message broadcast
-		    	//A MODIFIER EN FONCTION DU toMessage au dessus
 		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
 				System.out.println(msg);	
 		    	
@@ -75,7 +72,7 @@ public class ListenerUDP extends Thread {
 		    	if (isBroadcastPacket(msg)) {
 		    		//System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
 		    		
-		    		String r = new String("Je suis connecté !");		    		
+		    		String r = new String(user.getPseudo() + " est connect� !");		    		
 		    		response = r.getBytes();
 		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
@@ -84,13 +81,11 @@ public class ListenerUDP extends Thread {
 		    	}
 		    	else {
 		    		//c'est un message d'un clavardage
-		    		//TODO
 		    		System.out.println("[LISTENER UDP] Msg de clavardage -> else");
 			    	DatagramPacket inPacket2 = new DatagramPacket(buff, buff.length);
 		    		socket.receive(inPacket2);
 		    		String msg2 = new String(inPacket2.getData(), 0, inPacket2.getLength());
-					System.out.println(msg2);
-		    		
+					System.out.println("Message : " + msg2);		    		
 				}		    	
 	    		
 				//Ajoute l'id de la personne qui envoie le message
