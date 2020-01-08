@@ -21,7 +21,9 @@ public class ListenerUDP extends Thread {
     //Constructeurs
     public ListenerUDP (int port, String name, InetAddress addrBroadcast) throws SocketException {
     	super(name);
+        System.out.println("ici1");
         this.socket = new DatagramSocket(port);
+        System.out.println("ici");
         this.addrBroadcast = addrBroadcast;
         start();
     }
