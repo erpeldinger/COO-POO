@@ -73,7 +73,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            System.out.println("A new table User has been created");
+            //System.out.println("A new table User has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -93,7 +93,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            System.out.println("A new table LUC has been created");
+            //System.out.println("A new table LUC has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -116,7 +116,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            System.out.println("A new table Conversation has been created");
+            //System.out.println("A new table Conversation has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -133,7 +133,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // delete the table
             stmt.execute(sql);
-            System.out.println("A table has been deleted");
+            //System.out.println("A table has been deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -153,7 +153,7 @@ public class Connect {
                     pstmt.setString(2, pass);
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
-            System.out.println("A User has been created in User");
+            //System.out.println("A User has been created in User");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT]" + e.getMessage());
         }
@@ -168,7 +168,7 @@ public class Connect {
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, id);
             pstmt.executeUpdate();
-            System.out.println("A User has been created in UserLUC");
+            //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT]" + e.getMessage());
         }
@@ -186,7 +186,7 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
-              System.out.println("A Conversation has been created");
+              //System.out.println("A Conversation has been created");
           } catch (SQLException e) {
               System.out.println("[ERROR INSERT]" + e.getMessage());
           }
@@ -203,7 +203,7 @@ public class Connect {
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id);
               pstmt.executeUpdate();
-              System.out.println("An user has been deleted");
+              //System.out.println("An user has been deleted");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -218,7 +218,7 @@ public class Connect {
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id);
               pstmt.executeUpdate();
-              System.out.println("A user has been deleted in LUC");
+              //System.out.println("A user has been deleted in LUC");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -236,7 +236,7 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
-              System.out.println("A message has been deleted in Conversation");
+              //System.out.println("A message has been deleted in Conversation");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -255,7 +255,7 @@ public class Connect {
                       pstmt.setInt(3, id);
               // update 
               pstmt.executeUpdate();
-              System.out.println("Table User has been updated");
+              //System.out.println("Table User has been updated");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -295,7 +295,7 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -320,7 +320,7 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -347,7 +347,7 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -580,7 +580,7 @@ public class Connect {
     	createNewDatabase("database.db");
     	deleteTable("database.db", "User");
         createNewTableUser("database.db");
-        insertUser("database.db", "Toto", "titi", 1);
+        insertUser("database.db", "Toto", "titi123456789", 1);
         /*
         boolean query = checkIsUser("database.db", "Toto", "titi");
         System.out.println("Toto existe ? " + query);

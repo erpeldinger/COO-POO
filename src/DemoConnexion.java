@@ -7,36 +7,39 @@ import java.util.Scanner;
 public class DemoConnexion {
     
     public static void main (String[] args){
-    	System.out.println("Bonjour");
-    	
-    	Scanner scPseudo = new Scanner(System.in);
-    	System.out.println("Veuillez saisir un pseudo :");
-    	String strPseudo = scPseudo.nextLine();
-    	boolean isValidPseudo = Connect.checkPseudo("database.db", strPseudo);
-    	while (isValidPseudo==false) {
-        	System.out.println("Désolé, ce pseudo est déjà utilisé");
-        	scPseudo = new Scanner(System.in);
-        	System.out.println("Veuillez saisir un pseudo :");
-        	strPseudo = scPseudo.nextLine();
-        	isValidPseudo = Connect.checkPseudo("database.db", strPseudo);
-    	}
-
-    	Scanner scPass = new Scanner(System.in);
-    	System.out.println("Veuillez saisir un mot de passe [ne contenant pas votre pseudo, faisant au minimum 10 caractères] :");
-    	String strPass = scPass.nextLine();
-    	boolean isValidPass = Connect.checkPassword("database.db", strPseudo, strPass);
-    	while (isValidPass==false) {
-        	System.out.println("Désolé, ce mot de passe n'est pas valide ");
-        	Scanner scPass2 = new Scanner(System.in);
-        	System.out.println("Veuillez saisir un mot de passe : [ne contenant pas votre pseudo, faisant au minimum 10 caractères] ");
-        	strPass = scPass2.nextLine();
-        	isValidPass = Connect.checkPassword("database.db", strPseudo, strPass);
-    	}
+    	// Creation d'un utiisateur [ pseudo : Toto et Mot de passe : titi123456789 ]
     	Connect.createNewDatabase("database.db");
     	Connect.deleteTable("database.db", "User");
-        Connect.createNewTableUser("database.db"); 
-    	Connect.insertUser("database",strPseudo, strPass, 1); // ERREUR table User inexistante --> à corriger
-    	System.out.println("Vous êtes maintenant inscrit !");
+    	Connect.createNewTableUser("database.db");
+    	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
+    	
+    	// Test du processus de Connexion
+    	System.out.println("Bonjour");
+    	// Demande du pseudo
+    	Scanner scPseudo = new Scanner(System.in);
+    	System.out.println("Veuillez saisir votre pseudo :");
+    	String strPseudo = scPseudo.nextLine();
+    	// Demande du mot de passe associé
+    	Scanner scPass = new Scanner(System.in);
+    	System.out.println("Veuillez saisir votre mot de passe :");
+    	String strPass = scPass.nextLine();
+    	
+    	//Verification
+    	boolean isValidPass = Connect.checkIsUser("database.db", strPseudo, strPass);
+    	while (isValidPass==false) {
+        	System.out.println("Désolé, le pseudo/mot de passe n'est pas bon. veuillez réessayer ");
+        	// Demande du pseudo
+        	scPseudo = new Scanner(System.in);
+        	System.out.println("Veuillez saisir votre pseudo :");
+        	strPseudo = scPseudo.nextLine();
+        	// Demande du mot de passe associé
+        	scPass = new Scanner(System.in);
+        	System.out.println("Veuillez saisir votre mot de passe :");
+        	strPass = scPass.nextLine();
+        	//Verification
+        	isValidPass = Connect.checkIsUser("database.db", strPseudo, strPass);
+    	}
+    	System.out.println("Vous êtes maintenant connecté !");
     	
     	
     	
