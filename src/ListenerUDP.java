@@ -59,10 +59,10 @@ public class ListenerUDP extends Thread {
 		//j'ai change la condition pour que ce soit plus propre, avant : while (connected)
     	while (!this.socket.isClosed()) {
 
-    		System.out.println("[LISTENER UDP] iter : " + iterDEBUG + "\n");
+    		System.out.println("[LISTENER UDP] iter while : " + iterDEBUG + "\n");
     		iterDEBUG++;
     		try {
-    			System.out.println("Nb iteration : " + iter + "\n");
+    			System.out.println("[LISTENER UDP] Nb iteration try : " + iter + "\n");
 				iter++;
     			
 		    	byte[] buff = new byte[256];
@@ -73,29 +73,25 @@ public class ListenerUDP extends Thread {
 		    	
 		    	//Print message broadcast
 		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
-				System.out.println(msg);	
+				System.out.println("[LISTENER UDP] print msg "+msg);	
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (isBroadcastPacket(msg)) {
-		    		System.out.println("[LISTENER UDP] Msg bdcast");
-		    		String r = this.userId + " est connecte !"; 
-		    		response = r.getBytes();
-		    				
+		    		System.out.println("[LISTENER UDP] If -> debut");
+		    		String r = this.userId + "#est connecte !"; 
+		    		response = r.getBytes();		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
+		    		System.out.println("[LISTENER UDP] If -> end");
 		    	}
 		    	else {
-		    		//c'est un message d'un clavardage
-		    		System.out.println("[LISTENER UDP] Msg de clavardage -> else");
-			    	DatagramPacket inPacket2 = new DatagramPacket(buff, buff.length);
-		    		socket.receive(inPacket2);
-		    		String msg2 = new String(inPacket2.getData(), 0, inPacket2.getLength());
-					System.out.println("Message : " + msg2);		    		
+		    		//c'est un message de réponse de Broadcast
+		    		System.out.println("[LISTENER UDP] Else -> debut");
+					//Ajoute l'id de la personne qui envoie le message
+		    		this.userLUC.add(Message.toMessageBdc(msg).getId());
+			    	System.out.println("[LISTENER UDP] Add ok");
 				}		    	
 	    		
-				//Ajoute l'id de la personne qui envoie le message
-	    		this.userLUC.add(Message.toMessageBdc(msg).getId());
-		    	System.out.println("[LISTENER UDP] Add ok");
     		}
     		
     		catch (Exception e) {
