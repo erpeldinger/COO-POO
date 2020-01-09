@@ -6,6 +6,10 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 
+// On a besoin d'un TCPSend et d'un TCPRecive : 
+// Le TCPSend a une methode envoieMessage qui horodate le message, l'envoie, et l'ajoute à la BD [methode]
+// Le TCPReceive est toujours en ecoute, s'il recoit qqchose il l'horodate, l'ajoute dans la DB et l'affiche [run]
+
 public class TCPChat implements Runnable {
 
 	//Attributs
