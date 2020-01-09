@@ -52,7 +52,7 @@ public class ListenerUDP extends Thread {
   
     	//Boolean connected = true;
 		int iter = 0;
-		//j'ai changé la condition pour que ce soit plus propre, avant : while (connected)
+		//j'ai change la condition pour que ce soit plus propre, avant : while (connected)
     	while (!this.socket.isClosed()) {
     		try {
     			System.out.println("Nb iteration : " + iter + "\n");
@@ -72,7 +72,7 @@ public class ListenerUDP extends Thread {
 		    	if (isBroadcastPacket(msg)) {
 		    		//System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
 		    		
-		    		String r = new String(user.getPseudo() + " est connecté !");		    		
+		    		String r = new String(user.getPseudo() + " est connecte !");		    		
 		    		response = r.getBytes();
 		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
