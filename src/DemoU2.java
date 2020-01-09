@@ -13,6 +13,8 @@ public class DemoU2 {
 
         /*------------------------ TEST envoi broadcast serveur-------------------------------------------- */
     	User u1 = new User(77,"UserAttendBroadcast","mdp",1288,BroadcastingClient.getBroadcastAddress());
+    	System.out.println("Mon pseudo est  : ");
+    	System.out.println(u1.getPseudo()+ "\n");
     	
     	//ListenerUDP serveur = new ListenerUDP (1234,"serveur1",BroadcastingClient.getBroadcastAddress());
     	

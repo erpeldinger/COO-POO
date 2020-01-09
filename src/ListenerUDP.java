@@ -14,12 +14,15 @@ public class ListenerUDP extends Thread {
     //private ArrayList <String> messages;
     private static byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
-	private User user;
+	private int userId;
+	private ArrayList <Integer> userLUC;
     
     //Constructeurs
-    public ListenerUDP (int port, String name, InetAddress addrBroadcast) throws SocketException {
+    public ListenerUDP (int port, String name, InetAddress addrBroadcast, int id, ArrayList <Integer> LUC) throws SocketException {
     	super(name);
         this.socket = new DatagramSocket(port);
+        this.userId = id;
+        this.userLUC = LUC;
         System.out.println("User : " + name + " ; Socket ListenerUDP : " + port + "\n");
         this.addrBroadcast = addrBroadcast;
         start();
@@ -52,8 +55,12 @@ public class ListenerUDP extends Thread {
   
     	//Boolean connected = true;
 		int iter = 0;
+		int iterDEBUG = 1;
 		//j'ai change la condition pour que ce soit plus propre, avant : while (connected)
     	while (!this.socket.isClosed()) {
+
+    		System.out.println("[LISTENER UDP] iter : " + iterDEBUG + "\n");
+    		iterDEBUG++;
     		try {
     			System.out.println("Nb iteration : " + iter + "\n");
 				iter++;
@@ -71,17 +78,11 @@ public class ListenerUDP extends Thread {
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (isBroadcastPacket(msg)) {
 		    		System.out.println("[LISTENER UDP] Msg bdcast");
-		    		
-		    		String r = new String(user.getPseudo() + " est connecte !");	
-		    		System.out.println("[LISTENER UDP] creation r");	    		
+		    		String r = this.userId + " est connecte !"; 
 		    		response = r.getBytes();
-		    		System.out.println("[LISTENER UDP] creation response");
 		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
-		    		System.out.println("[LISTENER UDP] creation outPacket");
 		    		socket.send(outPacket);
-		    		System.out.println("[LISTENER UDP] send reponse broadcast");
-
 		    	}
 		    	else {
 		    		//c'est un message d'un clavardage
@@ -93,7 +94,7 @@ public class ListenerUDP extends Thread {
 				}		    	
 	    		
 				//Ajoute l'id de la personne qui envoie le message
-	    		user.getListIdUserConnected().add(Message.toMessage(msg).getId());
+	    		this.userLUC.add(Message.toMessageBdc(msg).getId());
 		    	System.out.println("[LISTENER UDP] Add ok");
     		}
     		

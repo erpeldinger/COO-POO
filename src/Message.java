@@ -101,6 +101,24 @@ public class Message {
 
         return m;
     }
+    
+ // On suppose qu'on a un message de la forme "8#coucou"
+    public static Message toMessageBdc(String s){
+    	String[] parts = s.split("#");
+        String c= "",d="",i="";
+        Message m = null;
+        
+        try {
+            c = parts[1];
+            i = parts[0];
+            m = new Message(c,Integer.parseInt(i));
+        }
+        catch (Exception e) {
+        	System.out.println("[Message.java - toMessage()] Erreur ");
+        }
+
+        return m;
+    }
 
     /* La forme d'un packet prêt à être envoyé est :
      * 
