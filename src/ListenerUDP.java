@@ -70,13 +70,17 @@ public class ListenerUDP extends Thread {
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (isBroadcastPacket(msg)) {
-		    		//System.out.println("[LISTENER UDP] Si c'est un msg bdcast");
+		    		System.out.println("[LISTENER UDP] Msg bdcast");
 		    		
-		    		String r = new String(user.getPseudo() + " est connecte !");		    		
+		    		String r = new String(user.getPseudo() + " est connecte !");	
+		    		System.out.println("[LISTENER UDP] creation r");	    		
 		    		response = r.getBytes();
+		    		System.out.println("[LISTENER UDP] creation response");
 		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
+		    		System.out.println("[LISTENER UDP] creation outPacket");
 		    		socket.send(outPacket);
+		    		System.out.println("[LISTENER UDP] send reponse broadcast");
 
 		    	}
 		    	else {

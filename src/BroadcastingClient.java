@@ -57,10 +57,7 @@ public class BroadcastingClient {
     
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
     public static void sendBroadcast(InetAddress addrbr) throws Exception {
-    	
-    	//On s'ajoute dans la liste des users connectes
-    	user.getListIdUserConnected().add(user.getId());
-    	System.out.println("Je me suis ajoute dans ma liste des users connectes.\n");    	
+    	  	
     	
     	String mBr = "BROADCAST : Hello, who is there ?";
     	Message m = new Message(mBr, user.getId());
@@ -71,7 +68,7 @@ public class BroadcastingClient {
     	
     	try {
     		//System.out.println("debut send");
-	    	socket.setBroadcast(true);
+	    	//socket.setBroadcast(true);
 	    	//System.out.println("set broadcast ok");
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
 	    	//System.out.println("creation dtg packet");
@@ -82,17 +79,20 @@ public class BroadcastingClient {
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast");
-    		socket.setSoTimeout(2000); //attend une reponse pendant 2000 ms
+    		//socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
+        	System.out.println("setsotime out\n"); 
 			socket.receive(outPacket);				
+        	System.out.println("receive\n"); 
 			System.out.println(rep);
 			
-			//????????????? A tester, je l'ai ajoute ?????????????
-			socket.close();
-			System.out.println("Socket.close()");
     		
     		//Ajoute l'id de la personne qui répond
     		user.getListIdUserConnected().add(Message.toMessage(rep).getId());
         	System.out.println("Ajout users dans liste des users connectes ok.\n"); 
+
+			//????????????? A tester, je l'ai ajoute ?????????????
+			//socket.close();
+			System.out.println("Socket.close()");
     	}
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast");
