@@ -29,7 +29,7 @@ public class BroadcastingClient {
     	System.out.println("User : " + user.getPseudo() + " ; Socket BroadcastingClient : " + port + "\n");
     	try {
         BroadcastingClient.sendBroadcast(BroadcastingClient.getBroadcastAddress());
-        System.out.println("send broadcast ok");}
+        System.out.println("[BROADCASTING CLIENT] send broadcast ok");}
     	catch (Exception e) {}
     }
     
@@ -64,7 +64,7 @@ public class BroadcastingClient {
     	
     	// Création d'un paquet de format : "id sender | message | date"
     	String msg = Message.toString(m.getId(),mBr); 
-    	System.out.println("Message : " + msg);
+    	System.out.println("[BROADCASTING CLIENT] Message : " + msg);
     	
     	try {
     		//System.out.println("debut send");
@@ -78,21 +78,21 @@ public class BroadcastingClient {
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
 			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
-    		System.out.println("[BROADCASTING CLIENT - sendBroadcast");
+    		System.out.println("[BROADCASTING CLIENT] sendBroadcast");
     		//socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
-        	System.out.println("setsotime out\n"); 
+        	System.out.println("[BROADCASTING CLIENT] setsotime out\n"); 
 			socket.receive(outPacket);				
-        	System.out.println("receive\n"); 
+        	System.out.println("[BROADCASTING CLIENT] receive\n"); 
 			System.out.println(rep);
 			
     		
     		//Ajoute l'id de la personne qui répond
     		user.getListIdUserConnected().add(Message.toMessage(rep).getId());
-        	System.out.println("Ajout users dans liste des users connectes ok.\n"); 
+        	System.out.println("[BROADCASTING CLIENT] Ajout users dans liste des users connectes ok.\n"); 
 
 			//????????????? A tester, je l'ai ajoute ?????????????
-			//socket.close();
-			System.out.println("Socket.close()");
+			socket.close();
+			System.out.println("[BROADCASTING CLIENT] Socket.close()");
     	}
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast");

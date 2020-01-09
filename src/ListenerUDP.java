@@ -62,7 +62,7 @@ public class ListenerUDP extends Thread {
     		System.out.println("[LISTENER UDP] iter : " + iterDEBUG + "\n");
     		iterDEBUG++;
     		try {
-    			System.out.println("Nb iteration : " + iter + "\n");
+    			System.out.println("[LISTENER UDP] Nb iteration : " + iter + "\n");
 				iter++;
     			
 		    	byte[] buff = new byte[256];
@@ -78,8 +78,9 @@ public class ListenerUDP extends Thread {
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (isBroadcastPacket(msg)) {
 		    		System.out.println("[LISTENER UDP] Msg bdcast");
-		    		String r = this.userId + " est connecte !"; 
+		    		String r = "[LISTENER UDP] "+ this.userId + " est connecte !"; 
 		    		response = r.getBytes();
+		    		
 		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
@@ -90,7 +91,8 @@ public class ListenerUDP extends Thread {
 			    	DatagramPacket inPacket2 = new DatagramPacket(buff, buff.length);
 		    		socket.receive(inPacket2);
 		    		String msg2 = new String(inPacket2.getData(), 0, inPacket2.getLength());
-					System.out.println("Message : " + msg2);		    		
+					System.out.println("[LISTENER UDP] Message : " + msg2);		
+					System.out.println("[LISTENER UDP] Fin else");
 				}		    	
 	    		
 				//Ajoute l'id de la personne qui envoie le message

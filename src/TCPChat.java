@@ -35,7 +35,7 @@ public class TCPChat implements Runnable {
 		
 		try {
 			while (!this.sock.isClosed()) {
-				 /*On récupère le n° port donné dans user ?
+				 /*On recupere le numero de port donne dans user ?
 				  * serverSocket = new ServerSocket(1234); 
 		            sockS = serverSocket.accept();
 		            System.out.println("Serveur 1 ok : 1234");
