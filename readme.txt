@@ -20,4 +20,11 @@
 
 // Swing
     * creer toutes les interfaces -- EN COURS
-    * relier les interfaces aux demo -- A FAIRE
+    * relier les interfaces aux demo -- OK pour COnnexion et Incription
+
+// Prochaines etapes 
+    * creer l'interface permettant de voir les utilisateurs connectes
+    * faire le lien entre cette interface et le code [broadcast, recup LUC]
+
+    * finir envoie de message TCP
+    
