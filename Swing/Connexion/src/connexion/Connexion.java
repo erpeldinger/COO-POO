@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
+import requete.Connect;
+;
 public class Connexion implements ActionListener {
     
     // Tous les labels
@@ -18,6 +20,8 @@ public class Connexion implements ActionListener {
     private String connect = "Se connecter";
     private String incorrectPseudo = "Pseudo incorrect";
     private String incorrectPassword = "Mot de passe incorrect";
+    private String incorrectUser = "Pseudo/Mot de passe incorrect";
+    private String correctUser = "Connexion reussie";
     private static String errorPrefix= "Connexion impossible : ";
     private static String connected = "Connexion réussie";
     private static String errorConnect = "Une ereure s'est produite, la connexion a échouée";
@@ -26,6 +30,7 @@ public class Connexion implements ActionListener {
     final JLabel labelPassword = new JLabel(password);
     final JLabel labelSuccess = new JLabel("");
     final JLabel labelError = new JLabel("");
+	
     Color myGreen = new Color(11, 102, 35);
     
     // Les champs de textes
@@ -69,6 +74,7 @@ public class Connexion implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e) {
+        labelError.setText("");
         //Si le message est vide on ne l'envoie pas , n affiche l'erreur
         if (pseudoField.getText().equals("")) {
             labelError.setText(incorrectPseudo);
@@ -78,11 +84,25 @@ public class Connexion implements ActionListener {
         }
         //Sinon on se connecte
         else {
-            labelError.setText("");
-            pseudoField.setText("");
-            passwordField.setText("");
-            labelSuccess.setText(connected);
-            // on connecte la personne
+        	Connect.createNewDatabase("database.db");
+        	Connect.deleteTable("database.db", "User");
+        	Connect.createNewTableUser("database.db");
+        	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
+        	System.out.println("user Toto titi123456798");
+       
+        	if (Connect.checkIsUser("database.db", pseudoField.getText(), passwordField.getText())) {
+        		// connexion ok
+	        	//System.out.println("connecte!");
+	            labelError.setText("correctUser");
+	            pseudoField.setText("");
+	            passwordField.setText("");
+	            labelSuccess.setText(connected);
+        	}
+        	else {
+        		//mauvais pseudo/mot de passe
+	        	//System.out.println("mauvais user!" + pseudoField.getText() + " " + passwordField.getText());
+                labelError.setText(incorrectUser);
+        	}
             try {
             }
             catch (Exception ex) {

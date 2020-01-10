@@ -1,3 +1,5 @@
+package communication;
+
 import java.lang.Object.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -6,6 +8,8 @@ import java.util.ArrayList;
 import java.lang.Exception;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+
+import format.Message;
 
 public class ListenerUDP extends Thread {
 

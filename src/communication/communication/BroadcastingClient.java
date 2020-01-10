@@ -1,3 +1,5 @@
+package communication;
+
 import java.lang.Object.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -9,6 +11,9 @@ import java.net.UnknownHostException;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 import java.net.InterfaceAddress;
+
+import user.User;
+import format.Message;
 
 public class BroadcastingClient {
 

@@ -1,8 +1,14 @@
+package demo;
+
 import java.lang.Object.*;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
 import java.io.IOException;
+
+
+import user.User;
+import communication.*;
 
 public class DemoU1 {
     

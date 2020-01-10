@@ -1,3 +1,5 @@
+package user;
+
 import java.lang.Object.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -8,6 +10,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 /*
 import Constantes.java; */
+
+import format.Message;
+import communication.*;
 
 public class User {
 

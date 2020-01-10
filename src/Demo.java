@@ -1,7 +1,12 @@
+package demo;
+
 import java.lang.Object.*;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
+
+import user.User;
+import format.Message;
 
 public class Demo {
     

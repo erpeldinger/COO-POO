@@ -1,8 +1,12 @@
+package demo;
+
 import java.lang.Object.*;
 import java.net.*;
 import java.io.IOException;
 
 import java.util.Scanner; 
+
+import requete.Connect;
 
 public class DemoInscription {
     
@@ -36,7 +40,7 @@ public class DemoInscription {
     	Connect.deleteTable("database.db", "User");
     	Connect.createNewTableUser("database.db");
     	System.out.println("Bonjour");
-    	Connect.insertUser("database.db",strPseudo, strPass, 1); // ERREUR table User inexistante --> à corriger
+    	Connect.insertUser("database.db",strPseudo, strPass, 1);
     	System.out.println("Vous êtes maintenant inscrit !");
     	
     }

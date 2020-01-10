@@ -6,6 +6,9 @@ package inscription;
  * no other files.
  */
 import javax.swing.*;
+
+import requete.Connect;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
@@ -16,8 +19,10 @@ public class Inscription implements ActionListener {
     private static String pseudo = "Pseudo : ";
     private String password = "Mot de passe : ";
     private String connect = "Se connecter";
-    private String incorrectPseudo = "Pseudo incorrect";
-    private String incorrectPassword = "Mot de passe incorrect";
+    private String emptyPseudo = "veuillez entrer un pseudo";
+    private String emptyPassword = "veuillez entrer un mot de passe";
+    private String incorrectPseudo = "Pseudo déjà utilisé ";
+    private String incorrectPassword = "Mot de passe incorrect : il faut au un mot de passe ayant minimum 10 caractères et ne contenant pas votre pseudo";
     private static String errorPrefix= "Inscription impossible : ";
     private static String logged = "Inscription réussie";
     private static String errorLog = "Une ereure s'est produite, l'inscription a échouée";
@@ -69,19 +74,42 @@ public class Inscription implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e) {
+    	Connect.createNewDatabase("database.db");
+    	Connect.deleteTable("database.db", "User");
+    	Connect.createNewTableUser("database.db");
+    	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
         //Si le message est vide on ne l'envoie pas , n affiche l'erreur
         if (pseudoField.getText().equals("")) {
-            labelError.setText(incorrectPseudo);
+            labelError.setText(emptyPseudo);
         }
         else if(passwordField.getText().equals("")) {
-            labelError.setText(incorrectPassword);
+            labelError.setText(emptyPassword);
         }
-        //Sinon on se connecte
+        //Sinon on test la validite du pseudo/password
         else {
-            labelError.setText("");
-            pseudoField.setText("");
-            passwordField.setText("");
-            labelSuccess.setText(logged);
+        	if (Connect.checkPseudo("database.db", pseudoField.getText()) && Connect.checkPassword("database.db", pseudoField.getText(), passwordField.getText())) {
+        		// on inscris la personne
+            	System.out.println("Bonjour");
+            	Connect.insertUser("database.db",pseudoField.getText(), passwordField.getText(), 1);
+            	System.out.println("Vous êtes maintenant inscrit !");
+            	
+                labelError.setText("");
+                pseudoField.setText("");
+                passwordField.setText("");
+                labelSuccess.setText(logged);
+        	}
+        	else {
+        		// probleme pseudo ou mot de passe
+        		if (!Connect.checkPseudo("database.db", pseudoField.getText())) {
+        			// pseudo pas unique
+                    labelError.setText(incorrectPseudo);
+        		}
+        		else {
+        			// mot de passe pas aux normes
+                    labelError.setText(incorrectPassword);
+        		}
+        	}
+        	
             // on connecte la personne
             try {
             }
