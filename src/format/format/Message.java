@@ -1,5 +1,7 @@
-package format;
+package format.format;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.Object.*;
 import java.net.InetAddress;
 
@@ -121,18 +123,20 @@ public class Message {
 
         return m;
     }
-
-    /* La forme d'un packet prêt à être envoyé est :
-     * 
-     * addrSrc | addrDest | portS | portD | msg
-     * 
-     */
     
-    /*
-    public void readyToSend(int portS, int portD, InetAddress addrSrc, InetAddress addrDest) {
-    	String msg = addrSrc.toString() + addrDest.toString() + Integer.toString(portS) + Integer.toString(portD) ;
-    	this.packet = msg.getBytes();
+    
+    /* Le format d'un byte prêt à être envoyé est :
+     * 
+     * id#content#date
+     * 
+     */    
+    
+    //Renvoie un tableau de bytes prets a etre envoyes en TCP
+    public static byte[] readyToSend(int id, String content) {
+    	DateMsg date = new DateMsg();
+    	String msg = Integer.toString(id) + content + date.toString() ;
+    	return msg.getBytes();
     }
-    */
+    
     
 }
