@@ -1,4 +1,5 @@
 package communication.communication;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -7,8 +8,12 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.io.IOException;
 
+import format.format.Message;
+import format.format.DateMsg;
+
 //A VERIFIER : TAILLE DES DONNES AUTORISEES, POUR L'INSTANT : MAX_VALUE
 
+//A FAIRE : Ajout message a la BD
 
 // On a besoin d'un TCPSend et d'un TCPRecive : 
 // Le TCPSend a une methode envoieMessage qui horodate le message, l'envoie, et l'ajoute à la BD [methode]
@@ -51,23 +56,33 @@ public class TCPServer implements Runnable { //ou Thread
 	}
 	
 	public void run() {
-		
+		//on ouvre un port par nouvelle conversation
 		while (isRunning()) {
 			try {
+				//On met arrete le timer si on n'a rien recu au bout de 1sec
 				this.socket.setSoTimeout(1000);
 				Socket client = this.socket.accept();
 				
 				byte[] buff = new byte[Byte.MAX_VALUE];
 				InputStream in = client.getInputStream();
+				//On recupere la donnee recue et on la stocke dans buff
 				readMessage(client,in,buff);
 				
-				//On verifie qu'il s'agit bien d'un message
-			
-				
-				
-				
-				
-				
+				//On deserialize pour visualiser le contenu de la donnee 
+				Object inPacket = Message.deserializeMessage(buff);
+		    	Class<? extends Object> c = inPacket.getClass();
+		    	
+				//On verifie s'il s'agit d'un message
+		    	if(c.getSimpleName().equals(Message.class.getSimpleName())) {
+		    		//On recupere les infos du paquet
+		    		Message m = (Message) inPacket;
+		    		String content = m.getContent() ;
+		    		int id = m.getId();
+		    		DateMsg date = m.getDate();
+		    		
+					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					//On stocke le message dans la BD
+		    	}
 			}
 			catch (Exception e) {
 				System.out.println("[TCPServer ] Erreur run ");
@@ -75,63 +90,3 @@ public class TCPServer implements Runnable { //ou Thread
 		}			
 	} 
 }
-/*
-
-//-----------------Création du serveur TCP------------------------------------- 
-ServerSocket serverSocket = null;
-Socket sockS = null;
-OutputStream outS = null;
-InputStream inS = null;
-try {
-    serverSocket = new ServerSocket(1234); 
-    sockS = serverSocket.accept();
-    System.out.println("Serveur 1 ok : 1234");
-}
-catch (Exception e){
-    System.out.println("Erreur création du server1");
-}
-try {
-    outS = sockS.getOutputStream();
-    inS = sockS.getInputStream();
-}
-catch (Exception e){
-    System.out.println("Erreur création des inS1 et outS1");
-}
-
-
-//---------------Creation du client TCP---------------------------------------------------------------
-
-Socket sockC = null;
-OutputStream outC = null;
-InputStream inC = null;
-InetAddress addrC = null;
-try {
-    addrC = InetAddress.getLocalHost();
-    sockC = new Socket(addrC, 1234); 
-    System.out.println("Client 1 ok : 1234");
-}
-catch (Exception e){
-    System.out.println("Erreur création du socket client user1");
-}
-try {
-    outC = sockC.getOutputStream();
-    inC = sockC.getInputStream();
-}
-catch (Exception e){
-    System.out.println("Erreur création des inC et outC");
-}
-//Communication
-
-user.writeM(out_buff[1], m.getContent());
-//System.out.println("Message envoyé");
-byte[] buff = new byte[200];
-user.readM(in_buff[1], buff);
-System.out.println("Message lu");
-String mLu = new String(buff);
-System.out.println("Le message lu est : " + mLu);
-
-//fermeture des différents sockets
-try {
-sock.close();
-}
-}*/ 

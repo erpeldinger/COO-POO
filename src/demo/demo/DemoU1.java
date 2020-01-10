@@ -1,4 +1,4 @@
-package demo;
+package demo.demo;
 
 import java.lang.Object.*;
 import java.io.InputStream;
@@ -7,22 +7,29 @@ import java.net.*;
 import java.io.IOException;
 
 
-import user.User;
+import user.*;
 import communication.*;
+import format.format.DateMsg;
+import format.format.Message;
 
 public class DemoU1 {
     
     public static void main (String[] args){
     	
-    	
-
+    	DateMsg d = new DateMsg();
+    	Class<? extends Object> c = d.getClass();
+    	System.out.println("getName():          " + c.getName());
+        System.out.println("getCanonicalName(): " + c.getCanonicalName());
+        System.out.println("getSimpleName():    " + c.getSimpleName());
+        System.out.println("getSimpleName):         " + Message.class.getSimpleName());
+        
         //-----------------Création d'un user et de son message-------------------------------------
     	
         /*User user = new User(1, "Toto1", "titi");
         Message m = user.createM("Bonjour, je suis Toto1. ");
         Message mBroadCast = user.createM("Broadcast : qui est là ?");
 		*/
-    	
+    	/*
         //-----------------Création du serveur TCP------------------------------------- 
         ServerSocket serverSocket = null;
         Socket sockS = null;
@@ -66,7 +73,7 @@ public class DemoU1 {
         catch (Exception e){
             System.out.println("Erreur création des inC et outC");
         }
-        
+        */
         //----------------------Récupération des utilisateurs connectés -------------------------------
         
         // envoie de message en Broadcast, attente de réception et création de la liste des utlisateurs connectes
@@ -118,13 +125,14 @@ public class DemoU1 {
 	    
         
 	    //------------------ Fermeture des sockets-----------------------------------------------------------
-	    try {
+	    /*
+    	try {
 	    	sockS.close();
 	    	serverSocket.close();
 	    }
 	    catch (Exception e) {
 	    	System.out.println("Erreur fermeture de sockets 1");
-	    }        
+	    }*/        
 	}                     
 }
 

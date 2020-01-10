@@ -5,8 +5,11 @@ import java.net.Socket;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import user.user.User;
+import format.format.Message;
 
 //AJOUT DU MESSAGE A LA BD A FAIRE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//utiliser serialize
 
 public class TCPClient {
 
@@ -22,7 +25,8 @@ public class TCPClient {
 	
 	public void writeM(OutputStream out, String msg) {
     	try {
-    		byte[] buff = Message.readyToSend(user.getId(),msg);
+    		Message m = Message.readyToSend(user.getId(),msg);
+    		byte[] buff = Message.serializeMessage(m);
     		out.write(buff);
     	}
     	catch (Exception e) {
@@ -44,84 +48,3 @@ public class TCPClient {
         }		
 	}	
 }
-/*
- * 
-    public void writeM(Socket socket, OutputStream out, String msg) {
-    	try {
-        out.write(msg.getBytes());
-    	}
-    	catch (Exception e) {
-    		System.out.println("erreur methode writeM");
-    	}
-    			
-    }
-
-    public void readM(Socket socket, InputStream in, byte[] buff) { 
-    	try {
-	        while (in.available() <=0 ) {
-	        }
-	        in.read(buff);
-    	}
-    	catch (Exception e) {
-		System.out.println("erreur methode writeM");
-    	}
-    }
-
-//-----------------Création du serveur TCP------------------------------------- 
-ServerSocket serverSocket = null;
-Socket sockS = null;
-OutputStream outS = null;
-InputStream inS = null;
-try {
-    serverSocket = new ServerSocket(1234); 
-    sockS = serverSocket.accept();
-    System.out.println("Serveur 1 ok : 1234");
-}
-catch (Exception e){
-    System.out.println("Erreur création du server1");
-}
-try {
-    outS = sockS.getOutputStream();
-    inS = sockS.getInputStream();
-}
-catch (Exception e){
-    System.out.println("Erreur création des inS1 et outS1");
-}
-
-
-//---------------Creation du client TCP---------------------------------------------------------------
-
-Socket sockC = null;
-OutputStream outC = null;
-InputStream inC = null;
-InetAddress addrC = null;
-try {
-    addrC = InetAddress.getLocalHost();
-    sockC = new Socket(addrC, 1234); 
-    System.out.println("Client 1 ok : 1234");
-}
-catch (Exception e){
-    System.out.println("Erreur création du socket client user1");
-}
-try {
-    outC = sockC.getOutputStream();
-    inC = sockC.getInputStream();
-}
-catch (Exception e){
-    System.out.println("Erreur création des inC et outC");
-}
-//Communication
-
-user.writeM(out_buff[1], m.getContent());
-//System.out.println("Message envoyé");
-byte[] buff = new byte[200];
-user.readM(in_buff[1], buff);
-System.out.println("Message lu");
-String mLu = new String(buff);
-System.out.println("Le message lu est : " + mLu);
-
-//fermeture des différents sockets
-try {
-sock.close();
-}
-}*/ 
