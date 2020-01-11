@@ -197,6 +197,7 @@ public class Connect {
       /* ------------------------------------------SUPPRESSION--------------------------------------*/
 
       // Suppression d'un utilisateur dans la table User
+      //System.out.println("Tentative de requete sql : " + sql );
       public static void deleteUser(String filename, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "DELETE FROM User WHERE id = ?;";
@@ -371,10 +372,11 @@ public class Connect {
       // Récupération d'une conversation entre id1 et id2 dans la liste Conversation. retourne une liste de String de forme : content||date
       public static ArrayList<String> queryConversation(String filename, int id1, int id2) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT content, date FROM Conversation WHERE idUser1 = '" + Integer.valueOf(id1) + "' , idUser2 = '" + Integer.valueOf(id2) + "';";
+          String sql = "SELECT content, date FROM Conversation WHERE idUser1 = " + Integer.valueOf(id1) + " AND idUser2 = " + Integer.valueOf(id2) + ";";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
+          System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
