@@ -13,6 +13,10 @@ import java.sql.ResultSet;
  * @author sqlitetutorial.net
  */
 public class Connect {
+	private static int id=0;
+	
+	//get id
+	public static int getId() {return id; }
 	
     //connect to the database, and create it if it doesn't exist
     public static void createNewDatabase(String fileName) {
@@ -139,7 +143,6 @@ public class Connect {
             System.out.println(e.getMessage());
         }
     }
-
     
     /* ------------------------------------------INSERTION--------------------------------------*/
     
@@ -154,6 +157,7 @@ public class Connect {
                     pstmt.setString(2, pass);
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
+            id++;
             //System.out.println("A User has been created in User");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT]" + e.getMessage());

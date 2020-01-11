@@ -160,7 +160,8 @@ public class Connexion implements ActionListener {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    //private static void createAndShowGUI() {
+    public Connexion() {
         //Set the look and feel.
         initLookAndFeel();
         
@@ -171,15 +172,25 @@ public class Connexion implements ActionListener {
         JFrame frame = new JFrame("Connexion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        Connexion app = new Connexion();
-        Component contents = app.createComponents();
+        //Connexion app = new Connexion();
+        Component contents = createComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
         
         //Display the window.
         frame.pack();
         frame.setVisible(true);
     }
+    /*
+    public Connexion() {
+    	javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+    /*
     
+    /*
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
@@ -189,4 +200,5 @@ public class Connexion implements ActionListener {
             }
         });
     }
+    */
 }

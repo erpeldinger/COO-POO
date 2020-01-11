@@ -29,7 +29,7 @@ public class DemoHistorique {
     	Scanner scMsg = new Scanner(System.in);
     	System.out.println("Veuillez saisir votre message :");
     	String strMsg = scMsg.nextLine();
-    	Message msgHorodate = Message.readyToSend(1, strMsg);
+    	Message msgHorodate = Message.toSend(1, strMsg);
     	//insertion du message dans la bd
     	Connect.insertConversation("database.db",1,2,msgHorodate.getContent(),DateMsg.toString(msgHorodate.getDate()));
     	System.out.println("Message insere : " + msgHorodate.getContent() + " " + DateMsg.toString(msgHorodate.getDate()));
@@ -38,7 +38,7 @@ public class DemoHistorique {
     	Scanner scMsg2 = new Scanner(System.in);
     	System.out.println("Veuillez saisir votre message :");
     	String strMsg2 = scMsg2.nextLine();
-    	Message msgHorodate2 = Message.readyToSend(1, strMsg2);
+    	Message msgHorodate2 = Message.toSend(1, strMsg2);
     	//insertion du message dans la bd
     	Connect.insertConversation("database.db",2,1,msgHorodate2.getContent(),DateMsg.toString(msgHorodate2.getDate()));
     	System.out.println("Message insere : " + msgHorodate.getContent() + " " + DateMsg.toString(msgHorodate2.getDate()));

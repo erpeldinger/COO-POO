@@ -8,6 +8,7 @@ package inscription;
 import javax.swing.*;
 
 import requete.Connect;
+import connexion.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class Inscription implements ActionListener {
     
     // Tous les labels
+	private JFrame frame;
     private static String pseudo = "Pseudo : ";
     private String password = "Mot de passe : ";
     private String connect = "Se connecter";
@@ -41,12 +43,18 @@ public class Inscription implements ActionListener {
     //null (use the default), "Metal", "System", "Motif", "GTK+"
     final static String LOOKANDFEEL = null;
     
-    //creation du button d'envoie de message
     public Component createComponents() {
+        //creation du button d'inscription
         JButton button = new JButton("S'inscrire");
         button.setMnemonic(KeyEvent.VK_I);
         button.addActionListener(this);
         labelConnect.setLabelFor(button);
+        
+        //creation du button de redirection vers la page de connexion
+        JButton buttonConnect = new JButton("Se connecter");
+        buttonConnect.setMnemonic(KeyEvent.VK_I);
+        buttonConnect.addActionListener(this);
+        labelConnect.setLabelFor(buttonConnect);
         
         /*
          * An easy way to put space between a top-level container
@@ -61,6 +69,7 @@ public class Inscription implements ActionListener {
         pane.add(passwordField);
         pane.add(button);
         pane.add(labelSuccess);
+        pane.add(buttonConnect);
         pane.setBorder(BorderFactory.createEmptyBorder(
                 30, //top
                 30, //left
@@ -74,6 +83,13 @@ public class Inscription implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e) {
+    	if (e.getActionCommand().equals("Se connecter")){
+    		Connexion pageConnexion = new Connexion();
+    		frame.setVisible(false);
+    	}
+    	else
+    	if (e.getActionCommand().equals("S'inscrire")) {
+    	
     	Connect.createNewDatabase("database.db");
     	Connect.deleteTable("database.db", "User");
     	Connect.createNewTableUser("database.db");
@@ -90,7 +106,7 @@ public class Inscription implements ActionListener {
         	if (Connect.checkPseudo("database.db", pseudoField.getText()) && Connect.checkPassword("database.db", pseudoField.getText(), passwordField.getText())) {
         		// on inscris la personne
             	System.out.println("Bonjour");
-            	Connect.insertUser("database.db",pseudoField.getText(), passwordField.getText(), 1);
+            	Connect.insertUser("database.db",pseudoField.getText(), passwordField.getText(), Connect.getId());
             	System.out.println("Vous êtes maintenant inscrit !");
             	
                 labelError.setText("");
@@ -118,6 +134,7 @@ public class Inscription implements ActionListener {
             }
             
         }
+    	}
     }
     
     private static void initLookAndFeel() {
@@ -168,7 +185,8 @@ public class Inscription implements ActionListener {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    //private static void createAndShowGUI() {
+    public Inscription() {
         //Set the look and feel.
         initLookAndFeel();
         
@@ -176,11 +194,11 @@ public class Inscription implements ActionListener {
         JFrame.setDefaultLookAndFeelDecorated(true);
         
         //Create and set up the window.
-        JFrame frame = new JFrame("Inscription");
+        this.frame = new JFrame("Inscription");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        Inscription app = new Inscription();
-        Component contents = app.createComponents();
+        //Inscription app = new Inscription();
+        Component contents = createComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
         
         //Display the window.
@@ -188,7 +206,7 @@ public class Inscription implements ActionListener {
         frame.setVisible(true);
     }
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -197,4 +215,5 @@ public class Inscription implements ActionListener {
             }
         });
     }
+    */
 }

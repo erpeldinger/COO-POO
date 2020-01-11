@@ -19,6 +19,7 @@ public class Clavardage implements ActionListener {
     private String etatEnvoiEnCours = "En cours d'envoi";
     private String etatErreur = "Non envoyé, erreur";
     final JLabel labelMessage = new JLabel(labelPrefix + etatEnCreation);
+    final JLabel labelConv = new JLabel("");
     
     // Messages d'erreur
     final JLabel labelError = new JLabel("");
@@ -44,6 +45,7 @@ public class Clavardage implements ActionListener {
          * that has an "empty" border.
          */
         JPanel pane = new JPanel(new GridLayout(0, 1));
+        pane.add(labelConv);
         pane.add(labelError);
         pane.add(messageField);
         pane.add(button);
@@ -71,9 +73,13 @@ public class Clavardage implements ActionListener {
             try {
                 //Envoyer le message
                 labelMessage.setText(labelPrefix + etatEnvoye);
-                //Sauvegarder le message dans la liste des NewMessage
-                messageField.setText(""); //Vide le champ texte
-                //Afficher le message 
+                
+                //Sauvegarder le message dans la base de donnes
+                
+                //Afficher le message
+                labelConv.setText(messageField.getText());
+
+                messageField.setText("");
             }
             catch (Exception ex){
                 labelMessage.setText(labelPrefix + etatEnvoiEnCours);
