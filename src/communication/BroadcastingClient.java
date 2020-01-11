@@ -78,12 +78,15 @@ public class BroadcastingClient {
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
 	    	//System.out.println("creation dtg packet");
 	    	socket.send(packet);
+    		System.out.println("[BROADCASTING CLIENT] sendBroadcast");
 	    	//System.out.println("socket.send(packet)");
 			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
-			String rep = new String(outPacket.getData(), 0, outPacket.getLength());
+	    	
+	    	socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
+			/*
+	    	String rep = new String(outPacket.getData(), 0, outPacket.getLength());
 
-    		System.out.println("[BROADCASTING CLIENT] sendBroadcast");
     		//socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
         	System.out.println("[BROADCASTING CLIENT] setsotime out\n"); 
 			socket.receive(outPacket);				
@@ -94,6 +97,7 @@ public class BroadcastingClient {
     		//Ajoute l'id de la personne qui répond
     		user.getListIdUserConnected().add(Message.toMessage(rep).getId());
         	System.out.println("[BROADCASTING CLIENT] Ajout users dans liste des users connectes ok.\n"); 
+        	*/
 
 			socket.close();
 			System.out.println("[BROADCASTING CLIENT] Socket.close()");

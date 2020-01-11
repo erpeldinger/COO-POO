@@ -73,11 +73,11 @@ public class ListenerUDP extends Thread {
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
 		    	//System.out.println("[LISTENER UDP] Création inPacket ok");
 		    	socket.receive(inPacket);
-		    	//System.out.println("[LISTENER UDP] Réception inPacket ok");
+		    	System.out.println("[LISTENER UDP] Réception inPacket ok");
 		    	
 		    	//Print message broadcast
 		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
-				//System.out.println("[LISTENER UDP] print msg "+msg);	
+				System.out.println("[LISTENER UDP] print msg "+msg);	
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (isBroadcastPacket(msg)) {
@@ -87,18 +87,25 @@ public class ListenerUDP extends Thread {
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
 		    		//System.out.println("[LISTENER UDP] If -> end");
-		    	}
-		    	else {
-		    		//c'est un message de réponse de Broadcast
-		    		//System.out.println("[LISTENER UDP] Else -> debut");
-					//Ajoute l'id de la personne qui envoie le message
+		    		//ajout de l'user dans la LUC
 		    		this.userLUC.add(Message.toMessageBdc(msg).getId());
-			    	//System.out.println("[LISTENER UDP] Add ok");
-			    	
+			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
 			    	for(int id: this.userLUC) {
 			        	 System.out.println("User connecte : \n" +id + " \n");
 			        }
+		    	}
+		    	else {
+		    		//c'est un message de réponse de Broadcast
+		    		System.out.println("[LISTENER UDP] Else -> debut");
+		    		//ajout de l'user dans la LUC
+		    		this.userLUC.add(Message.toMessageBdc(msg).getId());
+			    	System.out.println("[LISTENER UDP] Add ok");
+			    	//Affiche la liste des utilisateurs connectes
+			    	for(int id: this.userLUC) {
+			        	 System.out.println("User connecte : \n" +id + " \n");
+			        }
+					
 				}		    		
     		}
     		

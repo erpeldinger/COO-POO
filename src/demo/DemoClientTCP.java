@@ -17,7 +17,7 @@ public class DemoClientTCP {
     	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
         System.out.println("addr ok");
     	User u2 = new User(88,"ClientTiti","mdp",1246,addrbr);
-    	//u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
+    	u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
         
 
         Socket socket = new Socket(addrLo,port); 

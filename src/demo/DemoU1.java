@@ -14,22 +14,31 @@ import format.Message;
 
 public class DemoU1 {
     
+    public void writeM(OutputStream out, String msg) {
+    	try {
+        out.write(msg.getBytes());
+    	}
+    	catch (Exception e) {
+    		System.out.println("erreur methode writeM");
+    	}
+
+    }
+
+    public void readM(InputStream in, byte[] buff) { 
+    	try {
+	        while (in.available() <=0 ) {
+	        }
+	        in.read(buff);
+    	}
+    	catch (Exception e) {
+		System.out.println("erreur methode writeM");
+    	}
+    }
+	
+	
     public static void main (String[] args){
     	
-    	DateMsg d = new DateMsg();
-    	Class<? extends Object> c = d.getClass();
-    	System.out.println("getName():          " + c.getName());
-        System.out.println("getCanonicalName(): " + c.getCanonicalName());
-        System.out.println("getSimpleName():    " + c.getSimpleName());
-        System.out.println("getSimpleName):         " + Message.class.getSimpleName());
-        
-        //-----------------Création d'un user et de son message-------------------------------------
-    	
-        /*User user = new User(1, "Toto1", "titi");
-        Message m = user.createM("Bonjour, je suis Toto1. ");
-        Message mBroadCast = user.createM("Broadcast : qui est là ?");
-		*/
-    	/*
+
         //-----------------Création du serveur TCP------------------------------------- 
         ServerSocket serverSocket = null;
         Socket sockS = null;
@@ -73,120 +82,28 @@ public class DemoU1 {
         catch (Exception e){
             System.out.println("Erreur création des inC et outC");
         }
-        */
-        //----------------------Récupération des utilisateurs connectés -------------------------------
-        
-        // envoie de message en Broadcast, attente de réception et création de la liste des utlisateurs connectes
-        
-        
-        
-        /*
-       	//Création du serveur UDP
-        DatagramSocket  dgSocket = new DatagramSocket(1234);
-        byte[] buffer = new byte[256];
-        DatagramPacket inPacket= new DatagramPacket(buffer, buffer.length);
-        dgSocket.receive(inPacket);
-        InetAddress clientAddress= inPacket.getAddress();
-        int clientPort= inPacket.getPort();
-        String message = new String(inPacket.getData(), 0, inPacket.getLength());
-        DatagramPacket outPacket= new DatagramPacket(response.getBytes(), response.length(),clientAddress, clientPort);
-        dgSocket.send(outPacket);
-        dgSocket.close();
-        
-        // Création du client UDP
-        InetAddress host = ;
-        int port = 3333;
-        DatagramSocket dgSocketClient= new DatagramSocket();
-        DatagramPacket outPacketClient= new DatagramPacket(message.getBytes(), message.length(),host, port);
-        dgSocketClient.send(outPacket);
-        byte[] bufferClient = new byte[256];
-        DatagramPacket inPacketClient= new DatagramPacket(bufferClient, bufferClient.length);
-        dgSocketClient.receive(inPacketClient);
-        String response = new String(inPacketClient.getData(), 0, inPacketClient.getLength());
-        dgSocketClient.close();
-        */
-        
-        
-        /*for(int port = 1;port<1300;port++){
-    	    try{           	    	
-    	    	//Envoi d'un message en broadcast
-    	        user.writeM(outC, mBroadCast.getContent());
-    	        //System.out.println("Message envoyé");
-    	    }   
-    	    catch (Exception e) {
-    	    	System.out.println();
-    	    }
-        }
-    	byte[] buff = new byte[200];  
-        user.readM(inS, buff);
+
+
+        //-------------------Communication--------------------------------------------------------
+        byte[] buff = new byte[200];  
+        readM(inS, buff);
         System.out.println("Message lu");
         String m1Lu = new String(buff);
-        System.out.println("Le message lu est : " + m1Lu);*/
-	    
+        System.out.println("Le message lu est : " + m1Lu);
         
-	    //------------------ Fermeture des sockets-----------------------------------------------------------
-	    /*
-    	try {
-	    	sockS.close();
-	    	serverSocket.close();
-	    }
-	    catch (Exception e) {
-	    	System.out.println("Erreur fermeture de sockets 1");
-	    }*/        
-	}                     
-}
-
-
-/*//---------------------Création du scanner------------------------- 
-
-        Socket sock=null;
-        OutputStream out = null;
-        InputStream in = null;
-        InetAddress addr = null;
-        Socket sock_buff[]= null;
-        OutputStream out_buff[] = null;
-        InputStream in_buff[] = null;
-        int i_sock = 0; 
-        
-	for(int port = 1;port<1300;port++){
-	    try{       
-	    	sock = new Socket(addrC, port);     
-	        sock_buff[i_sock] = sock;
-	        System.out.println("Création socket d'indice " + i_sock + " sur port : " + port);
-	        i_sock++;
-	    }
-	    catch (Exception e) {
-	    	System.out.println("Port " + port + " fermé");
-	    }
-	    
-	    if (sock!=null) {
-	        try {
-	            out_buff[i_sock] = sock_buff[i_sock].getOutputStream();
-	            in_buff[i_sock] = sock_buff[i_sock].getInputStream();
-	        }
-	        catch (Exception e){
-	            System.out.println("Erreur création des in et out");
-	        }
-	    }
-	    
-	        //Communication
-	        
-	        user.writeM(out_buff[1], m.getContent());
+	        writeM(out_buff[1], m.getContent());
 	        //System.out.println("Message envoyé");
 	        byte[] buff = new byte[200];
-	        user.readM(in_buff[1], buff);
+	        readM(in_buff[1], buff);
 	        System.out.println("Message lu");
 	        String mLu = new String(buff);
 	        System.out.println("Le message lu est : " + mLu);
 	
 	        //fermeture des différents sockets
-	        try {
-	        sock.close();
-	        }
-	
-	    catch(Exception e){
-	        //System.out.println("Port " + port + " fermé");
-	    	}
-	    }
 
-*/
+	        sockC.close();
+	        sockS.close();
+	    	serverSocket.close();
+
+	    }
+}
