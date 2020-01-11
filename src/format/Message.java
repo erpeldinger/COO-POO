@@ -1,16 +1,6 @@
 package format;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
-// RQ A VOIR : avec la serialization plus besoin du format de message String avec #
-// --> plus besoin de passer par des String
-// REFAIRE LES toString() etc. avec des try catch
-
-public class Message implements Serializable {
+public class Message {
 
     //Attributs
     private String content;
@@ -122,52 +112,60 @@ public class Message implements Serializable {
         catch (Exception e) {
         	System.out.println("[Message] Erreur toMessageBdc ");
         }
-
         return m;
     }        
    
-    public static byte[] serializeMessage(Object packet) {
-    	try {
-    		Class<? extends Object> c = packet.getClass();
-	    	
-			//On verifie s'il s'agit d'un message
-	    	System.out.println("[Message] format : "+c.getSimpleName());
-    		
-	    	ByteArrayOutputStream outByte = new ByteArrayOutputStream();
-	    	ObjectOutputStream outPacket = new ObjectOutputStream(outByte);
-	    	outPacket.writeObject(outPacket);
-			System.out.println("writeok");
-	    	return outByte.toByteArray();
-	    }
-		catch (Exception e) {
-			System.out.println("[Message] Erreur serializeMessage " + e);
-			return null;
-		} 
-    }
-        
-    public static Object deserializeMessage(byte[] buff) {
-    	try {
-    		ByteArrayInputStream byteIn = new ByteArrayInputStream(buff);
-    		ObjectInputStream objectIn = new ObjectInputStream(byteIn);
-    		return (Object) objectIn.readObject();
-    	}
-    	catch (Exception e) {
-    		System.out.println("[Message] Erreur deserializeMessage ");
-    		return null;
-    	}    	
-    }
 
     //Renvoie un Message pret a etre serialize pour etre envoye en TCP
-    public static Message readyToSend(int id, String content) {
+    public static Message toSend(int id, String content) {
 	    try { 
 	    	DateMsg date = new DateMsg();
 	    	Message m = new Message(content,date,id);
 	    	return m;
 	    }
 		catch (Exception e) {
-			System.out.println("[Message] Erreur deserializeMessage ");
+			System.out.println("[Message] Erreur toSend ");
 			return null;
 		} 
     }
+    public static byte[] readyToSend(int id, String content) {
+    	try {
+    		DateMsg date = new DateMsg();
+	    	Message m = new Message(content,date,id);
+    		String s = Message.toString(m.getId(),m.getContent(),m.getDate());
+    		byte[] buff = s.getBytes();
+    		return buff;
+    	}
+    	catch (Exception e) {
+    		System.out.println("[Message] Erreur readyToSend(id,content)");
+    		return null;
+    	}
+    }
+    
+    public static byte[] readyToSend(Message m) {
+    	try {
+    		String s = Message.toString(m.getId(),m.getContent(),m.getDate());
+    		byte[] buff = s.getBytes();
+    		return buff;
+    	}
+    	catch (Exception e) {
+    		System.out.println("[Message] Erreur readyToSend(message)");
+    		return null;
+    	}
+    }
+    
+    public static Message readMessage(byte[] buff) {
+    	try {
+	    	String s = new String(buff);
+			Message m = Message.toMessage(s);	    	
+			System.out.println("Message recu : " + Message.toString(m.getId(),m.getContent(),m.getDate()));
+			return m;
+    	}
+    	catch (Exception e) {
+    		System.out.println("[Message] Erreur readMessage ");
+    		return null;
+    	}
+    }
+    
     
 }
