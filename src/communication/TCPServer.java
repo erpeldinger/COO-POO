@@ -12,7 +12,6 @@ import format.Message;
 import format.DateMsg;
 
 //A VERIFIER : TAILLE DES DONNES AUTORISEES, POUR L'INSTANT : MAX_VALUE
-
 //A FAIRE : Ajout message a la BD
 
 // On a besoin d'un TCPSend et d'un TCPRecive : 

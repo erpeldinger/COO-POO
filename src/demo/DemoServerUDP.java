@@ -1,17 +1,10 @@
 package demo;
 
-import java.lang.Object.*;
-import java.util.Date;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.*;
-import java.lang.Thread;
-
-
 import user.User;
 import communication.*;
 
-public class DemoU2 {
+public class DemoServerUDP {
     
     public static void main (String[] args) throws SocketException, Exception {
     	//Serveur
