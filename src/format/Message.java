@@ -4,12 +4,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 // RQ A VOIR : avec la serialization plus besoin du format de message String avec #
 // --> plus besoin de passer par des String
 // REFAIRE LES toString() etc. avec des try catch
 
-public class Message {
+public class Message implements Serializable {
 
     //Attributs
     private String content;
@@ -127,13 +128,19 @@ public class Message {
    
     public static byte[] serializeMessage(Object packet) {
     	try {
-    	ByteArrayOutputStream outByte = new ByteArrayOutputStream();
-    	ObjectOutputStream outPacket = new ObjectOutputStream(outByte);
-    	outPacket.writeObject(outPacket);
-    	return outByte.toByteArray();
+    		Class<? extends Object> c = packet.getClass();
+	    	
+			//On verifie s'il s'agit d'un message
+	    	System.out.println("[Message] format : "+c.getSimpleName());
+    		
+	    	ByteArrayOutputStream outByte = new ByteArrayOutputStream();
+	    	ObjectOutputStream outPacket = new ObjectOutputStream(outByte);
+	    	outPacket.writeObject(outPacket);
+			System.out.println("writeok");
+	    	return outByte.toByteArray();
 	    }
 		catch (Exception e) {
-			System.out.println("[Message] Erreur serializeMessage ");
+			System.out.println("[Message] Erreur serializeMessage " + e);
 			return null;
 		} 
     }

@@ -51,7 +51,7 @@ public class DateMsg {
 
     //methodes
     public static String toString(DateMsg date){
-        return new String(Integer.toString(date.year) + ":" + Integer.toString(date.month) + ":" + Integer.toString(date.day) + ":" + Integer.toString(date.hour) + ":" + Integer.toString(date.min) + ":" + Integer.toString(date.sec));
+        return new String(Integer.toString(date.year) + ":" + Integer.toString(date.month) + ":" + Integer.toString(date.day) + ":" + Integer.toString(date.hour) + ":" + Integer.toString(date.min) + ":" + Integer.toString(date.sec)+":");
     }
     
 }

@@ -25,9 +25,15 @@ public class TCPClient {
 	
 	public void writeM(OutputStream out, String msg) {
     	try {
+    		System.out.println("Message a envoye : " + msg);
     		Message m = Message.readyToSend(user.getId(),msg);
-    		byte[] buff = Message.serializeMessage(m);
+    		String s = Message.toString(m.getId(),m.getContent(),m.getDate());
+    		System.out.println("Message a envoye : " + s);
+    		byte[] buff = s.getBytes();
+    				//Message.serializeMessage(m);
     		out.write(buff);
+    		
+    		
     	}
     	catch (Exception e) {
     		System.out.println("[TCPClient] Erreur writeM");

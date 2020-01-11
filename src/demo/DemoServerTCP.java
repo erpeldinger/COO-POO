@@ -11,13 +11,13 @@ public class DemoServerTCP {
     public static void main (String[] args) throws SocketException, Exception {
     	
     	//Server
-    	/*
+    	
     	int port = 1234;
     	InetAddress addr = InetAddress.getLocalHost();
     	User u2 = new User(99,"UserEnvoieBroadcast","mdp",1288,addr);
-    	TCPServer server = new TCPServer(port);
-    	*/
+    	TCPServer server = new TCPServer(port, 99);
     	
+    	/*
     	ServerSocket serverSocket = null;
         Socket sockS = null;
         OutputStream outS = null;
@@ -46,5 +46,6 @@ public class DemoServerTCP {
         serverSocket.close();
         }
         catch( Exception e) {}
+        */
     }
 }

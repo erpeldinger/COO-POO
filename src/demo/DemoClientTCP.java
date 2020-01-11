@@ -12,7 +12,6 @@ public class DemoClientTCP {
     public static void main (String[] args) throws SocketException, Exception, IOException, SecurityException, IllegalArgumentException, NullPointerException {
     	
     	//CLIENT 
-    	/*
     	int port = 1234;
     	InetAddress addr = InetAddress.getLocalHost();
         System.out.println("addr ok");
@@ -22,13 +21,13 @@ public class DemoClientTCP {
     	TCPClient server = new TCPClient(socket,u1);
     	
     	server.sendMessage("Coucou c'est client, ca boom ?");
-    	*/
     	
+    	/*
     	Socket sockC = null;
         OutputStream outC = null;
         InputStream inC = null;
         InetAddress addrC = null;
-        //try {
+        try {
             addrC = InetAddress.getLocalHost();
             sockC = new Socket(addrC, 1234); 
             System.out.println("Client 1 ok : 1234");
@@ -36,7 +35,7 @@ public class DemoClientTCP {
         catch (Exception e){
             System.out.println("Erreur création du socket client user1");
         }
-        */
+        
             outC = sockC.getOutputStream();
             inC = sockC.getInputStream();
         //fermeture des différents sockets
@@ -44,6 +43,6 @@ public class DemoClientTCP {
         sockC.close();
         }
         catch( Exception e) {}
-    	
+    	*/
     }
 }

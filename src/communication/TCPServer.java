@@ -3,6 +3,7 @@ package communication;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 import format.Message;
 import format.DateMsg;
+import requete.Connect;
 
 //A VERIFIER : TAILLE DES DONNES AUTORISEES, POUR L'INSTANT : MAX_VALUE
 //A FAIRE : Ajout message a la BD
@@ -23,10 +25,13 @@ public class TCPServer extends Thread {
 	//Attributs
 	private ServerSocket socket;
 	private boolean running;
+	private int id;
 	
 	//Constructeurs
-	public TCPServer(int port) throws IOException {
+	public TCPServer(int port, int id) throws IOException {
 		this.socket = new ServerSocket(port);
+		System.out.println("[TCPServer Costructeur] port : " + port);
+		this.id=id;
 		this.running = true;
 		start();
 	}
@@ -41,7 +46,7 @@ public class TCPServer extends Thread {
 	        in.read(buff);
     	}
     	catch (Exception e) {
-		System.out.println("[TCPClient ] Erreur readMessage ");
+		System.out.println("[TCPServer] Erreur readMessage ");
     	}
     }
 	
@@ -61,8 +66,7 @@ public class TCPServer extends Thread {
 			System.out.println("[TCPServer ] avant try ");
 			try {
 				//On met arrete le timer si on n'a rien recu au bout de 1sec
-				this.socket.setSoTimeout(1000);
-				System.out.println("[TCPServer ] apres setsotime ");
+				//this.socket.setSoTimeout(5000);
 				Socket server = this.socket.accept();
 				System.out.println("[TCPServer ] accept ok ");
 				
@@ -70,25 +74,26 @@ public class TCPServer extends Thread {
 				InputStream in = server.getInputStream();
 				//On recupere la donnee recue et on la stocke dans buff
 				readMessage(server,in,buff);
+	    		
 				
 				//On deserialize pour visualiser le contenu de la donnee 
-				Object inPacket = Message.deserializeMessage(buff);
-		    	Class<? extends Object> c = inPacket.getClass();
+	    		String s = new String(buff);
+	    		System.out.println("Message recu : " + s );
+	    		Message m = Message.toMessage(s);	    	
+	    		String content = m.getContent() ;
+	    		int idDest = m.getId();
+	    		DateMsg date = m.getDate();
+	    		System.out.println("Message recu : " + Message.toString(idDest, content, date));
+	    		
+	    		//stockage dans la bd
+	    		Connect.createNewDatabase("database.db");
+	        	Connect.createNewTableConv("database.db");
+	    		Connect.insertConversation("database.db",this.id, idDest, content, date.toString());
+				
 		    	
-				//On verifie s'il s'agit d'un message
-		    	if(c.getSimpleName().equals(Message.class.getSimpleName())) {
-		    		//On recupere les infos du paquet
-		    		Message m = (Message) inPacket;
-		    		String content = m.getContent() ;
-		    		int id = m.getId();
-		    		DateMsg date = m.getDate();
-		    		
-					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					//On stocke le message dans la BD
-		    	}
 			}
 			catch (Exception e) {
-				System.out.println("[TCPServer ] Erreur run ");
+				System.out.println("[TCPServer ] Erreur run " + e);
 			}
 		}			
 	} 

@@ -106,11 +106,11 @@ public class Connect {
         String url = "jdbc:sqlite:./database/"+filename;
         
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS Conversation (\n"
-                + "    idUser1 PRIMARY KEY NOT NULL\n"
-                + "    idUser2 NOT NULL,\n"
+        String sql = "CREATE TABLE IF NOT EXISTS Conversation(\n"
+                + "    idUser1 PRIMARY KEY NOT NULL,\n"
+                + "    idUser2 INTEGER NOT NULL,\n"
                 + "    content text NOT NULL,\n"
-                + "    date text NOT NULL,\n"
+                + "    date text NOT NULL\n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
@@ -179,7 +179,8 @@ public class Connect {
       public static void insertConversation(String filename, int id1, int id2, String content, String date) {
       	String url = "jdbc:sqlite:./database/"+filename;
           String sql = "INSERT INTO Conversation (idUser1, idUser2, content, date) VALUES (?, ?, ?, ?);";
-          
+
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id1);
