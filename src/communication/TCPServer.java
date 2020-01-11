@@ -1,4 +1,4 @@
-package communication.communication;
+package communication;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,8 +8,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.io.IOException;
 
-import format.format.Message;
-import format.format.DateMsg;
+import format.Message;
+import format.DateMsg;
 
 //A VERIFIER : TAILLE DES DONNES AUTORISEES, POUR L'INSTANT : MAX_VALUE
 

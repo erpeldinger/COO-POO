@@ -1,4 +1,4 @@
-package format.format;
+package format;
 
 import java.lang.Object.*;
 import java.util.Calendar;

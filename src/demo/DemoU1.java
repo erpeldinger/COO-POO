@@ -1,4 +1,4 @@
-package demo.demo;
+package demo;
 
 import java.lang.Object.*;
 import java.io.InputStream;
@@ -9,8 +9,8 @@ import java.io.IOException;
 
 import user.*;
 import communication.*;
-import format.format.DateMsg;
-import format.format.Message;
+import format.DateMsg;
+import format.Message;
 
 public class DemoU1 {
     

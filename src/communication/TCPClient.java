@@ -1,12 +1,12 @@
-package communication.communication;
+package communication;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
-import user.user.User;
-import format.format.Message;
+import user.User;
+import format.Message;
 
 //AJOUT DU MESSAGE A LA BD A FAIRE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //utiliser serialize

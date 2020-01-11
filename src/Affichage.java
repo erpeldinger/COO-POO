@@ -1,6 +1,7 @@
 import java.lang.Object.*;
 import java.util.ArrayList;
 
+import user.*;
 public class Affichage{
     
     //Attributs

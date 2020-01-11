@@ -1,6 +1,8 @@
 import java.lang.Object.*;
 import java.util.ArrayList;
 
+import user.*;
+
 public class SystConv{
     
     //Attributs
@@ -25,10 +27,10 @@ public class SystConv{
     private Boolean convExists(){ return false;
     }
 
-    private Conv getHistorique(U2 user1, U2 user2){ return new Conv();
-    }
+    //private Conv getHistorique(U2 user1, U2 user2){ return new Conv();
+    //}
 
-    private void updateHistConv(Conv listNewM){}
+    //private void updateHistConv(Conv listNewM){}
 
     private void notifyModifiedPseudo(U2 user){}
 

@@ -1,4 +1,4 @@
-package demo.demo;
+package demo;
 
 import java.lang.Object.*;
 import java.net.*;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import java.util.Scanner; 
 
-import requete.requete.Connect;
+import requete.Connect;
 
 public class DemoInscription {
     

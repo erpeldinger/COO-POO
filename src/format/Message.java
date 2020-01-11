@@ -1,4 +1,4 @@
-package format.format;
+package format;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
