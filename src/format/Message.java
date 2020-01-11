@@ -87,7 +87,7 @@ public class Message implements Serializable {
     }
     
     public static String toString(int id, String content){
-        return new String(Integer.tostString(id) + "#" + content.toString());
+        return new String(Integer.toString(id) + "#" + content.toString());
     }
     
     // On suppose qu'on a un message de la forme "8#coucou#17:26:00:00:00:00"

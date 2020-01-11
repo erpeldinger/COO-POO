@@ -17,6 +17,7 @@ public class DemoHistorique {
     	// Creation de deux utilisateurs
     	Connect.createNewDatabase("database.db");
     	Connect.deleteTable("database.db", "User");
+    	Connect.deleteTable("database.db", "Conversation");
     	Connect.createNewTableUser("database.db");
     	Connect.createNewTableConv("database.db");
     	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
@@ -30,7 +31,9 @@ public class DemoHistorique {
     	String strMsg = scMsg.nextLine();
     	Message msgHorodate = Message.readyToSend(1, strMsg);
     	//insertion du message dans la bd
+    	DateMsg date = msgHorodate.getDate();
     	Connect.insertConversation("database.db",1,2,msgHorodate.getContent(),msgHorodate.getDate().toString());
+    	System.out.println("Message insere : " + msgHorodate.getContent() + " " + date.toString());
     	
     	// Demande du 2eme message (2 vers 1)
     	Scanner scMsg2 = new Scanner(System.in);
