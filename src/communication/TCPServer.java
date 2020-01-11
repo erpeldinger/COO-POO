@@ -1,11 +1,7 @@
 package communication;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.io.IOException;
 
@@ -13,12 +9,6 @@ import format.Message;
 import format.DateMsg;
 import requete.Connect;
 
-//A VERIFIER : TAILLE DES DONNES AUTORISEES, POUR L'INSTANT : MAX_VALUE
-//A FAIRE : Ajout message a la BD
-
-// On a besoin d'un TCPSend et d'un TCPRecive : 
-// Le TCPSend a une methode envoieMessage qui horodate le message, l'envoie, et l'ajoute à la BD [methode]
-// Le TCPReceive est toujours en ecoute, s'il recoit qqchose il l'ajoute dans la DB et l'affiche [run]
 
 public class TCPServer extends Thread { 
 
@@ -30,7 +20,6 @@ public class TCPServer extends Thread {
 	//Constructeurs
 	public TCPServer(int port, int id) throws IOException {
 		this.socket = new ServerSocket(port);
-		System.out.println("[TCPServer Costructeur] port : " + port);
 		this.id=id;
 		this.running = true;
 		start();
@@ -39,10 +28,9 @@ public class TCPServer extends Thread {
 	//Methodes	
 	public boolean isRunning () {return this.running;}
 	
-	public void readMessage(Socket socket, InputStream in, byte[] buff) { 
+	public void receiveMessage(Socket socket, InputStream in, byte[] buff) { 
     	try {
-	        while (in.available() <=0 ) {
-	        }
+	        while (in.available() <=0 ) {}
 	        in.read(buff);
     	}
     	catch (Exception e) {
@@ -61,37 +49,22 @@ public class TCPServer extends Thread {
 	}
 	
 	public void run() {
-		//on ouvre un port par nouvelle conversation
-		while (isRunning()) {
-			System.out.println("[TCPServer ] avant try ");
+		
+		while (isRunning()) {			
 			try {
-				//On met arrete le timer si on n'a rien recu au bout de 1sec
-				//this.socket.setSoTimeout(5000);
+				//Reception de la donnee
 				Socket server = this.socket.accept();
-				System.out.println("[TCPServer ] accept ok ");
-				
 				byte[] buff = new byte[Byte.MAX_VALUE];
 				InputStream in = server.getInputStream();
-				//On recupere la donnee recue et on la stocke dans buff
-				readMessage(server,in,buff);
+				receiveMessage(server,in,buff);	    		
+	    		Message m = Message.readMessage(buff);
 	    		
-				
-				//On deserialize pour visualiser le contenu de la donnee 
-	    		String s = new String(buff);
-	    		System.out.println("Message recu : " + s );
-	    		Message m = Message.toMessage(s);	    	
-	    		String content = m.getContent() ;
-	    		int idDest = m.getId();
-	    		DateMsg date = m.getDate();
-	    		System.out.println("Message recu : " + Message.toString(idDest, content, date));
-	    		
-	    		//stockage dans la bd
+	    		//Stockage dans la bd
 	    		Connect.createNewDatabase("database.db");
+	        	Connect.deleteTable("database.db", "Conversation");
 	        	Connect.createNewTableConv("database.db");
-	    		Connect.insertConversation("database.db",this.id, idDest, content, date.toString());
-				
-		    	
-			}
+	    		Connect.insertConversation("database.db",this.id, m.getId(),m.getContent(),m.getDate().toString());			
+			}			
 			catch (Exception e) {
 				System.out.println("[TCPServer ] Erreur run " + e);
 			}
