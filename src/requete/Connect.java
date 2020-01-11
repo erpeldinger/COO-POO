@@ -107,10 +107,10 @@ public class Connect {
         
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Conversation(\n"
-                + "    idUser1 PRIMARY KEY NOT NULL,\n"
-                + "    idUser2 INTEGER NOT NULL,\n"
-                + "    content text NOT NULL,\n"
-                + "    date text NOT NULL\n"
+                + "    idUser1 NOT NULL,\n"
+                + "    idUser2 INTEGER,\n"
+                + "    content text,\n"
+                + "    date text\n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);

@@ -17,7 +17,7 @@ public class DemoHistorique {
     	// Creation de deux utilisateurs
     	Connect.createNewDatabase("database.db");
     	Connect.deleteTable("database.db", "User");
-    	Connect.deleteTable("database.db", "Conversation");
+    	//Connect.deleteTable("database.db", "Conversation");
     	Connect.createNewTableUser("database.db");
     	Connect.createNewTableConv("database.db");
     	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
@@ -31,9 +31,8 @@ public class DemoHistorique {
     	String strMsg = scMsg.nextLine();
     	Message msgHorodate = Message.readyToSend(1, strMsg);
     	//insertion du message dans la bd
-    	DateMsg date = msgHorodate.getDate();
-    	Connect.insertConversation("database.db",1,2,msgHorodate.getContent(),msgHorodate.getDate().toString());
-    	System.out.println("Message insere : " + msgHorodate.getContent() + " " + date.toString());
+    	Connect.insertConversation("database.db",1,2,msgHorodate.getContent(),DateMsg.toString(msgHorodate.getDate()));
+    	System.out.println("Message insere : " + msgHorodate.getContent() + " " + DateMsg.toString(msgHorodate.getDate()));
     	
     	// Demande du 2eme message (2 vers 1)
     	Scanner scMsg2 = new Scanner(System.in);
@@ -41,12 +40,13 @@ public class DemoHistorique {
     	String strMsg2 = scMsg2.nextLine();
     	Message msgHorodate2 = Message.readyToSend(1, strMsg2);
     	//insertion du message dans la bd
-    	Connect.insertConversation("database.db",2,1,msgHorodate2.getContent(),msgHorodate2.getDate().toString());
+    	Connect.insertConversation("database.db",2,1,msgHorodate2.getContent(),DateMsg.toString(msgHorodate2.getDate()));
+    	System.out.println("Message insere : " + msgHorodate.getContent() + " " + DateMsg.toString(msgHorodate2.getDate()));
     	
     	//Recuperation des messages
     	ArrayList <String> msg12 = Connect.queryConversation("database.db",1, 2);
     	ArrayList <String> msg21 = Connect.queryConversation("database.db",2, 1);
-    	//Affichage des messages=
+    	//Affichage des messages
     	System.out.println("les messages de Toto vers Tata : ");
     	for (String courant : msg12) {
         	System.out.println(courant + "\n");
