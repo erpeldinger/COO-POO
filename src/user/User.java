@@ -19,12 +19,14 @@ public class User {
     private ArrayList<Message> messages;
     private ListenerUDP listener;
     private BroadcastingClient broadcast;
+    public InetAddress localAddr;
 
     //constructeur
-    public User(int id, String pseudo, String password, int port, InetAddress addrbr) throws SocketException {
+    public User(int id, String pseudo, String password, int port, InetAddress addrbr, InetAddress localAddr) throws SocketException {
         this.id = id;
         this.pseudo = pseudo;
         this.password = password;
+        this.localAddr = localAddr;
         this.isActive = true;
         this.listUserConnected = new ArrayList <U1>();
         this.listIdUserConnected = new ArrayList <Integer>();
@@ -40,7 +42,8 @@ public class User {
     public ArrayList <U1> getListUserConnected() { return this.listUserConnected; }
     public ArrayList <Integer> getListIdUserConnected() { return this.listIdUserConnected; }
     public ListenerUDP getListener() { return this.listener;}
-    public BroadcastingClient getBroadcast() { return this.broadcast; }
+    public BroadcastingClient getBroadcast() { return this.broadcast; }    
+    public InetAddress getLocalAddr() {return this.localAddr;}
     
     // les methodes
     //private void sendM(String msg, Session session) {}

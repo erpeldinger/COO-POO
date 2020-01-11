@@ -16,13 +16,11 @@ public class DemoClientTCP {
     	InetAddress addrLo = InetAddress.getLocalHost();
     	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
         System.out.println("addr ok");
-    	User u2 = new User(88,"ClientTiti","mdp",1246,addrbr);
+    	User u2 = new User(88,"ClientTiti","mdp",1246,addrbr,addrLo);
     	u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
         
-
-        Socket socket = new Socket(addrLo,port); 
         System.out.println("socket cree");
-    	TCPClient server = new TCPClient(socket,u2);
+    	TCPClient server = new TCPClient(addrLo,port,u2);
     	
     	server.sendMessage("Coucou c'est client, ca boom ?");
     	

@@ -2,6 +2,7 @@ package communication;
 
 import java.io.InputStream;
 import java.net.Socket;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.io.IOException;
 
@@ -18,8 +19,8 @@ public class TCPServer extends Thread {
 	private int id;
 	
 	//Constructeurs
-	public TCPServer(int port, int id) throws IOException {
-		this.socket = new ServerSocket(port);
+	public TCPServer(int port, int id,InetAddress localAddr) throws IOException {
+		this.socket = new ServerSocket(port,1,localAddr);
 		this.id=id;
 		this.running = true;
 		start();

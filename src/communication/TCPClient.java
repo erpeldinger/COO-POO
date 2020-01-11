@@ -1,5 +1,6 @@
 package communication;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import user.User;
 import format.Message;
@@ -7,12 +8,12 @@ import format.Message;
 public class TCPClient {
 
 	//Attributs
-	private Socket socket = null;
+	private Socket socket;
 	private User user;
 	
 	//Constructeurs
-	public TCPClient(Socket socket, User user) {
-		this.socket = socket;
+	public TCPClient(InetAddress srvAddr, int srvPort, User user) throws Exception {
+		this.socket = new Socket(srvAddr, srvPort);
 		this.user = user;
 	}
 	

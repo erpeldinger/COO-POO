@@ -60,6 +60,10 @@ public class BroadcastingClient {
     	return broadcast;  
     }
     
+    public static InetAddress getLocalAddr() {
+    	return socket.getLocalAddress();
+    }
+    
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
     public static void sendBroadcast(InetAddress addrbr) throws Exception {
     	  	
