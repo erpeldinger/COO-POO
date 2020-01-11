@@ -24,8 +24,8 @@ public class User {
     private ArrayList <U1> listUserConnected;
     private ArrayList <Integer> listIdUserConnected;
     private ArrayList<Message> messages;
-    private ListenerUDP listener;
-    private BroadcastingClient broadcast;
+    //private ListenerUDP listener;
+    //private BroadcastingClient broadcast;
 
     //constructeur
     public User(int id, String pseudo, String password, int port, InetAddress addrbr) throws SocketException {
@@ -36,7 +36,7 @@ public class User {
         this.listUserConnected = new ArrayList <U1>();
         this.listIdUserConnected = new ArrayList <Integer>();
         this.messages= new ArrayList <Message>();
-        this.listener = new ListenerUDP (port,pseudo,addrbr, id, listIdUserConnected);        
+        //this.listener = new ListenerUDP (port,pseudo,addrbr, id, listIdUserConnected);        
     }
 
     // les getters
@@ -46,14 +46,15 @@ public class User {
     public Boolean getIsActive() { return this.isActive; }
     public ArrayList <U1> getListUserConnected() { return this.listUserConnected; }
     public ArrayList <Integer> getListIdUserConnected() { return this.listIdUserConnected; }
-    public ListenerUDP getListener() { return this.listener;}
-    public BroadcastingClient getBroadcast() { return this.broadcast; }
+    //public ListenerUDP getListener() { return this.listener;}
+    //public BroadcastingClient getBroadcast() { return this.broadcast; }
     
     // les methodes
     //private void sendM(String msg, Session session) {}
-	public void allowBroadcast (BroadcastingClient c) { 
+	/*public void allowBroadcast (BroadcastingClient c) { 
 		this.broadcast = c;
 	}
+	*/
 
     private void recvM() {}
 
