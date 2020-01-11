@@ -13,10 +13,9 @@ public class DemoClientUDP {
     	byte[] buff = new byte[256];
     	DatagramPacket p = new DatagramPacket(buff, buff.length);
         InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
-
         User u2 = new User(88,"UserEnvoieBroadcast","mdp",1246,addrbr);
         System.out.println("Serveur 2 ok");
-        u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),p,1288, u2));
+        u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
         System.out.println("AllowBroadcastok");
 
         /* TOPO
