@@ -13,7 +13,7 @@ import requete.Connect;
 public class TCPServer extends Thread { 
 
 	//Attributs
-	private ServerSocket socket;
+	private ServerSocket socket = null;
 	private boolean running;
 	private int id;
 	

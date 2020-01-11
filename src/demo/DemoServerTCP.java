@@ -13,9 +13,11 @@ public class DemoServerTCP {
     	//Server
     	
     	int port = 1234;
-    	InetAddress addr = InetAddress.getLocalHost();
-    	User u2 = new User(99,"UserEnvoieBroadcast","mdp",1288,addr);
-    	TCPServer server = new TCPServer(port, 99);
+    	//InetAddress addr = InetAddress.getLocalHost();
+    	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
+    	
+    	User u1 = new User(77,"ServerToto","mdp",1288,addrbr);
+    	TCPServer server = new TCPServer(port,77);
     	
     	/*
     	ServerSocket serverSocket = null;

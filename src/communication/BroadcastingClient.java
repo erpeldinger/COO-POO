@@ -25,16 +25,16 @@ public class BroadcastingClient {
     private static User user;
     
     //Constructeurs
-    public BroadcastingClient(DatagramSocket s, DatagramPacket p, int port, User user) throws SocketException {
+    public BroadcastingClient(DatagramSocket s, int port, User user) throws SocketException {
     	this.socket = s;
-    	this.packet = p;
+    	this.packet = null;
     	this.port = port;
     	this.msg = "Hello, who is there ?";
     	this.user = user;
     	System.out.println("User : " + user.getPseudo() + " ; Socket BroadcastingClient : " + port + "\n");
     	try {
-        BroadcastingClient.sendBroadcast(BroadcastingClient.getBroadcastAddress());
-        System.out.println("[BROADCASTING CLIENT] send broadcast ok");}
+	        BroadcastingClient.sendBroadcast(BroadcastingClient.getBroadcastAddress());
+	        System.out.println("[BROADCASTING CLIENT] send broadcast ok");}
     	catch (Exception e) {}
     }
     

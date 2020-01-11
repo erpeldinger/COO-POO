@@ -7,7 +7,7 @@ import format.Message;
 public class TCPClient {
 
 	//Attributs
-	private Socket socket;
+	private Socket socket = null;
 	private User user;
 	
 	//Constructeurs
@@ -19,7 +19,7 @@ public class TCPClient {
 	//Ecrit un message
 	public void writeM(OutputStream out, String msg) {
     	try {
-    		System.out.println("Message a envoye : " + msg);
+    		System.out.println("Message a envoyer : " + msg);
     		byte[] buff = Message.readyToSend(user.getId(),msg);
     		out.write(buff);    		
     	}

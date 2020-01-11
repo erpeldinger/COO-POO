@@ -1,15 +1,8 @@
 package user;
 
-import java.lang.Object.*;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.io.InputStream;
-import java.io.OutputStream;
-/*
-import Constantes.java; */
 
 import format.Message;
 import communication.*;
@@ -24,8 +17,8 @@ public class User {
     private ArrayList <U1> listUserConnected;
     private ArrayList <Integer> listIdUserConnected;
     private ArrayList<Message> messages;
-    //private ListenerUDP listener;
-    //private BroadcastingClient broadcast;
+    private ListenerUDP listener;
+    private BroadcastingClient broadcast;
 
     //constructeur
     public User(int id, String pseudo, String password, int port, InetAddress addrbr) throws SocketException {
@@ -36,7 +29,7 @@ public class User {
         this.listUserConnected = new ArrayList <U1>();
         this.listIdUserConnected = new ArrayList <Integer>();
         this.messages= new ArrayList <Message>();
-        //this.listener = new ListenerUDP (port,pseudo,addrbr, id, listIdUserConnected);        
+        this.listener = new ListenerUDP (port,pseudo,addrbr, id, listIdUserConnected); 
     }
 
     // les getters
@@ -46,30 +39,23 @@ public class User {
     public Boolean getIsActive() { return this.isActive; }
     public ArrayList <U1> getListUserConnected() { return this.listUserConnected; }
     public ArrayList <Integer> getListIdUserConnected() { return this.listIdUserConnected; }
-    //public ListenerUDP getListener() { return this.listener;}
-    //public BroadcastingClient getBroadcast() { return this.broadcast; }
+    public ListenerUDP getListener() { return this.listener;}
+    public BroadcastingClient getBroadcast() { return this.broadcast; }
     
     // les methodes
     //private void sendM(String msg, Session session) {}
-	/*public void allowBroadcast (BroadcastingClient c) { 
+	public void allowBroadcast (BroadcastingClient c) { 
 		this.broadcast = c;
 	}
-	*/
+	
 
     private void recvM() {}
-
     private void createAccount() {}
-
     private void deleteAccount() {}
-
     private void consultListUser() {}
-
     private void modifPseudo(String pseudo) {}
-
     private void logIn(String pseudo, String password) {}
-
     private void logOut() {}
-
     private void openSession(String pseudo, String password) {}
 
     public String getIPAddres() { return "todo";}
@@ -79,26 +65,6 @@ public class User {
         return new Message(msg);
     }
 
-    public void writeM(OutputStream out, String msg) {
-    	try {
-        out.write(msg.getBytes());
-    	}
-    	catch (Exception e) {
-    		System.out.println("erreur methode writeM");
-    	}
-    			
-    }
-
-    public void readM(InputStream in, byte[] buff) { 
-    	try {
-	        while (in.available() <=0 ) {
-	        }
-	        in.read(buff);
-    	}
-    	catch (Exception e) {
-		System.out.println("erreur methode writeM");
-    	}
-    }
        
     private ArrayList<U1> getUsers(byte[] buff) {
     	ArrayList <U1> maListe = new ArrayList <U1>();

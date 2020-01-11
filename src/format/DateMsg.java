@@ -22,7 +22,7 @@ public class DateMsg {
         this.day=day;
         this.hour=hour;
         this.min=min;
-        this.sec=sec;RIMARY KEY
+        this.sec=sec;
     }
     
     public DateMsg() {
