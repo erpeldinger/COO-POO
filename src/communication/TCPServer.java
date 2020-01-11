@@ -18,7 +18,7 @@ import format.DateMsg;
 // Le TCPSend a une methode envoieMessage qui horodate le message, l'envoie, et l'ajoute à la BD [methode]
 // Le TCPReceive est toujours en ecoute, s'il recoit qqchose il l'ajoute dans la DB et l'affiche [run]
 
-public class TCPServer implements Runnable { //ou Thread
+public class TCPServer extends Thread { 
 
 	//Attributs
 	private ServerSocket socket;
@@ -28,6 +28,7 @@ public class TCPServer implements Runnable { //ou Thread
 	public TCPServer(int port) throws IOException {
 		this.socket = new ServerSocket(port);
 		this.running = true;
+		start();
 	}
 	
 	//Methodes	
@@ -57,15 +58,18 @@ public class TCPServer implements Runnable { //ou Thread
 	public void run() {
 		//on ouvre un port par nouvelle conversation
 		while (isRunning()) {
+			System.out.println("[TCPServer ] avant try ");
 			try {
 				//On met arrete le timer si on n'a rien recu au bout de 1sec
 				this.socket.setSoTimeout(1000);
-				Socket client = this.socket.accept();
+				System.out.println("[TCPServer ] apres setsotime ");
+				Socket server = this.socket.accept();
+				System.out.println("[TCPServer ] accept ok ");
 				
 				byte[] buff = new byte[Byte.MAX_VALUE];
-				InputStream in = client.getInputStream();
+				InputStream in = server.getInputStream();
 				//On recupere la donnee recue et on la stocke dans buff
-				readMessage(client,in,buff);
+				readMessage(server,in,buff);
 				
 				//On deserialize pour visualiser le contenu de la donnee 
 				Object inPacket = Message.deserializeMessage(buff);
