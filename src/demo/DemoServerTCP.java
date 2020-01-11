@@ -40,5 +40,11 @@ public class DemoServerTCP {
         catch (Exception e){
             System.out.println("Erreur création des inS1 et outS1");
         }
+      //fermeture des différents sockets
+        try {
+        sockS.close();
+        serverSocket.close();
+        }
+        catch( Exception e) {}
     }
 }
