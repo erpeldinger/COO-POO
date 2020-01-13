@@ -1,9 +1,13 @@
 package communication;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import format.Message;
@@ -57,8 +61,17 @@ public class TCPServer extends Thread {
 				Socket server = this.socket.accept();
 				byte[] buff = new byte[Byte.MAX_VALUE];
 				InputStream in = server.getInputStream();
+				OutputStream out = server.getOutputStream();
 				receiveMessage(server,in,buff);	    		
 	    		Message m = Message.readMessage(buff);
+	    		
+	    		/*
+	    		String s="";
+	            BufferedReader inB = new BufferedReader(new InputStreamReader(in));
+	            PrintStream outP = new PrintStream(out);
+	            s = inB.readLine();*/
+
+	            server.close();
 	    		
 	    		//Stockage dans la bd
 	    		Connect.createNewDatabase("database.db");

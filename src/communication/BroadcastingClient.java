@@ -59,10 +59,10 @@ public class BroadcastingClient {
     	}
     	return broadcast;  
     }
-    
+    /*
     public static InetAddress getLocalAddr() {
     	return socket.getLocalAddress();
-    }
+    }*/
     
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
     public static void sendBroadcast(InetAddress addrbr) throws Exception {
@@ -89,7 +89,7 @@ public class BroadcastingClient {
 	    	
 	    	socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
 			/*
-	    	String rep = new String(outPacket.getData(), 0, outPacket.getLength());
+	    	String rep = new String(outPacket.geServertData(), 0, outPacket.getLength());
 
     		//socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
         	System.out.println("[BROADCASTING CLIENT] setsotime out\n"); 

@@ -6,12 +6,16 @@ import java.io.OutputStream;
 import java.net.*;
 import user.User;
 import communication.*;
+import requete.Connect;
 
 public class DemoClientTCP {
     
     public static void main (String[] args) throws SocketException, Exception, IOException, SecurityException, IllegalArgumentException, NullPointerException {
     	
     	//CLIENT 
+        Connect.createNewDatabase("database.db");
+        Connect.createNewTableLUC("database.db");
+    	
     	int port = 1234;
     	InetAddress addrLo = InetAddress.getLocalHost();
     	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
@@ -20,7 +24,10 @@ public class DemoClientTCP {
     	u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
         
         System.out.println("socket cree");
-    	TCPClient server = new TCPClient(addrLo,port,u2);
+        String addrDest = Connect.queryUserLUC("database.db", 77);
+        InetAddress ip = InetAddress.getByName(addrDest);
+       // System.out.println("IP Client : ip");
+    	TCPClient server = new TCPClient(ip,port,u2);
     	
     	server.sendMessage("Coucou c'est client, ca boom ?");
     	

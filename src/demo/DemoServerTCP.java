@@ -5,19 +5,25 @@ import java.io.OutputStream;
 import java.net.*;
 import user.User;
 import communication.*;
+import requete.Connect;
 
 public class DemoServerTCP {
     
     public static void main (String[] args) throws SocketException, Exception {
     	
     	//Server
+        Connect.createNewDatabase("database.db");
+        Connect.createNewTableLUC("database.db");
     	
     	int port = 1234;
     	InetAddress addrLo = InetAddress.getLocalHost();
     	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
     	
     	User u1 = new User(77,"ServerToto","mdp",1288,addrbr);
-    	TCPServer server = new TCPServer(port,u1.getId(),addrLo);
+        String addrDest = Connect.queryUserLUC("database.db", 88);
+        InetAddress ip = InetAddress.getByName(addrDest);
+        //System.out.println("IP Server: ip");
+    	TCPServer server = new TCPServer(port,u1.getId(),ip);
     	
     	/*
     	ServerSocket serverSocket = null;
