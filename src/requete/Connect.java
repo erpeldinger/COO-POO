@@ -84,14 +84,15 @@ public class Connect {
         }
     }
     
-    //creation de la table ListUserConnected
+    //creation de la table ListUserConnected : id et adresse ip
     public static void createNewTableLUC(String filename) {
         // SQLite connection string
         String url = "jdbc:sqlite:./database/"+filename;
         
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS ListUserConnected(\n"
-                + "    id PRIMARY KEY NOT NULL\n"
+                + "    id PRIMARY KEY NOT NULL,\n"
+                + "    ip text NOT NULL\n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
@@ -165,13 +166,14 @@ public class Connect {
     }
     
   //Insertion d'un utilisateur dans la liste des utilisateurs connectes
-    public static void insertUserLUC(String filename, int id) {
+    public static void insertUserLUC(String filename, int id, String ip) {
     	String url = "jdbc:sqlite:./database/"+filename;
-        String sql = "INSERT INTO ListUserConnected (id) VALUES (?);";
+        String sql = "INSERT INTO ListUserConnected (id, ip) VALUES (?, ?);";
         
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, id);
+                    pstmt.setString(2, ip);
             pstmt.executeUpdate();
             //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
@@ -267,6 +269,23 @@ public class Connect {
               System.out.println(e.getMessage());
           }
       }
+      
+      // update une ip dans LUC
+      public static void update(String filename, int id, String ip) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "UPDATE ListUserConnected SET ip = ? WHERE id = ?;";
+          
+          try (Connection conn = DriverManager.getConnection(url);
+                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                      pstmt.setString(1, ip);
+                      pstmt.setInt(2, id);
+              // update 
+              pstmt.executeUpdate();
+              //System.out.println("Table User has been updated");
+          } catch (SQLException e) {
+              System.out.println(e.getMessage());
+          }
+      }
 
       
       /* ------------------------------------------QUERY--------------------------------------*/
@@ -347,10 +366,10 @@ public class Connect {
       }
       
       
-      // Récupération d'un utilisateur dans LUC
-      public static ArrayList<String> queryUserLUC(String filename, String pseudo, String pass) {
+      // Récupération d'une IP dans la LUC en ayant son id
+      public static ArrayList<String> queryUserLUC(String filename, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT id FROM ListUserConnected WHERE pseudo = '" + pseudo + "' AND password = '" + pass + "';";
+          String sql = "SELECT ip FROM ListUserConnected WHERE id = " + id + ";";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
@@ -362,7 +381,7 @@ public class Connect {
               // loop through the result set
               while (rs.next()) {
                   resInter="";
-                          resInter += Integer.valueOf(rs.getInt(("id")));
+                          resInter += rs.getString(("ip"));
                   resultat.add(resInter);
               }
               resultat.add("end");
@@ -586,7 +605,6 @@ public class Connect {
      */
     public static void main(String[] args) {
     	createNewDatabase("database.db");
-    	deleteTable("database.db", "User");
         createNewTableUser("database.db");
         insertUser("database.db", "Toto", "titi123456789", 1);
         /*
