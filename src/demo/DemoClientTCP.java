@@ -26,7 +26,7 @@ public class DemoClientTCP {
         System.out.println("socket cree");
         String addrDest = Connect.queryUserLUC("database.db", 77);
         InetAddress ip = InetAddress.getByName(addrDest);
-       // System.out.println("IP Client : ip");
+        System.out.println("IP Client : " +ip);
     	TCPClient server = new TCPClient(ip,port,u2);
     	
     	server.sendMessage("Coucou c'est client, ca boom ?");

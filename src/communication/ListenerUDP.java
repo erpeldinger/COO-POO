@@ -16,6 +16,7 @@ public class ListenerUDP extends Thread {
 
     //Attributs
     private DatagramSocket socket;
+    private boolean running ;
     //private ArrayList <String> messages;
     private static byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
@@ -55,14 +56,25 @@ public class ListenerUDP extends Thread {
 		//System.out.println(msg.contains(s));
 		return msg.contains(s);
 	}
+	
+	public void stopUDPListener() {
+		this.running = false;
+		try {
+			this.socket.close();
+		}
+		catch (Exception e) {
+			System.out.println("[UDP Listener] Erreur stopUDPListener ");
+		}
+	}
 
     public void run() {
   
     	//Boolean connected = true;
 		int iter = 0;
 		int iterDEBUG = 1;
+		this.running = true;
 		//j'ai change la condition pour que ce soit plus propre, avant : while (connected)
-    	while (!this.socket.isClosed()) {
+    	while (running) {
 
     		//System.out.println("[LISTENER UDP] iter while : " + iterDEBUG + "\n");
     		iterDEBUG++;

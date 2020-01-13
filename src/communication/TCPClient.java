@@ -13,6 +13,7 @@ public class TCPClient {
 	
 	//Constructeurs
 	public TCPClient(InetAddress srvAddr, int srvPort, User user) throws Exception {
+        System.out.println("TCP constructeur");
 		this.socket = new Socket(srvAddr, srvPort);
 		this.user = user;
 	}

@@ -18,7 +18,7 @@ import format.Message;
 public class BroadcastingClient {
 
     //Attributs
-    private static DatagramSocket socket;
+    private static DatagramSocket socket; // A CHANGER !!!!!!!!!!!!!!!!!!!! pas static
     private static DatagramPacket packet;
     private static int port;
     private String msg ="";
@@ -38,6 +38,8 @@ public class BroadcastingClient {
     	catch (Exception e) {}
     }
     
+    //getters
+    public DatagramSocket getSocket() { return socket; }
     
     //Methodes
 
