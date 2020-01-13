@@ -106,6 +106,7 @@ public class ListenerUDP extends Thread {
 		    		//Ajout de l'adresse IP de user dans la bdd 
 		    		Connect.createNewDatabase("database.db");
 		        	Connect.createNewTableLUC("database.db");
+		        	System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
 		    		Connect.insertUserLUC("database.db", Message.toMessageBdc(msg).getId(), inPacket.getAddress().toString());
 		    		
 			    	System.out.println("[LISTENER UDP] Add ok");

@@ -18,7 +18,16 @@ public class DemoServerTCP {
     	int port = 1234;
     	InetAddress addrLo = InetAddress.getLocalHost();
     	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
-
+    	
+    	//ATTENDRE 2secondes
+    	/*long now = System.currentTimeMillis();   
+    	while(now < expectedElapsedTime){
+    	    now = System.currentTimeMillis();
+    	}*/
+    	//OU ALORS ON FAIT CE WHILE SUR LE WHILE(RUNNING) DANS LISTENERUDP
+    	Thread.sleep(2000);
+    	
+    	
         System.out.println("avant user");
     	User u1 = new User(77,"ServerToto","mdp",1288,addrbr);
     	
