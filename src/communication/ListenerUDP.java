@@ -92,7 +92,7 @@ public class ListenerUDP extends Thread {
 		    		//ajout de l'user dans la LUC
 		    		this.userLUC.add(Message.toMessageBdc(msg).getId());		    		
 		    		//Ajout de l'adresse IP de user dans la bdd !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		    		Connect.insertUserLUC("database.db", Message.toMessageBdc(msg).getId(), inPacket.getAddress());
+		    		Connect.insertUserLUC("database.db", Message.toMessageBdc(msg).getId(), inPacket.getAddress().toString());
 		    		
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes

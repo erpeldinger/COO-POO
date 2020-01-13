@@ -85,7 +85,7 @@ public class DemoU1 {
 
 
         //-------------------Communication--------------------------------------------------------
-        byte[] buff = new byte[200];  
+       /* byte[] buff = new byte[200];  
         readM(inS, buff);
         System.out.println("Message lu");
         String m1Lu = new String(buff);
@@ -104,6 +104,6 @@ public class DemoU1 {
 	        sockC.close();
 	        sockS.close();
 	    	serverSocket.close();
-
+*/
 	    }
 }

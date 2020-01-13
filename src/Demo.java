@@ -102,7 +102,7 @@ public class Demo {
             System.out.println("Erreur création des in2 et out2");
         }
         
-        //Envoi et réception de messages
+      /*  //Envoi et réception de messages
         System.out.println("Debut de la communication");
         user1.writeM(out2, m1.getContent());
         System.out.println("Message envoyé");
@@ -124,7 +124,7 @@ public class Demo {
         catch (Exception e) {
         	System.out.println("Erreur fermeture de sockets");
         }
-
+*/
     }
     
 }
