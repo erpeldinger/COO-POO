@@ -62,7 +62,6 @@ public class TCPServer extends Thread {
 	    		
 	    		//Stockage dans la bd
 	    		Connect.createNewDatabase("database.db");
-	        	Connect.deleteTable("database.db", "Conversation");
 	        	Connect.createNewTableConv("database.db");
 	    		Connect.insertConversation("database.db",this.id, m.getId(),m.getContent(),m.getDate().toString());			
 			}			
