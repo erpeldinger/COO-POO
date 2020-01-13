@@ -367,7 +367,7 @@ public class Connect {
       
       
       // Récupération d'une IP dans la LUC en ayant son id
-      public static ArrayList<String> queryUserLUC(String filename, int id) {
+      public static String queryUserLUC(String filename, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "SELECT ip FROM ListUserConnected WHERE id = " + id + ";";
           ArrayList<String> resultat = new ArrayList<String>();
@@ -385,11 +385,11 @@ public class Connect {
                   resultat.add(resInter);
               }
               resultat.add("end");
-              return resultat;
+              return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
-          return resultat;
+          return resultat.get(0);
       }
 
       // Récupération d'une conversation entre id1 et id2 dans la liste Conversation. retourne une liste de String de forme : content||date
