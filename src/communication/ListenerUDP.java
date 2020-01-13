@@ -10,6 +10,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import format.Message;
+import requete.Connect;
 
 public class ListenerUDP extends Thread {
 
@@ -87,8 +88,12 @@ public class ListenerUDP extends Thread {
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
 		    		//System.out.println("[LISTENER UDP] If -> end");
+		    		
 		    		//ajout de l'user dans la LUC
-		    		this.userLUC.add(Message.toMessageBdc(msg).getId());
+		    		this.userLUC.add(Message.toMessageBdc(msg).getId());		    		
+		    		//Ajout de l'adresse IP de user dans la bdd !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		    		Connect.insertUserLUC("database.db", Message.toMessageBdc(msg).getId(), inPacket.getAddress());
+		    		
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
 			    	for(int id: this.userLUC) {
