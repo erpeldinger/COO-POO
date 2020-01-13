@@ -14,15 +14,18 @@ public class Clavardage implements ActionListener {
     
     // L'etat de l'envoi du message
     private static String labelPrefix = "Etat du message : ";
-    private String etatEnCreation = "EnCreation";
-    private String etatEnvoye = "Envoyé";
-    private String etatEnvoiEnCours = "En cours d'envoi";
-    private String etatErreur = "Non envoyé, erreur";
-    final JLabel labelMessage = new JLabel(labelPrefix + etatEnCreation);
-    final JLabel labelConv = new JLabel("");
+    private static String etatEnCreation = "EnCreation";
+    private static String etatEnvoye = "Envoyé";
+    private static String etatEnvoiEnCours = "En cours d'envoi";
+    private static String etatErreur = "Non envoyé, erreur";
+    final static JLabel labelMessage = new JLabel(labelPrefix + etatEnCreation);
+    
+    //Affichage des différents messages
+    private static JTextArea ConvArea = new JTextArea(20, 50);
+    private static JScrollPane Conversation = new JScrollPane(ConvArea);
     
     // Messages d'erreur
-    final JLabel labelError = new JLabel("");
+    final static JLabel labelError = new JLabel("");
     private static String emptyMessageField = "Envoi impossible : message vide";
     
     // Le champ permettant d'ecrire le message
@@ -38,6 +41,7 @@ public class Clavardage implements ActionListener {
         button.setMnemonic(KeyEvent.VK_I);
         button.addActionListener(this);
         labelMessage.setLabelFor(button);
+        button.setPreferredSize(new Dimension(10,50));
         
         /*
          * An easy way to put space between a top-level container
@@ -45,7 +49,7 @@ public class Clavardage implements ActionListener {
          * that has an "empty" border.
          */
         JPanel pane = new JPanel(new GridLayout(0, 1));
-        pane.add(labelConv);
+        pane.add(Conversation);
         pane.add(labelError);
         pane.add(messageField);
         pane.add(button);
@@ -77,8 +81,9 @@ public class Clavardage implements ActionListener {
                 //Sauvegarder le message dans la base de donnes
                 
                 //Afficher le message
-                labelConv.setText(messageField.getText());
+                ConvArea.setText(ConvArea.getText() + "\n" + "You : " + messageField.getText());
 
+                //rendre vide le champ messagetField
                 messageField.setText("");
             }
             catch (Exception ex){
@@ -92,7 +97,6 @@ public class Clavardage implements ActionListener {
         // Swing allows you to specify which look and feel your program uses--Java,
         // GTK+, Windows, and so on as shown below.
         String lookAndFeel = null;
-        
         if (LOOKANDFEEL != null) {
             if (LOOKANDFEEL.equals("Metal")) {
                 lookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
@@ -145,6 +149,8 @@ public class Clavardage implements ActionListener {
         //Create and set up the window.
         JFrame frame = new JFrame("Clavardage");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        ConvArea.setEditable(false);
         
         Clavardage app = new Clavardage();
         Component contents = app.createComponents();

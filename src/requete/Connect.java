@@ -395,7 +395,8 @@ public class Connect {
       // Récupération d'une conversation entre id1 et id2 dans la liste Conversation. retourne une liste de String de forme : content||date
       public static ArrayList<String> queryConversation(String filename, int id1, int id2) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT content, date FROM Conversation WHERE idUser1 = " + Integer.valueOf(id1) + " AND idUser2 = " + Integer.valueOf(id2) + ";";
+          String sql = "SELECT content, date FROM Conversation WHERE idUser1 = " + Integer.valueOf(id1) + " AND idUser2 = " + Integer.valueOf(id2) 
+          + " OR idUser1 = " + Integer.valueOf(id2) + " AND idUser2 = " + Integer.valueOf(id1) + " ORDER BY date ;";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
@@ -407,8 +408,8 @@ public class Connect {
               // loop through the result set
               while (rs.next()) {
                   resInter="";
-                          resInter += rs.getString("content") + "||"; 
-                          resInter += rs.getString("date");
+                          resInter += rs.getString("date") + " ----- ";
+                          resInter += rs.getString("content");
                           resultat.add(resInter);
                   }
               resultat.add("end");
@@ -418,6 +419,18 @@ public class Connect {
           }
           return resultat;
       }
+      
+      //recuperation d'un historique dans le bon ordre
+      public static ArrayList <String> queryHistorique(String filename, int id1, int id2) {
+    	  ArrayList <String> id1id2 = queryConversation(filename, id1, id2);
+    	  Integer iter = 0;
+    	  for (String message : id1id2 ) {
+    		  id1id2.set(iter, Integer.valueOf(id1) + message);
+    	  }
+    	  return id1id2;
+      }
+      
+      
       
       /*------------------------------------------VERIFICATION USER EXISTANT ------------------------------------- */
       public static boolean checkIsUser(String filename, String pseudo, String pass) {
