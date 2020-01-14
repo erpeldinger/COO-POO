@@ -39,6 +39,7 @@ public class TCPServer extends Thread {
 		}
 		ports.set(indCurrentPort,Boolean.FALSE);
 		currentPort = 2000 + indCurrentPort;
+		// AJOUTER LE PORT DANS LA BD ?
 		System.out.println(" port : " + currentPort);
 		this.socket = new ServerSocket(currentPort,1,localAddr);
 		

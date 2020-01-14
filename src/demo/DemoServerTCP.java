@@ -30,7 +30,7 @@ public class DemoServerTCP {
     	User u1 = new User(12,"ServerPaul","mdp",1288);   
     	
     	//Partie TCP
-        InetAddress ip = InetAddress.getByName("10.1.5.88");
+        InetAddress ip = BroadcastingClient.getIpAddress();
         System.out.println("IP Server: " +ip);
     	int port = 1234;
 		System.out.println("lancement du server tcp ");

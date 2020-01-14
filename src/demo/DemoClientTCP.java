@@ -4,9 +4,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.Enumeration;
+
 import user.User;
 import communication.*;
-import requete.Connect;
+import requete.*;
+
+
+import java.net.NetworkInterface;
+
 
 public class DemoClientTCP {
     
@@ -18,7 +24,8 @@ public class DemoClientTCP {
     	User u2 = new User(13,"ClientTom","mdp",1246);
     	Thread.sleep(500);
         u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
-
+        
+        
         
         //Partie TCP
         InetAddress ip = InetAddress.getByName("10.1.5.88");

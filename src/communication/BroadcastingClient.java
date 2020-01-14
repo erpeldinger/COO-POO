@@ -3,6 +3,7 @@ package communication;
 import java.lang.Object.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.lang.Exception;
@@ -42,6 +43,27 @@ public class BroadcastingClient {
     public DatagramSocket getSocket() { return socket; }
     
     //Methodes
+    
+    public static InetAddress getIpAddress() throws SocketException {
+    	// recuperation IP 
+    	InetAddress res = null;
+        Enumeration<NetworkInterface> ifaces = NetworkInterface.getNetworkInterfaces();
+        while( ifaces.hasMoreElements() )
+        {
+          NetworkInterface iface = ifaces.nextElement();
+          Enumeration<InetAddress> addresses = iface.getInetAddresses();
+
+          while( addresses.hasMoreElements() )
+          {
+            InetAddress monIp = addresses.nextElement();
+            if( monIp instanceof Inet4Address && !monIp.isLoopbackAddress() )
+            {
+              res = monIp;
+            }
+          }
+        }
+        return res;
+    }
 
     public static InetAddress getBroadcastAddress()  throws SocketException {
 
