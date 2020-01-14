@@ -11,18 +11,35 @@ public class DemoServerTCP {
     
     public static void main (String[] args) throws SocketException, Exception {
     	
+    	
+
+        Connect.createNewDatabase("database.db");
+        Connect.createNewTableLUC("database.db");
+        Connect.createNewTableUser("database.db");
+        
+        Connect.insertUser("database.db", "Paul", "12456789123", 12);
+        Connect.insertUser("database.db", "Tom", "12456789123", 13);
+        Connect.insertUser("database.db", "Thibault", "12456789123", 14);
+    	
+    	Connect.insertUserLUC("database.db", 12, "10.1.5.180");
+    	Connect.insertUserLUC("database.db", 13, "10.1.5.183" );
+    	Connect.insertUserLUC("database.db", 14, "addrIP3" );
+    	
+
+    	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();  
+    	User u1 = new User(12,"ServerPaul","mdp",1288,addrbr);   
+    	
+
+        InetAddress ip = InetAddress.getByName("10.1.5.180");
+        System.out.println("IP Server: " +ip);
+    	int port = 1234;
+    	TCPServer server = new TCPServer(port,u1.getId(),ip);
+    	
+    	/*
     	//Server
         Connect.createNewDatabase("database.db");
         Connect.createNewTableLUC("database.db");
-    	
-    	
     	//ATTENDRE 2secondes
-    	/*long now = System.currentTimeMillis();   
-    	while(now < expectedElapsedTime){
-    	    now = System.currentTimeMillis();
-    	}*/
-    	//OU ALORS ON FAIT CE WHILE SUR LE WHILE(RUNNING) DANS LISTENERUDP
-    	//Thread.sleep(2000);
     	
     	int port = 1234;
     	InetAddress addrLo = InetAddress.getLocalHost();
@@ -41,9 +58,10 @@ public class DemoServerTCP {
         
         //Thread.sleep(2000);
         
-        InetAddress ip = InetAddress.getByName("10.1.5.42");
+        InetAddress ip = InetAddress.getByName("10.1.5.180");
         System.out.println("IP Server: " +ip);
     	TCPServer server = new TCPServer(port,u1.getId(),ip);
+    	*/
     	
     	/*
     	ServerSocket serverSocket = null;
