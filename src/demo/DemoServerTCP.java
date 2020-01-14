@@ -22,22 +22,25 @@ public class DemoServerTCP {
     	    now = System.currentTimeMillis();
     	}*/
     	//OU ALORS ON FAIT CE WHILE SUR LE WHILE(RUNNING) DANS LISTENERUDP
-    	Thread.sleep(2000);
+    	//Thread.sleep(2000);
+    	
     	int port = 1234;
     	InetAddress addrLo = InetAddress.getLocalHost();
-    	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
-    	
-    	
+    	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();    	
         System.out.println("avant user");
-    	User u1 = new User(77,"ServerToto","mdp",1288,addrbr);
-    	
+    	User u1 = new User(77,"ServerToto","mdp",1288,addrbr);    	
         System.out.println("apres user");
         String addrDest = Connect.queryUserLUC("database.db", 88);
+        
+        //join ?
         Thread.sleep(2000);
+        
         System.out.println("addr dest : " + addrDest);
         String[] other = addrDest.split("/");
         System.out.println("apres split : " + other[1]);
-        Thread.sleep(2000);
+        
+        //Thread.sleep(2000);
+        
         InetAddress ip = InetAddress.getByName("10.1.5.42");
         System.out.println("IP Server: " +ip);
     	TCPServer server = new TCPServer(port,u1.getId(),ip);

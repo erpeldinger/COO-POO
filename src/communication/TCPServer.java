@@ -55,16 +55,19 @@ public class TCPServer extends Thread {
 	
 	public void run() {
 		
-		while (isRunning()) {			
+		while (isRunning()) {	
+			System.out.println("[TCPServer ] debut ServerTCP");
 			try {
 				//Reception de la donnee
 				Socket server = this.socket.accept();
+				System.out.println("[TCPServer ] sort de Accept");
 				byte[] buff = new byte[Byte.MAX_VALUE];
 				InputStream in = server.getInputStream();
 				OutputStream out = server.getOutputStream();
 				receiveMessage(server,in,buff);	    		
 	    		Message m = Message.readMessage(buff);
-	    		
+
+				System.out.println("[TCPServer ] message recu");
 	    		/*
 	    		String s="";
 	            BufferedReader inB = new BufferedReader(new InputStreamReader(in));
