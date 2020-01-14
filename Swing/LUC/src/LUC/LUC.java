@@ -1,48 +1,54 @@
 
-package clavardage;
+package LUC;
 
 /*
  * SwingApplication.java is a 1.4 example that requires
  * no other files.
  */
 import javax.swing.*;
+
+import clavardage.Clavardage;
+import requete.Connect;
+import connexion.*;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class Clavardage implements ActionListener {
+public class LUC implements ActionListener {
     
-    // L'etat de l'envoi du message
+    // Tous les labels
 	private JFrame frame;
-    private static String labelPrefix = "Etat du message : ";
-    private static String etatEnCreation = "EnCreation";
-    private static String etatEnvoye = "Envoyé";
-    private static String etatEnvoiEnCours = "En cours d'envoi";
-    private static String etatErreur = "Non envoyé, erreur";
-    final static JLabel labelMessage = new JLabel(labelPrefix + etatEnCreation);
+    private String incorrectUser = "Cet utilisateur n'ext pas connecte";
+    final JLabel labelError = new JLabel("");
+    final JLabel labelButton = new JLabel("");
+    Color myGreen = new Color(11, 102, 35);
     
-    //Affichage des différents messages
-    private static JTextArea ConvArea = new JTextArea(20, 50);
-    private static JScrollPane Conversation = new JScrollPane(ConvArea);
+    // Les champs de textes
+    JTextField debutConv = new JTextField(2);
     
-    // Messages d'erreur
-    final static JLabel labelError = new JLabel("");
-    private static String emptyMessageField = "Envoi impossible : message vide";
-    
-    // Le champ permettant d'ecrire le message
-    JTextField messageField = new JTextField(2);
+  //Affichage des différents messages
+    private static JTextArea ListUser = new JTextArea(10, 20);
+    private static JScrollPane Users = new JScrollPane(ListUser);
     
     //Specify the look and feel to use.  Valid values:
     //null (use the default), "Metal", "System", "Motif", "GTK+"
     final static String LOOKANDFEEL = null;
     
-    //creation du button d'envoie de message
     public Component createComponents() {
-        JButton button = new JButton("Envoyer le message");
+        //creation du button d'inscription
+        JButton button = new JButton("Demarrer une conversation");
         button.setMnemonic(KeyEvent.VK_I);
         button.addActionListener(this);
-        labelMessage.setLabelFor(button);
-        button.setPreferredSize(new Dimension(10,50));
+        labelButton.setLabelFor(button);
+        
+        /*creation du button de redirection vers la page de connexion
+        JButton buttonConnect = new JButton("Se connecter");
+        buttonConnect.setMnemonic(KeyEvent.VK_I);
+        buttonConnect.addActionListener(this);
+        labelConnect.setLabelFor(buttonConnect);
+        */
         
         /*
          * An easy way to put space between a top-level container
@@ -50,11 +56,10 @@ public class Clavardage implements ActionListener {
          * that has an "empty" border.
          */
         JPanel pane = new JPanel(new GridLayout(0, 1));
-        pane.add(Conversation);
+        pane.add(Users);
         pane.add(labelError);
-        pane.add(messageField);
+        pane.add(debutConv);
         pane.add(button);
-        pane.add(labelMessage);
         pane.setBorder(BorderFactory.createEmptyBorder(
                 30, //top
                 30, //left
@@ -67,29 +72,23 @@ public class Clavardage implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e) {
-        //Si le message est vide on ne l'envoie pas , n affiche l'erreur
-        if (messageField.getText().equals("")) {
-            labelError.setText(emptyMessageField);
-        }
-        //Sinon on l'envoie
-        else {
-            labelError.setText("");
-            labelMessage.setText(labelPrefix + etatEnvoiEnCours);
-            try {
-                //Envoyer le message
-                labelMessage.setText(labelPrefix + etatEnvoye);
-                
-                //Sauvegarder le message dans la base de donnes
-                
-                //Afficher le message
-                ConvArea.setText(ConvArea.getText() + "\n" + "You : " + messageField.getText());
-
-                //rendre vide le champ messagetField
-                messageField.setText("");
-            }
-            catch (Exception ex){
-                labelMessage.setText(labelPrefix + etatEnvoiEnCours);
-            }
+		labelError.setText("");
+    	if (e.getActionCommand().equals("Demarrer une conversation")){
+    		//check si User bien dans la LUC (pseuod ==> id ==> LUC)
+        	String userId = Connect.queryUserIdLUC("database.db", debutConv.getText());
+        	if (userId != "end") {
+    		//ouvrir la page de conv
+        		Clavardage pageClavardage = new Clavardage();
+        		frame.setVisible(false);
+        		
+        	}
+        	else {
+        		//erreur de User
+        		labelError.setText(incorrectUser);
+        	}
+    	}
+    	else {
+            
         }
     }
     
@@ -98,6 +97,7 @@ public class Clavardage implements ActionListener {
         // Swing allows you to specify which look and feel your program uses--Java,
         // GTK+, Windows, and so on as shown below.
         String lookAndFeel = null;
+        
         if (LOOKANDFEEL != null) {
             if (LOOKANDFEEL.equals("Metal")) {
                 lookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
@@ -140,7 +140,8 @@ public class Clavardage implements ActionListener {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private void Clavardage() {
+    public void LUC() {
+        System.out.println("visible");
         //Set the look and feel.
         initLookAndFeel();
         
@@ -148,12 +149,24 @@ public class Clavardage implements ActionListener {
         JFrame.setDefaultLookAndFeelDecorated(true);
         
         //Create and set up the window.
-        this.frame = new JFrame("Clavardage");
+        this.frame = new JFrame("LUC");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        ConvArea.setEditable(false);
-        
-        //Clavardage app = new Clavardage();
+        ListUser.setEditable(false);
+        // afficher les User connectes
+    	Connect.createNewDatabase("database.db");
+    	Connect.createNewTableLUC("database.db");
+    	Connect.insertUser("database.db", "Tata", "titi123456790" , 1);
+    	Connect.insertUser("database.db", "Tutu", "titi123456790" , 1);
+    	Connect.insertUserLUC("database.db", 1, "2.3.4.5");
+    	Connect.insertUserLUC("database.db", 2, "1.2.3.4");
+    	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
+    	for ( String courant : Users) {
+    		ListUser.setText(ListUser.getText() + "\n" + courant );
+    	}
+    	
+        //a modifier pour le main
+        //LUC app = new LUC();
         Component contents = createComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
         
@@ -173,4 +186,5 @@ public class Clavardage implements ActionListener {
         });
     }
     */
+    
 }
