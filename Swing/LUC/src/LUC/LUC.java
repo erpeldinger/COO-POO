@@ -11,6 +11,7 @@ import user.*;
 import clavardage.Clavardage;
 import requete.Connect;
 import connexion.*;
+import communication.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -167,8 +168,16 @@ public class LUC implements ActionListener {
     	Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
     	Connect.insertUserLUC("database.db", 29999, "1.2.3.4");
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
+    	ArrayList<TCPServer> Servers = new ArrayList<TCPServer>() ;
     	for (String courant : Users) {
     		ListUser.setText(ListUser.getText() + "\n" + courant );
+    		// Ouverture d'un Thread TCP Server par utilisateur connectes
+    		try {
+    			Servers.add(new TCPServer(user.getId(), BroadcastingClient.getIpAddress()));
+    		}
+    		catch (Exception e) {
+    			System.out.println("[ERREUR] Creation TCP Server");
+    		}
     	}
     	
         //a modifier pour le main

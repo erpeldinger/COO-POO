@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import requete.Connect;
 import LUC.*;
+import communication.BroadcastingClient;
 import user.*;
 public class Connexion implements ActionListener {
     
@@ -93,6 +94,8 @@ public class Connexion implements ActionListener {
         		// connexion ok
         		try {
 	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText(),9999);
+	            //lancement du broadcast
+	            user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1288, user));
 	            LUC pageLUC = new LUC(user);
         		}
         		catch (Exception j) {
