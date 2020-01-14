@@ -391,6 +391,59 @@ public class Connect {
           }
           return resultat.get(0);
       }
+      
+   // Récupération de tous les pseudo correspondant aux ids
+      public static ArrayList <String> queryAllUserLUC(String filename) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT user.pseudo FROM User, ListUserConnected WHERE ListUserConnected.id = User.id ;";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter = "";
+
+          //System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter="";
+                          resInter += rs.getString(("pseudo"));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
+              return resultat;
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY]" + e.getMessage());
+          }
+          return resultat;
+      }
+      
+   // Récupération d'un id si le pseudo est correct
+      public static String queryUserIdLUC(String filename, String pseudo) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT user.pseudo FROM User, ListUserConnected WHERE ListUserConnected.id = User.id AND User.pseudo = '" + pseudo + "';";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter = "";
+
+          System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter="";
+                          resInter += rs.getString(("pseudo"));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
+              return resultat.get(0);
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY]" + e.getMessage());
+          }
+          return resultat.get(0);
+      }
+      
 
       // Récupération d'une conversation entre id1 et id2 dans la liste Conversation. retourne une liste de String de forme : content||date
       public static ArrayList<String> queryConversation(String filename, int id1, int id2) {
