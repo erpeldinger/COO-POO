@@ -34,7 +34,9 @@ public class DemoServerTCP {
         System.out.println("IP Server: " +ip);
     	int port = 1234;
 		System.out.println("lancement du server tcp ");
-    	TCPServer server = new TCPServer(u1.getId(),ip);
+		ChatManager manager = new ChatManager();
+		manager.addTCPServer(u1.getId(), ip);
+    	//TCPServer server = new TCPServer(u1.getId(),ip);
 		System.out.println("tcp server lancé ");
     	
     	/*

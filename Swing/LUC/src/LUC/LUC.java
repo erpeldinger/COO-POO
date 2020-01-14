@@ -15,6 +15,7 @@ import communication.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -142,8 +143,9 @@ public class LUC implements ActionListener {
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event-dispatching thread.
+     * @throws IOException 
      */
-    public LUC(User user) {
+    public LUC(User user) throws IOException {
     //public void createAndShowGUI() {
         System.out.println("debut constructeur");
         
@@ -168,17 +170,17 @@ public class LUC implements ActionListener {
     	Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
     	Connect.insertUserLUC("database.db", 29999, "1.2.3.4");
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
-    	ArrayList<TCPServer> Servers = new ArrayList<TCPServer>() ;
-    	for (String courant : Users) {
-    		ListUser.setText(ListUser.getText() + "\n" + courant );
-    		// Ouverture d'un Thread TCP Server par utilisateur connectes
-    		try {
-    			Servers.add(new TCPServer(user.getId(), BroadcastingClient.getIpAddress()));
-    		}
-    		catch (Exception e) {
-    			System.out.println("[ERREUR] Creation TCP Server");
-    		}
+    	try {
+	    	ChatManager manager = new ChatManager();
+	    	for (String courant : Users) {
+	    		ListUser.setText(ListUser.getText() + "\n" + courant );
+	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
+	    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
+	    	}	
     	}
+		catch (Exception e) {
+			System.out.println("[ERREUR LUC] Creation TCP Server ou ChatManager impossible");
+		}
     	
         //a modifier pour le main
         //LUC app = new LUC();

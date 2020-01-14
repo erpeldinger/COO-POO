@@ -19,25 +19,17 @@ public class TCPServer extends Thread {
 	private ServerSocket socket = null;
 	private boolean running;
 	private int id;
-	private static ArrayList<Boolean> ports = Collections.fill(new ArrayList<Boolean>(Arrays.asList(new Boolean[10])), Boolean.TRUE);
-	private int currentPort;
+	//private static ArrayList<Boolean> ports = Collections.fill(new ArrayList<Boolean>(Arrays.asList(new Boolean[10])), Boolean.TRUE);
+	private int monPort;
 	
 	//Constructeurs
-	public TCPServer(int id,InetAddress localAddr) throws IOException {
-		 // A CHANGER
+	public TCPServer(int id,InetAddress localAddr, int port) throws IOException {
+		System.out.println("Constructeur Server TCP");
 		this.id=id;
 		this.running = true;
-		int indCurrentPort=0;
-		// on prend le premier port dispo
-		while(!ports.get(indCurrentPort)) {
-			indCurrentPort++;
-		}
-		ports.set(indCurrentPort,Boolean.FALSE);
-		currentPort = 2000 + indCurrentPort;
-		// AJOUTER LE PORT DANS LA BD ?
-		System.out.println(" port : " + currentPort);
-		this.socket = new ServerSocket(currentPort,1,localAddr);
-		
+		int monPort=port;
+		System.out.println("port : " + port + " addr : " + localAddr);
+		this.socket = new ServerSocket(port,1,localAddr);
 		start();
 	}
 	

@@ -31,7 +31,7 @@ public class ChatManager {
 	private static ArrayList<TCPServer> servers;
 	
 	//Constructeurs
-	public ChatManager(User u1, User u2) throws IOException {	
+	public ChatManager() throws IOException {	
 		ports = new ArrayList<Boolean>(Arrays.asList(new Boolean[10]));
 		Collections.fill(ports, Boolean.TRUE);
 		/*
@@ -51,8 +51,15 @@ public class ChatManager {
 	
 	public static ArrayList<Boolean> getPorts() {return ports;}
 	
-	public void TCPServer(int id,InetAddress localAddr) throws IOException {
-		servers.add(new TCPServer(id, localAddr));
+	public void addTCPServer(int id,InetAddress localAddr) throws IOException {
+		int indCurrentPort, port;
+		indCurrentPort = 0;
+		while(!ports.get(indCurrentPort)) {
+			indCurrentPort++;
+		}
+		ports.set(indCurrentPort,Boolean.FALSE);
+		port = 2000 + indCurrentPort;
+		servers.add(new TCPServer(id, localAddr, port));
 	}
 	
 	//Demo
