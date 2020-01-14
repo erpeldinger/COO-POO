@@ -16,7 +16,7 @@ public class DemoChangementFenetre {
     
     public static void main (String[] args){
     	
-    	//Inscription pageInscription = new Inscription();
-    	LUC pageLUC = new LUC();
+    	Inscription pageInscription = new Inscription();
+    	//LUC pageLUC = new LUC();
     }
 }
