@@ -84,7 +84,7 @@ public class ListenerUDP extends Thread {
     			
 		    	byte[] buff = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
-		    	//System.out.println("[LISTENER UDP] Création inPacket ok");
+		    	System.out.println("[LISTENER UDP] Création inPacket ok");
 		    	socket.receive(inPacket);
 		    	System.out.println("[LISTENER UDP] Réception inPacket ok");
 		    	
@@ -130,10 +130,10 @@ public class ListenerUDP extends Thread {
     		}
     		
     		catch (Exception e) {
-    			System.out.println("[LISTENER UDP] Erreur run");
+    			System.out.println("[LISTENER UDP] Erreur run " + e);
     		}
     	}
-    	socket.close();
+    	//socket.close();
     }
     
 }

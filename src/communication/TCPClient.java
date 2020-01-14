@@ -24,6 +24,7 @@ public class TCPClient {
     		System.out.println("Message a envoyer : " + msg);
     		byte[] buff = Message.readyToSend(user.getId(),msg);
     		out.write(buff);    		
+    		System.out.println("Message envoye : " + msg);
     	}
     	catch (Exception e) {
     		System.out.println("[TCPClient] Erreur writeM");

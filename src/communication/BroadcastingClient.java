@@ -93,7 +93,7 @@ public class BroadcastingClient {
 			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
 	    	
-	    	socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
+	    	//socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
 			/*
 	    	String rep = new String(outPacket.geServertData(), 0, outPacket.getLength());
 
@@ -109,8 +109,8 @@ public class BroadcastingClient {
         	System.out.println("[BROADCASTING CLIENT] Ajout users dans liste des users connectes ok.\n"); 
         	*/
 
-			socket.close();
-			System.out.println("[BROADCASTING CLIENT] Socket.close()");
+			//socket.close();
+			//System.out.println("[BROADCASTING CLIENT] Socket.close()");
     	}
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast : " + e );

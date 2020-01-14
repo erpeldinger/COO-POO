@@ -56,7 +56,7 @@ public class TCPServer extends Thread {
 	public void run() {
 		
 		while (isRunning()) {	
-			System.out.println("[TCPServer ] debut ServerTCP");
+			System.out.println("[TCPServer ] debut ServerTCP ");
 			try {
 				//Reception de la donnee
 				Socket server = this.socket.accept();
@@ -67,7 +67,7 @@ public class TCPServer extends Thread {
 				receiveMessage(server,in,buff);	    		
 	    		Message m = Message.readMessage(buff);
 
-				System.out.println("[TCPServer ] message recu");
+				System.out.println("[TCPServer ] message recu " + m.getContent());
 	    		/*
 	    		String s="";
 	            BufferedReader inB = new BufferedReader(new InputStreamReader(in));
@@ -79,7 +79,9 @@ public class TCPServer extends Thread {
 	    		//Stockage dans la bd
 	    		Connect.createNewDatabase("database.db");
 	        	Connect.createNewTableConv("database.db");
-	    		Connect.insertConversation("database.db",this.id, m.getId(),m.getContent(),m.getDate().toString());			
+	    		Connect.insertConversation("database.db",this.id, m.getId(),m.getContent(),m.getDate().toString());
+	    		System.out.println("message enregistre dans la db \n");
+			
 			}			
 			catch (Exception e) {
 				System.out.println("[TCPServer ] Erreur run " + e);

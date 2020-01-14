@@ -25,15 +25,15 @@ public class DemoServerTCP {
     	Connect.insertUserLUC("database.db", 13, "10.1.5.183" );
     	Connect.insertUserLUC("database.db", 14, "addrIP3" );
     	
-
+    	//Broadcast
     	InetAddress addrbr = InetAddress.getByName("10.1.255.255");  
     	User u1 = new User(12,"ServerPaul","mdp",1288,addrbr);   
     	
-
+    	//Partie TCP
         InetAddress ip = InetAddress.getByName("10.1.5.180");
         System.out.println("IP Server: " +ip);
     	int port = 1234;
-    	//TCPServer server = new TCPServer(port,u1.getId(),ip);
+    	TCPServer server = new TCPServer(port,u1.getId(),ip);
     	
     	/*
     	//Server
