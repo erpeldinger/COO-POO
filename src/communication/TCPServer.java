@@ -5,6 +5,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.io.BufferedReader;
@@ -21,12 +24,24 @@ public class TCPServer extends Thread {
 	private ServerSocket socket = null;
 	private boolean running;
 	private int id;
+	private static ArrayList<Boolean> ports = new ArrayList<Boolean>(Arrays.asList(new Boolean[10]));
+	private int currentPort;
 	
 	//Constructeurs
-	public TCPServer(int port, int id,InetAddress localAddr) throws IOException {
-		this.socket = new ServerSocket(port,1,localAddr);
+	public TCPServer(int id,InetAddress localAddr) throws IOException {
+		Collections.fill(ports, Boolean.TRUE); // A CHANGER
 		this.id=id;
 		this.running = true;
+		int indCurrentPort=0;
+		// on prend le premier port dispo
+		while(!ports.get(indCurrentPort)) {
+			indCurrentPort++;
+		}
+		ports.set(indCurrentPort,Boolean.FALSE);
+		currentPort = 2000 + indCurrentPort;
+		System.out.println(" port : " + currentPort);
+		this.socket = new ServerSocket(currentPort,1,localAddr);
+		
 		start();
 	}
 	
@@ -42,7 +57,7 @@ public class TCPServer extends Thread {
 		System.out.println("[TCPServer] Erreur readMessage ");
     	}
     }
-	
+	// fermer les ports !
 	public void stopTCPServer() {
 		this.running = false;
 		try {

@@ -21,10 +21,10 @@ public class DemoClientTCP {
 
         
         //Partie TCP
-        InetAddress ip = InetAddress.getByName("10.1.5.180");
+        InetAddress ip = InetAddress.getByName("10.1.5.88");
         System.out.println("IP Client : " +ip);
-    	int port = 1234;
-    	TCPClient client = new TCPClient(ip,port,u2, 12);
+    	int port = 2000;
+    	TCPClient client = new TCPClient(ip,2000,u2, 12);
     	client.sendMessage("Coucou c'est client, ca boom ?");
     	
     	/*

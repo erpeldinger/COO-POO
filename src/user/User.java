@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import format.Message;
+import requete.Connect;
 import communication.*;
 
 public class User {
@@ -59,7 +60,19 @@ public class User {
     private void logOut() {}
     private void openSession(String pseudo, String password) {}
 
-    public String getIPAddres() { return "todo";}
+   /* public String getIPAddress() { 
+    	 String addrDest = Connect.queryUserLUC("database.db", this.id);
+    	 System.out.println("addr dest : " + addrDest);
+         String[] parts = addrDest.split("/");
+         System.out.println("apres split : " + parts[1]);
+         
+         //Thread.sleep(2000);
+         
+         InetAddress ip = InetAddress.getByName(parts[1]);
+    	
+    	
+    	return "todo";
+    }*/
 
     //methodes pour le main
     public Message createM(String msg) {

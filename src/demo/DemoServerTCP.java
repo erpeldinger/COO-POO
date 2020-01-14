@@ -21,7 +21,7 @@ public class DemoServerTCP {
         Connect.insertUser("database.db", "Tom", "12456789123", 13);
         Connect.insertUser("database.db", "Thibault", "12456789123", 14);
     	
-    	Connect.insertUserLUC("database.db", 12, "10.1.5.180");
+    	Connect.insertUserLUC("database.db", 12, "10.1.5.88");
     	Connect.insertUserLUC("database.db", 13, "10.1.5.183" );
     	Connect.insertUserLUC("database.db", 14, "addrIP3" );
     	
@@ -30,10 +30,12 @@ public class DemoServerTCP {
     	User u1 = new User(12,"ServerPaul","mdp",1288);   
     	
     	//Partie TCP
-        InetAddress ip = InetAddress.getByName("10.1.5.180");
+        InetAddress ip = InetAddress.getByName("10.1.5.88");
         System.out.println("IP Server: " +ip);
     	int port = 1234;
-    	TCPServer server = new TCPServer(port,u1.getId(),ip);
+		System.out.println("lancement du server tcp ");
+    	TCPServer server = new TCPServer(u1.getId(),ip);
+		System.out.println("tcp server lancé ");
     	
     	/*
     	//Server
