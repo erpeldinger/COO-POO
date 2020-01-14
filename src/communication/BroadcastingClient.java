@@ -25,7 +25,7 @@ public class BroadcastingClient {
     private static User user;
     
     //Constructeurs
-    public BroadcastingClient(DatagramSocket s, int port, User user) throws SocketException {
+    public BroadcastingClient(DatagramSocket s, int port, User user, InetAddress addrBr) throws SocketException {
     	this.socket = s;
     	this.packet = null;
     	this.port = port;
@@ -33,7 +33,7 @@ public class BroadcastingClient {
     	this.user = user;
     	System.out.println("User : " + user.getPseudo() + " ; Socket BroadcastingClient : " + port + "\n");
     	try {
-	        BroadcastingClient.sendBroadcast(BroadcastingClient.getBroadcastAddress());
+	        BroadcastingClient.sendBroadcast(addrBr);
 	        System.out.println("[BROADCASTING CLIENT] send broadcast ok");}
     	catch (Exception e) {}
     }
