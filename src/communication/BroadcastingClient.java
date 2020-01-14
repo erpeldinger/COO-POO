@@ -82,7 +82,7 @@ public class BroadcastingClient {
     	
     	try {
     		System.out.println("debut send");
-	    	//socket.setBroadcast(true);
+	    	socket.setBroadcast(true);
 	    	//System.out.println("set broadcast ok");
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
 	    	System.out.println("creation dtg packet");

@@ -14,8 +14,9 @@ public class DemoClientTCP {
     	
     	
 
-    	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
-    	User u2 = new User(13,"ClientTom","mdp",1246,addrbr);
+    	//InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
+    	InetAddress addrBr = InetAddress.getByName("10.1.255.255");
+    	User u2 = new User(13,"ClientTom","mdp",1246,addrBr);
         u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
 
         //String addrDest = Connect.queryUserLUC("database.db", 1);
