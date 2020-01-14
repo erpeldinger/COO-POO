@@ -22,9 +22,9 @@ public class DemoClientTCP {
         InetAddress ip = InetAddress.getByName("10.1.5.180");
         System.out.println("IP Client : " +ip);
     	int port = 1234;
-    	TCPClient client = new TCPClient(ip,port,u2);
+    	//TCPClient client = new TCPClient(ip,port,u2);
 
-    	client.sendMessage("Coucou c'est client, ca boom ?");
+    	//client.sendMessage("Coucou c'est client, ca boom ?");
     	
     	/*
     	//CLIENT 

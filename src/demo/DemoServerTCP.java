@@ -33,7 +33,7 @@ public class DemoServerTCP {
         InetAddress ip = InetAddress.getByName("10.1.5.180");
         System.out.println("IP Server: " +ip);
     	int port = 1234;
-    	TCPServer server = new TCPServer(port,u1.getId(),ip);
+    	//TCPServer server = new TCPServer(port,u1.getId(),ip);
     	
     	/*
     	//Server
