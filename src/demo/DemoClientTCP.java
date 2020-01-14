@@ -25,7 +25,7 @@ public class DemoClientTCP {
         
         System.out.println("socket cree");
         String addrDest = Connect.queryUserLUC("database.db", 77);
-        InetAddress ip = InetAddress.getByName(addrDest);
+        InetAddress ip = InetAddress.getByName("10.1.5.43");
         System.out.println("IP Client : " +ip);
     	TCPClient server = new TCPClient(ip,port,u2);
     	

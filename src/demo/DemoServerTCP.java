@@ -15,9 +15,6 @@ public class DemoServerTCP {
         Connect.createNewDatabase("database.db");
         Connect.createNewTableLUC("database.db");
     	
-    	int port = 1234;
-    	InetAddress addrLo = InetAddress.getLocalHost();
-    	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
     	
     	//ATTENDRE 2secondes
     	/*long now = System.currentTimeMillis();   
@@ -26,6 +23,9 @@ public class DemoServerTCP {
     	}*/
     	//OU ALORS ON FAIT CE WHILE SUR LE WHILE(RUNNING) DANS LISTENERUDP
     	Thread.sleep(2000);
+    	int port = 1234;
+    	InetAddress addrLo = InetAddress.getLocalHost();
+    	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
     	
     	
         System.out.println("avant user");
@@ -33,8 +33,12 @@ public class DemoServerTCP {
     	
         System.out.println("apres user");
         String addrDest = Connect.queryUserLUC("database.db", 88);
+        Thread.sleep(2000);
         System.out.println("addr dest : " + addrDest);
-        InetAddress ip = InetAddress.getByName(addrDest);
+        String[] other = addrDest.split("/");
+        System.out.println("apres split : " + other[1]);
+        Thread.sleep(2000);
+        InetAddress ip = InetAddress.getByName("10.1.5.42");
         System.out.println("IP Server: " +ip);
     	TCPServer server = new TCPServer(port,u1.getId(),ip);
     	

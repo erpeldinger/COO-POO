@@ -55,12 +55,15 @@ public class BroadcastingClient {
     	Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
     	while (interfaces.hasMoreElements()) {
     	    NetworkInterface networkInterface = interfaces.nextElement();
-    		if (networkInterface.getDisplayName().contains("eth0")) {
+    		if (networkInterface.getDisplayName().contains("eth4")) {
     			broadcast = networkInterface.getInterfaceAddresses().get(1).getBroadcast();   	    
 	        }
     	}
     	return broadcast;  
     }
+    
+    
+    
     /*
     public static InetAddress getLocalAddr() {
     	return socket.getLocalAddress();
