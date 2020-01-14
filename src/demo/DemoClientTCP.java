@@ -12,6 +12,20 @@ public class DemoClientTCP {
     
     public static void main (String[] args) throws SocketException, Exception, IOException, SecurityException, IllegalArgumentException, NullPointerException {
     	
+    	
+
+    	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
+    	User u2 = new User(13,"ClientTom","mdp",1246,addrbr);
+
+        //String addrDest = Connect.queryUserLUC("database.db", 1);
+        InetAddress ip = InetAddress.getByName("10.1.5.180");
+        System.out.println("IP Client : " +ip);
+    	int port = 1234;
+    	TCPClient client = new TCPClient(ip,port,u2);
+
+    	client.sendMessage("Coucou c'est client, ca boom ?");
+    	
+    	/*
     	//CLIENT 
         Connect.createNewDatabase("database.db");
         Connect.createNewTableLUC("database.db");
@@ -21,7 +35,8 @@ public class DemoClientTCP {
     	InetAddress addrbr = BroadcastingClient.getBroadcastAddress();
         System.out.println("addr ok");
     	User u2 = new User(88,"ClientTiti","mdp",1246,addrbr);
-       
+        u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
+
     	//join ?
     	Thread.sleep(2000);
     	
@@ -29,9 +44,12 @@ public class DemoClientTCP {
         String addrDest = Connect.queryUserLUC("database.db", 77);
         InetAddress ip = InetAddress.getByName("10.1.5.43");
         System.out.println("IP Client : " +ip);
-    	TCPClient server = new TCPClient(ip,port,u2);
+    	TCPClient client = new TCPClient(ip,port,u2);
     	
-    	server.sendMessage("Coucou c'est client, ca boom ?");
+    	client.sendMessage("Coucou c'est client, ca boom ?");
+    	*/
+    	
+    	
     	
     	/*
     	Socket sockC = null;
