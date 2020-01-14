@@ -45,19 +45,15 @@ public class BroadcastingClient {
     //Methodes
     
     public static InetAddress getIpAddress() throws SocketException {
-    	// recuperation IP 
     	InetAddress res = null;
         Enumeration<NetworkInterface> ifaces = NetworkInterface.getNetworkInterfaces();
-        while( ifaces.hasMoreElements() )
-        {
+        while(ifaces.hasMoreElements()) {
           NetworkInterface iface = ifaces.nextElement();
           Enumeration<InetAddress> addresses = iface.getInetAddresses();
 
-          while( addresses.hasMoreElements() )
-          {
+          while(addresses.hasMoreElements()) {
             InetAddress monIp = addresses.nextElement();
-            if( monIp instanceof Inet4Address && !monIp.isLoopbackAddress() )
-            {
+            if(monIp instanceof Inet4Address && !monIp.isLoopbackAddress()){
               res = monIp;
             }
           }
@@ -65,9 +61,8 @@ public class BroadcastingClient {
         return res;
     }
 
+    
     public static InetAddress getBroadcastAddress()  throws SocketException {
-
-
     	InetAddress broadcast = null;
     	// INTERFACE EN DUR
     	Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();

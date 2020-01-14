@@ -1,20 +1,15 @@
 package communication;
 
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.io.BufferedReader;
 import java.io.IOException;
-
 import format.Message;
-import format.DateMsg;
 import requete.Connect;
 
 
@@ -24,12 +19,12 @@ public class TCPServer extends Thread {
 	private ServerSocket socket = null;
 	private boolean running;
 	private int id;
-	private static ArrayList<Boolean> ports = new ArrayList<Boolean>(Arrays.asList(new Boolean[10]));
+	private static ArrayList<Boolean> ports = Collections.fill(new ArrayList<Boolean>(Arrays.asList(new Boolean[10])), Boolean.TRUE);
 	private int currentPort;
 	
 	//Constructeurs
 	public TCPServer(int id,InetAddress localAddr) throws IOException {
-		Collections.fill(ports, Boolean.TRUE); // A CHANGER
+		 // A CHANGER
 		this.id=id;
 		this.running = true;
 		int indCurrentPort=0;
