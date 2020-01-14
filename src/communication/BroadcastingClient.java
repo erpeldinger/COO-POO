@@ -112,7 +112,7 @@ public class BroadcastingClient {
 			System.out.println("[BROADCASTING CLIENT] Socket.close()");
     	}
     	catch (Exception e) {
-    		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast");
+    		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast : " + e );
     	}
     }
 }
