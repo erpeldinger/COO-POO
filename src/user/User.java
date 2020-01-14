@@ -29,7 +29,7 @@ public class User {
         this.listUserConnected = new ArrayList <U1>();
         this.listIdUserConnected = new ArrayList <Integer>();
         this.messages= new ArrayList <Message>();
-        //this.listener = new ListenerUDP (port,pseudo,addrbr, id, listIdUserConnected); 
+        this.listener = new ListenerUDP (port,pseudo,addrbr, id, listIdUserConnected); 
     }
 
     // les getters
