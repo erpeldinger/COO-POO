@@ -91,9 +91,7 @@ public class Inscription implements ActionListener {
     	if (e.getActionCommand().equals("S'inscrire")) {
     	
     	Connect.createNewDatabase("database.db");
-    	Connect.deleteTable("database.db", "User");
     	Connect.createNewTableUser("database.db");
-    	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
         //Si le message est vide on ne l'envoie pas , n affiche l'erreur
         if (pseudoField.getText().equals("")) {
             labelError.setText(emptyPseudo);

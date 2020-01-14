@@ -11,10 +11,12 @@ import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
 import requete.Connect;
-;
+import LUC.*;
+import user.*;
 public class Connexion implements ActionListener {
     
     // Tous les labels
+	private JFrame frame;
     private static String pseudo = "Pseudo : ";
     private String password = "Mot de passe : ";
     private String connect = "Se connecter";
@@ -85,18 +87,25 @@ public class Connexion implements ActionListener {
         //Sinon on se connecte
         else {
         	Connect.createNewDatabase("database.db");
-        	Connect.deleteTable("database.db", "User");
         	Connect.createNewTableUser("database.db");
-        	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
-        	System.out.println("user Toto titi123456798");
        
         	if (Connect.checkIsUser("database.db", pseudoField.getText(), passwordField.getText())) {
         		// connexion ok
-	        	//System.out.println("connecte!");
-	            labelError.setText("correctUser");
+        		try {
+	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText(),9999);
+	            LUC pageLUC = new LUC(user);
+        		}
+        		catch (Exception j) {
+        			System.out.println("[ERROR] Creation user impossible " + j);
+        		}
+
+	            labelError.setText("");
 	            pseudoField.setText("");
 	            passwordField.setText("");
 	            labelSuccess.setText(connected);
+	            
+	    		frame.setVisible(false);
+	    		System.out.println("LUC ouvert");
         	}
         	else {
         		//mauvais pseudo/mot de passe
@@ -169,7 +178,7 @@ public class Connexion implements ActionListener {
         JFrame.setDefaultLookAndFeelDecorated(true);
         
         //Create and set up the window.
-        JFrame frame = new JFrame("Connexion");
+        this.frame = new JFrame("Connexion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Connexion app = new Connexion();

@@ -6,13 +6,21 @@ package clavardage;
  * no other files.
  */
 import javax.swing.*;
+
+import connexion.Connexion;
+import requete.Connect;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import LUC.*;
+import user.*;
 public class Clavardage implements ActionListener {
     
     // L'etat de l'envoi du message
+	private User user;
 	private JFrame frame;
     private static String labelPrefix = "Etat du message : ";
     private static String etatEnCreation = "EnCreation";
@@ -20,6 +28,7 @@ public class Clavardage implements ActionListener {
     private static String etatEnvoiEnCours = "En cours d'envoi";
     private static String etatErreur = "Non envoyé, erreur";
     final static JLabel labelMessage = new JLabel(labelPrefix + etatEnCreation);
+    final static JLabel labelRetour = new JLabel("");
     
     //Affichage des différents messages
     private static JTextArea ConvArea = new JTextArea(20, 50);
@@ -36,13 +45,21 @@ public class Clavardage implements ActionListener {
     //null (use the default), "Metal", "System", "Motif", "GTK+"
     final static String LOOKANDFEEL = null;
     
-    //creation du button d'envoie de message
+    
     public Component createComponents() {
+    	//creation du button d'envoie de message
         JButton button = new JButton("Envoyer le message");
         button.setMnemonic(KeyEvent.VK_I);
         button.addActionListener(this);
         labelMessage.setLabelFor(button);
         button.setPreferredSize(new Dimension(10,50));
+        
+        //button de retour vers la page des LUC
+        JButton retour = new JButton("Retour");
+        retour.setMnemonic(KeyEvent.VK_I);
+        retour.addActionListener(this);
+        labelRetour.setLabelFor(retour);
+        retour.setPreferredSize(new Dimension(10,50));
         
         /*
          * An easy way to put space between a top-level container
@@ -50,6 +67,7 @@ public class Clavardage implements ActionListener {
          * that has an "empty" border.
          */
         JPanel pane = new JPanel(new GridLayout(0, 1));
+        pane.add(retour);
         pane.add(Conversation);
         pane.add(labelError);
         pane.add(messageField);
@@ -67,30 +85,38 @@ public class Clavardage implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e) {
-        //Si le message est vide on ne l'envoie pas , n affiche l'erreur
-        if (messageField.getText().equals("")) {
-            labelError.setText(emptyMessageField);
-        }
-        //Sinon on l'envoie
-        else {
-            labelError.setText("");
-            labelMessage.setText(labelPrefix + etatEnvoiEnCours);
-            try {
-                //Envoyer le message
-                labelMessage.setText(labelPrefix + etatEnvoye);
-                
-                //Sauvegarder le message dans la base de donnes
-                
-                //Afficher le message
-                ConvArea.setText(ConvArea.getText() + "\n" + "You : " + messageField.getText());
-
-                //rendre vide le champ messagetField
-                messageField.setText("");
-            }
-            catch (Exception ex){
-                labelMessage.setText(labelPrefix + etatEnvoiEnCours);
-            }
-        }
+    	if (e.getActionCommand().equals("Envoyer le message") ) {
+	        //Si le message est vide on ne l'envoie pas , n affiche l'erreur
+	        if (messageField.getText().equals("")) {
+	            labelError.setText(emptyMessageField);
+	        }
+	        //Sinon on l'envoie
+	        else {
+	            labelError.setText("");
+	            labelMessage.setText(labelPrefix + etatEnvoiEnCours);
+	            try {
+	                //Envoyer le message
+	                labelMessage.setText(labelPrefix + etatEnvoye);
+	                
+	                //Sauvegarder le message dans la base de donnees
+	                
+	                //Afficher le message
+	                ConvArea.setText(ConvArea.getText() + "\n" + "You : " + messageField.getText());
+	
+	                //rendre vide le champ messageField
+	                messageField.setText("");
+	            }
+	            catch (Exception ex){
+	                labelMessage.setText(labelPrefix + etatEnvoiEnCours);
+	            }
+	        }
+    	}
+	    else {
+	    	messageField.setText("");
+	    	ConvArea.setText("");
+	    	LUC pageLUC = new LUC(user);
+    		frame.setVisible(false);
+	    }
     }
     
     private static void initLookAndFeel() {
@@ -140,7 +166,10 @@ public class Clavardage implements ActionListener {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private void Clavardage() {
+    public Clavardage(User user, int id2) {
+    	//init user
+    	this.user=user;
+    	
         //Set the look and feel.
         initLookAndFeel();
         
@@ -152,6 +181,14 @@ public class Clavardage implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         ConvArea.setEditable(false);
+
+        // afficher l'historique des message
+        Connect.createNewTableConv("database.db");
+        System.out.println("User : " + user.getId() + " user 2 " + id2);
+    	ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
+    	for ( String courant : Users) {
+    		ConvArea.setText(ConvArea.getText() + "\n" + courant );
+    	}
         
         //Clavardage app = new Clavardage();
         Component contents = createComponents();

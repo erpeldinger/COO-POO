@@ -13,10 +13,10 @@ import java.sql.ResultSet;
  * @author sqlitetutorial.net
  */
 public class Connect {
-	private static int id=0;
+	private static int idCourant=1;
 	
 	//get id
-	public static int getId() {return id; }
+	public static int getId() {return idCourant; }
 	
     //connect to the database, and create it if it doesn't exist
     public static void createNewDatabase(String fileName) {
@@ -158,7 +158,8 @@ public class Connect {
                     pstmt.setString(2, pass);
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
-            id++;
+            idCourant++;
+            System.out.println("incrementation id ok : " + id );
             //System.out.println("A User has been created in User");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT]" + e.getMessage());
@@ -291,11 +292,11 @@ public class Connect {
       /* ------------------------------------------QUERY--------------------------------------*/
       
       // Récupération de l'id d'un utilisateur
-      public static ArrayList<String> queryUser(String filename, String pseudo, String pass) {
+      public static int queryUser(String filename, String pseudo, String pass) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "SELECT id FROM User WHERE pseudo = '" + pseudo + "' AND password = '" + pass + "';";
-          ArrayList<String> resultat = new ArrayList<String>();
-          String resInter = "";
+          ArrayList<Integer> resultat = new ArrayList<Integer>();
+          Integer resInter ;
 
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
@@ -303,16 +304,15 @@ public class Connect {
               
               // loop through the result set
               while (rs.next()) {
-                  resInter="";
-                          resInter += Integer.valueOf(rs.getInt(("id")));
+                  resInter = Integer.valueOf(rs.getInt(("id")));
                   resultat.add(resInter);
               }
-              resultat.add("end");
-              return resultat;
+              resultat.add(-1);
+              return resultat.get(0).intValue();
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
-          return resultat;
+          return resultat.get(0).intValue();
       }
       //verification pseudo
       public static ArrayList<String> queryUserPseudo(String filename, String pseudo) {
@@ -419,11 +419,11 @@ public class Connect {
       }
       
    // Récupération d'un id si le pseudo est correct
-      public static String queryUserIdLUC(String filename, String pseudo) {
+      public static int queryUserIdLUC(String filename, String pseudo) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT user.pseudo FROM User, ListUserConnected WHERE ListUserConnected.id = User.id AND User.pseudo = '" + pseudo + "';";
-          ArrayList<String> resultat = new ArrayList<String>();
-          String resInter = "";
+          String sql = "SELECT user.id FROM User, ListUserConnected WHERE ListUserConnected.id = User.id AND User.pseudo = '" + pseudo + "';";
+          ArrayList<Integer> resultat = new ArrayList<Integer>();
+          Integer resInter;
 
           System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
@@ -432,16 +432,15 @@ public class Connect {
               
               // loop through the result set
               while (rs.next()) {
-                  resInter="";
-                          resInter += rs.getString(("pseudo"));
+                  resInter = rs.getInt(("id"));
                   resultat.add(resInter);
               }
-              resultat.add("end");
+              resultat.add(-1);
               return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
-          return resultat.get(0);
+          return resultat.get(0).intValue();
       }
       
 
@@ -487,8 +486,8 @@ public class Connect {
       
       /*------------------------------------------VERIFICATION USER EXISTANT ------------------------------------- */
       public static boolean checkIsUser(String filename, String pseudo, String pass) {
-          ArrayList<String> resultat = queryUser(filename, pseudo, pass);
-          return (resultat.get(0) != "end" );
+          int resultat = queryUser(filename, pseudo, pass);
+          return (resultat != -1 );
       }
       
       /*------------------------------------------VERIFICATION VALIDITE PSEUDO ET PASSWORD (new user) ------------------------------------- */

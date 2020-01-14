@@ -6,6 +6,7 @@ package LUC;
  * no other files.
  */
 import javax.swing.*;
+import user.*;
 
 import clavardage.Clavardage;
 import requete.Connect;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class LUC implements ActionListener {
     
     // Tous les labels
+	private User user;
 	private JFrame frame;
     private String incorrectUser = "Cet utilisateur n'ext pas connecte";
     final JLabel labelError = new JLabel("");
@@ -75,12 +77,12 @@ public class LUC implements ActionListener {
 		labelError.setText("");
     	if (e.getActionCommand().equals("Demarrer une conversation")){
     		//check si User bien dans la LUC (pseuod ==> id ==> LUC)
-        	String userId = Connect.queryUserIdLUC("database.db", debutConv.getText());
-        	if (userId != "end") {
+        	int userId = Connect.queryUserIdLUC("database.db", debutConv.getText());
+        	if (userId != -1) {
     		//ouvrir la page de conv
-        		Clavardage pageClavardage = new Clavardage();
+        		Clavardage pageClavardage = new Clavardage(user,userId);
+        		System.out.println("connexion");
         		frame.setVisible(false);
-        		
         	}
         	else {
         		//erreur de User
@@ -140,8 +142,13 @@ public class LUC implements ActionListener {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    public void LUC() {
-        System.out.println("visible");
+    public LUC(User user) {
+    //public void createAndShowGUI() {
+        System.out.println("debut constructeur");
+        
+        //init le user
+        this.user = user;
+        
         //Set the look and feel.
         initLookAndFeel();
         
@@ -154,14 +161,13 @@ public class LUC implements ActionListener {
         
         ListUser.setEditable(false);
         // afficher les User connectes
-    	Connect.createNewDatabase("database.db");
-    	Connect.createNewTableLUC("database.db");
-    	Connect.insertUser("database.db", "Tata", "titi123456790" , 1);
-    	Connect.insertUser("database.db", "Tutu", "titi123456790" , 1);
-    	Connect.insertUserLUC("database.db", 1, "2.3.4.5");
-    	Connect.insertUserLUC("database.db", 2, "1.2.3.4");
+        Connect.createNewTableLUC("database.db");
+    	Connect.insertUser("database.db", "Tata", "titi123456790" , 19999);
+    	Connect.insertUser("database.db", "Tutu", "titi123456790" , 29999);
+    	Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
+    	Connect.insertUserLUC("database.db", 29999, "1.2.3.4");
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
-    	for ( String courant : Users) {
+    	for (String courant : Users) {
     		ListUser.setText(ListUser.getText() + "\n" + courant );
     	}
     	
@@ -173,6 +179,7 @@ public class LUC implements ActionListener {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        System.out.println("fin constructeur");
     }
     
     /*
@@ -181,10 +188,12 @@ public class LUC implements ActionListener {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+            	LUC pageLUC = new LUC();
+                pageLUC.createAndShowGUI();
             }
         });
     }
     */
+    
     
 }
