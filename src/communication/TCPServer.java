@@ -74,7 +74,7 @@ public class TCPServer extends Thread {
 	            PrintStream outP = new PrintStream(out);
 	            s = inB.readLine();*/
 
-	            server.close();
+	            //server.close();
 	    		
 	    		//Stockage dans la bd
 	    		Connect.createNewDatabase("database.db");

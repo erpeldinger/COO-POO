@@ -26,8 +26,8 @@ public class DemoServerTCP {
     	Connect.insertUserLUC("database.db", 14, "addrIP3" );
     	
     	//Broadcast
-    	InetAddress addrbr = InetAddress.getByName("10.1.255.255");  
-    	User u1 = new User(12,"ServerPaul","mdp",1288,addrbr);   
+    	InetAddress addrBr = BroadcastingClient.getBroadcastAddress();
+    	User u1 = new User(12,"ServerPaul","mdp",1288);   
     	
     	//Partie TCP
         InetAddress ip = InetAddress.getByName("10.1.5.180");

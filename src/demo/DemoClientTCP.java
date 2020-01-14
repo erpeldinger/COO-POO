@@ -15,16 +15,16 @@ public class DemoClientTCP {
     	
 
     	//Broadcast
-    	InetAddress addrBr = InetAddress.getByName("10.1.255.255");
-    	User u2 = new User(13,"ClientTom","mdp",1246,addrBr);
-        u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2, u2.getListener().getAddrBr()));
+    	User u2 = new User(13,"ClientTom","mdp",1246);
+    	Thread.sleep(500);
+        u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
 
         
         //Partie TCP
         InetAddress ip = InetAddress.getByName("10.1.5.180");
         System.out.println("IP Client : " +ip);
     	int port = 1234;
-    	TCPClient client = new TCPClient(ip,port,u2);
+    	TCPClient client = new TCPClient(ip,port,u2, 12);
     	client.sendMessage("Coucou c'est client, ca boom ?");
     	
     	/*

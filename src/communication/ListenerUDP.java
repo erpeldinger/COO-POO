@@ -24,13 +24,13 @@ public class ListenerUDP extends Thread {
 	private ArrayList <Integer> userLUC;
     
     //Constructeurs
-    public ListenerUDP (int port, String name, InetAddress addrBroadcast, int id, ArrayList <Integer> LUC) throws SocketException {
+    public ListenerUDP (int port, String name, int id, ArrayList <Integer> LUC) throws SocketException, UnknownHostException {
     	super(name);
         this.socket = new DatagramSocket(port);
         this.userId = id;
         this.userLUC = LUC;
         System.out.println("User : " + name + " ; Socket ListenerUDP : " + port + "\n");
-        this.addrBroadcast = addrBroadcast;
+        this.addrBroadcast = BroadcastingClient.getBroadcastAddress();
         start();
     }
     //getters 

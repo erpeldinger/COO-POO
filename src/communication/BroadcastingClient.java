@@ -18,14 +18,14 @@ import format.Message;
 public class BroadcastingClient {
 
     //Attributs
-    private static DatagramSocket socket; // A CHANGER !!!!!!!!!!!!!!!!!!!! pas static
+    private static DatagramSocket socket;
     private static DatagramPacket packet;
     private static int port;
     private String msg ="";
     private static User user;
     
     //Constructeurs
-    public BroadcastingClient(DatagramSocket s, int port, User user, InetAddress addrBr) throws SocketException {
+    public BroadcastingClient(DatagramSocket s, int port, User user) throws SocketException {
     	this.socket = s;
     	this.packet = null;
     	this.port = port;
@@ -33,7 +33,7 @@ public class BroadcastingClient {
     	this.user = user;
     	System.out.println("User : " + user.getPseudo() + " ; Socket BroadcastingClient : " + port + "\n");
     	try {
-	        BroadcastingClient.sendBroadcast(addrBr);
+	        BroadcastingClient.sendBroadcast(BroadcastingClient.getBroadcastAddress());
 	        System.out.println("[BROADCASTING CLIENT] send broadcast ok");}
     	catch (Exception e) {}
     }
@@ -43,23 +43,40 @@ public class BroadcastingClient {
     
     //Methodes
 
-    /* Avec cette méthode, il faut expliquer que la configuration du réseau doit être configurée de
-     * telle ou telle manière.
-     * Pour l'instant, on considère que l'on récupère l'adresse de broadcast sur eth0.
-     */
-    
-    public static InetAddress getBroadcastAddress() throws SocketException {
-    	
+    public static InetAddress getBroadcastAddress()  throws SocketException {
+
+
     	InetAddress broadcast = null;
-    	
+    	// INTERFACE EN DUR
     	Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
     	while (interfaces.hasMoreElements()) {
     	    NetworkInterface networkInterface = interfaces.nextElement();
-    		if (networkInterface.getDisplayName().contains("eth0")) {
+    		if (networkInterface.getDisplayName().contains("eth4")) {
     			broadcast = networkInterface.getInterfaceAddresses().get(1).getBroadcast();   	    
 	        }
     	}
-    	return broadcast;  
+    	return broadcast; 
+    	/*
+    	System.out.println("debut");
+    	InetAddress monAddr = socket.getInetAddress();
+    	System.out.println("get Inet Address");
+    	String addrBr = "";
+    	String monAddrString = monAddr.toString();
+    	String[] parts = monAddrString.split(".");
+    	System.out.println("split" + parts[0] + parts[1] + parts[2]);
+    	Integer ipClasse = Integer.valueOf(parts[0]);
+    	System.out.println("valueOf");
+    	if ( ipClasse < 127) {
+    		addrBr += parts[0] + ".255.255.255";
+    	} 
+    	else if ( ipClasse < 192) {
+    		addrBr += parts[0] + "." + parts[1] + ".255.255";
+    	}
+    	else if ( ipClasse < 224 ) {
+    		addrBr += parts[0] + "." + parts[1] + "." + parts[2] + ".255";
+    	}
+    	return InetAddress.getByName(addrBr);
+    	*/
     }
     
     
