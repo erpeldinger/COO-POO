@@ -119,7 +119,7 @@ public class Message {
             c = parts[2];
             i = parts[0];
             pseudo = parts[1];
-            m = new Message(c,Integer.parseInt(i));
+            m = new Message(c, pseudo ,Integer.parseInt(i));
         }
         catch (Exception e) {
         	System.out.println("[Message] Erreur toMessageBdc ");
