@@ -93,7 +93,7 @@ public class Connexion implements ActionListener {
         	if (Connect.checkIsUser("database.db", pseudoField.getText(), passwordField.getText())) {
         		// connexion ok
         		try {
-	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText());
+	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText(), 1234);
 	            
 	            LUC pageLUC = new LUC(user);
         		}
