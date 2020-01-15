@@ -27,6 +27,7 @@ public class LUC implements ActionListener {
     private String incorrectUser = "Cet utilisateur n'ext pas connecte";
     final JLabel labelError = new JLabel("");
     final JLabel labelButton = new JLabel("");
+    final JLabel labelButtonRefresh = new JLabel("");
     Color myGreen = new Color(11, 102, 35);
     
     // Les champs de textes
@@ -46,6 +47,11 @@ public class LUC implements ActionListener {
         button.setMnemonic(KeyEvent.VK_I);
         button.addActionListener(this);
         labelButton.setLabelFor(button);
+
+        JButton buttonRefresh = new JButton("Raffraichir");
+        buttonRefresh.setMnemonic(KeyEvent.VK_I);
+        buttonRefresh.addActionListener(this);
+        labelButtonRefresh.setLabelFor(buttonRefresh);
         
         /*creation du button de redirection vers la page de connexion
         JButton buttonConnect = new JButton("Se connecter");
@@ -64,6 +70,7 @@ public class LUC implements ActionListener {
         pane.add(labelError);
         pane.add(debutConv);
         pane.add(button);
+        pane.add(buttonRefresh);
         pane.setBorder(BorderFactory.createEmptyBorder(
                 30, //top
                 30, //left
@@ -97,7 +104,13 @@ public class LUC implements ActionListener {
         	}
     	}
     	else {
-            
+    		try {
+    			ListUser.setText("");
+				LUC pageLUC = new LUC(user);
+			} catch (IOException e1) {
+				System.out.println("[ERROR LUC]refresh " + e);
+			}
+    		frame.setVisible(false);
         }
     }
     
