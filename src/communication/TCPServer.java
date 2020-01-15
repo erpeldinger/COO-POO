@@ -59,7 +59,7 @@ public class TCPServer extends Thread {
 	public void run() {
 		
 		while (isRunning()) {	
-			System.out.println("[TCPServer ] debut ServerTCP ");
+			System.out.println("[TCPServer ] debut ServerTCP et id : " + this.id);
 			try {
 				//Reception de la donnee
 				Socket server = this.socket.accept();

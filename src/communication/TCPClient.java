@@ -16,9 +16,9 @@ public class TCPClient {
 	
 	//Constructeurs
 	public TCPClient(InetAddress srvAddr, int srvPort, User user, int destId) throws Exception {
-        System.out.println("TCP constructeur");
+        System.out.println("[TCP Client] constructeur - avant Socket");
 		this.socket = new Socket(srvAddr, srvPort);
-        System.out.println("TCP constructeur2");
+        System.out.println("[TCP Client] constructeur2 - apres socket");
 		this.user = user;
 		this.destId= destId;
 	}

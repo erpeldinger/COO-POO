@@ -34,6 +34,7 @@ public class ChatManager {
 	public ChatManager() throws IOException {	
 		ports = new ArrayList<Boolean>(Arrays.asList(new Boolean[10]));
 		Collections.fill(ports, Boolean.TRUE);
+		servers = new ArrayList<TCPServer>();
 		/*
 		while(!ports.get(indCurrentPort)) {
 			indCurrentPort++;
@@ -59,7 +60,9 @@ public class ChatManager {
 		}
 		ports.set(indCurrentPort,Boolean.FALSE);
 		port = 2000 + indCurrentPort;
+		System.out.println("avant add -- port : " + port + " id : " + id );
 		servers.add(new TCPServer(id, localAddr, port));
+		System.out.println("après add");
 	}
 	
 	//Demo
