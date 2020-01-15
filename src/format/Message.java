@@ -7,6 +7,7 @@ public class Message {
     private DateMsg date;
     private int id;
     private byte[] packet;
+    private String pseudo;
 
     //Constructeurs
     public Message(String content) {
@@ -24,6 +25,12 @@ public class Message {
         this.id=id;
     }
     
+    public Message (String content, String pseudo, int id) {
+        this.content=content;
+        this.pseudo=pseudo;
+        this.id=id;
+    }
+    
     public Message (String content, int id) {
         this.content=content;
         this.id=id;
@@ -31,6 +38,7 @@ public class Message {
 
     //Getters
     public String getContent() {return this.content;}
+    public String getPseudo() {return this.pseudo;}
     public DateMsg getDate() {return this.date;}
     public byte[] getPacket() {return this.packet;}
     public int getId() {return this.id;}
@@ -98,15 +106,16 @@ public class Message {
         return m;
     }
     
- // On suppose qu'on a un message de la forme "8#coucou"
+ // On suppose qu'on a un message de la forme "8#pseudo#coucou"
     public static Message toMessageBdc(String s){
     	String[] parts = s.split("#");
-        String c= "",d="",i="";
+        String c= "",i="", pseudo="";
         Message m = null;
         
         try {
-            c = parts[1];
+            c = parts[2];
             i = parts[0];
+            pseudo = parts[1];
             m = new Message(c,Integer.parseInt(i));
         }
         catch (Exception e) {

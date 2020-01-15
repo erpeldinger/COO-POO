@@ -21,12 +21,14 @@ public class ListenerUDP extends Thread {
     private InetAddress addrBroadcast;
 	private int userId;
 	private ArrayList <Integer> userLUC;
+	private String pseudo;
     
     //Constructeurs
     public ListenerUDP (int port, String name, int id, ArrayList <Integer> LUC) throws SocketException, UnknownHostException {
     	super(name);
         this.socket = new DatagramSocket(port);
         this.userId = id;
+        this.pseudo=name;
         this.userLUC = LUC;
         System.out.println("User : " + name + " ; Socket ListenerUDP : " + port + "\n");
         this.addrBroadcast = BroadcastingClient.getBroadcastAddress();
@@ -95,7 +97,7 @@ public class ListenerUDP extends Thread {
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
 		    	if (isBroadcastPacket(msg)) {
 		    		//System.out.println("[LISTENER UDP] If -> debut");
-		    		String r = this.userId + "#est connecte !"; 
+		    		String r = this.userId + "#" + this.pseudo + "#est connecte !"; 
 		    		response = r.getBytes();		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
@@ -107,6 +109,7 @@ public class ListenerUDP extends Thread {
 		    		Connect.createNewDatabase("database.db");
 		        	Connect.createNewTableLUC("database.db");
 		        	System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
+		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
 		    		Connect.insertUserLUC("database.db", Message.toMessageBdc(msg).getId(), inPacket.getAddress().toString());
 		    		
 		    		//ON NOTIFIE au user qui a ce listener !!!!!
