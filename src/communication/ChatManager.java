@@ -52,6 +52,15 @@ public class ChatManager {
 		System.out.println("après add");
 	}
 	
+	public void stopCommunication(){
+		for (TCPServer s : servers) {
+			s.stopTCPServer();
+		}
+		for (int i = 0; i< ports.size(); i++) {
+			ports.set(i,Boolean.FALSE);
+		}
+	}
+	
 	//Demo
 	// Creer une fois cette classe (ça initialise le tableau des ports)
 	// Appeler une methode addServer(....) qui ajouteriait un TCPServer dans l'ArrayList (en appellant le constructeur TCPServer)
