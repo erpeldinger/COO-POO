@@ -83,6 +83,9 @@ public class Message {
     public static String toString(int id, String content, DateMsg date){
         return new String(Integer.toString(id) + "#" + content.toString() + "#" + DateMsg.toString(date));
     }
+    public static String toString(int id, String content, String pseudo){
+        return new String(Integer.toString(id) + "#" + pseudo + "#" + content.toString());
+    }
     
     public static String toString(int id, String content){
         return new String(Integer.toString(id) + "#" + content.toString());
@@ -123,7 +126,6 @@ public class Message {
         }
         return m;
     }        
-   
 
     //Renvoie un Message pret a etre serialize pour etre envoye en TCP
     public static Message toSend(int id, String content) {

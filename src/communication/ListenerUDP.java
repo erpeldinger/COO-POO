@@ -94,7 +94,7 @@ public class ListenerUDP extends Thread {
 		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
 				System.out.println("[LISTENER UDP] print msg "+msg);	
 		    	
-		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés
+		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés : id # pseudo # BROADCAST : Hello, who is there ?
 		    	if (isBroadcastPacket(msg)) {
 		    		//System.out.println("[LISTENER UDP] If -> debut");
 		    		String r = this.userId + "#" + this.pseudo + "#est connecte !"; 
@@ -110,7 +110,7 @@ public class ListenerUDP extends Thread {
 		        	Connect.createNewTableLUC("database.db");
 		        	System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
 		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
-		    		Connect.insertUserLUC("database.db", Message.toMessageBdc(msg).getId(), inPacket.getAddress().toString());
+		    		Connect.insertUserLUCbyAll("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId());
 		    		
 		    		//ON NOTIFIE au user qui a ce listener !!!!!
 		    		
@@ -120,11 +120,13 @@ public class ListenerUDP extends Thread {
 			        	 System.out.println("User connecte : \n" +id + " \n");
 			        }
 		    	}
-		    	else {
+		    	else { // id # pseudo # est connecte
 		    		//c'est un message de réponse de Broadcast
 		    		System.out.println("[LISTENER UDP] Else -> debut");
 		    		//ajout de l'user dans la LUC
 		    		this.userLUC.add(Message.toMessageBdc(msg).getId());
+		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
+		    		Connect.insertUserLUCbyAll("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId());
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
 			    	for(int id: this.userLUC) {

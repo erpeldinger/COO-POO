@@ -101,6 +101,7 @@ public class Connect {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS ListUserConnected(\n"
                 + "    id INTEGER,\n"
+                + "    pseudo text,\n"
                 + "    ip text,\n"
                 + "    port INTEGER\n"
                 + ");";
@@ -185,6 +186,39 @@ public class Connect {
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, id);
                     pstmt.setString(2, ip);
+            pstmt.executeUpdate();
+            System.out.println("A User has been created in UserLUC");
+        } catch (SQLException e) {
+            System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
+        }
+    }
+    
+    //Insertion d'un utilisateur dans la liste des utilisateurs connectes
+    public static void insertUserLUCbyPseudo(String filename, String pseudo, String ip) {
+    	String url = "jdbc:sqlite:./database/"+filename;
+        String sql = "INSERT INTO ListUserConnected (pseudo, ip) VALUES (?, ?);";
+        
+        try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, pseudo);
+                    pstmt.setString(2, ip);
+            pstmt.executeUpdate();
+            System.out.println("A User has been created in UserLUC");
+        } catch (SQLException e) {
+            System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
+        }
+    }
+    
+  //Insertion d'un utilisateur dans la liste des utilisateurs connectes
+    public static void insertUserLUCbyAll(String filename, String pseudo, String ip, int id) {
+    	String url = "jdbc:sqlite:./database/"+filename;
+        String sql = "INSERT INTO ListUserConnected (pseudo, ip, id) VALUES (?, ?, ?);";
+        
+        try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, pseudo);
+                    pstmt.setString(2, ip);
+                    pstmt.setInt(3, id);
             pstmt.executeUpdate();
             System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
@@ -444,10 +478,62 @@ public class Connect {
           return resultat.get(0);
       }
       
+   // Récupération d'une IP dans la LUC en ayant son id
+      public static String queryUserLUCbyPseudo(String filename, String pseudo) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT ip FROM ListUserConnected WHERE pseudo = '" + pseudo + "';";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter = "";
+
+          //System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter="";
+                          resInter += rs.getString(("ip"));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
+              return resultat.get(0);
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY] user LUC " + e.getMessage());
+          }
+          return resultat.get(0);
+      }
+      
    // Récupération de tous les pseudo correspondant aux ids
       public static ArrayList <String> queryAllUserLUC(String filename) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "SELECT user.pseudo FROM User, ListUserConnected WHERE ListUserConnected.id = User.id ;";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter = "";
+
+          //System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter="";
+                          resInter += rs.getString(("pseudo"));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
+              return resultat;
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY] All User " + e.getMessage());
+          }
+          return resultat;
+      }
+      
+   // Récupération de tous les pseudo
+      public static ArrayList <String> queryAllUserLUCbyPseudo(String filename) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT pseudo FROM ListUserConnected;";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 

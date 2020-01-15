@@ -104,10 +104,10 @@ public class BroadcastingClient {
     	  	
     	
     	String mBr = "BROADCAST : Hello, who is there ?";
-    	Message m = new Message(mBr, user.getId());
+    	Message m = new Message(mBr, user.getPseudo() ,user.getId());
     	
-    	// Création d'un paquet de format : "id sender | message | date"
-    	String msg = Message.toString(m.getId(),mBr); 
+    	// Création d'un paquet de format : "id sender | pseudo | message "
+    	String msg = Message.toString(m.getId(),mBr, user.getPseudo());
     	System.out.println("[BROADCASTING CLIENT] Message : " + msg);
     	
     	try {
