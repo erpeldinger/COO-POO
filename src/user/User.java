@@ -12,6 +12,7 @@ import communication.*;
 public class User {
 
     //attributs
+	private static int port = 3000;
     private int id;
     private String pseudo;
     private String password;
@@ -23,7 +24,7 @@ public class User {
     private BroadcastingClient broadcast;
 
     //constructeur
-    public User(int id, String pseudo, String password, int port) throws SocketException, UnknownHostException {
+    public User(int id, String pseudo, String password) throws SocketException, UnknownHostException {
         this.id = id;
         this.pseudo = pseudo;
         this.password = password;
@@ -31,7 +32,7 @@ public class User {
         this.listUserConnected = new ArrayList <U1>();
         this.listIdUserConnected = new ArrayList <Integer>();
         this.messages= new ArrayList <Message>();
-        this.listener = new ListenerUDP (port,pseudo, id, listIdUserConnected); 
+        this.listener = new ListenerUDP (port++,pseudo, id, listIdUserConnected); 
     }
 
     // les getters

@@ -66,6 +66,7 @@ public class ListenerUDP extends Thread {
 		}
 	}
 
+
     public void run() {
   
     	//Boolean connected = true;
@@ -108,7 +109,7 @@ public class ListenerUDP extends Thread {
 		        	System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
 		    		Connect.insertUserLUC("database.db", Message.toMessageBdc(msg).getId(), inPacket.getAddress().toString());
 		    		
-		    		//ON NOTIFIE !!!!!
+		    		//ON NOTIFIE au user qui a ce listener !!!!!
 		    		
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
