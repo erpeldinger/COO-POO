@@ -92,7 +92,8 @@ public class Connect {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS ListUserConnected(\n"
                 + "    id PRIMARY KEY NOT NULL,\n"
-                + "    ip text NOT NULL\n"
+                + "    ip text NOT NULL,\n"
+                + "    port INTEGER NOT NULL\n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
@@ -112,7 +113,7 @@ public class Connect {
         
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Conversation(\n"
-                + "    idUser1 NOT NULL,\n"
+                + "    idUser1 INTEGER,\n"
                 + "    idUser2 INTEGER,\n"
                 + "    content text,\n"
                 + "    date text\n"
@@ -254,7 +255,7 @@ public class Connect {
       /* ------------------------------------------UPDATE--------------------------------------*/
       
    // Update un utilisateur dans la table User
-      public static void update(String filename, String pseudo, String pass, int id) {
+      public static void updateUser(String filename, String pseudo, String pass, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "UPDATE User SET pseudo = ?, pass = ? WHERE id = ?;";
           
@@ -272,13 +273,30 @@ public class Connect {
       }
       
       // update une ip dans LUC
-      public static void update(String filename, int id, String ip) {
+      public static void updateIpLUC(String filename, int id, String ip) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "UPDATE ListUserConnected SET ip = ? WHERE id = ?;";
           
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setString(1, ip);
+                      pstmt.setInt(2, id);
+              // update 
+              pstmt.executeUpdate();
+              //System.out.println("Table User has been updated");
+          } catch (SQLException e) {
+              System.out.println(e.getMessage());
+          }
+      }
+      
+   // update un port dans LUC
+      public static void updatePortLUC(String filename, int id,int port) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "UPDATE ListUserConnected SET port = ? WHERE id = ?;";
+          
+          try (Connection conn = DriverManager.getConnection(url);
+                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                      pstmt.setInt(1, port);
                       pstmt.setInt(2, id);
               // update 
               pstmt.executeUpdate();
@@ -422,6 +440,31 @@ public class Connect {
       public static int queryUserIdLUC(String filename, String pseudo) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "SELECT user.id FROM User, ListUserConnected WHERE ListUserConnected.id = User.id AND User.pseudo = '" + pseudo + "';";
+          ArrayList<Integer> resultat = new ArrayList<Integer>();
+          Integer resInter;
+
+          System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter = rs.getInt(("id"));
+                  resultat.add(resInter);
+              }
+              resultat.add(-1);
+              return resultat.get(0);
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY]" + e.getMessage());
+          }
+          return resultat.get(0).intValue();
+      }
+      
+   // Récupération d'un port
+      public static int queryPortLUC(String filename, int id) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT port FROM ListUserConnected WHERE id = " + id + ";";
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter;
 

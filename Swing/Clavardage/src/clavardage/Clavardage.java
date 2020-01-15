@@ -1,6 +1,7 @@
 
 package clavardage;
 
+
 /*
  * SwingApplication.java is a 1.4 example that requires
  * no other files.
@@ -12,16 +13,21 @@ import requete.Connect;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
+import communication.*;
 import LUC.*;
 import user.*;
+
 public class Clavardage implements ActionListener {
     
     // L'etat de l'envoi du message
 	private User user;
 	private JFrame frame;
+	private TCPClient client;
     private static String labelPrefix = "Etat du message : ";
     private static String etatEnCreation = "EnCreation";
     private static String etatEnvoye = "Envoyé";
@@ -114,7 +120,12 @@ public class Clavardage implements ActionListener {
 	    else {
 	    	messageField.setText("");
 	    	ConvArea.setText("");
-	    	LUC pageLUC = new LUC(user);
+	    	try {
+				LUC pageLUC = new LUC(user);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     		frame.setVisible(false);
 	    }
     }
@@ -165,11 +176,15 @@ public class Clavardage implements ActionListener {
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event-dispatching thread.
+     * @throws Exception 
+     * @throws UnknownHostException 
      */
-    public Clavardage(User user, int id2) {
+    public Clavardage(User user, int id2) throws UnknownHostException, Exception {
     	//init user
-    	this.user=user;
-    	
+    	this.user = user;
+    	int port = Connect.queryPortLUC("database", id2);
+    	String ip = Connect.queryUserLUC("database.db", id2);
+    	this.client = new TCPClient(InetAddress.getByName(ip), port, user, id2);
         //Set the look and feel.
         initLookAndFeel();
         
@@ -181,6 +196,7 @@ public class Clavardage implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         ConvArea.setEditable(false);
+        
 
         // afficher l'historique des message
         Connect.createNewTableConv("database.db");

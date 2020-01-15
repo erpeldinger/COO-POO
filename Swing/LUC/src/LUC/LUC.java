@@ -82,7 +82,12 @@ public class LUC implements ActionListener {
         	int userId = Connect.queryUserIdLUC("database.db", debutConv.getText());
         	if (userId != -1) {
     		//ouvrir la page de conv
-        		Clavardage pageClavardage = new Clavardage(user,userId);
+        		try {
+					Clavardage pageClavardage = new Clavardage(user,userId);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		System.out.println("connexion");
         		frame.setVisible(false);
         	}
