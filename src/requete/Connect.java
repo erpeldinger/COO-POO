@@ -549,11 +549,15 @@ public class Connect {
                   resultat.add(resInter);
               }
               resultat.add("end");
-              return resultat;
+              //return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] All User " + e.getMessage());
           }
-          return resultat;
+          //Enlever les doublons
+          Set set = new HashSet() ;
+          set.addAll(resultat);
+          ArrayList<String> res = new ArrayList(set);
+          return res;
       }
       
    // Récupération d'un id si le pseudo est correct
