@@ -172,7 +172,7 @@ public class Connect {
             System.out.println("incrementation id ok : " + id );
             //System.out.println("A User has been created in User");
         } catch (SQLException e) {
-            System.out.println("[ERROR INSERT]" + e.getMessage());
+            System.out.println("[ERROR INSERT] User " + e.getMessage());
         }
     }
     
@@ -186,9 +186,9 @@ public class Connect {
                     pstmt.setInt(1, id);
                     pstmt.setString(2, ip);
             pstmt.executeUpdate();
-            //System.out.println("A User has been created in UserLUC");
+            System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
-            System.out.println("[ERROR INSERT]" + e.getMessage());
+            System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
         }
     }
 
@@ -207,7 +207,7 @@ public class Connect {
               pstmt.executeUpdate();
               //System.out.println("A Conversation has been created");
           } catch (SQLException e) {
-              System.out.println("[ERROR INSERT]" + e.getMessage());
+              System.out.println("[ERROR INSERT] Conv " + e.getMessage());
           }
       }
 
@@ -337,7 +337,7 @@ public class Connect {
               resultat.add(-1);
               return resultat.get(0).intValue();
           } catch (SQLException e) {
-              System.out.println("[ERROR QUERY]" + e.getMessage());
+              System.out.println("[ERROR QUERY] user " + e.getMessage());
           }
           return resultat.get(0).intValue();
       }
@@ -362,7 +362,7 @@ public class Connect {
               resultat.add("end");
               return resultat;
           } catch (SQLException e) {
-              System.out.println("[ERROR QUERY]" + e.getMessage());
+              System.out.println("[ERROR QUERY] verif pseudo " + e.getMessage());
           }
           return resultat;
       }
@@ -387,7 +387,7 @@ public class Connect {
               resultat.add("end");
               return resultat;
           } catch (SQLException e) {
-              System.out.println("[ERROR QUERY]" + e.getMessage());
+              System.out.println("[ERROR QUERY] verif password " + e.getMessage());
           }
           return resultat;
       }
@@ -412,7 +412,7 @@ public class Connect {
               resultat.add(0);
               return resultat.get(0).intValue();
           } catch (SQLException e) {
-              System.out.println("[ERROR QUERY]" + e.getMessage());
+              System.out.println("[ERROR QUERY] Max Id " + e.getMessage());
           }
           System.out.println("return2" );
           return resultat.get(0).intValue();
@@ -439,7 +439,7 @@ public class Connect {
               resultat.add("end");
               return resultat.get(0);
           } catch (SQLException e) {
-              System.out.println("[ERROR QUERY]" + e.getMessage());
+              System.out.println("[ERROR QUERY] user LUC " + e.getMessage());
           }
           return resultat.get(0);
       }
@@ -465,7 +465,7 @@ public class Connect {
               resultat.add("end");
               return resultat;
           } catch (SQLException e) {
-              System.out.println("[ERROR QUERY]" + e.getMessage());
+              System.out.println("[ERROR QUERY] All User " + e.getMessage());
           }
           return resultat;
       }
