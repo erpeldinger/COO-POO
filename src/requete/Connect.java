@@ -110,7 +110,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            //System.out.println("A new table LUC has been created");
+            System.out.println("A new table LUC has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

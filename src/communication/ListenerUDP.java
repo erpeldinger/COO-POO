@@ -128,6 +128,7 @@ public class ListenerUDP extends Thread {
 		    		Connect.createNewTableUser("database.db");
 		    		Connect.createNewTableLUC("database.db");
 		    		System.out.println("Pseudo : " + Message.toMessageBdc(msg).getPseudo());
+		    		System.out.println("is : " + Message.toMessageBdc(msg).getId());
 		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
 		    		Connect.insertUserLUCbyAll("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId());
 			    	System.out.println("[LISTENER UDP] Add ok");
