@@ -183,10 +183,14 @@ public class Clavardage implements ActionListener {
     	//init user
     	this.user = user;
     	Connect.createNewTableLUC("database.db");
-    	int port = Connect.queryPortLUC("database.db", id2);
-    	System.out.println("port recupere : " + port);
+    	//int port = Connect.queryPortLUC("database.db", id2);
+    	//System.out.println("port recupere : " + port);
     	String ip = Connect.queryUserLUC("database.db", id2);
     	System.out.println("ip recupere : " + ip);
+    	
+    	// POSSIBILITE : Mettre le port en dur pour tester ---> j'ai pas pu tester parce que j'arrive pas à lancer l'appli depuis le terminal (seulemen depuis eclipse)
+    	int port = 3123;
+    	
     	this.client = new TCPClient(InetAddress.getByName(ip), port, user, id2);
         //Set the look and feel.
         initLookAndFeel();
