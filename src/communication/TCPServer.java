@@ -24,7 +24,7 @@ public class TCPServer extends Thread {
 	
 	//Constructeurs
 	public TCPServer(int id,InetAddress localAddr, int port) throws IOException {
-		System.out.println("Constructeur Server TCP");
+		//System.out.println("Constructeur Server TCP");
 		this.id=id;
 		this.running = true;
 		int monPort=port;

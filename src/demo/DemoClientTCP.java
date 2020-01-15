@@ -18,12 +18,18 @@ public class DemoClientTCP {
         u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1234, u2)); //port du Server ListenerUDP (1234 pour tous)
         
         
-        //Partie TCP
+        /*Partie TCP
         InetAddress ip = InetAddress.getByName("10.1.5.229"); // en dur [celle du serveur]
         System.out.println("IP Client : " +ip);
     	int port = 2010;
     	TCPClient client = new TCPClient(ip,2000,u2, 12);
     	client.sendMessage("Coucou c'est client, ca boom ?");
+    	*/
+        
+        //--------------------------------------------------------------------------------
+        
+        
+        
     	
     	/*
     	//CLIENT 

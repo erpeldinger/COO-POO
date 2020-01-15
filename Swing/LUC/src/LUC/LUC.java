@@ -171,10 +171,6 @@ public class LUC implements ActionListener {
         
         //init le user
         this.user = user;
-        //lancement du broadcast
-        user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1234, user));
-        System.out.println("[BROADCAST] sur le port 1234");
-        System.out.println("[LISTENER] sur le port " + user.getMonPort());
         
         //Set the look and feel.
         initLookAndFeel();
@@ -189,10 +185,10 @@ public class LUC implements ActionListener {
         ListUser.setEditable(false);
         // afficher les User connectes
         Connect.createNewTableLUC("database.db");
-    	Connect.insertUser("database.db", "Tata", "titi123456790" , 19999);
-    	Connect.insertUser("database.db", "Tutu", "titi123456790" , 29999);
-    	Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
-    	Connect.insertUserLUC("database.db", 29999, "1.2.3.4");
+    	//Connect.insertUser("database.db", "Tata", "titi123456790" , 19999);
+    	//Connect.insertUser("database.db", "Tutu", "titi123456790" , 29999);
+    	//Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
+    	//Connect.insertUserLUC("database.db", 29999, "1.2.3.4");
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
     	try {
 	    	this.manager = new ChatManager();
