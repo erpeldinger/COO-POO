@@ -107,7 +107,8 @@ public class BroadcastingClient {
     	Message m = new Message(mBr, user.getPseudo() ,user.getId());
     	
     	// Création d'un paquet de format : "id sender | pseudo | message "
-    	String msg = Message.toString(m.getId(),mBr, user.getPseudo());
+    	//String msg = Message.toString(m.getId(),mBr, user.getPseudo());
+    	String msg = Integer.valueOf(user.getId()) + "#" + user.getPseudo() + "#" + mBr ;
     	System.out.println("[BROADCASTING CLIENT] Message : " + msg);
     	
     	try {
