@@ -2,7 +2,6 @@ package demo;
 
 import java.net.*;
 import user.User;
-import communication.*;
 
 public class DemoServerUDP {
     
@@ -11,7 +10,7 @@ public class DemoServerUDP {
 
 
         /*------------------------ TEST envoi broadcast serveur-------------------------------------------- */
-    	User u1 = new User(77,"UserAttendBroadcast","mdp",1288,BroadcastingClient.getBroadcastAddress());
+    	User u1 = new User(77,"UserAttendBroadcast","mdp",1288);
     	System.out.println("Mon pseudo est  : ");
     	System.out.println(u1.getPseudo()+ "\n");
     	

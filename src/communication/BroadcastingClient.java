@@ -1,17 +1,13 @@
 package communication;
 
-import java.lang.Object.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.lang.Exception;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
-import java.net.InterfaceAddress;
 
 import user.User;
 import format.Message;
