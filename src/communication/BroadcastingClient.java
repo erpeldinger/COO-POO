@@ -102,7 +102,6 @@ public class BroadcastingClient {
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
     public static void sendBroadcast(InetAddress addrbr) throws Exception {
     	  	
-    	
     	String mBr = "BROADCAST : Hello, who is there ?";
     	Message m = new Message(mBr, user.getPseudo() ,user.getId());
     	
