@@ -80,7 +80,7 @@ public class Connect {
         String sql = "CREATE TABLE IF NOT EXISTS User(\n"
                 + "    pseudo text,\n"
                 + "    password text,\n"
-                + "    id PRIMARY KEY NOT NULL\n"
+                + "    id\n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
