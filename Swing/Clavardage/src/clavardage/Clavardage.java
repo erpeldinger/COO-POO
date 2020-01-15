@@ -182,8 +182,11 @@ public class Clavardage implements ActionListener {
     public Clavardage(User user, int id2) throws UnknownHostException, Exception {
     	//init user
     	this.user = user;
+    	Connect.createNewTableLUC("database.d");
     	int port = Connect.queryPortLUC("database", id2);
+    	System.out.println("port recupere : " + port);
     	String ip = Connect.queryUserLUC("database.db", id2);
+    	System.out.println("ip recupere : " + ip);
     	this.client = new TCPClient(InetAddress.getByName(ip), port, user, id2);
         //Set the look and feel.
         initLookAndFeel();
