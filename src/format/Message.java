@@ -8,6 +8,7 @@ public class Message {
     private int id;
     private byte[] packet;
     private String pseudo;
+    private int port;
 
     //Constructeurs
     public Message(String content) {
@@ -31,6 +32,13 @@ public class Message {
         this.id=id;
     }
     
+    public Message (String content, String pseudo, int id, int port) {
+        this.content=content;
+        this.pseudo=pseudo;
+        this.id=id;
+        this.port = port;
+    }
+    
     public Message (String content, int id) {
         this.content=content;
         this.id=id;
@@ -42,6 +50,7 @@ public class Message {
     public DateMsg getDate() {return this.date;}
     public byte[] getPacket() {return this.packet;}
     public int getId() {return this.id;}
+    public int getPort() {return this.port;}
 
     //Setter
     public void setDate(DateMsg newDate) { this.date = newDate; }
@@ -125,7 +134,25 @@ public class Message {
         	System.out.println("[Message] Erreur toMessageBdc ");
         }
         return m;
-    }        
+    }      
+    
+    public static Message toMessageBdcPort(String s){
+    	String[] parts = s.split("#");
+        String c= "",i="", pseudo="", port="";
+        Message m = null;
+        
+        try {
+        	port = parts[2];
+            c = parts[3];
+            i = parts[0];
+            pseudo = parts[1];
+            m = new Message(c, pseudo ,Integer.parseInt(i), Integer.parseInt(port));
+        }
+        catch (Exception e) {
+        	System.out.println("[Message] Erreur toMessageBdc ");
+        }
+        return m;
+    }      
 
     //Renvoie un Message pret a etre serialize pour etre envoye en TCP
     public static Message toSend(int id, String content) {

@@ -223,6 +223,24 @@ public class Connect {
             System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
+        } 
+    }
+    
+    //Insertion d'un utilisateur dans la liste des utilisateurs connectes
+    public static void insertUserLUCbyAllPort(String filename, String pseudo, String ip, int id, int port) {
+    	String url = "jdbc:sqlite:./database/"+filename;
+        String sql = "INSERT INTO ListUserConnected (pseudo, ip, id, port) VALUES (?, ?, ?, ?);";
+        
+        try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, pseudo);
+                    pstmt.setString(2, ip);
+                    pstmt.setInt(3, id);
+                    pstmt.setInt(4, port);
+            pstmt.executeUpdate();
+            System.out.println("A User has been created in UserLUC");
+        } catch (SQLException e) {
+            System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
         }
     }
 

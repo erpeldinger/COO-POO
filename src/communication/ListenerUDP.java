@@ -97,14 +97,15 @@ public class ListenerUDP extends Thread {
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés : id # pseudo # BROADCAST : Hello, who is there ?
 		    	if (isBroadcastPacket(msg)) {
 		    		//System.out.println("[LISTENER UDP] If -> debut");
-		    		String r = this.userId + "#" + this.pseudo + "#est connecte !"; 
+		    		int recupPort = 2333;
+		    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "#est connecte !"; 
 		    		response = r.getBytes();		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
 		    		//System.out.println("[LISTENER UDP] If -> end");
 		    		
 		    		//ajout de l'user dans la LUC
-		    		this.userLUC.add(Message.toMessageBdc(msg).getId());		    		
+		    		this.userLUC.add(Message.toMessageBdcPort(msg).getId());		    		
 		    		//Ajout de l'adresse IP de user dans la bdd 
 		    		Connect.createNewDatabase("database.db");
 		        	Connect.createNewTableLUC("database.db");
@@ -120,17 +121,17 @@ public class ListenerUDP extends Thread {
 			        	 System.out.println("User connecte : \n" +id + " \n");
 			        }
 		    	}
-		    	else { // id # pseudo # est connecte
+		    	else { // id # pseudo # port # est connecte
 		    		//c'est un message de réponse de Broadcast
 		    		System.out.println("[LISTENER UDP] Else -> debut");
 		    		//ajout de l'user dans la LUC
 		    		//this.userLUC.add(Message.toMessageBdc(msg).getId());
 		    		Connect.createNewTableUser("database.db");
 		    		Connect.createNewTableLUC("database.db");
-		    		System.out.println("Pseudo : " + Message.toMessageBdc(msg).getPseudo());
-		    		System.out.println("is : " + Message.toMessageBdc(msg).getId());
-		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
-		    		Connect.insertUserLUCbyAll("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId());
+		    		System.out.println("Pseudo : " + Message.toMessageBdcPort(msg).getPseudo());
+		    		System.out.println("is : " + Message.toMessageBdcPort(msg).getId());
+		        	Connect.insertUser("database.db", Message.toMessageBdcPort(msg).getPseudo() ,"XXXX", Message.toMessageBdcPort(msg).getId());
+		    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdcPort(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdcPort(msg).getId(), Message.toMessageBdcPort(msg).getPort());
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
 			    	for(int id: this.userLUC) {
