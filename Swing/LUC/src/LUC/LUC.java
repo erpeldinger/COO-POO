@@ -173,6 +173,8 @@ public class LUC implements ActionListener {
         this.user = user;
         //lancement du broadcast
         user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1234, user));
+        System.out.println("[BROADCAST] sur le port 1234");
+        System.out.println("[LISTENER] sur le port " + user.getMonPort());
         
         //Set the look and feel.
         initLookAndFeel();

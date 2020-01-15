@@ -47,6 +47,7 @@ public class User {
         this.listUserConnected = new ArrayList <U1>();
         this.listIdUserConnected = new ArrayList <Integer>();
         this.messages= new ArrayList <Message>();
+        this.monPort = port2;
         this.listener = new ListenerUDP (port2,pseudo, id, listIdUserConnected); 
     }
     
