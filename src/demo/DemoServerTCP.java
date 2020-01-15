@@ -1,7 +1,5 @@
 package demo;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.*;
 import user.User;
 import communication.*;

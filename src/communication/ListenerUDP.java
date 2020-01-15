@@ -1,6 +1,5 @@
 package communication;
 
-import java.lang.Object.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -108,6 +107,8 @@ public class ListenerUDP extends Thread {
 		        	Connect.createNewTableLUC("database.db");
 		        	System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
 		    		Connect.insertUserLUC("database.db", Message.toMessageBdc(msg).getId(), inPacket.getAddress().toString());
+		    		
+		    		//ON NOTIFIE !!!!!
 		    		
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes

@@ -1,17 +1,9 @@
 package demo;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.*;
-import java.util.Enumeration;
-
 import user.User;
 import communication.*;
-import requete.*;
-
-
-import java.net.NetworkInterface;
 
 
 public class DemoClientTCP {
