@@ -25,7 +25,7 @@ public class DemoServerTCP {
     	
     	//Broadcast
     	InetAddress addrBr = BroadcastingClient.getBroadcastAddress();
-    	User u1 = new User(12,"ServerPaul","mdp");   
+    	User u1 = new User(12,"ServerPaul","mdp", 1234);   
     	
     	//Partie TCP
         InetAddress ip = BroadcastingClient.getIpAddress();
@@ -34,7 +34,7 @@ public class DemoServerTCP {
 		System.out.println("lancement du server tcp ");
 		ChatManager manager = new ChatManager();
 		manager.addTCPServer(u1.getId(), ip);
-    	//TCPServer server = new TCPServer(u1.getId(),ip,2000);
+    	//TCPServer server = new TCPServer(u1.getId(),ip,1288);
 		System.out.println("tcp server lancé ");
     	
     	/*

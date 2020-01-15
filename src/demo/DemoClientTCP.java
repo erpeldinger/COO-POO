@@ -13,10 +13,9 @@ public class DemoClientTCP {
     	
 
     	//Broadcast
-    	User u2 = new User(13,"ClientTom","mdp",1288);
+    	User u2 = new User(13,"ClientTom","mdp",1234);
     	Thread.sleep(500);
-        u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1288, u2));
-        
+        u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1234, u2)); //port du Server ListenerUDP (1234 pour tous)
         
         
         //Partie TCP
