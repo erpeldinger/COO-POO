@@ -28,7 +28,7 @@ public class DemoClientTCP {
         
         
         //Partie TCP
-        InetAddress ip = InetAddress.getByName("10.1.5.224");
+        InetAddress ip = InetAddress.getByName("10.1.5.229");
         System.out.println("IP Client : " +ip);
     	int port = 2000;
     	TCPClient client = new TCPClient(ip,2000,u2, 12);
