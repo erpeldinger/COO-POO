@@ -17,6 +17,15 @@ public class Connect {
 	
 	//get id
 	public static int getId() {return idCourant; }
+	//set id
+	public static void setId(int id2) {idCourant=id2; }
+	//update id
+	public static void updateId() {
+		int id2 = queryMaxId("database");
+		idCourant=id2; 
+	}
+	
+	
 	
     //connect to the database, and create it if it doesn't exist
     public static void createNewDatabase(String fileName) {
@@ -93,7 +102,7 @@ public class Connect {
         String sql = "CREATE TABLE IF NOT EXISTS ListUserConnected(\n"
                 + "    id PRIMARY KEY NOT NULL,\n"
                 + "    ip text NOT NULL,\n"
-                + "    port INTEGER NOT NULL\n"
+                + "    port INTEGER\n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
@@ -382,7 +391,30 @@ public class Connect {
           }
           return resultat;
       }
-      
+
+      // Récupération de l'id d'un utilisateur
+      public static int queryMaxId(String filename) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT id FROM User ORDER BY id DESC;";
+          ArrayList<Integer> resultat = new ArrayList<Integer>();
+          Integer resInter ;
+
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter = Integer.valueOf(rs.getInt(("id")));
+                  resultat.add(resInter);
+              }
+              resultat.add(0);
+              return resultat.get(0).intValue();
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY]" + e.getMessage());
+          }
+          return resultat.get(0).intValue();
+      }
       
       // Récupération d'une IP dans la LUC en ayant son id
       public static String queryUserLUC(String filename, int id) {
