@@ -89,6 +89,7 @@ public class LUC implements ActionListener {
     		//check si User bien dans la LUC (pseuod ==> id ==> LUC)
     		Connect.createNewTableLUC("database.db");
         	int userId = Connect.queryUserIdLUC("database.db", debutConv.getText());
+        	System.out.println("id recupere : " + userId);
         	if (userId != -1) {
     		//ouvrir la page de conv
         		try {
@@ -196,7 +197,7 @@ public class LUC implements ActionListener {
 	    	for (String courant : Users) {
 	    		ListUser.setText(ListUser.getText() + "\n" + courant );
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
-	    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
+	    		manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
 	    	}	
     	}
 		catch (Exception e) {
