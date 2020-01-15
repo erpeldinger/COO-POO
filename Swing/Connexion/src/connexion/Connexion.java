@@ -95,7 +95,7 @@ public class Connexion implements ActionListener {
         		try {
 	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText());
 	            //lancement du broadcast
-	            user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1288, user));
+	            user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),user.getMonPort(), user));
 	            LUC pageLUC = new LUC(user);
         		}
         		catch (Exception j) {

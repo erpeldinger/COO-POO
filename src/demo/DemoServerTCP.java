@@ -25,7 +25,7 @@ public class DemoServerTCP {
     	
     	//Broadcast
     	InetAddress addrBr = BroadcastingClient.getBroadcastAddress();
-    	User u1 = new User(12,"ServerPaul","mdp",1288);   
+    	User u1 = new User(12,"ServerPaul","mdp");   
     	
     	//Partie TCP
         InetAddress ip = BroadcastingClient.getIpAddress();

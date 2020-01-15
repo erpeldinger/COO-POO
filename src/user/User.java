@@ -13,6 +13,7 @@ public class User {
 
     //attributs
 	private static int port = 3000;
+	private int monPort;
     private int id;
     private String pseudo;
     private String password;
@@ -22,6 +23,7 @@ public class User {
     private ArrayList<Message> messages;
     private ListenerUDP listener;
     private BroadcastingClient broadcast;
+    
 
     //constructeur
     public User(int id, String pseudo, String password) throws SocketException, UnknownHostException {
@@ -32,11 +34,25 @@ public class User {
         this.listUserConnected = new ArrayList <U1>();
         this.listIdUserConnected = new ArrayList <Integer>();
         this.messages= new ArrayList <Message>();
+        this.monPort = port;
         this.listener = new ListenerUDP (port++,pseudo, id, listIdUserConnected); 
     }
 
+  //constructeur
+    public User(int id, String pseudo, String password, int port2) throws SocketException, UnknownHostException {
+        this.id = id;
+        this.pseudo = pseudo;
+        this.password = password;
+        this.isActive = true;
+        this.listUserConnected = new ArrayList <U1>();
+        this.listIdUserConnected = new ArrayList <Integer>();
+        this.messages= new ArrayList <Message>();
+        this.listener = new ListenerUDP (port2,pseudo, id, listIdUserConnected); 
+    }
+    
     // les getters
     public int getId() { return this.id; }
+    public int getMonPort() { return this.monPort; }
     public String getPseudo() { return this.pseudo; }
     public String getPassword() { return this.password; }
     public Boolean getIsActive() { return this.isActive; }
