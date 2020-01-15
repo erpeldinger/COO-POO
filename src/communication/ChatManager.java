@@ -18,7 +18,7 @@ public class ChatManager {
 	
 	//Constructeurs
 	public ChatManager() throws IOException {	
-		ports = new ArrayList<Boolean>(Arrays.asList(new Boolean[10]));
+		ports = new ArrayList<Boolean>(Arrays.asList(new Boolean[1000]));
 		Collections.fill(ports, Boolean.TRUE);
 		servers = new ArrayList<TCPServer>();
 		/*
