@@ -187,6 +187,13 @@ public class Inscription implements ActionListener {
     public Inscription() {
         //Set the look and feel.
         initLookAndFeel();
+
+        //mettre a jour le id de la database
+        Connect.createNewDatabase("database.db");
+        Connect.createNewTableUser("database.db");
+        //Connect.insertUser("database.db", "Titou", "1246789123456789",56);
+        Connect.updateId();
+        System.out.println("update de l'id : " + Connect.getId());
         
         //Make sure we have nice window decorations.
         JFrame.setDefaultLookAndFeelDecorated(true);

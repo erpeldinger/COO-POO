@@ -24,6 +24,7 @@ public class LUC implements ActionListener {
     // Tous les labels
 	private User user;
 	private JFrame frame;
+	private ChatManager manager;
     private String incorrectUser = "Cet utilisateur n'ext pas connecte";
     final JLabel labelError = new JLabel("");
     final JLabel labelButton = new JLabel("");
@@ -106,6 +107,7 @@ public class LUC implements ActionListener {
     	else {
     		try {
     			ListUser.setText("");
+    			manager.stopCommunication();
 				LUC pageLUC = new LUC(user);
 			} catch (IOException e1) {
 				System.out.println("[ERROR LUC]refresh " + e);
@@ -189,7 +191,7 @@ public class LUC implements ActionListener {
     	Connect.insertUserLUC("database.db", 29999, "1.2.3.4");
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
     	try {
-	    	ChatManager manager = new ChatManager();
+	    	this.manager = new ChatManager();
 	    	for (String courant : Users) {
 	    		ListUser.setText(ListUser.getText() + "\n" + courant );
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes

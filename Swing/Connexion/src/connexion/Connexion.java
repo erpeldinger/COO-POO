@@ -177,6 +177,11 @@ public class Connexion implements ActionListener {
         //Set the look and feel.
         initLookAndFeel();
         
+        //mettre a jour le id de la database
+        //Connect.createNewDatabase("database.db");
+        //Connect.createNewTableUser("database.db");
+        Connect.updateId();
+        
         //Make sure we have nice window decorations.
         JFrame.setDefaultLookAndFeelDecorated(true);
         

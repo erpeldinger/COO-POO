@@ -21,8 +21,8 @@ public class Connect {
 	public static void setId(int id2) {idCourant=id2; }
 	//update id
 	public static void updateId() {
-		int id2 = queryMaxId("database");
-		idCourant=id2; 
+		int id2 = queryMaxId("database.db");
+		idCourant=id2+1; 
 	}
 	
 	
@@ -87,7 +87,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            //System.out.println("A new table User has been created");
+            System.out.println("[CONNECT] A new table User has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -398,21 +398,23 @@ public class Connect {
           String sql = "SELECT id FROM User ORDER BY id DESC;";
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter ;
-
+          	
+          System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
-              
               // loop through the result set
               while (rs.next()) {
                   resInter = Integer.valueOf(rs.getInt(("id")));
                   resultat.add(resInter);
               }
+              System.out.println("add du 0" );
               resultat.add(0);
               return resultat.get(0).intValue();
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
+          System.out.println("return2" );
           return resultat.get(0).intValue();
       }
       
