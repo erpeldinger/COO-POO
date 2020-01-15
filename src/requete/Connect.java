@@ -78,8 +78,8 @@ public class Connect {
         
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS User(\n"
-                + "    pseudo text NOT NULL,\n"
-                + "    password text NOT NULL,\n"
+                + "    pseudo text,\n"
+                + "    password text,\n"
                 + "    id PRIMARY KEY NOT NULL\n"
                 + ");";
         
