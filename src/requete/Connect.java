@@ -605,7 +605,7 @@ public class Connect {
               resultat.add(-1);
               return resultat.get(0);
           } catch (SQLException e) {
-              System.out.println("[ERROR QUERY]" + e.getMessage());
+              System.out.println("[ERROR QUERY PORT]" + e.getMessage());
           }
           return resultat.get(0).intValue();
       }
