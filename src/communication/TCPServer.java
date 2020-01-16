@@ -66,8 +66,11 @@ public class TCPServer extends Thread {
 				System.out.println("[TCPServer ] sort de Accept");
 				byte[] buff = new byte[Byte.MAX_VALUE];
 				InputStream in = server.getInputStream();
+				System.out.println("[TCPServer ] apres inputstream ");
 				OutputStream out = server.getOutputStream();
-				receiveMessage(server,in,buff);	    		
+				System.out.println("[TCPServer ] apres outputstream ");
+				receiveMessage(server,in,buff);	 
+				System.out.println("[TCPServer ] apres receive ");
 	    		Message m = Message.readMessage(buff);
 
 				System.out.println("[TCPServer ] message recu " + m.getContent());
