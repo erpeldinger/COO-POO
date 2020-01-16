@@ -88,8 +88,9 @@ public class LUC implements ActionListener {
     	if (e.getActionCommand().equals("Demarrer une conversation")){
     		//check si User bien dans la LUC (pseuod ==> id ==> LUC)
     		Connect.createNewTableLUC("database.db");
+    		System.out.println("[LUC] print debconv.gettext() :" + debutConv.getText());
         	int userId = Connect.queryUserIdLUC("database.db", debutConv.getText());
-        	System.out.println("id recupere : " + userId);
+        	System.out.println("[LUC] id recupere : " + userId);
         	if (userId != -1) {
     		//ouvrir la page de conv
         		try {
