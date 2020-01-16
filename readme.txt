@@ -30,3 +30,8 @@
 
     * finir envoie de message TCP
     
+
+
+// A FAIRE
+    * probleme de port : renvoie du port dans message reponse Broadcast + recuperation du port et ajout dans la BD (LUC)
+    * recuperation de ce port qu moment voulu

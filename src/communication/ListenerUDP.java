@@ -99,13 +99,17 @@ public class ListenerUDP extends Thread {
 		    		//System.out.println("[LISTENER UDP] If -> debut");
 		    		int recupPort = 2333;
 		    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "#est connecte !"; 
+		    		System.out.println("[LISTENER UDP] valeur port : "+ Integer.valueOf(recupPort));
+		    		System.out.println("[LISTENER UDP] valeur msg string : "+ r);
 		    		response = r.getBytes();		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
 		    		//System.out.println("[LISTENER UDP] If -> end");
 		    		
+		    		//System.out.println("[LISTENER UDP] avant luc ");
 		    		//ajout de l'user dans la LUC
-		    		this.userLUC.add(Message.toMessageBdcPort(msg).getId());		    		
+		    		this.userLUC.add(Message.toMessageBdc(msg).getId());	
+		    		System.out.println("[LISTENER UDP] apres luc");
 		    		//Ajout de l'adresse IP de user dans la bdd 
 		    		Connect.createNewDatabase("database.db");
 		        	Connect.createNewTableLUC("database.db");

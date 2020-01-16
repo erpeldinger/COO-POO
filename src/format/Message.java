@@ -149,7 +149,7 @@ public class Message {
             m = new Message(c, pseudo ,Integer.parseInt(i), Integer.parseInt(port));
         }
         catch (Exception e) {
-        	System.out.println("[Message] Erreur toMessageBdc ");
+        	System.out.println("[Message] Erreur toMessageBdc " +e);
         }
         return m;
     }      

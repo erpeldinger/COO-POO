@@ -21,13 +21,13 @@ public class Inscription implements ActionListener {
     private static String pseudo = "Pseudo : ";
     private String password = "Mot de passe : ";
     private String connect = "Se connecter";
-    private String emptyPseudo = "veuillez entrer un pseudo";
-    private String emptyPassword = "veuillez entrer un mot de passe";
+    private String emptyPseudo = "Veuillez entrer un pseudo";
+    private String emptyPassword = "Veuillez entrer un mot de passe";
     private String incorrectPseudo = "Pseudo déjà utilisé ";
     private String incorrectPassword = "Mot de passe incorrect : il faut au un mot de passe ayant minimum 10 caractères et ne contenant pas votre pseudo";
     private static String errorPrefix= "Inscription impossible : ";
     private static String logged = "Inscription réussie";
-    private static String errorLog = "Une ereure s'est produite, l'inscription a échouée";
+    private static String errorLog = "Une ereure s'est produite, l'inscription a échoué";
     final JLabel labelConnect = new JLabel(connect);
     final JLabel labelPseudo = new JLabel(pseudo);
     final JLabel labelPassword = new JLabel(password);
