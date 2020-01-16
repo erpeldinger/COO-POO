@@ -28,8 +28,9 @@ public class TCPServer extends Thread {
 		this.id=id;
 		this.running = true;
 		int monPort=port;
-		System.out.println("port : " + port + " addr : " + localAddr);
+		System.out.println("[TCPServer] constructeur -> port : " + port + " addr : " + localAddr);
 		this.socket = new ServerSocket(port,1,localAddr);
+		System.out.println("[TCPServer] constructeur -> new ServerSocket ok");
 		start();
 	}
 	

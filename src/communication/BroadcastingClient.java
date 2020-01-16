@@ -111,12 +111,12 @@ public class BroadcastingClient {
     	System.out.println("[BROADCASTING CLIENT] Message : " + msg);
     	
     	try {
-    		System.out.println("debut send");
+    		System.out.println("[BROADCASTING CLIENT] debut send");
 	    	//socket.setBroadcast(true);
     		
 	    	//System.out.println("set broadcast ok");
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
-	    	System.out.println("creation dtg packet");
+	    	System.out.println("[BROADCASTING CLIENT] creation dtg packet");
 	    	socket.send(packet);
     		System.out.println("[BROADCASTING CLIENT] sendBroadcast");
 	    	//System.out.println("socket.send(packet)");
