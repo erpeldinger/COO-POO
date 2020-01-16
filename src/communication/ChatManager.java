@@ -49,7 +49,7 @@ public class ChatManager {
 		System.out.println("[ChatManager] addTCPServer -> avant updatePortLUC : id = "+ id +"port = "+port+ " ip = "+localAddr);
 		Connect.updatePortLUC("database.db", id, port);
 		System.out.println("[ChatManager] addTCPServer -> après updatePortLUC ");
-		servers.add(new TCPServer(id, localAddr, port)); 
+		servers.add(new TCPServer(id, localAddr, 2001)); 
 		System.out.println("[ChatManager] addTCPServer -> après add ");
 	}
 	
