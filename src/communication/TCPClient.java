@@ -51,7 +51,7 @@ public class TCPClient {
 			writeM(out, m);
 			out.flush();
 			out.close();
-			//this.socket.close();
+			this.socket.close();
 		}			
         catch (Exception e){
             System.out.println("[TCPClient ] Erreur sendMessage, write ");
