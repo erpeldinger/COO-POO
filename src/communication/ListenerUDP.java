@@ -30,7 +30,7 @@ public class ListenerUDP extends Thread {
         this.userId = id;
         this.pseudo=name;
         this.userLUC = LUC;
-        System.out.println("User : " + name + " ; Socket ListenerUDP : " + port + "\n");
+        System.out.println("[LISTENER UDP] User : " + name + " ; Socket ListenerUDP : " + port + "\n");
         this.addrBroadcast = BroadcastingClient.getBroadcastAddress();
         start();
     }
@@ -122,7 +122,7 @@ public class ListenerUDP extends Thread {
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
 			    	for(int id: this.userLUC) {
-			        	 System.out.println("User connecte : \n" +id + " \n");
+			        	 System.out.println("[LISTENER UDP] User connecte : \n" +id + " \n");
 			        }
 		    	}
 		    	else { // id # pseudo # port # est connecte
@@ -132,14 +132,14 @@ public class ListenerUDP extends Thread {
 		    		//this.userLUC.add(Message.toMessageBdc(msg).getId());
 		    		Connect.createNewTableUser("database.db");
 		    		Connect.createNewTableLUC("database.db");
-		    		System.out.println("Pseudo : " + Message.toMessageBdcPort(msg).getPseudo());
-		    		System.out.println("is : " + Message.toMessageBdcPort(msg).getId());
+		    		System.out.println("[LISTENER UDP] Pseudo : " + Message.toMessageBdcPort(msg).getPseudo());
+		    		System.out.println("[LISTENER UDP] is : " + Message.toMessageBdcPort(msg).getId());
 		        	Connect.insertUser("database.db", Message.toMessageBdcPort(msg).getPseudo() ,"XXXX", Message.toMessageBdcPort(msg).getId());
 		    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdcPort(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdcPort(msg).getId(), Message.toMessageBdcPort(msg).getPort());
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
 			    	for(int id: this.userLUC) {
-			        	 System.out.println("User connecte : \n" +id + " \n");
+			        	 System.out.println("[LISTENER UDP] User connecte : \n" +id + " \n");
 			        }
 					
 				}		    		
