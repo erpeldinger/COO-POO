@@ -391,6 +391,7 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
           }
+          System.out.println("[CONNECT] end queryUser");
           return resultat.get(0).intValue();
       }
       //verification pseudo
@@ -441,6 +442,7 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] verif password " + e.getMessage());
           }
+          System.out.println("[CONNECT] end queryUserPassword");
           return resultat;
       }
 
@@ -467,6 +469,7 @@ public class Connect {
               System.out.println("[ERROR QUERY] Max Id " + e.getMessage());
           }
           System.out.println("return2" );
+          System.out.println("[CONNECT] end queryMaxId");
           return resultat.get(0).intValue();
       }
       
@@ -493,6 +496,7 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user LUC " + e.getMessage());
           }
+          System.out.println("[CONNECT] end queryUserLUC");
           return resultat.get(0);
       }
       
@@ -519,6 +523,7 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user LUC " + e.getMessage());
           }
+          System.out.println("[CONNECT] end queryUserLUCbyPseudo");
           return resultat.get(0);
       }
       
@@ -545,6 +550,7 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] All User " + e.getMessage());
           }
+          System.out.println("[CONNECT] end queryAllUserLUC");
           return resultat;
       }
       
@@ -575,6 +581,7 @@ public class Connect {
           Set set = new HashSet() ;
           set.addAll(resultat);
           ArrayList<String> res = new ArrayList(set);
+          System.out.println("[CONNECT] end queryAllUserLUCbyPseudo");
           return res;
       }
       
@@ -600,6 +607,7 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
+          System.out.println("[CONNECT] end queryUserIdLUC");
           return resultat.get(0).intValue();
       }
       
@@ -625,6 +633,7 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY PORT]" + e.getMessage());
           }
+          System.out.println("[CONNECT] end queryPortLUC");
           return resultat.get(0).intValue();
       }
       
@@ -654,6 +663,7 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
+          System.out.println("[CONNECT] end queryConversation");
           return resultat;
       }
       
@@ -664,6 +674,7 @@ public class Connect {
     	  for (String message : id1id2 ) {
     		  id1id2.set(iter, Integer.valueOf(id1) + message);
     	  }
+    	  System.out.println("[CONNECT] end queryHistorique");
     	  return id1id2;
       }
       

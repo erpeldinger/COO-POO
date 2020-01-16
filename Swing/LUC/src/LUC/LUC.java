@@ -199,9 +199,15 @@ public class LUC implements ActionListener {
 	    		ListUser.setText(ListUser.getText() + "\n" + courant );
 	    		System.out.println("[LUC] Constructeur -> apres set text");
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
-	    		manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
-	    		System.out.println("[LUC] Constructeur -> addTCPServer, id : "+user.getId()+", ip : "+BroadcastingClient.getIpAddress());
-	    	}	
+	    		
+	    		if(courant.equals("end")) {
+	    			System.out.println("[LUC] if equals \"end\" ");
+	    		}
+	    		else{
+	    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
+	    			System.out.println("[LUC] Constructeur -> addTCPServer, id : "+user.getId()+", ip : "+BroadcastingClient.getIpAddress());
+	    		}
+	    	}
     	}
 		catch (Exception e) {
 			System.out.println("[LUC] ERREUR Creation TCP Server ou ChatManager impossible");
