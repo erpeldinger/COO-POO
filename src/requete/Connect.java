@@ -394,6 +394,57 @@ public class Connect {
           System.out.println("[CONNECT] end queryUser");
           return resultat.get(0).intValue();
       }
+      
+   // Recuperation d'un pseudo
+      public static String queryUserPseudo(String filename, int id) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT pseudo FROM User WHERE id = " + id + ";";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter ;
+
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter = rs.getString(("pseudo"));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
+              return resultat.get(0);
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY] user " + e.getMessage());
+          }
+          System.out.println("[CONNECT] end queryUser");
+          return resultat.get(0);
+      }
+      
+   // Recuperation d'un mot de passe
+      public static String queryUserPass(String filename, int id) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT password FROM User WHERE id = " + id + ";";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter ;
+
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter = rs.getString(("password"));
+                  resultat.add(resInter);
+              }
+              return resultat.get(0);
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY] user " + e.getMessage());
+          }
+          System.out.println("[CONNECT] end queryUser");
+          resultat.add("end");
+          return resultat.get(0);
+      }
+      
       //verification pseudo
       public static ArrayList<String> queryUserPseudo(String filename, String pseudo) {
           String url = "jdbc:sqlite:./database/"+filename;
