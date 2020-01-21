@@ -9,6 +9,7 @@ package clavardage;
 import javax.swing.*;
 
 import connexion.Connexion;
+import profil.Profil;
 import requete.Connect;
 
 import java.awt.*;
@@ -53,6 +54,29 @@ public class Clavardage implements ActionListener {
     
     
     public Component createComponents() {
+    	
+    	// creation du menu
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu1 = new JMenu("Mon profil");
+		menu1.addActionListener(this);
+		JMenuItem pageProfil = new JMenuItem("Profil");
+		menu1.add(pageProfil);
+		pageProfil.addActionListener(this);
+		JMenu menu2 = new JMenu("Liste des utilisateurs connectes");
+		JMenuItem pageLUC = new JMenuItem("Liste des utilisateurs connectes");
+		menu2.add(pageLUC);
+		pageLUC.addActionListener(this);
+		menu2.addActionListener(this);
+		JMenu menu3 = new JMenu("Se deconnecter");
+		JMenuItem pageDeco = new JMenuItem("Se deconnecter");
+		menu3.add(pageDeco);
+		pageDeco.addActionListener(this);
+		menu3.addActionListener(this);
+		menuBar.add(menu1);
+		menuBar.add(menu2);
+		menuBar.add(menu3);
+		this.frame.setJMenuBar(menuBar);
+		
     	//creation du button d'envoie de message
         JButton button = new JButton("Envoyer le message");
         button.setMnemonic(KeyEvent.VK_I);
@@ -117,7 +141,7 @@ public class Clavardage implements ActionListener {
 	            }
 	        }
     	}
-	    else {
+	    else if (e.getActionCommand().contentEquals("Retour")) {
 	    	messageField.setText("");
 	    	ConvArea.setText("");
 	    	try {
@@ -128,6 +152,22 @@ public class Clavardage implements ActionListener {
 			}
     		frame.setVisible(false);
 	    }
+    	else if (e.getActionCommand().equals("Profil")) {
+    		Profil monProfil = new Profil(this.user);
+    		frame.setVisible(false);
+    	}
+    	else if (e.getActionCommand().equals("Liste des utilisateurs connectes")) {
+    		try {
+				LUC maLUC = new LUC(this.user);
+			} catch (IOException e1) {
+				System.out.println("[ERROR PROFIL] Creation de la page LUC impossible : " + e);
+			}
+    		frame.setVisible(false);
+    	}
+    	else if (e.getActionCommand().equals("Se deconnecter")) {
+    		// TODO
+    		frame.setVisible(false);
+    	}
     }
     
     private static void initLookAndFeel() {
