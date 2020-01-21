@@ -62,6 +62,11 @@ public class User {
     public ListenerUDP getListener() { return this.listener;}
     public BroadcastingClient getBroadcast() { return this.broadcast; } 
     
+    //les setters
+    public void setPseudo(String nPseudo) { this.pseudo=nPseudo; }
+    public void setPassword(String nPass) { this.password=nPass; }
+    
+    
     // les methodes
     //private void sendM(String msg, Session session) {}
 	public void allowBroadcast (BroadcastingClient c) { 
