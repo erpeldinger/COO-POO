@@ -1,5 +1,4 @@
 package demo;
-
 import java.lang.Object.*;
 import java.net.*;
 import java.io.IOException;
@@ -10,13 +9,18 @@ import LUC.*;
 import requete.Connect;
 import connexion.*;
 import clavardage.*;
-
+import profil.*;
+import user.User;
 import inscription.*;
+
 public class DemoChangementFenetre {
     
-    public static void main (String[] args){
+    public static void main (String[] args) throws SocketException, UnknownHostException{
+    	Connect.createNewDatabase("database.db");
+    	Connect.createNewTableUser("database.db");
+    	Connect.insertUser("database.db", "Toto", "12345678912", 1);
     	
-    	Inscription pageInscription = new Inscription();
+    	//Inscription pageInscription = new Inscription();
     	/*Principe de la demo
     	 1 - Supprimer la BD (dans database, supprimer le fichier database.db)
     	 2 - lancer cette demo
@@ -31,5 +35,6 @@ public class DemoChangementFenetre {
     	//Connexion pageConnexion = new Connexion();
     	//LUC pageLUC = new LUC();
     	//Clavardage pageConv = new Clavardage();
+    	Profil monProfil = new Profil(new User(1, "Toto", "12345678912"));
     }
 }
