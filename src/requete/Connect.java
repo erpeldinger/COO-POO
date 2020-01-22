@@ -126,7 +126,7 @@ public class Connect {
                 + "    idUser1 INTEGER,\n"
                 + "    idUser2 INTEGER,\n"
                 + "    content text,\n"
-                + "    date text\n"
+                + "    date text PRIMARY KEY NOT NULL\n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
@@ -257,7 +257,7 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
-              //System.out.println("A Conversation has been created");
+              System.out.println("On a add le message : " + content);
           } catch (SQLException e) {
               System.out.println("[ERROR INSERT] Conv " + e.getMessage());
           }
