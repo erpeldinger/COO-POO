@@ -136,6 +136,7 @@ public class ModifPseudo implements ActionListener {
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
     		// TODO
+    		Connect.deleteUserLUC("database.db", this.user.getId());
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Profil")) {
