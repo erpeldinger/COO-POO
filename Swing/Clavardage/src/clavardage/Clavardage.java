@@ -166,6 +166,7 @@ public class Clavardage implements ActionListener {
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
     		// TODO
+    		Connect.deleteUserLUC("database.db", this.user.getId());
     		frame.setVisible(false);
     	}
     }
@@ -231,9 +232,9 @@ public class Clavardage implements ActionListener {
     	// POSSIBILITE : Mettre le port en dur pour tester ---> j'ai pas pu tester parce que j'arrive pas à lancer l'appli depuis le terminal (seulemen depuis eclipse)
     	int port = 3123;
     	
-    	String parts[] = ipS.split("/");
-    	System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
-    	this.client = new TCPClient(InetAddress.getByName(parts[1]), port, user, id2);
+    	//String parts[] = ipS.split("/");
+    	//System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
+    	this.client = new TCPClient(InetAddress.getByName(ipS), port, user, id2);
         //Set the look and feel.
         initLookAndFeel();
         
@@ -252,7 +253,10 @@ public class Clavardage implements ActionListener {
         System.out.println("User : " + user.getId() + " user 2 " + id2);
     	ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
     	for ( String courant : Users) {
-    		ConvArea.setText(ConvArea.getText() + "\n" + courant );
+    		//System.out.println("message recupere : " + courant);
+    		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
+    			ConvArea.setText(ConvArea.getText() + "\n" + courant );
+    		}
     	}
         
         //Clavardage app = new Clavardage();
