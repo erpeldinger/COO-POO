@@ -35,7 +35,8 @@ public class TCPClient {
     		//Stockage dans la bd
     		Connect.createNewDatabase("database.db");
         	Connect.createNewTableConv("database.db");
-    		Connect.insertConversation("database.db", this.user.getId(), this.destId, toSend.getContent() , DateMsg.toString(toSend.getDate()));
+        	//ajout du pseudo de l'expediteur du message dans la BD
+    		Connect.insertConversation("database.db", this.user.getId(), this.destId, Connect.queryUserPseudo("database.db", this.user.getId()) + " : " + toSend.getContent() , DateMsg.toString(toSend.getDate()));
     		System.out.println("message enregistre dans la db \n");
     		
     	}
