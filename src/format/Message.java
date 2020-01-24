@@ -122,7 +122,8 @@ public class Message {
     public static Message toMessageBdc(String s){
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="";
-        Message m = null;
+        Message m = null;        
+        System.out.println("[Message] toMessageBdc, print s " +s +"\n");
         
         try {
             c = parts[2];
