@@ -92,7 +92,7 @@ public class ListenerUDP extends Thread {
 		    	
 		    	//Print message broadcast
 		    	String msg = new String(inPacket.getData(), 0, inPacket.getLength());
-				System.out.println("[LISTENER UDP] print msg "+msg);	
+				System.out.println("[LISTENER UDP] print msg : "+msg);	
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés : id # pseudo # BROADCAST : Hello, who is there ?
 		    	if (isBroadcastPacket(msg)) {

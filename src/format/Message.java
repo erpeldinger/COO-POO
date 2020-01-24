@@ -120,10 +120,11 @@ public class Message {
     
  // On suppose qu'on a un message de la forme "8#pseudo#coucou"
     public static Message toMessageBdc(String s){
+    	System.out.println("[Message] toMessageBdc, print s : " +s +"\n");
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="";
         Message m = null;        
-        System.out.println("[Message] toMessageBdc, print s " +s +"\n");
+        System.out.println("[Message] toMessageBdc, print parts : " + parts +"\n");
         
         try {
             c = parts[2];
@@ -138,9 +139,11 @@ public class Message {
     }      
     
     public static Message toMessageBdcPort(String s){
+    	System.out.println("[Message] toMessageBdcPort, print s : " +s +"\n");       
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="", port="";
         Message m = null;
+        System.out.println("[Message] toMessageBdcPort, print parts : " + parts +"\n");
         
         try {
         	port = parts[2];
@@ -150,7 +153,7 @@ public class Message {
             m = new Message(c, pseudo ,Integer.parseInt(i), Integer.parseInt(port));
         }
         catch (Exception e) {
-        	System.out.println("[Message] Erreur toMessageBdc " +e);
+        	System.out.println("[Message] Erreur toMessageBdcPort " +e);
         }
         return m;
     }      
