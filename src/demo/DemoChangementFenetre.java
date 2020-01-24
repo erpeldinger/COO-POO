@@ -20,7 +20,7 @@ public class DemoChangementFenetre {
     	Connect.createNewTableUser("database.db");
     	Connect.insertUser("database.db", "Toto", "12345678912", 1);
     	
-    	//Inscription pageInscription = new Inscription();
+    	Inscription pageInscription = new Inscription();
     	/*Principe de la demo
     	 1 - Supprimer la BD (dans database, supprimer le fichier database.db)
     	 2 - lancer cette demo
@@ -32,7 +32,8 @@ public class DemoChangementFenetre {
     	 8 - retourner voir qui est connecte (cliquer sur le bouton retour)
     	*/
     	
-    	Connexion pageConnexion = new Connexion();
+
+    	//Connexion pageConnexion = new Connexion();
     	//LUC pageLUC = new LUC();
     	//Clavardage pageConv = new Clavardage();
     	//Profil monProfil = new Profil(new User(1, "Toto", "12345678912"));
