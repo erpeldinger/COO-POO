@@ -124,7 +124,6 @@ public class Message {
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="";
         Message m = null;        
-        System.out.println("[Message] toMessageBdc, print parts : " + parts +"\n");
         
         try {
             c = parts[2];
@@ -143,7 +142,6 @@ public class Message {
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="", port="";
         Message m = null;
-        System.out.println("[Message] toMessageBdcPort, print parts : " + parts +"\n");
         
         try {
         	port = parts[2];

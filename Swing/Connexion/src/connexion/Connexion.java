@@ -96,13 +96,14 @@ public class Connexion implements ActionListener {
 	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText(), 1234);
 
 	            //lancement du broadcast
-	            user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1234, user));
-	            System.out.println("[BROADCAST] sur le port 1234");
+	            System.out.println("[CONNEXION] avant allowbdc ");
+	            user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1288, user));
+	            System.out.println("[BROADCAST] sur le port 1288");
 	            System.out.println("[LISTENER] sur le port " + user.getMonPort());
 	            LUC pageLUC = new LUC(user);
         		}
         		catch (Exception j) {
-        			System.out.println("[ERROR] Creation user impossible " + j);
+        			System.out.println("[CONNEXION] ERROR Creation user impossible " + j);
         		}
 
 	            labelError.setText("");
