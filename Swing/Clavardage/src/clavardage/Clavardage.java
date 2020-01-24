@@ -230,11 +230,11 @@ public class Clavardage implements ActionListener {
     	System.out.println("[CLAVARDAGE] ip recupere string : " + ipS);
     	
     	// POSSIBILITE : Mettre le port en dur pour tester ---> j'ai pas pu tester parce que j'arrive pas à lancer l'appli depuis le terminal (seulemen depuis eclipse)
-    	int port = 3123;
+    	int port = 2333;
     	
-    	//String parts[] = ipS.split("/");
-    	//System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
-    	this.client = new TCPClient(InetAddress.getByName(ipS), port, user, id2);
+    	String parts[] = ipS.split("/");
+    	System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
+    	this.client = new TCPClient(InetAddress.getByName(parts[1]), port, user, id2);
         //Set the look and feel.
         initLookAndFeel();
         

@@ -121,8 +121,9 @@ public class ListenerUDP extends Thread {
 		    		
 			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
+			    	System.out.println("[LISTENER UDP] User connecte : \n");
 			    	for(int id: this.userLUC) {
-			        	 System.out.println("[LISTENER UDP] User connecte : \n" +id + " \n");
+			        	 System.out.println(id + " \n");
 			        }
 		    	}
 		    	else { // id # pseudo # port # est connecte
