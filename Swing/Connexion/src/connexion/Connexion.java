@@ -87,10 +87,12 @@ public class Connexion implements ActionListener {
         }
         //Sinon on se connecte
         else {
+        	System.out.println("[CONNEXION] else on se connecte ");
         	Connect.createNewDatabase("database.db");
         	Connect.createNewTableUser("database.db");
        
         	if (Connect.checkIsUser("database.db", pseudoField.getText(), passwordField.getText())) {
+        		System.out.println("[CONNEXION] if connexion ok ");
         		// connexion ok
         		try {
 	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText(), 1234);
