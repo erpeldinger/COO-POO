@@ -668,7 +668,7 @@ public class Connect {
    // Récupération d'un port
       public static int queryPortLUC(String filename, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT port FROM ListUserConnected WHERE id = " + id + ";";
+          String sql = "SELECT ListUserConnected.port FROM ListUserConnected WHERE ListUserConnected.id = " + id + ";";
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter;
 
@@ -679,7 +679,7 @@ public class Connect {
               
               // loop through the result set
               while (rs.next()) {
-                  resInter = rs.getInt(("id"));
+                  resInter = rs.getInt(("port"));
                   resultat.add(resInter);
                   System.out.println("[ERROR QUERY PORT] port trouve : " + resInter + "\n");
               }
