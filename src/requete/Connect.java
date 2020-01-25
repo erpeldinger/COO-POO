@@ -682,7 +682,6 @@ public class Connect {
               while (rs.next()) {
                   resInter = rs.getInt(("port"));
                   resultat.add(resInter);
-                  System.out.println("[ERROR QUERY PORT] port trouve : " + resInter + "\n");
               }
               resultat.add(-1);
               return resultat.get(0);
