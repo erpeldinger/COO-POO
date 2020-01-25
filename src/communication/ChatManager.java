@@ -93,7 +93,7 @@ public class ChatManager {
 		Boolean isDispo = false;
 		int res = -1;
 		int i = 0;
-		while (!isDispo || i<=(ports.size() -1)) {
+		while ( (!isDispo) || (i<=(ports.size() -1))) {
 			if (ports.get(i) == true) {
 				isDispo = true;
 				res = i + 2000;
