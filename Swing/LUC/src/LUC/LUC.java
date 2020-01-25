@@ -133,13 +133,52 @@ public class LUC implements ActionListener {
     	}
     	else if (e.getActionCommand().equals("Raffraichir")) {
     		try {
+    			//rafraichir la lite des user connectes
+    			String luc = ListUser.getText();
+    			String[] lucSplit = luc.split("\n");
+    			//System.out.println(luc);
+    			//System.out.println(lucSplit[0] + " et " + lucSplit[1] + " et " + lucSplit[2]);
+    			ArrayList <String> newUsers = Connect.queryNewUser("database.db", lucSplit);
+    			ArrayList <String> oldUsers = Connect.queryOldUser("database.db", lucSplit);
+    			ArrayList <String> disconnectedUsers = Connect.queryDisconnectedUser("database.db", lucSplit);
+    			//affichage de la nouvelle liste
     			ListUser.setText("");
-    			manager.stopCommunication();
-				LUC pageLUC = new LUC(user);
-			} catch (IOException e1) {
-				System.out.println("[ERROR LUC]refresh " + e);
+    			for (String courant : newUsers) {
+    				if (!courant.contains("end")) {
+    					ListUser.setText(ListUser.getText() + "\n" + courant);
+    				}
+    			}
+				ListUser.setText(ListUser.getText() + "\n");
+    			for (String courant : oldUsers) {
+    				if (!courant.contains("end")) {
+    					ListUser.setText(ListUser.getText() + "\n" + courant);
+    				}
+    			}
+				ListUser.setText(ListUser.getText() + "\n");
+
+				//fermeture des connections TCP des users deconnectes
+    			manager.stopCommunication(disconnectedUsers); //!!!!!!!!!!!!!!!!!A CODER ---> retrouver port à partir du pseudo :
+    			// PROCEDURE -> recuperation de l'id a partir du pseudo. Dans les TCP Server on a id et monPort. ---> parcours des TCPServers pour trouver le bon
+    			/*
+    			 * String pseudo = XXXX;
+    			 * ArrayList <Integer> mesPorts = new ArrayList<Integer>();
+    			 * int id = Connect.queryUserPseudo("database.db", pseudo);
+    			 * ArrayList <TCPServer> mesServers= this.manager.getServers();
+    			 * for (TCPServer courant : mesServers) {
+    			 * 		if (courant.getId() == id) {
+    			 * 			mesPorts.add(courant.getPort());
+    			 * 		}
+    			 * }
+    			 *
+    			 */
+
+    			//ListUser.setText("");
+    			//manager.stopCommunication();
+				//LUC pageLUC = new LUC(user);
+			} catch (Exception e1) {
+				System.out.println("[ERROR LUC]refresh " + e1);
 			}
-    		frame.setVisible(false);
+    		//frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Liste des utilisateurs connectes")) {
     		try {
@@ -224,11 +263,21 @@ public class LUC implements ActionListener {
         
         //Create and set up the window.
         this.frame = new JFrame("LUC");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // MODIFIER ---> VIDER LES USERS DE LA LUC !!!
         
         ListUser.setEditable(false);
+        Connect.deleteTable("database.db", "ListUserConnected"); // au cas où on ne l'ait aps vidé
+        
         // afficher les User connectes
         Connect.createNewTableLUC("database.db");
+        /* Verification du delete (OK)
+    	ArrayList <String> UsersNull = Connect.queryAllUserLUC("database.db");
+		System.out.println("USERS NULL \n");
+    	for (String courant : UsersNull) {
+    		System.out.println(courant + "\n");
+    	}
+        */
+        
     	Connect.insertUser("database.db", "Tata", "titi123456790" , 19999);
     	Connect.insertUser("database.db", "Tutu", "titi123456790" , 29999);
     	Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
@@ -239,19 +288,23 @@ public class LUC implements ActionListener {
     	Connect.insertConversation("database.db", 1, 29999, "Comment va ?", "1:3:1:1");
     	Connect.insertConversation("database.db", 29999, 1, "Bien et toi ? !", "1:4:1:1");
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
+    	//on reset l'espace de texte
+		ListUser.setText("");
     	try {
 	    	this.manager = new ChatManager();
+	    	//System.out.println("USERS \n");
 	    	for (String courant : Users) {
-	    		ListUser.setText(ListUser.getText() + "\n" + courant );
-	    		System.out.println("[LUC] Constructeur -> apres set text");
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
 	    		
-	    		if(courant.equals("end")) {
-	    			System.out.println("[LUC] if equals \"end\" ");
+	    		if(courant.contains("end")) {
+	    			//System.out.println("[LUC] if equals \"end\" ");
 	    		}
 	    		else{
+	    			//System.out.println(courant + "\n");
+		    		ListUser.setText(ListUser.getText() + "\n" + courant );
+		    		//System.out.println("[LUC] Constructeur -> apres set text");
 	    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
-	    			System.out.println("[LUC] Constructeur -> addTCPServer, id : "+user.getId()+", ip : "+BroadcastingClient.getIpAddress());
+	    			//System.out.println("[LUC] Constructeur -> addTCPServer, id : "+user.getId()+", ip : "+BroadcastingClient.getIpAddress());
 	    		}
 	    	}
     	}
@@ -267,7 +320,7 @@ public class LUC implements ActionListener {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
-        System.out.println("fin constructeur");
+        System.out.println("fin constructeur LUC");
     }
     
     /*
