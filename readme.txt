@@ -29,5 +29,5 @@
    
 
 // A FAIRE
-    * probleme de reception -> sort du accept trop tot
     * fermeture TCP Server A FAIRE
+    * Probleme de connexion parfois -> verif TCPServer, TCPClient
