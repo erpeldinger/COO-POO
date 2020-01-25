@@ -233,6 +233,11 @@ public class Clavardage implements ActionListener {
     	// int port = 2007;
     	int port = Connect.queryPortLUC("database.db",id2);
     	System.out.println("port recupere : " + port);
+    	ArrayList <Integer> Ports = Connect.queryAllPortLUC("database;db");
+    	for (Integer courant : Ports) {
+    		System.out.println(courant + "\n");
+    	}
+    	
     	String parts[] = ipS.split("/");
     	System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
     	this.client = new TCPClient(InetAddress.getByName(parts[1]), port, user, id2);

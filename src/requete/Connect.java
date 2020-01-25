@@ -689,6 +689,31 @@ public class Connect {
           System.out.println("[CONNECT] end queryPortLUC");
           return resultat.get(0).intValue();
       }
+      // all ports
+      public static ArrayList <Integer> queryAllPortLUC(String filename) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT id FROM ListUserConnected;";
+          ArrayList<Integer> resultat = new ArrayList<Integer>();
+          Integer resInter;
+
+          System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter = rs.getInt(("id"));
+                  resultat.add(resInter);
+              }
+              resultat.add(-1);
+              return resultat;
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY PORT]" + e.getMessage());
+          }
+          System.out.println("[CONNECT] end queryPortLUC");
+          return resultat;
+      }
       
 
       // Récupération d'une conversation entre id1 et id2 dans la liste Conversation. retourne une liste de String de forme : content||date
