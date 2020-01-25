@@ -101,9 +101,9 @@ public class Connect {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS ListUserConnected(\n"
                 + "    id INTEGER,\n"
-                + "    pseudo text PRIMARY KEY NOT NULL,\n"
+                + "    pseudo text,\n"
                 + "    ip text,\n" //ou ici primary key ? mais pblm test tcpclient server
-                + "    port INTEGER\n"
+                + "    port INTEGER PRIMARY KEY NOT NULL\n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
