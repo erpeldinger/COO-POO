@@ -100,8 +100,8 @@ public class Connexion implements ActionListener {
 	            //lancement du broadcast
 	            System.out.println("[CONNEXION] avant allowbdc ");
 	            user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1234, user));
-	            System.out.println("[BROADCAST] sur le port 1234");
-	            System.out.println("[LISTENER] sur le port " + user.getMonPort());
+	            System.out.println("[CONNEXION] Broadcats sur le port 1234");
+	            System.out.println("[CONNEXION] Listener sur le port " + user.getMonPort());
 	            LUC pageLUC = new LUC(user);
         		}
         		catch (Exception j) {

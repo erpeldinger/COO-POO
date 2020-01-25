@@ -30,6 +30,7 @@ public class ListenerUDP extends Thread {
     	super(name);
     	this.manager = new ChatManager();
         this.socket = new DatagramSocket(port);
+        System.out.println("[LISTENER UDP] Ouverture socket sur port " + port + "\n");
         this.userId = id;
         this.pseudo=name;
         this.userLUC = LUC;
@@ -113,11 +114,11 @@ public class ListenerUDP extends Thread {
 		    		//System.out.println("[LISTENER UDP] avant luc ");
 		    		//ajout de l'user dans la LUC
 		    		this.userLUC.add(Message.toMessageBdc(msg).getId());	
-		    		System.out.println("[LISTENER UDP] apres luc");
+		    		//System.out.println("[LISTENER UDP] apres luc");
 		    		//Ajout de l'adresse IP de user dans la bdd 
 		    		Connect.createNewDatabase("database.db");
 		        	Connect.createNewTableLUC("database.db");
-		        	System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
+		        	//System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
 		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
 		    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId(), recupPort);
 		    		

@@ -13,7 +13,7 @@ import communication.*;
 public class User {
 
     //attributs
-	private static int port = 3000;
+	private static int port = 3001;
 	private int monPort;
     private int id;
     private String pseudo;
