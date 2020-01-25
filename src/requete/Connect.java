@@ -230,7 +230,8 @@ public class Connect {
     public static void insertUserLUCbyAllPort(String filename, String pseudo, String ip, int id, int port) {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (pseudo, ip, id, port) VALUES (?, ?, ?, ?);";
-        
+
+        System.out.println("Tentative de requete sql : " + sql );
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, pseudo);
