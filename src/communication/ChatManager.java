@@ -59,7 +59,7 @@ public class ChatManager {
 			s.stopTCPServer();
 		}
 		for (int i = 0; i< ports.size(); i++) {
-			ports.set(i,Boolean.FALSE);
+			ports.set(i,Boolean.TRUE);
 		}
 	}
 	
@@ -87,6 +87,19 @@ public class ChatManager {
 		 * 		ports.set(courant -2000, Boolean.FALSE) // NE PAS OUBLIER LE -2000
 		 * }
 		 */
+	}
+	
+	public int portDispo() {
+		Boolean isDispo = false;
+		int res = -1;
+		int i = 0;
+		while (!isDispo) {
+			if (ports.get(i) == true) {
+				isDispo = true;
+				res = i + 2000;
+			}
+		}
+		return res;
 	}
 	
 	//Demo

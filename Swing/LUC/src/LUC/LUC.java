@@ -155,9 +155,11 @@ public class LUC implements ActionListener {
     				}
     			}
 				ListUser.setText(ListUser.getText() + "\n");
+				
+				//ouvrir TCP pour les news
 
 				//fermeture des connections TCP des users deconnectes
-    			manager.stopCommunication(disconnectedUsers); //!!!!!!!!!!!!!!!!!A CODER ---> retrouver port à partir du pseudo :
+    			manager.stopCommunication(disconnectedUsers); //!!!!!!!!!!!!!!!!!A CODER ---> retrouver port ï¿½ partir du pseudo :
     			// PROCEDURE -> recuperation de l'id a partir du pseudo. Dans les TCP Server on a id et monPort. ---> parcours des TCPServers pour trouver le bon
     			/*
     			 * String pseudo = XXXX;
@@ -266,7 +268,7 @@ public class LUC implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // MODIFIER ---> VIDER LES USERS DE LA LUC !!!
         
         ListUser.setEditable(false);
-        Connect.deleteTable("database.db", "ListUserConnected"); // au cas où on ne l'ait aps vidé
+        Connect.deleteTable("database.db", "ListUserConnected"); // au cas oï¿½ on ne l'ait aps vidï¿½
         
         // afficher les User connectes
         Connect.createNewTableLUC("database.db");

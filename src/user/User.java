@@ -1,5 +1,6 @@
 package user;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -26,7 +27,7 @@ public class User {
     
 
     //constructeur
-    public User(int id, String pseudo, String password) throws SocketException, UnknownHostException {
+    public User(int id, String pseudo, String password) throws IOException {
         this.id = id;
         this.pseudo = pseudo;
         this.password = password;
@@ -39,7 +40,7 @@ public class User {
     }
 
   //constructeur
-    public User(int id, String pseudo, String password, int port2) throws SocketException, UnknownHostException {
+    public User(int id, String pseudo, String password, int port2) throws IOException {
         this.id = id;
         this.pseudo = pseudo;
         this.password = password;

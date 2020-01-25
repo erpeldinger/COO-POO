@@ -4,6 +4,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.io.IOException;
 import java.lang.Exception;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -22,10 +23,12 @@ public class ListenerUDP extends Thread {
 	private int userId;
 	private ArrayList <Integer> userLUC;
 	private String pseudo;
+	private ChatManager manager;
     
     //Constructeurs
-    public ListenerUDP (int port, String name, int id, ArrayList <Integer> LUC) throws SocketException, UnknownHostException {
+    public ListenerUDP (int port, String name, int id, ArrayList <Integer> LUC) throws IOException {
     	super(name);
+    	this.manager = new ChatManager();
         this.socket = new DatagramSocket(port);
         this.userId = id;
         this.pseudo=name;
@@ -97,7 +100,8 @@ public class ListenerUDP extends Thread {
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés : id # pseudo # BROADCAST : Hello, who is there ?
 		    	if (isBroadcastPacket(msg)) {
 		    		//System.out.println("[LISTENER UDP] If -> debut");
-		    		int recupPort = 2333;
+		    		//int recupPort = 2333;
+		    		int recupPort = this.manager.portDispo();
 		    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "#est connecte !"; 
 		    		System.out.println("[LISTENER UDP] valeur port : "+ Integer.valueOf(recupPort));
 		    		System.out.println("[LISTENER UDP] valeur msg string : "+ r);
@@ -115,7 +119,7 @@ public class ListenerUDP extends Thread {
 		        	Connect.createNewTableLUC("database.db");
 		        	System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
 		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
-		    		Connect.insertUserLUCbyAll("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId());
+		    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId(), recupPort);
 		    		
 		    		//ON NOTIFIE au user qui a ce listener !!!!!
 		    		
@@ -142,10 +146,8 @@ public class ListenerUDP extends Thread {
 			    	for(int id: this.userLUC) {
 			        	 System.out.println("[LISTENER UDP] User connecte : \n" +id + " \n");
 			        }
-					
 				}		    		
     		}
-    		
     		catch (Exception e) {
     			System.out.println("[LISTENER UDP] Erreur run " + e);
     		}
