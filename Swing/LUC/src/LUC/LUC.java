@@ -280,6 +280,7 @@ public class LUC implements ActionListener {
     	}
         */
         
+        /* ------- TEST INSERTION DE USERS / CONV -------
     	Connect.insertUser("database.db", "Tata", "titi123456790" , 19999);
     	Connect.insertUser("database.db", "Tutu", "titi123456790" , 29999);
     	Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
@@ -289,6 +290,8 @@ public class LUC implements ActionListener {
     	Connect.insertConversation("database.db", 29999, 1, "Bonjour toi !", "1:2:1:1");
     	Connect.insertConversation("database.db", 1, 29999, "Comment va ?", "1:3:1:1");
     	Connect.insertConversation("database.db", 29999, 1, "Bien et toi ? !", "1:4:1:1");
+    	*/
+        
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
     	//on reset l'espace de texte
 		ListUser.setText("");

@@ -78,7 +78,6 @@ public class TCPServer extends Thread {
 				receiveMessage(server,in,buff);	 // PROBLEME ICI
 				System.out.println("[TCPServer ] apres receive ");
 	    		Message m = Message.readMessage(buff);
-
 				System.out.println("[TCPServer ] message recu " + m.getContent());
 	    		/*
 	    		String s="";
