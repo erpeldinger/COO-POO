@@ -15,12 +15,11 @@ import inscription.*;
 
 public class DemoChangementFenetre {
     
-    public static void main (String[] args) throws SocketException, UnknownHostException{
+    public static void main (String[] args) throws IOException{
     	Connect.createNewDatabase("database.db");
     	Connect.createNewTableUser("database.db");
     	Connect.insertUser("database.db", "Toto", "12345678912", 1);
     	
-    	Inscription pageInscription = new Inscription();
     	/*Principe de la demo
     	 1 - Supprimer la BD (dans database, supprimer le fichier database.db)
     	 2 - lancer cette demo
@@ -31,10 +30,10 @@ public class DemoChangementFenetre {
     	 7 - Envoyer un message (tapper le message dans le cahmp, cliquer sur "Envoyer le message")
     	 8 - retourner voir qui est connecte (cliquer sur le bouton retour)
     	*/
-    	
 
+    	//Inscription pageInscription = new Inscription();
     	//Connexion pageConnexion = new Connexion();
-    	//LUC pageLUC = new LUC();
+    	LUC pageLUC = new LUC(new User(1, "Toto", "123456789123"));
     	//Clavardage pageConv = new Clavardage();
     	//Profil monProfil = new Profil(new User(1, "Toto", "12345678912"));
     }
