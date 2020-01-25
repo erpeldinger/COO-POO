@@ -26,18 +26,18 @@ public class TCPClient {
 	//Ecrit un message
 	public void writeM(OutputStream out, String msg) {
     	try {
-    		System.out.println("Message a envoyer : " + msg);
+    		System.out.println("[TCP CLIENT] Message a envoyer : " + msg);
     		Message toSend = Message.toSend(this.user.getId(), msg);
     		byte[] buff = Message.readyToSend(toSend);
     		out.write(buff);    		
-    		System.out.println("Message envoye : " + msg);
+    		System.out.println("[TCP CLIENT] Message envoye : " + msg);
 
     		//Stockage dans la bd
     		Connect.createNewDatabase("database.db");
         	Connect.createNewTableConv("database.db");
         	//ajout du pseudo de l'expediteur du message dans la BD
     		Connect.insertConversation("database.db", this.user.getId(), this.destId, Connect.queryUserPseudo("database.db", this.user.getId()) + " : " + toSend.getContent() , DateMsg.toString(toSend.getDate()));
-    		System.out.println("message enregistre dans la db \n");
+    		System.out.println("[TCP CLIENT] message enregistre dans la db \n");
     		
     	}
     	catch (Exception e) {
@@ -48,8 +48,11 @@ public class TCPClient {
 	//Envoie le message
 	public void sendMessage(String m) {
 		try {
+			System.out.println("[TCP CLIENT] sendMessage -> debut \n");
 			OutputStream out = this.socket.getOutputStream();
+			System.out.println("[TCP CLIENT] sendMessage -> avant writeM \n");
 			writeM(out, m);
+			System.out.println("[TCP CLIENT] sendMessage -> apres writeM \n");
 			out.flush();
 			out.close();
 			this.socket.close();
