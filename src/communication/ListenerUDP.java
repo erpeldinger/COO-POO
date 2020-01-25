@@ -111,10 +111,10 @@ public class ListenerUDP extends Thread {
 		    		socket.send(outPacket);
 		    		//System.out.println("[LISTENER UDP] If -> end");
 		    		
-		    		//System.out.println("[LISTENER UDP] avant luc ");
+		    		System.out.println("[LISTENER UDP] avant luc ");
 		    		//ajout de l'user dans la LUC
 		    		this.userLUC.add(Message.toMessageBdc(msg).getId());	
-		    		//System.out.println("[LISTENER UDP] apres luc");
+		    		System.out.println("[LISTENER UDP] apres luc");
 		    		//Ajout de l'adresse IP de user dans la bdd 
 		    		Connect.createNewDatabase("database.db");
 		        	Connect.createNewTableLUC("database.db");
