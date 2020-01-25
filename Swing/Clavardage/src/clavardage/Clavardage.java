@@ -128,7 +128,8 @@ public class Clavardage implements ActionListener {
 	                //Envoyer le message
 	                labelMessage.setText(labelPrefix + etatEnvoye);
 	                
-	                //Sauvegarder le message dans la base de donnees
+	                //Envoie + Sauvegarde du message dans la base de donnees
+	                this.client.sendMessage(messageField.getText());
 	                
 	                //Afficher le message
 	                ConvArea.setText(ConvArea.getText() + "\n" + "You : " + messageField.getText());
