@@ -131,6 +131,7 @@ public class Connect {
         
         try (Connection conn = DriverManager.getConnection(url);
                 Statement stmt = conn.createStatement()) {
+
             // create a new table
             stmt.execute(sql);
             //System.out.println("A new table Conversation has been created");
