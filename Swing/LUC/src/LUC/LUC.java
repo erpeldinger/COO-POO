@@ -284,8 +284,10 @@ public class LUC implements ActionListener {
     	Connect.insertUser("database.db", "Tata", "titi123456790" , 19999);
     	Connect.insertUser("database.db", "Tutu", "titi123456790" , 29999);
     	Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
-    	Connect.insertUserLUC("database.db", 29999, "1.2.3.4");
+    	Connect.insertUserLUC("database.db", 29999, "1.2.3.4");*/
+        
     	Connect.createNewTableConv("database.db");
+    	/*
     	Connect.insertConversation("database.db", 1, 29999, "Bonjour", "1:1:1:1");
     	Connect.insertConversation("database.db", 29999, 1, "Bonjour toi !", "1:2:1:1");
     	Connect.insertConversation("database.db", 1, 29999, "Comment va ?", "1:3:1:1");
