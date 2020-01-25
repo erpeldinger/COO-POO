@@ -24,10 +24,10 @@ public class DemoServerTCP {
     	Connect.insertUserLUC("database.db", 14, "addrIP3" );
     	
     	//Broadcast
-    	InetAddress addrBr = BroadcastingClient.getBroadcastAddress();
+    	//InetAddress addrBr = BroadcastingClient.getBroadcastAddress();
     	User u1 = new User(12,"ServerPaul","mdp", 1234);   
     	
-    	/*Partie TCP
+    	//Partie TCP
         InetAddress ip = BroadcastingClient.getIpAddress();
         System.out.println("IP Server: " +ip);
     	int port = 1234;
@@ -36,7 +36,7 @@ public class DemoServerTCP {
 		manager.addTCPServer(u1.getId(), ip);
     	//TCPServer server = new TCPServer(u1.getId(),ip,1288);
 		System.out.println("tcp server lancé ");
-		*/
+		
     	
     	
     	
