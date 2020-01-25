@@ -34,6 +34,10 @@ public class TCPServer extends Thread {
 		start();
 	}
 	
+	//getters
+	public int getPort() {return this.monPort;}
+	public long getId() {return this.id;}
+	
 	//Methodes	
 	public boolean isRunning () {return this.running;}
 	

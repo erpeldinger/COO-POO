@@ -37,6 +37,7 @@ public class ChatManager {
 	
 	
 	public static ArrayList<Boolean> getPorts() {return ports;}
+	public static ArrayList<TCPServer> getServers() {return servers;}
 	
 	public void addTCPServer(int id,InetAddress localAddr) throws IOException {
 		int indCurrentPort, port;
@@ -60,6 +61,32 @@ public class ChatManager {
 		for (int i = 0; i< ports.size(); i++) {
 			ports.set(i,Boolean.FALSE);
 		}
+	}
+	
+	
+	public void stopCommunication(ArrayList <String> disconnected){
+		//TODO
+		// PROCEDURE -> recuperation de l'id a partir du pseudo. Dans les TCP Server on a id et monPort. ---> parcours des TCPServers pour trouver le bon
+		/*
+		 * String pseudo = XXXX;
+		 * ArrayList <Integer> mesPorts = new ArrayList<Integer>();
+		 * int id = Connect.queryUserPseudo("database.db", pseudo);
+		 * ArrayList <TCPServer> mesServers= this.manager.getServers();
+		 * for (TCPServer courant : mesServers) {
+		 * 		if (courant.getId() == id) {
+		 * 			mesPorts.add(courant.getPort());
+		 * 		// fermeture du Server
+		 * 		courant.stopTCPServer()
+		 * 		}
+		 * }
+		 *
+		 */
+		
+		/* PUIS FERMETURE DES PORTS
+		 * for ( Integer courant : mesPorts) {
+		 * 		ports.set(courant -2000, Boolean.FALSE) // NE PAS OUBLIER LE -2000
+		 * }
+		 */
 	}
 	
 	//Demo
