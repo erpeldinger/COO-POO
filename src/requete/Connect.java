@@ -97,7 +97,7 @@ public class Connect {
     public static void createNewTableLUC(String filename) {
         // SQLite connection string
         String url = "jdbc:sqlite:./database/"+filename;
-        
+
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS ListUserConnected(\n"
                 + "    id INTEGER,\n"
@@ -681,6 +681,7 @@ public class Connect {
               while (rs.next()) {
                   resInter = rs.getInt(("id"));
                   resultat.add(resInter);
+                  System.out.println("[ERROR QUERY PORT] port trouve : " + resInter + "\n");
               }
               resultat.add(-1);
               return resultat.get(0);
@@ -690,7 +691,7 @@ public class Connect {
           System.out.println("[CONNECT] end queryPortLUC");
           return resultat.get(0).intValue();
       }
-      // all ports
+      // all ports id
       public static ArrayList <Integer> queryAllPortLUC(String filename) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "SELECT id FROM ListUserConnected;";
@@ -705,6 +706,31 @@ public class Connect {
               // loop through the result set
               while (rs.next()) {
                   resInter = rs.getInt(("id"));
+                  resultat.add(resInter);
+              }
+              resultat.add(-1);
+              return resultat;
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY PORT]" + e.getMessage());
+          }
+          System.out.println("[CONNECT] end queryPortLUC");
+          return resultat;
+      }
+   // all ports num
+      public static ArrayList <Integer> queryAllPortLUC2(String filename) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT port FROM ListUserConnected;";
+          ArrayList<Integer> resultat = new ArrayList<Integer>();
+          Integer resInter;
+
+          System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter = rs.getInt(("port"));
                   resultat.add(resInter);
               }
               resultat.add(-1);

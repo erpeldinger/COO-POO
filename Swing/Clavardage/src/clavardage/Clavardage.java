@@ -231,13 +231,22 @@ public class Clavardage implements ActionListener {
     	
     	// POSSIBILITE : Mettre le port en dur pour tester ---> j'ai pas pu tester parce que j'arrive pas à lancer l'appli depuis le terminal (seulemen depuis eclipse)
     	// int port = 2007;
-    	int port = Connect.queryPortLUC("database.db",id2);
-    	System.out.println("port recupere : " + port);
-    	System.out.println("Ports : ");
-    	ArrayList <Integer> Ports = Connect.queryAllPortLUC("database;db");
+    	/* ---- VERIF METHODES OK ----
+    	System.out.println("Ports id : ");
+    	ArrayList <Integer> Ports = Connect.queryAllPortLUC("database.db");
     	for (Integer courant : Ports) {
     		System.out.println(courant + "\n");
     	}
+
+    	System.out.println("Ports num : ");
+    	ArrayList <Integer> PortsNum = Connect.queryAllPortLUC2("database.db");
+    	for (Integer courant : PortsNum) {
+    		System.out.println(courant + "\n");
+    	}
+    	*/
+    	
+    	int port = Connect.queryPortLUC("database.db",id2);
+    	System.out.println("port recupere : " + port);
     	
     	String parts[] = ipS.split("/");
     	System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
