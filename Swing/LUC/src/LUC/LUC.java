@@ -268,7 +268,7 @@ public class LUC implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // MODIFIER ---> VIDER LES USERS DE LA LUC !!!
         
         ListUser.setEditable(false);
-        Connect.deleteTable("database.db", "ListUserConnected"); // PROBLEME LORS DU RETOUR
+        //Connect.deleteTable("database.db", "ListUserConnected"); // PROBLEME LORS DU RETOUR
         
         // afficher les User connectes
         Connect.createNewTableLUC("database.db");

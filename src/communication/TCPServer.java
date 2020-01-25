@@ -45,6 +45,7 @@ public class TCPServer extends Thread {
     	try {
 	        while (in.available() <=0 ) {}
 	        in.read(buff);
+	        System.out.println("[TCPServer] buff " + new String(buff) );
     	}
     	catch (Exception e) {
 		System.out.println("[TCPServer] Erreur readMessage ");
@@ -74,7 +75,7 @@ public class TCPServer extends Thread {
 				System.out.println("[TCPServer ] apres inputstream ");
 				OutputStream out = server.getOutputStream();
 				System.out.println("[TCPServer ] apres outputstream ");
-				receiveMessage(server,in,buff);	 
+				receiveMessage(server,in,buff);	 // PROBLEME ICI
 				System.out.println("[TCPServer ] apres receive ");
 	    		Message m = Message.readMessage(buff);
 
@@ -90,7 +91,7 @@ public class TCPServer extends Thread {
 	    		//Stockage dans la bd
 	    		Connect.createNewDatabase("database.db");
 	        	Connect.createNewTableConv("database.db");
-	        	//ajout du nom de l'expéditeur du message dans la BD
+	        	//ajout du nom de l'expï¿½diteur du message dans la BD
 	    		Connect.insertConversation("database.db",m.getId(), this.id, Connect.queryUserPseudo("database", m.getId()) + " : " + m.getContent(),m.getDate().toString());
 	    		System.out.println("message enregistre dans la db \n");
 			
