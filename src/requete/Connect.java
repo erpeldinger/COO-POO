@@ -101,8 +101,8 @@ public class Connect {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS ListUserConnected(\n"
                 + "    id INTEGER,\n"
-                + "    pseudo text,\n"
-                + "    ip text,\n"
+                + "    pseudo textL,\n"
+                + "    ip text PRIMARY KEY NOT NULL,\n"
                 + "    port INTEGER\n"
                 + ");";
         
@@ -150,7 +150,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // delete the table
             stmt.execute(sql);
-            //System.out.println("A table has been deleted");
+            System.out.println("A table has been deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -318,7 +318,7 @@ public class Connect {
    // Update un utilisateur dans la table User
       public static void updateUser(String filename, String pseudo, String pass, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "UPDATE User SET pseudo = ?, pass = ? WHERE id = ?;";
+          String sql = "UPDATE User SET pseudo = ?, password = ? WHERE id = ?;";
           
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -594,7 +594,9 @@ public class Connect {
               while (rs.next()) {
                   resInter="";
                           resInter += rs.getString(("pseudo"));
-                  resultat.add(resInter);
+                  if (!resultat.contains(resInter)) { // pour ne pas avoir de doublon
+                	  resultat.add(resInter);
+                  }
               }
               resultat.add("end");
               return resultat;
@@ -632,7 +634,7 @@ public class Connect {
           Set set = new HashSet() ;
           set.addAll(resultat);
           ArrayList<String> res = new ArrayList(set);
-          System.out.println("[CONNECT] end queryAllUserLUCbyPseudo");
+          //System.out.println("[CONNECT] end queryAllUserLUCbyPseudo");
           return res;
       }
       
@@ -753,6 +755,47 @@ public class Connect {
     		  isValid = false;
     	  }
           return isValid;
+      }
+      
+      /*------------------------------------------ RAFRAICHISSEMENT DE LA LUC ------------------------------------- */
+
+      // pseudo dansles deux listes
+      public static ArrayList <String> queryOldUser(String filename, String[] luc) {
+    	  ArrayList <String> res = new ArrayList <String>();
+    	  ArrayList <String> newLUC = queryAllUserLUC(filename);
+    	  
+    	  for (String courant : luc) {
+    		  if (newLUC.contains(courant)) {
+    			  res.add(courant);
+    		  }
+    	  }
+    	  return res;
+      }
+      
+      //pseudo seulement dans l'ancienne liste
+      public static ArrayList <String> queryDisconnectedUser(String filename, String[] luc) {
+    	  ArrayList <String> res = new ArrayList <String>();
+    	  ArrayList <String> newLUC = queryAllUserLUC(filename);
+    	  
+    	  for (String courant : luc) {
+    		  if (!newLUC.contains(courant)) {
+    			  res.add(courant);
+    		  }
+    	  }
+    	  return res;
+      }
+      
+    //pseudo seulement dans a nouvelle liste
+      public static ArrayList <String> queryNewUser(String filename, String[] luc) {
+    	  ArrayList <String> res = new ArrayList <String>();
+    	  ArrayList <String> newLUC = queryAllUserLUC(filename);
+    	  ArrayList <String> oldLUC = new ArrayList<String>(Arrays.asList(luc));
+    	  for (String courant : newLUC) {
+    		  if (!oldLUC.contains(courant)) {
+    			  res.add(courant);
+    		  }
+    	  }
+    	  return res;
       }
 
       /*------------------------------------------METHODES GENERALISTES-------------------------------------
