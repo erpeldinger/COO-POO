@@ -100,9 +100,10 @@ public class ListenerUDP extends Thread {
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés : id # pseudo # BROADCAST : Hello, who is there ?
 		    	if (isBroadcastPacket(msg)) {
-		    		//System.out.println("[LISTENER UDP] If -> debut");
+		    		System.out.println("[LISTENER UDP] If -> debut");
 		    		//int recupPort = 2333;
 		    		int recupPort = this.manager.portDispo();
+		    		System.out.println("[LISTENER UDP]recuperation port");
 		    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "#est connecte !"; 
 		    		System.out.println("[LISTENER UDP] valeur port : "+ Integer.valueOf(recupPort));
 		    		System.out.println("[LISTENER UDP] valeur msg string : "+ r);
