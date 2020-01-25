@@ -7,31 +7,27 @@
     * Demo : lancer DemoU2 puis DemoU3
 
 // TCP
-    * envoi -- pblm deux ordi differents
+    * envoi -- OK
     * reception -- pblm deux ordi differents
     * stockage du message a la reception -- OK
 
 // Historique
-    * recuperation -- A FAIRE
+    * recuperation -- OK
 
 // Base de données
     * connexion -- OK (DemoConnexion)
     * inscription -- OK (DemoInscription)
     * ajout message -- OK
-    * historique -- A TESTER
+    * historique -- OK
 
 // Swing
-    * creer toutes les interfaces -- EN COURS
-    * relier les interfaces aux demo -- OK pour COnnexion et Incription
+    * creer toutes les interfaces -- OK
+    * relier les interfaces aux demo -- OK
 
 // Prochaines etapes 
-    * creer l'interface permettant de voir les utilisateurs connectes
-    * faire le lien entre cette interface et le code [broadcast, recup LUC]
-
-    * finir envoie de message TCP
-    
-
+    * finir envoie/reception de message TCP
+   
 
 // A FAIRE
-    * probleme de port : renvoie du port dans message reponse Broadcast + recuperation du port et ajout dans la BD (LUC)
-    * recuperation de ce port qu moment voulu
+    * probleme de reception -> sort du accept trop tot
+    * fermeture TCP Server A FAIRE
