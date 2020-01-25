@@ -93,14 +93,17 @@ public class ChatManager {
 		Boolean isDispo = false;
 		int res = -1;
 		int i = 0;
+		int size = ports.size();
+		System.out.println("[ChAT MANAGER] size de port : " + size);
 		while (!isDispo) {
 			if (ports.get(i) == true) {
 				isDispo = true;
 				res = i + 2000;
 			}
-			else if  (i>(ports.size() -1)){
+			else if (i>(ports.size())){
 				isDispo = true;
 			}
+			i++;
 		}
 		return res;
 	}
