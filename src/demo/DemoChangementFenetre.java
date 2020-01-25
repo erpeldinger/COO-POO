@@ -17,8 +17,8 @@ public class DemoChangementFenetre {
     
     public static void main (String[] args) throws IOException{
     	Connect.createNewDatabase("database.db");
-    	Connect.createNewTableUser("database.db");
-    	Connect.insertUser("database.db", "Toto", "12345678912", 1);
+    	//Connect.createNewTableUser("database.db");
+    	//Connect.insertUser("database.db", "Toto", "12345678912", 1);
     	
     	/*Principe de la demo
     	 1 - Supprimer la BD (dans database, supprimer le fichier database.db)
@@ -31,9 +31,9 @@ public class DemoChangementFenetre {
     	 8 - retourner voir qui est connecte (cliquer sur le bouton retour)
     	*/
 
-    	//Inscription pageInscription = new Inscription();
+    	Inscription pageInscription = new Inscription();
     	//Connexion pageConnexion = new Connexion();
-    	LUC pageLUC = new LUC(new User(1, "Toto", "123456789123"));
+    	//LUC pageLUC = new LUC(new User(1, "Toto", "123456789123"));
     	//Clavardage pageConv = new Clavardage();
     	//Profil monProfil = new Profil(new User(1, "Toto", "12345678912"));
     }
