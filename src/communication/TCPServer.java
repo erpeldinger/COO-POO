@@ -92,7 +92,8 @@ public class TCPServer extends Thread {
 	    		Connect.createNewDatabase("database.db");
 	        	Connect.createNewTableConv("database.db");
 	        	//ajout du nom de l'exp�diteur du message dans la BD
-	    		Connect.insertConversation("database.db",m.getId(), this.id, Connect.queryUserPseudo("database", m.getId()) + " : " + m.getContent(),m.getDate().toString());
+	        	System.out.println("avant insert \n");
+	    		Connect.insertConversation("database.db",m.getId(), this.id, Connect.queryUserPseudo("database.db", m.getId()) + " : " + m.getContent(),m.getDate().toString());
 	    		System.out.println("message enregistre dans la db \n");
 			
 			}			
