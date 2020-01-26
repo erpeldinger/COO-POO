@@ -1,1 +1,0 @@
-permet que le dossier database ne se supprimer pas sur le git lorsqu'il n'y a pas encore de database.db dedans
