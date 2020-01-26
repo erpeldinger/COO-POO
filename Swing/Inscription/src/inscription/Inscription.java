@@ -7,7 +7,10 @@ package inscription;
  */
 import javax.swing.*;
 
+import LUC.LUC;
+import communication.BroadcastingClient;
 import requete.Connect;
+import user.User;
 import connexion.*;
 
 import java.awt.*;
@@ -28,6 +31,12 @@ public class Inscription implements ActionListener {
     private static String errorPrefix= "Inscription impossible : ";
     private static String logged = "Inscription réussie";
     private static String errorLog = "Une ereure s'est produite, l'inscription a échoué";
+    //concernant la connexion
+    private String incorrectUser = "Pseudo/Mot de passe incorrect";
+    private String incorrectPseudoCo = "Pseudo incorrect";
+    private String incorrectPasswordCo = "Mot de passe incorrect";
+    private static String connected = "Connexion réussie";
+    //Les labels
     final JLabel labelConnect = new JLabel(connect);
     final JLabel labelPseudo = new JLabel(pseudo);
     final JLabel labelPassword = new JLabel(password);
@@ -84,54 +93,90 @@ public class Inscription implements ActionListener {
     
     public void actionPerformed(ActionEvent e) {
     	if (e.getActionCommand().equals("Se connecter")){
-    		Connexion pageConnexion = new Connexion();
-    		frame.setVisible(false);
+    		//Connexion pageConnexion = new Connexion();
+    		//frame.setVisible(false);
+    		if (pseudoField.getText().equals("")) {
+                labelError.setText(incorrectPseudoCo);
+            }
+            else if(passwordField.getText().equals("")) {
+                labelError.setText(incorrectPasswordCo);
+            }
+            //Sinon on se connecte
+            else {
+            	System.out.println("[CONNEXION] else on se connecte ");
+            	Connect.createNewDatabase("database.db");
+            	Connect.createNewTableUser("database.db");
+           
+            	if (Connect.checkIsUser("database.db", pseudoField.getText(), passwordField.getText())) {
+            		System.out.println("[CONNEXION] if connexion ok ");
+            		// connexion ok
+            		try {
+    	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText(), 1234);
+
+    	            //lancement du broadcast
+    	            System.out.println("[CONNEXION] avant allowbdc ");
+    	            user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1234, user));
+    	            System.out.println("[CONNEXION] Broadcats sur le port 1234");
+    	            System.out.println("[CONNEXION] Listener sur le port " + user.getMonPort());
+    	            LUC pageLUC = new LUC(user);
+            		}
+            		catch (Exception j) {
+            			System.out.println("[CONNEXION] ERROR Creation user impossible " + j);
+            		}
+
+    	            labelError.setText("");
+    	            pseudoField.setText("");
+    	            passwordField.setText("");
+    	            labelSuccess.setText(connected);
+    	            
+    	    		frame.setVisible(false);
+    	    		System.out.println("LUC ouvert");
+            	}
+            	else {
+            		//mauvais pseudo/mot de passe
+    	        	//System.out.println("mauvais user!" + pseudoField.getText() + " " + passwordField.getText());
+                    labelError.setText(incorrectUser);
+            	}
+            }
     	}
     	else
-    	if (e.getActionCommand().equals("S'inscrire")) {
-    	
-    	Connect.createNewDatabase("database.db");
-    	Connect.createNewTableUser("database.db");
-        //Si le message est vide on ne l'envoie pas , n affiche l'erreur
-        if (pseudoField.getText().equals("")) {
-            labelError.setText(emptyPseudo);
-        }
-        else if(passwordField.getText().equals("")) {
-            labelError.setText(emptyPassword);
-        }
-        //Sinon on test la validite du pseudo/password
-        else {
-        	if (Connect.checkPseudo("database.db", pseudoField.getText()) && Connect.checkPassword("database.db", pseudoField.getText(), passwordField.getText())) {
-        		// on inscris la personne
-            	System.out.println("Bonjour");
-            	Connect.insertUser("database.db",pseudoField.getText(), passwordField.getText(), Connect.getId());
-            	System.out.println("Vous êtes maintenant inscrit !");
-            	
-                labelError.setText("");
-                pseudoField.setText("");
-                passwordField.setText("");
-                labelSuccess.setText(logged);
-        	}
-        	else {
-        		// probleme pseudo ou mot de passe
-        		if (!Connect.checkPseudo("database.db", pseudoField.getText())) {
-        			// pseudo pas unique
-                    labelError.setText(incorrectPseudo);
-        		}
-        		else {
-        			// mot de passe pas aux normes
-                    labelError.setText(incorrectPassword);
-        		}
-        	}
-        	
-            // on connecte la personne
-            try {
-            }
-            catch (Exception ex) {
-                labelError.setText(errorLog);
-            }
+	    	if (e.getActionCommand().equals("S'inscrire")) {
+		    	
+		    	Connect.createNewDatabase("database.db");
+		    	Connect.createNewTableUser("database.db");
+		        //Si le message est vide on ne l'envoie pas , n affiche l'erreur
+		        if (pseudoField.getText().equals("")) {
+		            labelError.setText(emptyPseudo);
+		        }
+		        else if(passwordField.getText().equals("")) {
+		            labelError.setText(emptyPassword);
+		        }
+		        //Sinon on test la validite du pseudo/password
+		        else {
+		        	if (Connect.checkPseudo("database.db", pseudoField.getText()) && Connect.checkPassword("database.db", pseudoField.getText(), passwordField.getText())) {
+		        		// on inscris la personne
+		            	System.out.println("Bonjour");
+		            	Connect.insertUser("database.db",pseudoField.getText(), passwordField.getText(), Connect.getId());
+		            	System.out.println("Vous êtes maintenant inscrit !");
+		            	
+		                labelError.setText("");
+		                pseudoField.setText("");
+		                passwordField.setText("");
+		                labelSuccess.setText(logged);
+		        	}
+		        	else {
+		        		// probleme pseudo ou mot de passe
+		        		if (!Connect.checkPseudo("database.db", pseudoField.getText())) {
+		        			// pseudo pas unique
+		                    labelError.setText(incorrectPseudo);
+		        		}
+		        		else {
+		        			// mot de passe pas aux normes
+		                    labelError.setText(incorrectPassword);
+		        		}
+		        	}	
             
-        }
+		        }
     	}
     }
     
