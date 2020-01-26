@@ -31,3 +31,4 @@
 // A FAIRE
     * fermeture TCP Server A FAIRE
     * Probleme de connexion parfois -> verif TCPServer, TCPClient
+    * Probleme affichage format date
