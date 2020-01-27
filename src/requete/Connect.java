@@ -144,7 +144,7 @@ public class Connect {
   //creation de la table Conversation
     public static void deleteTable(String filename, String tablename) {
         // SQLite connection string
-        String url = "jdbc:sqlite:./database/"+filename;
+        String url = "jdbc:sqlite:./database/"+filename+";";
         String sql = "DROP TABLE " + tablename;
         
         try (Connection conn = DriverManager.getConnection(url);
@@ -301,7 +301,7 @@ public class Connect {
 	   // Suppression d'un utilisateur dans la table ListUserConnected
 	      public static void deleteAllUserLUC(String filename) {
 	          String url = "jdbc:sqlite:./database/"+filename;
-	          String sql = "DELETE FROM ListUserConnected;";
+	          String sql = "DELETE FROM ListUserConnected WHERE id=id;";
 	          
 	          try (Connection conn = DriverManager.getConnection(url);
 	                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
