@@ -16,7 +16,8 @@ import inscription.*;
 public class DemoChangementFenetre {
     
     public static void main (String[] args) throws IOException{
-    	Connect.createNewDatabase("database.db");
+    	//Connect.createNewDatabase("database.db");
+    	
     	//Connect.createNewTableUser("database.db");
     	//Connect.insertUser("database.db", "Toto", "12345678912", 1);
     	

@@ -137,13 +137,13 @@ public class LUC implements ActionListener {
     			//rafraichir la lite des user connectes
     			String luc = ListUser.getText();
     			String[] lucSplit = luc.split("\n");
-    			//System.out.println(luc);
+    			System.out.println("[LUC] texte : " + luc);
     			//System.out.println(lucSplit[0] + " et " + lucSplit[1] + " et " + lucSplit[2]);
     			ArrayList <String> newUsers = Connect.queryNewUser("database.db", lucSplit);
     			ArrayList <String> oldUsers = Connect.queryOldUser("database.db", lucSplit);
     			ArrayList <String> disconnectedUsers = Connect.queryDisconnectedUser("database.db", lucSplit);
     			
-
+    			/*
 				System.out.println("new users : ");
     			for (String courant : newUsers) {
     				System.out.println(courant + " \n");
@@ -156,7 +156,7 @@ public class LUC implements ActionListener {
     			for (String courant : disconnectedUsers) {
     				System.out.println(courant + " \n");
     			}
-    			
+    			*/
     			
     			//affichage de la nouvelle liste
     			ListUser.setText("");
@@ -295,8 +295,6 @@ public class LUC implements ActionListener {
     public LUC(User user) throws IOException {
     //public void createAndShowGUI() {
         System.out.println("debut constructeur");
-
-        ListUser.setText("");
         //init le user
         this.user = user;
         
@@ -340,17 +338,18 @@ public class LUC implements ActionListener {
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
     	//on reset l'espace de texte
 		ListUser.setText("");
+
+		System.out.println("[LUC] affichage da la LUC \n");
     	try {
 	    	this.manager = new ChatManager();
 	    	//System.out.println("USERS \n");
 	    	for (String courant : Users) {
+    			System.out.println("[LUC]" + courant + "\n");
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
-	    		
 	    		if(courant.contains("end")) {
 	    			//System.out.println("[LUC] if equals \"end\" ");
 	    		}
 	    		else{
-	    			//System.out.println(courant + "\n");
 		    		ListUser.setText(ListUser.getText() + "\n" + courant );
 		    		//System.out.println("[LUC] Constructeur -> apres set text");
 	    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());

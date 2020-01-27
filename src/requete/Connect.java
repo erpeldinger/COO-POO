@@ -232,7 +232,7 @@ public class Connect {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (pseudo, ip, id, port) VALUES (?, ?, ?, ?);";
 
-        System.out.println("Tentative de requete sql : " + sql );
+        System.out.println("Tentative de requete sql : " + sql  + " pseudo : " + pseudo + "\n");
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, pseudo);
@@ -855,6 +855,9 @@ public class Connect {
     	  ArrayList <String> res = new ArrayList <String>();
     	  ArrayList <String> newLUC = queryAllUserLUC(filename);
     	  System.out.println("new LUC : ");
+    	  for (String courant : newLUC) {
+    		  System.out.println(courant + " - ");
+    	  }
     	  
     	  ArrayList <String> oldLUC = new ArrayList<String>(Arrays.asList(luc));
     	  for (String courant : newLUC) {
@@ -864,7 +867,7 @@ public class Connect {
     	  }
     	  return res;
       }
-
+      
       /*------------------------------------------METHODES GENERALISTES-------------------------------------
 
       //INSERTIOn de données dans la bd
