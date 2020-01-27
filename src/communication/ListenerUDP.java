@@ -119,7 +119,7 @@ public class ListenerUDP extends Thread {
 		    		//Ajout de l'adresse IP de user dans la bdd 
 		    		Connect.createNewDatabase("database.db");
 		        	Connect.createNewTableLUC("database.db");
-		        	//System.out.println("[LISTENER UDP] ip : "+inPacket.getAddress());
+		        	System.out.println("[LISTENER UDP] ip trouve : "+inPacket.getAddress());
 		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
 		    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId(), recupPort);
 		    		
