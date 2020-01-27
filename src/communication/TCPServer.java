@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.io.IOException;
+
+import format.DateMsg;
 import format.Message;
 import requete.Connect;
 
@@ -92,8 +94,8 @@ public class TCPServer extends Thread {
 	        	Connect.createNewTableConv("database.db");
 	        	//ajout du nom de l'exp�diteur du message dans la BD
 	        	System.out.println("avant insert \n");
-	    		Connect.insertConversation("database.db",m.getId(), this.id, Connect.queryUserPseudo("database.db", m.getId()) + " : " + m.getContent(),m.getDate().toString());
-	    		System.out.println("message enregistre dans la db \n");
+	    		Connect.insertConversation("database.db",m.getId(), this.id, Connect.queryUserPseudo("database.db", m.getId()) + " : " + m.getContent(),DateMsg.toString(m.getDate()));
+	    		System.out.println("[TCPServer] message enregistre dans la db \n");
 			
 			}			
 			catch (Exception e) {

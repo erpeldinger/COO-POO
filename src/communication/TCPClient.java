@@ -41,8 +41,9 @@ public class TCPClient {
     		Connect.createNewDatabase("database.db");
         	Connect.createNewTableConv("database.db");
         	//ajout du pseudo de l'expediteur du message dans la BD
-        	System.out.println("Message à enregistrer, date : " + DateMsg.toString(toSend.getDate()));
-    		Connect.insertConversation("database.db", this.user.getId(), this.destId, Connect.queryUserPseudo("database.db", this.user.getId()) + " : " + toSend.getContent() , DateMsg.toString(toSend.getDate()));
+        	String dateMessage = DateMsg.toString(toSend.getDate());
+        	System.out.println("Message à enregistrer, date : " + dateMessage);
+    		Connect.insertConversation("database.db", this.user.getId(), this.destId, Connect.queryUserPseudo("database.db", this.user.getId()) + " : " + toSend.getContent() , dateMessage);
     		System.out.println("[TCP CLIENT] message enregistre dans la db \n");
     		
     	}
