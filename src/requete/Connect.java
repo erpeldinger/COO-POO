@@ -301,7 +301,7 @@ public class Connect {
 	   // Suppression d'un utilisateur dans la table ListUserConnected
 	      public static void deleteAllUserLUC(String filename) {
 	          String url = "jdbc:sqlite:./database/"+filename;
-	          String sql = "DELETE FROM ListUserConnected WHERE pseudo = *;";
+	          String sql = "DELETE * FROM ListUserConnected;";
 	          
 	          try (Connection conn = DriverManager.getConnection(url);
 	                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
