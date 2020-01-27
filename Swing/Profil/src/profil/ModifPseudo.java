@@ -25,8 +25,8 @@ public class ModifPseudo implements ActionListener {
     private static String pseudo = "Pseudo : ";
     private String newPseudo = "Nouveau pseudo : ";
     private String emptyPseudo = "Veuillez entrer un pseudo";
-    private String incorrectPseudo = "Pseudo deja� utilise ";
-    private static String success = "Modification effectu�";
+    private String incorrectPseudo = "Pseudo deja utilise ";
+    private static String success = "Modification effectuée";
     //private static String errorLog = "Une ereure s'est produite, l'inscription a échoué";
     final JLabel labelPseudo = new JLabel(pseudo);
     final JLabel labelNewPseudo = new JLabel(newPseudo);
@@ -212,7 +212,7 @@ public class ModifPseudo implements ActionListener {
         JFrame.setDefaultLookAndFeelDecorated(true);
         
         //Create and set up the window.
-        this.frame = new JFrame("Inscription");
+        this.frame = new JFrame("Modifier mon pseudo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Inscription app = new Inscription();

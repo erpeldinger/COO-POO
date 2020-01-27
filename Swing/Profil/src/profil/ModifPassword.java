@@ -28,7 +28,7 @@ public class ModifPassword implements ActionListener {
     private String emptyPassword = "Veuillez entrer un mot de passe";
     private String incorrectPassword = "Mot de passe incorrect : il faut au un mot de passe ayant minimum 10 caractères et ne contenant pas votre pseudo";
     //private static String errorLog = "Une ereure s'est produite";
-    private static String success = "Modification effectu�";
+    private static String success = "Modification effectuée";
     final JLabel labelPassword = new JLabel(password);
     final JLabel labelNewPassword = new JLabel(newPassword);
     final JLabel labelSuccess = new JLabel("");
@@ -214,7 +214,7 @@ public class ModifPassword implements ActionListener {
         JFrame.setDefaultLookAndFeelDecorated(true);
         
         //Create and set up the window.
-        this.frame = new JFrame("Inscription");
+        this.frame = new JFrame("Modifier mon mot de passe");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Inscription app = new Inscription();

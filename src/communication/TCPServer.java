@@ -81,7 +81,7 @@ public class TCPServer extends Thread {
 				System.out.println("[TCPServer ] apres receive ");
 	    		Message m = Message.readMessage(buff);
 				System.out.println("[TCPServer ] message recu " + m.getContent());
-	    		/*
+	    		/*ti
 	    		String s="";
 	            BufferedReader inB = new BufferedReader(new InputStreamReadecr(in));
 	            PrintStream outP = new PrintStream(out);
@@ -94,7 +94,8 @@ public class TCPServer extends Thread {
 	        	Connect.createNewTableConv("database.db");
 	        	//ajout du nom de l'exp�diteur du message dans la BD
 	        	System.out.println("avant insert \n");
-	    		Connect.insertConversation("database.db",m.getId(), this.id, Connect.queryUserPseudo("database.db", m.getId()) + " : " + m.getContent(),DateMsg.toString(m.getDate()));
+	        	System.out.println("id recupere dans le message : " + m.getId());
+	    		Connect.insertConversation("database.db",m.getId(), this.id, Connect.queryUserPseudo("database.db", m.getId(), Connect.queryUserPseudo("database.db", this.id)) + " : " + m.getContent(),DateMsg.toString(m.getDate()));
 	    		System.out.println("[TCPServer] message enregistre dans la db : " + m.getContent() + "\n");
 			
 			}			

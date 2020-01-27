@@ -434,6 +434,38 @@ public class Connect {
           System.out.println("[CONNECT] end queryUser");
           return resultat.get(0);
       }
+   // Recuperation d'un pseudo si different de notre pseudo
+      public static String queryUserPseudo(String filename, int id, String pseudo) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT pseudo FROM User WHERE id = " + id + ";";
+          ArrayList<String> resultat = new ArrayList<String>();
+          String resInter ;
+          String res="";
+
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter = rs.getString(("pseudo"));
+                  resultat.add(resInter);
+              }
+              resultat.add("end");
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY] user " + e.getMessage());
+          }
+          System.out.println("[CONNECT] end queryUser");
+          for (String courant : resultat) {
+        	  if (!courant.equals(pseudo) && !courant.equals("end")) {
+        		  res= courant;
+        	  }
+          }
+          if (res.equals("")) {
+        	  res="end";
+          }
+          return res;
+      }
       
    // Recuperation d'un mot de passe
       public static String queryUserPass(String filename, int id) {
@@ -485,6 +517,9 @@ public class Connect {
           }
           return resultat;
       }
+      
+      
+      
       //verification password
       public static ArrayList<String> queryUserPassword(String filename, String password) {
           String url = "jdbc:sqlite:./database/"+filename;
@@ -867,7 +902,6 @@ public class Connect {
     	  }
     	  return res;
       }
-      
       /*------------------------------------------METHODES GENERALISTES-------------------------------------
 
       //INSERTIOn de données dans la bd

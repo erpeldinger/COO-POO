@@ -210,6 +210,8 @@ public class LUC implements ActionListener {
     		Connect.deleteAllUserLUC("database.db");
     		Connect.deleteTable("database.db", "ListUserConnected");
     		frame.setVisible(false);
+    		System.out.println("fermeture de l'application \n");
+            System.exit(0);
     	}
     	else if (e.getActionCommand().equals("Profil")) {
     		Profil monProfil = new Profil(this.user);
@@ -305,7 +307,7 @@ public class LUC implements ActionListener {
         JFrame.setDefaultLookAndFeelDecorated(true);
         
         //Create and set up the window.
-        this.frame = new JFrame("LUC");
+        this.frame = new JFrame("Utilisateurs connectés");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // MODIFIER ---> VIDER LES USERS DE LA LUC !!!
         
         ListUser.setEditable(false);
