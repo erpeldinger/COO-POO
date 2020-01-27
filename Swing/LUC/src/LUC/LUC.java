@@ -213,8 +213,11 @@ public class LUC implements ActionListener {
 		Connect.deleteUserLUC("database.db", 3);
 		//TODO envoie Broadcast pour deconnexion
 
+		System.out.println("avant delete table ");
 		Connect.deleteTable("database.db", "ListUserConnected");
+		System.out.println("apres delete table");
 		Connect.deleteAllUserLUC("database.db");
+		System.out.println("apres delete all");
 		ArrayList<String> users = Connect.queryAllUserLUC("database.db");
 		for (String courant : users) {
 			System.out.println(courant + " - ");
