@@ -176,12 +176,14 @@ public class Clavardage implements ActionListener {
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
     		// TODO fermeture des Threads
-    		Connect.deleteUserLUC("database.db", this.user.getId());
+    		Connect.deleteAllUserLUC("database.db");
     		Connect.deleteTable("database.db", "ListUserConnected");
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("raffraichir")) {
-    		// TODO affichage des messages
+    		// on reset l'affichage
+    		ConvArea.setText("");
+    		// on va chercher les messages dans la BD
     		ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
         	for ( String courant : Users) {
         		//System.out.println("message recupere : " + courant);

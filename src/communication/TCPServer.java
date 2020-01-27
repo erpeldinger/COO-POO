@@ -83,7 +83,7 @@ public class TCPServer extends Thread {
 				System.out.println("[TCPServer ] message recu " + m.getContent());
 	    		/*
 	    		String s="";
-	            BufferedReader inB = new BufferedReader(new InputStreamReader(in));
+	            BufferedReader inB = new BufferedReader(new InputStreamReadecr(in));
 	            PrintStream outP = new PrintStream(out);
 	            s = inB.readLine();*/
 

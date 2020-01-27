@@ -138,7 +138,7 @@ public class ModifPassword implements ActionListener {
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
     		// TODO
-    		Connect.deleteUserLUC("database.db", this.user.getId());
+    		Connect.deleteAllUserLUC("database.db");
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Profil") || e.getActionCommand().equals("Retour au profil")) {
