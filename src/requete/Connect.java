@@ -145,7 +145,7 @@ public class Connect {
     public static void deleteTable(String filename, String tablename) {
         // SQLite connection string
         String url = "jdbc:sqlite:./database/"+filename;
-        String sql = "DROP TABLE " + tablename + ";";
+        String sql = "DROP TABLE " + tablename;
         
         try (Connection conn = DriverManager.getConnection(url);
                 Statement stmt = conn.createStatement()) {
@@ -301,12 +301,11 @@ public class Connect {
 	   // Suppression d'un utilisateur dans la table ListUserConnected
 	      public static void deleteAllUserLUC(String filename) {
 	          String url = "jdbc:sqlite:./database/"+filename;
-	          String sql = "DELETE * FROM ListUserConnected;";
+	          String sql = "DELETE FROM ListUserConnected;";
 	          
 	          try (Connection conn = DriverManager.getConnection(url);
 	                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	              pstmt.executeUpdate();
-	              //System.out.println("A user has been deleted in LUC");
 	          } catch (SQLException e) {
 	              System.out.println(e.getMessage());
 	          }
@@ -855,6 +854,8 @@ public class Connect {
       public static ArrayList <String> queryNewUser(String filename, String[] luc) {
     	  ArrayList <String> res = new ArrayList <String>();
     	  ArrayList <String> newLUC = queryAllUserLUC(filename);
+    	  System.out.println("new LUC : ");
+    	  
     	  ArrayList <String> oldLUC = new ArrayList<String>(Arrays.asList(luc));
     	  for (String courant : newLUC) {
     		  if (!oldLUC.contains(courant)) {

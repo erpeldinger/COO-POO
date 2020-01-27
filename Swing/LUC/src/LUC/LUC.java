@@ -142,6 +142,22 @@ public class LUC implements ActionListener {
     			ArrayList <String> newUsers = Connect.queryNewUser("database.db", lucSplit);
     			ArrayList <String> oldUsers = Connect.queryOldUser("database.db", lucSplit);
     			ArrayList <String> disconnectedUsers = Connect.queryDisconnectedUser("database.db", lucSplit);
+    			
+
+				System.out.println("new users : ");
+    			for (String courant : newUsers) {
+    				System.out.println(courant + " \n");
+    			}
+				System.out.println("old users : ");
+    			for (String courant : oldUsers) {
+    				System.out.println(courant + " \n");
+    			}
+				System.out.println("disconnected users : ");
+    			for (String courant : disconnectedUsers) {
+    				System.out.println(courant + " \n");
+    			}
+    			
+    			
     			//affichage de la nouvelle liste
     			ListUser.setText("");
     			for (String courant : newUsers) {
@@ -161,19 +177,6 @@ public class LUC implements ActionListener {
 
 				//fermeture des connections TCP des users deconnectes
     			manager.stopCommunication(disconnectedUsers); //!!!!!!!!!!!!!!!!!A CODER ---> retrouver port � partir du pseudo :
-    			// PROCEDURE -> recuperation de l'id a partir du pseudo. Dans les TCP Server on a id et monPort. ---> parcours des TCPServers pour trouver le bon
-    			/*
-    			 * String pseudo = XXXX;
-    			 * ArrayList <Integer> mesPorts = new ArrayList<Integer>();
-    			 * int id = Connect.queryUserPseudo("database.db", pseudo);
-    			 * ArrayList <TCPServer> mesServers= this.manager.getServers();
-    			 * for (TCPServer courant : mesServers) {
-    			 * 		if (courant.getId() == id) {
-    			 * 			mesPorts.add(courant.getPort());
-    			 * 		}
-    			 * }
-    			 *
-    			 */
 
     			//ListUser.setText("");
     			//manager.stopCommunication();
@@ -264,7 +267,8 @@ public class LUC implements ActionListener {
     public LUC(User user) throws IOException {
     //public void createAndShowGUI() {
         System.out.println("debut constructeur");
-        
+
+        ListUser.setText("");
         //init le user
         this.user = user;
         
