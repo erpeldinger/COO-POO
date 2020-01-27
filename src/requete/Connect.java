@@ -553,7 +553,7 @@ public class Connect {
           return resultat.get(0);
       }
       
-   // Récupération d'une IP dans la LUC en ayant son id
+   // Récupération d'une IP dans la LUC en ayant son pseudo
       public static String queryUserLUCbyPseudo(String filename, String pseudo) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "SELECT ip FROM ListUserConnected WHERE pseudo = '" + pseudo + "';";
