@@ -250,14 +250,13 @@ public class Clavardage implements ActionListener {
      * @throws Exception 
      * @throws UnknownHostException 
      */
-    public Clavardage(User user, int id2) throws UnknownHostException, Exception {
+    public Clavardage(User user, int id2, String pseudoDest) throws UnknownHostException, Exception {
     	//init user
     	this.user = user;
     	this.id2=id2;
     	Connect.createNewTableLUC("database.db");
     	//int port = Connect.queryPortLUC("database.db", id2);
     	//System.out.println("port recupere : " + port);
-    	String pseudoDest = Connect.queryUserPseudo("database.db", id2);
     	String ipS = Connect.queryUserLUCbyPseudo("database.db", pseudoDest);
     	System.out.println("[CLAVARDAGE] ip recupere string : " + ipS + " a partir de id = " + pseudoDest);
     	
