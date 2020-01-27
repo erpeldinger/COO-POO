@@ -257,7 +257,7 @@ public class Clavardage implements ActionListener {
     	Connect.createNewTableLUC("database.db");
     	//int port = Connect.queryPortLUC("database.db", id2);
     	//System.out.println("port recupere : " + port);
-    	String ipS = Connect.queryUserLUC("database.db", id2);
+    	String ipS = Connect.queryUserLUC("database.db", user.getId());
     	System.out.println("[CLAVARDAGE] ip recupere string : " + ipS);
     	
     	// POSSIBILITE : Mettre le port en dur pour tester ---> j'ai pas pu tester parce que j'arrive pas à lancer l'appli depuis le terminal (seulemen depuis eclipse)
