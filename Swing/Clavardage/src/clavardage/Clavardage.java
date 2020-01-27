@@ -177,6 +177,7 @@ public class Clavardage implements ActionListener {
     	else if (e.getActionCommand().equals("Se deconnecter")) {
     		// TODO fermeture des Threads
     		Connect.deleteUserLUC("database.db", this.user.getId());
+    		Connect.deleteTable("database.db", "ListUserConnected");
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("raffraichir")) {
@@ -190,6 +191,15 @@ public class Clavardage implements ActionListener {
         	}
     	}
     }
+    
+    public void windowClosing(WindowEvent e) {
+		Connect.deleteUserLUC("database.db", this.user.getId());
+		//TODO envoie Broadcast pour deconnexion
+
+		Connect.deleteTable("database.db", "ListUserConnected");
+		System.out.println("fermeture de l'application \n");
+        System.exit(0);
+     }
     
     private static void initLookAndFeel() {
         

@@ -193,6 +193,7 @@ public class LUC implements ActionListener {
     	else if (e.getActionCommand().equals("Se deconnecter")) {
     		// TODO
     		Connect.deleteUserLUC("database.db", this.user.getId());
+    		Connect.deleteTable("database.db", "ListUserConnected");
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Profil")) {
@@ -200,6 +201,15 @@ public class LUC implements ActionListener {
     		frame.setVisible(false);
     	}
     }
+
+    public void windowClosing(WindowEvent e) {
+		Connect.deleteUserLUC("database.db", this.user.getId());
+		//TODO envoie Broadcast pour deconnexion
+
+		Connect.deleteTable("database.db", "ListUserConnected");
+		System.out.println("fermeture de l'application \n");
+        System.exit(0);
+     }
     
     private static void initLookAndFeel() {
         
