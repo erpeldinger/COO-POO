@@ -28,7 +28,7 @@ public class ModifPassword implements ActionListener {
     private String emptyPassword = "Veuillez entrer un mot de passe";
     private String incorrectPassword = "Mot de passe incorrect : il faut au un mot de passe ayant minimum 10 caractÃ¨res et ne contenant pas votre pseudo";
     //private static String errorLog = "Une ereure s'est produite";
-    private static String success = "Modification effectué";
+    private static String success = "Modification effectuï¿½";
     final JLabel labelPassword = new JLabel(password);
     final JLabel labelNewPassword = new JLabel(newPassword);
     final JLabel labelSuccess = new JLabel("");
@@ -141,7 +141,7 @@ public class ModifPassword implements ActionListener {
     		Connect.deleteUserLUC("database.db", this.user.getId());
     		frame.setVisible(false);
     	}
-    	else if (e.getActionCommand().equals("Profil")) {
+    	else if (e.getActionCommand().equals("Profil") || e.getActionCommand().equals("Retour au profil")) {
     		Profil monProfil = new Profil(this.user);
     		frame.setVisible(false);
     	}

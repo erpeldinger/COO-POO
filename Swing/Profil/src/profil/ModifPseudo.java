@@ -25,8 +25,8 @@ public class ModifPseudo implements ActionListener {
     private static String pseudo = "Pseudo : ";
     private String newPseudo = "Nouveau pseudo : ";
     private String emptyPseudo = "Veuillez entrer un pseudo";
-    private String incorrectPseudo = "Pseudo deja  utilise ";
-    private static String success = "Modification effectué";
+    private String incorrectPseudo = "Pseudo dejaï¿½ utilise ";
+    private static String success = "Modification effectuï¿½";
     //private static String errorLog = "Une ereure s'est produite, l'inscription a Ã©chouÃ©";
     final JLabel labelPseudo = new JLabel(pseudo);
     final JLabel labelNewPseudo = new JLabel(newPseudo);
@@ -139,7 +139,7 @@ public class ModifPseudo implements ActionListener {
     		Connect.deleteUserLUC("database.db", this.user.getId());
     		frame.setVisible(false);
     	}
-    	else if (e.getActionCommand().equals("Profil")) {
+    	else if (e.getActionCommand().equals("Profil") || e.getActionCommand().equals("Retour au profil")) {
     		Profil monProfil = new Profil(this.user);
     		frame.setVisible(false);
     	}
