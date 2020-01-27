@@ -27,6 +27,7 @@ public class Clavardage implements ActionListener {
     
     // L'etat de l'envoi du message
 	private User user;
+	private int id2;
 	private JFrame frame;
 	private TCPClient client;
     private static String labelPrefix = "Etat du message : ";
@@ -90,6 +91,13 @@ public class Clavardage implements ActionListener {
         retour.addActionListener(this);
         labelRetour.setLabelFor(retour);
         retour.setPreferredSize(new Dimension(10,50));
+
+    	//creation du button d'affichage des nouveaux messages
+        JButton raffraichir = new JButton("raffraichir");
+        raffraichir.setMnemonic(KeyEvent.VK_I);
+        raffraichir.addActionListener(this);
+        labelMessage.setLabelFor(raffraichir);
+        raffraichir.setPreferredSize(new Dimension(10,50));
         
         /*
          * An easy way to put space between a top-level container
@@ -103,6 +111,7 @@ public class Clavardage implements ActionListener {
         pane.add(messageField);
         pane.add(button);
         pane.add(labelMessage);
+        pane.add(raffraichir);
         pane.setBorder(BorderFactory.createEmptyBorder(
                 30, //top
                 30, //left
@@ -166,9 +175,19 @@ public class Clavardage implements ActionListener {
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
-    		// TODO
+    		// TODO fermeture des Threads
     		Connect.deleteUserLUC("database.db", this.user.getId());
     		frame.setVisible(false);
+    	}
+    	else if (e.getActionCommand().equals("raffraichir")) {
+    		// TODO affichage des messages
+    		ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
+        	for ( String courant : Users) {
+        		//System.out.println("message recupere : " + courant);
+        		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
+        			ConvArea.setText(ConvArea.getText() + "\n" + courant );
+        		}
+        	}
     	}
     }
     
@@ -224,6 +243,7 @@ public class Clavardage implements ActionListener {
     public Clavardage(User user, int id2) throws UnknownHostException, Exception {
     	//init user
     	this.user = user;
+    	this.id2=id2;
     	Connect.createNewTableLUC("database.db");
     	//int port = Connect.queryPortLUC("database.db", id2);
     	//System.out.println("port recupere : " + port);

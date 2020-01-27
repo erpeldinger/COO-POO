@@ -13,6 +13,7 @@ public class TCPClient {
 	private Socket socket;
 	private User user;
 	private int destId;
+	private int serverPort;
 	
 	//Constructeurs
 	public TCPClient(InetAddress srvAddr, int srvPort, User user, int destId) throws Exception {
@@ -21,7 +22,11 @@ public class TCPClient {
         System.out.println("[TCP Client] constructeur2 - apres socket");
 		this.user = user;
 		this.destId= destId;
+		this.serverPort=srvPort;
 	}
+	
+	//getter
+	public int getServerPort() {return this.serverPort; }
 	
 	//Ecrit un message
 	public void writeM(OutputStream out, String msg) {
