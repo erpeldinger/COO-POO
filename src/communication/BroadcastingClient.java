@@ -99,8 +99,17 @@ public class BroadcastingClient {
     	return socket.getLocalAddress();
     }*/
     
+    //Envoie d'un message de deconnexion en Broadcast
+    public static void sendDisconnected(InetAddress addrbr) throws Exception { // id # pseudo # message
+    	String mBr = "DISCONNECTED : Goodbye";
+    	Message m = new Message(mBr, user.getPseudo() ,user.getId());
+
+    	String msg = Integer.valueOf(user.getId()) + "#" + user.getPseudo() + "#" + mBr ;
+    	System.out.println("[BROADCASTING CLIENT] Message de deconnexion : " + msg);
+    }
+    
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
-    public static void sendBroadcast(InetAddress addrbr) throws Exception {
+    public static void sendBroadcast(InetAddress addrbr) throws Exception { // id # pseudo # message
     	  	
     	String mBr = "BROADCAST : Hello, who is there ?";
     	Message m = new Message(mBr, user.getPseudo() ,user.getId());

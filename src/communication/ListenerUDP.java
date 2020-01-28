@@ -139,9 +139,13 @@ public class ListenerUDP extends Thread {
 			        	 System.out.println(id + " \n");
 			        }
 		    	}
-		    	else if (isEndPacket(msg)) {
+		    	else if (isEndPacket(msg)) { // Message de deconnexion --------- id # pseudo # "DISCONNECTED : Goodbye
 		    		//on supprime la personne de la BD + on ferme de TCP Server
-		    		
+		    		int idDisconnected = -1;
+		    		idDisconnected = Message.toMessageDisc(msg).getId();
+		    		String pseudoDisconnected = Connect.queryUserPseudo("database.db", idDisconnected, this.pseudo);
+		    		Connect.deleteUserLUC("database.db", pseudoDisconnected);
+		    		System.out.println("[LISTERNER UDP] Suppression dans la LUC de : " + pseudoDisconnected);
 		    	}
 		    	else { // id # pseudo # port # est connecte
 		    		//c'est un message de réponse de Broadcast
