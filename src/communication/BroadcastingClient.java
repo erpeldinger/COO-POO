@@ -106,7 +106,19 @@ public class BroadcastingClient {
 
     	String msg = Integer.valueOf(user.getId()) + "#" + user.getPseudo() + "#" + mBr ;
     	System.out.println("[BROADCASTING CLIENT] Message de deconnexion : " + msg);
+    	
+    	try {    		
+	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
+	    	socket.send(packet);
+    		System.out.println("[BROADCASTING CLIENT] sendDisconnected");
+	    	byte[] buff = new byte[256];
+	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);	    	
+    	}
+    	catch (Exception e) {
+    		System.out.println("[BROADCASTING CLIENT] Erreur sendDisconnected : " + e );
+    	}
     }
+    	
     
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés
     public static void sendBroadcast(InetAddress addrbr) throws Exception { // id # pseudo # message
