@@ -190,13 +190,19 @@ public class LUC implements ActionListener {
     		try {
 				LUC maLUC = new LUC(this.user);
 			} catch (IOException e1) {
-				System.out.println("[ERROR PROFIL] Creation de la page LUC impossible : " + e);
+				System.out.println("[ERROR LUC] Creation de la page LUC impossible : " + e);
 			}
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
-    		// TODO
-
+    		// Envoie d'un message de deconnexion en Broadcast
+    		try {
+				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
+			} catch (Exception e1) {
+				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+			}
+    		
+    		//delete ma LUC
     		System.out.println("debut ");
     		Connect.deleteAllUserLUC("database.db");
     		System.out.println("apres delete all User LUC");
