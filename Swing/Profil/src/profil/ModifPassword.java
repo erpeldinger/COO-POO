@@ -9,6 +9,7 @@ import user.*;
 import javax.swing.*;
 
 import LUC.LUC;
+import communication.BroadcastingClient;
 import requete.Connect;
 import connexion.*;
 import profil.*;
@@ -215,9 +216,35 @@ public class ModifPassword implements ActionListener {
         
         //Create and set up the window.
         this.frame = new JFrame("Modifier mon mot de passe");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowListener(){
+			public void windowOpened(WindowEvent e){}
+			public void windowClosing(WindowEvent e){
+		    	
+		    		System.out.println("[PROFIL] fermeture appli");
+					// Envoie d'un message de deconnexion en Broadcast
+					try {
+						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
+					} catch (Exception e1) {
+						System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+					}
+					
+					//delete ma LUC
+					System.out.println("debut ");
+					Connect.deleteAllUserLUC("database.db");
+					Connect.deleteTable("database.db", "ListUserConnected");
+					
+					System.out.println("fermeture de l'application \n");
+					frame.setVisible(false);
+			}
+			public void windowClosed(WindowEvent e){}
+			public void windowIconified(WindowEvent e){}
+			public void windowDeiconified(WindowEvent e){}
+			public void windowActivated(WindowEvent e){}
+			public void windowDeactivated(WindowEvent e){}
+		});
         
-        //Inscription app = new Inscription();
         Component contents = createComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
         

@@ -143,6 +143,35 @@ public class Profil implements ActionListener {
     	}
     }
     
+    /*
+    public int windowClosing() {
+    	if (this.close) {
+    		System.out.println("[PROFIL] fermeture appli");
+			// Envoie d'un message de deconnexion en Broadcast
+			try {
+				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
+			} catch (Exception e1) {
+				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+			}
+			
+			//delete ma LUC
+			System.out.println("debut ");
+			Connect.deleteAllUserLUC("database.db");
+			Connect.deleteTable("database.db", "ListUserConnected");
+			
+			System.out.println("fermeture de l'application \n");
+			frame.setVisible(false);
+	        return 3;
+    	}
+    	else {
+    		System.out.println("[PROFIL] fermeture fenetre");
+			frame.setVisible(false);
+	        return 3;
+    	}
+     }
+    */
+    
+    
     private static void initLookAndFeel() {
         
         // Swing allows you to specify which look and feel your program uses--Java,
@@ -212,9 +241,33 @@ public class Profil implements ActionListener {
         
         //Create and set up the window.
         this.frame = new JFrame("Inscription");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        //Inscription app = new Inscription();
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowListener(){
+			public void windowOpened(WindowEvent e){}
+			public void windowClosing(WindowEvent e){
+		    	
+		    		System.out.println("[PROFIL] fermeture appli");
+					// Envoie d'un message de deconnexion en Broadcast
+					try {
+						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
+					} catch (Exception e1) {
+						System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+					}
+					
+					//delete ma LUC
+					System.out.println("debut ");
+					Connect.deleteAllUserLUC("database.db");
+					Connect.deleteTable("database.db", "ListUserConnected");
+					
+					System.out.println("fermeture de l'application \n");
+					frame.setVisible(false);
+			}
+			public void windowClosed(WindowEvent e){}
+			public void windowIconified(WindowEvent e){}
+			public void windowDeiconified(WindowEvent e){}
+			public void windowActivated(WindowEvent e){}
+			public void windowDeactivated(WindowEvent e){}
+		});
         Component contents = createComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
         
