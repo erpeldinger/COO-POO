@@ -134,6 +134,16 @@ public class LUC implements ActionListener {
     	}
     	else if (e.getActionCommand().equals("Raffraichir")) {
     		try {
+    			//test de raffraichissement numero 2
+    			ArrayList <String> users = Connect.queryAllUserLUC("database.db");
+    			ListUser.setText("");
+    			for (String courant : users) {
+    				if (!courant.contains("end")) {
+    					ListUser.setText(ListUser.getText() + "\n" + courant);
+    				}
+    			}
+    			
+    			/*
     			//rafraichir la lite des user connectes
     			String luc = ListUser.getText();
     			String[] lucSplit = luc.split("\n");
@@ -143,7 +153,6 @@ public class LUC implements ActionListener {
     			ArrayList <String> oldUsers = Connect.queryOldUser("database.db", lucSplit);
     			ArrayList <String> disconnectedUsers = Connect.queryDisconnectedUser("database.db", lucSplit);
     			
-    			/*
 				System.out.println("new users : ");
     			for (String courant : newUsers) {
     				System.out.println(courant + " \n");
@@ -156,7 +165,6 @@ public class LUC implements ActionListener {
     			for (String courant : disconnectedUsers) {
     				System.out.println(courant + " \n");
     			}
-    			*/
     			
     			//affichage de la nouvelle liste
     			ListUser.setText("");
@@ -177,10 +185,8 @@ public class LUC implements ActionListener {
 
 				//fermeture des connections TCP des users deconnectes
     			manager.stopCommunication(disconnectedUsers); //!!!!!!!!!!!!!!!!!A CODER ---> retrouver port � partir du pseudo :
-
-    			//ListUser.setText("");
-    			//manager.stopCommunication();
-				//LUC pageLUC = new LUC(user);
+    			*/
+    			
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC]refresh " + e1);
 			}

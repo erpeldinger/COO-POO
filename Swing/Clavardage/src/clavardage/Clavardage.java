@@ -175,7 +175,14 @@ public class Clavardage implements ActionListener {
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
-    		// TODO fermeture des Threads
+    		// Envoie d'un message de deconnexion en Broadcast
+    		try {
+				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
+			} catch (Exception e1) {
+				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+			}
+    		
+    		//delete ma LUC
     		Connect.deleteAllUserLUC("database.db");
     		Connect.deleteTable("database.db", "ListUserConnected");
     		frame.setVisible(false);

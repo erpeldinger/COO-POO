@@ -11,6 +11,8 @@ import javax.swing.*;
 import requete.Connect;
 import connexion.*;
 import LUC.*;
+import communication.BroadcastingClient;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -128,7 +130,14 @@ public class Profil implements ActionListener {
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
-    		// TODO
+    		// Envoie d'un message de deconnexion en Broadcast
+    		try {
+				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
+			} catch (Exception e1) {
+				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+			}
+    		
+    		//delete ma LUC
     		Connect.deleteAllUserLUC("database.db");
     		frame.setVisible(false);
     	}
