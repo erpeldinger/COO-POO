@@ -101,7 +101,7 @@ public class Connect {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS ListUserConnected(\n"
                 + "    id INTEGER,\n"
-                + "    pseudo text,\n"
+                + "    pseudo text PRIMARY KEY NOT NULL,\n"
                 + "    ip text,\n" // PRIMARY KEY NOT NULL
                 + "    port INTEGER\n"
                 + ");";
