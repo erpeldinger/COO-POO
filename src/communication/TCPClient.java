@@ -67,5 +67,28 @@ public class TCPClient {
         catch (Exception e){
             System.out.println("[TCPClient ] Erreur sendMessage, write ");
         }		
+		
+	/*
+	public void sendFile(String path) {
+		        File file = new File (file);							//gets the file corresponding to path
+		        String fileString = file.getName();							//retrieves the file name
+		        byte [] byte_file  = new byte [(int)file.length()];	//makes a byte that will contain the file's data
+		        FileInputStream fis = new FileInputStream(file);		//opens the input stream of the file
+		        BufferedInputStream bis = new BufferedInputStream(fis);	//links it to the buffered input stream
+		        bis.read(byte_file,0,byte_file.length);					//buffered input stream writes into byte_file
+		        bis.close();											//close buffered output stream
+		        
+		        PacketFile packet = new PacketFile(byte_file,name);		//puts the byte_file + file name into serializable packet
+	.	        byte[] serialized_file = serialize(packet);				//serializes it into bytes[]
+		        
+		        OutputStream os = this.socket.getOutputStream();		//retrieves the output stream of the socket
+		        os.write(serialized_file,0,serialized_file.length);		//writes the bytes into the stream
+		        os.flush();												//flushes the stream
+		        os.close();	        									//closes the stream
+		        this.socket.close();									//closes the socket
+		    }
 	}	
+	*/
+	}
+	
 }
