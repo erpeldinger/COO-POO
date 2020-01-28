@@ -171,7 +171,7 @@ public class Connect {
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
             idCourant++;
-            System.out.println("incrementation id ok : " + id );
+            //System.out.println("incrementation id ok : " + id );
             //System.out.println("A User has been created in User");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] User " + e.getMessage());
