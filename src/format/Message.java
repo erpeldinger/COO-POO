@@ -120,7 +120,7 @@ public class Message {
     
  // On suppose qu'on a un message de la forme "8#pseudo#coucou"
     public static Message toMessageBdc(String s){
-    	System.out.println("[Message] toMessageBdc, print s : " +s +"\n");
+    	//System.out.println("[Message] toMessageBdc, print s : " +s +"\n");
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="";
         Message m = null;        
@@ -139,7 +139,7 @@ public class Message {
     
  // On suppose qu'on a un message de la forme "8#pseudo#coucou" ???????????
     public static Message toMessageDisc(String s){
-    	System.out.println("[Message] toMessageDisc, print s : " +s +"\n");
+    	//System.out.println("[Message] toMessageDisc, print s : " +s +"\n");
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="";
         Message m = null;        
@@ -157,7 +157,7 @@ public class Message {
     }   
     
     public static Message toMessageBdcPort(String s){
-    	System.out.println("[Message] toMessageBdcPort, print s : " +s +"\n");       
+    	//System.out.println("[Message] toMessageBdcPort, print s : " +s +"\n");       
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="", port="";
         Message m = null;
@@ -217,7 +217,7 @@ public class Message {
     	try {
 	    	String s = new String(buff);
 			Message m = Message.toMessage(s);	    	
-			System.out.println("Message recu : " + Message.toString(m.getId(),m.getContent(),m.getDate()));
+			//System.out.println("Message recu : " + Message.toString(m.getId(),m.getContent(),m.getDate()));
 			return m;
     	}
     	catch (Exception e) {

@@ -139,6 +139,7 @@ public class LUC implements ActionListener {
     			ListUser.setText("");
     			for (String courant : users) {
     				if (!courant.contains("end")) {
+    					System.out.println(courant + " ");
     					ListUser.setText(ListUser.getText() + "\n" + courant);
     				}
     			}

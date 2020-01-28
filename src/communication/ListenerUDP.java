@@ -110,18 +110,16 @@ public class ListenerUDP extends Thread {
 		    		System.out.println("[LISTENER UDP] If -> debut");
 		    		//int recupPort = 2333;
 		    		int recupPort = this.manager.portDispo();
-		    		System.out.println("[LISTENER UDP]recuperation port");
+		    		//System.out.println("[LISTENER UDP]recuperation port");
 		    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "#est connecte !"; 
-		    		System.out.println("[LISTENER UDP] valeur port : "+ Integer.valueOf(recupPort));
-		    		System.out.println("[LISTENER UDP] valeur msg string : "+ r);
+		    		//System.out.println("[LISTENER UDP] valeur port : "+ Integer.valueOf(recupPort));
+		    		//System.out.println("[LISTENER UDP] valeur msg string : "+ r);
 		    		response = r.getBytes();		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
 		    		//System.out.println("[LISTENER UDP] If -> end");
 		    		
-		    		System.out.println("[LISTENER UDP] avant luc ");
-		    		//ajout de l'user dans la LUC
-		    		this.userLUC.add(Message.toMessageBdc(msg).getId());	
+		    		//System.out.println("[LISTENER UDP] avant luc ");
 		    		System.out.println("[LISTENER UDP] apres luc");
 		    		//Ajout de l'adresse IP de user dans la bdd 
 		    		Connect.createNewDatabase("database.db");
@@ -149,13 +147,13 @@ public class ListenerUDP extends Thread {
 		    	}
 		    	else { // id # pseudo # port # est connecte
 		    		//c'est un message de réponse de Broadcast
-		    		System.out.println("[LISTENER UDP] Else -> debut");
+		    		//System.out.println("[LISTENER UDP] Else -> debut");
 		    		//ajout de l'user dans la LUC
 		    		//this.userLUC.add(Message.toMessageBdc(msg).getId());
 		    		Connect.createNewTableUser("database.db");
 		    		Connect.createNewTableLUC("database.db");
-		    		System.out.println("[LISTENER UDP] Pseudo : " + Message.toMessageBdcPort(msg).getPseudo());
-		    		System.out.println("[LISTENER UDP] is : " + Message.toMessageBdcPort(msg).getId());
+		    		//System.out.println("[LISTENER UDP] Pseudo : " + Message.toMessageBdcPort(msg).getPseudo());
+		    		//System.out.println("[LISTENER UDP] is : " + Message.toMessageBdcPort(msg).getId());
 		        	Connect.insertUser("database.db", Message.toMessageBdcPort(msg).getPseudo() ,"XXXX", Message.toMessageBdcPort(msg).getId());
 		    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdcPort(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdcPort(msg).getId(), Message.toMessageBdcPort(msg).getPort());
 			    	System.out.println("[LISTENER UDP] Add ok");
