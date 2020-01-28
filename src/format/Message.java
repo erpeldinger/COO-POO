@@ -135,7 +135,26 @@ public class Message {
         	System.out.println("[Message] Erreur toMessageBdc ");
         }
         return m;
-    }      
+    }   
+    
+ // On suppose qu'on a un message de la forme "8#pseudo#coucou" ???????????
+    public static Message toMessageDisc(String s){
+    	System.out.println("[Message] toMessageDisc, print s : " +s +"\n");
+    	String[] parts = s.split("#");
+        String c= "",i="", pseudo="";
+        Message m = null;        
+        
+        try {
+            c = parts[2];
+            i = parts[0];
+            pseudo = parts[1];
+            m = new Message(c, pseudo ,Integer.parseInt(i));
+        }
+        catch (Exception e) {
+        	System.out.println("[Message] Erreur toMessageBdc ");
+        }
+        return m;
+    }   
     
     public static Message toMessageBdcPort(String s){
     	System.out.println("[Message] toMessageBdcPort, print s : " +s +"\n");       
