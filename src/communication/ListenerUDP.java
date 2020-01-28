@@ -62,6 +62,13 @@ public class ListenerUDP extends Thread {
 		return msg.contains(s);
 	}
 	
+	private boolean isEndPacket(String msg) {
+		CharSequence s =  "DISCONNECTED";
+		//System.out.println(msg);
+		//System.out.println(msg.contains(s));
+		return msg.contains(s);
+	}
+	
 	public void stopUDPListener() {
 		this.running = false;
 		try {
@@ -131,6 +138,10 @@ public class ListenerUDP extends Thread {
 			    	for(int id: this.userLUC) {
 			        	 System.out.println(id + " \n");
 			        }
+		    	}
+		    	else if (isEndPacket(msg)) {
+		    		//on supprime la personne de la BD + on ferme de TCP Server
+		    		
 		    	}
 		    	else { // id # pseudo # port # est connecte
 		    		//c'est un message de réponse de Broadcast
