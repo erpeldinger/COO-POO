@@ -134,7 +134,7 @@ public class LUC implements ActionListener {
     	}
     	else if (e.getActionCommand().equals("Raffraichir")) {
     		try {
-    			//test de raffraichissement numero 2
+    			/*test de raffraichissement numero 2
     			ArrayList <String> users = Connect.queryAllUserLUC("database.db");
     			ListUser.setText("");
     			for (String courant : users) {
@@ -142,9 +142,8 @@ public class LUC implements ActionListener {
     					System.out.println(courant + " ");
     					ListUser.setText(ListUser.getText() + "\n" + courant);
     				}
-    			}
+    			}*/
     			
-    			/*
     			//rafraichir la lite des user connectes
     			String luc = ListUser.getText();
     			String[] lucSplit = luc.split("\n");
@@ -186,7 +185,7 @@ public class LUC implements ActionListener {
 
 				//fermeture des connections TCP des users deconnectes
     			manager.stopCommunication(disconnectedUsers); //!!!!!!!!!!!!!!!!!A CODER ---> retrouver port � partir du pseudo :
-    			*/
+    			
     			
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC]refresh " + e1);
@@ -212,16 +211,13 @@ public class LUC implements ActionListener {
     		//delete ma LUC
     		System.out.println("debut ");
     		Connect.deleteAllUserLUC("database.db");
+    		Connect.deleteTable("database.db", "ListUserConnected");
     		System.out.println("apres delete all User LUC");
     		ArrayList<String> users = Connect.queryAllUserLUC("database.db");
     		System.out.println("contenu de users : ");
     		for (String courant : users) {
     			System.out.println(courant + " - ");
     		}
-    		
-    		//
-    		Connect.deleteAllUserLUC("database.db");
-    		Connect.deleteTable("database.db", "ListUserConnected");
     		frame.setVisible(false);
     		System.out.println("fermeture de l'application \n");
             System.exit(0);
@@ -231,32 +227,7 @@ public class LUC implements ActionListener {
     		frame.setVisible(false);
     	}
     }
-
-    public void windowClosing(WindowEvent e) {
-		System.out.println("debut ");
-    	Connect.createNewTableLUC("database.db");
-		System.out.println("1 ");
-		Connect.deleteUserLUC("database.db", this.user.getId());
-		Connect.deleteUserLUC("database.db", 1);
-		System.out.println("2 ");
-		Connect.deleteUserLUC("database.db", 2);
-		System.out.println("3 ");
-		Connect.deleteUserLUC("database.db", 3);
-		//TODO envoie Broadcast pour deconnexion
-
-		System.out.println("avant delete table ");
-		Connect.deleteTable("database.db", "ListUserConnected");
-		System.out.println("apres delete table");
-		Connect.deleteAllUserLUC("database.db");
-		System.out.println("apres delete all");
-		ArrayList<String> users = Connect.queryAllUserLUC("database.db");
-		for (String courant : users) {
-			System.out.println(courant + " - ");
-		}
-		
-		System.out.println("fermeture de l'application \n");
-        System.exit(0);
-     }
+    
     
     private static void initLookAndFeel() {
         
@@ -312,7 +283,6 @@ public class LUC implements ActionListener {
         System.out.println("debut constructeur");
         //init le user
         this.user = user;
-        
         //Set the look and feel.
         initLookAndFeel();
         
@@ -321,7 +291,34 @@ public class LUC implements ActionListener {
         
         //Create and set up the window.
         this.frame = new JFrame("Utilisateurs connectés");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // MODIFIER ---> VIDER LES USERS DE LA LUC !!!
+
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowListener(){
+			public void windowOpened(WindowEvent e){}
+			public void windowClosing(WindowEvent e){
+		    	
+		    		System.out.println("[PROFIL] fermeture appli");
+					// Envoie d'un message de deconnexion en Broadcast
+					try {
+						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
+					} catch (Exception e1) {
+						System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+					}
+					
+					//delete ma LUC
+					System.out.println("debut ");
+					Connect.deleteAllUserLUC("database.db");
+					Connect.deleteTable("database.db", "ListUserConnected");
+					
+					System.out.println("fermeture de l'application \n");
+					frame.setVisible(false);
+			}
+			public void windowClosed(WindowEvent e){}
+			public void windowIconified(WindowEvent e){}
+			public void windowDeiconified(WindowEvent e){}
+			public void windowActivated(WindowEvent e){}
+			public void windowDeactivated(WindowEvent e){}
+		});
         
         ListUser.setEditable(false);
         //Connect.deleteTable("database.db", "ListUserConnected"); // PROBLEME LORS DU RETOUR
