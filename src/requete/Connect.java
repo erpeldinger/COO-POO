@@ -298,6 +298,21 @@ public class Connect {
           }
       }
       
+      // Suppression d'un utilisateur dans la table ListUserConnected
+      public static void deleteUserLUC(String filename, String pseudo) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "DELETE FROM ListUserConnected WHERE pseudo = ?;";
+          
+          try (Connection conn = DriverManager.getConnection(url);
+                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                      pstmt.setString(1, pseudo);
+              pstmt.executeUpdate();
+              //System.out.println("A user has been deleted in LUC");
+          } catch (SQLException e) {
+              System.out.println(e.getMessage());
+          }
+      }
+      
 	   // Suppression d'un utilisateur dans la table ListUserConnected
 	      public static void deleteAllUserLUC(String filename) {
 	          String url = "jdbc:sqlite:./database/"+filename;
