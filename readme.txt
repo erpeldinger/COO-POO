@@ -8,17 +8,18 @@
 
 // TCP
     * envoi -- OK
-    * reception -- pblm deux ordi differents
+    * reception -- OK
     * stockage du message a la reception -- OK
 
-// Historique
-    * recuperation -- OK
+// UDP
+    * Connexion -- OK
+    * Deconnexion -- OK
 
 // Base de données
     * connexion -- OK (DemoConnexion)
     * inscription -- OK (DemoInscription)
     * ajout message -- OK
-    * historique -- OK
+    * historique -- OK (DemoHistorique)
 
 // Swing
     * creer toutes les interfaces -- OK
@@ -27,8 +28,10 @@
 // Prochaines etapes 
     * finir envoie/reception de message TCP
    
+// Lancement de l'application
+    * ./compilation.sh
+    * ./execution.sh
 
 // A FAIRE
     * fermeture TCP Server A FAIRE
-    * Probleme de connexion parfois -> verif TCPServer, TCPClient
-    * Probleme affichage format date
+    * 
