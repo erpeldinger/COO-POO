@@ -104,7 +104,10 @@ public class ListenerUDP extends Thread {
 				System.out.println("[LISTENER UDP] print msg : "+msg);	
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés : id # pseudo # BROADCAST : Hello, who is there ?
-		    	if (isBroadcastPacket(msg)) {
+				if (inPacket.getAddress().equals(BroadcastingClient.getIpAddress())) {
+					//rien
+				}
+				else if (isBroadcastPacket(msg)) {
 		    		System.out.println("[LISTENER UDP] If -> debut");
 		    		int recupPort = this.manager.portDispo();
 		    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "#est connecte !"; 
@@ -138,7 +141,7 @@ public class ListenerUDP extends Thread {
 		    	else if (isOKPacket(msg)) {
 		    		//rien à faire
 		    	}
-		    	else if (isNOPPacket(msg)) {
+		    	else if (isNOPPacket(msg)) { // MODIFICATION DU PORT
 		    		portrecup = Message.toMessageBdcPort(msg).getPort();
 		    		if (manager.isDispo(portrecup)) { //DISPO ---> envoi d'un "YES PACKET"
 			    		Connect.updatePortLUC("database.db", Message.toMessageBdcPort(msg).getPseudo(), portrecup);
@@ -147,7 +150,7 @@ public class ListenerUDP extends Thread {
 				        	 System.out.println("[LISTENER UDP] User connecte : \n" +id + " \n");
 				        }
 				    	//envoi d'un OK Packet
-				    	String r = this.userId + "#" + this.pseudo + "# NOP !"; 
+				    	String r = this.userId + "#" + this.pseudo + "# YES !"; 
 			    		response = r.getBytes();
 			    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 			    		socket.send(outPacket);
@@ -177,7 +180,7 @@ public class ListenerUDP extends Thread {
 				        	 System.out.println("[LISTENER UDP] User connecte : \n" +id + " \n");
 				        }
 				    	//envoi d'un OK Packet
-				    	String r = this.userId + "#" + this.pseudo + "# NOP !"; 
+				    	String r = this.userId + "#" + this.pseudo + "# YES !"; 
 			    		response = r.getBytes();
 			    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 			    		socket.send(outPacket);
