@@ -21,24 +21,24 @@ public class DemoLUC {
     	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
     	Connect.insertUser("database.db", "Tata", "tutu123456789", 2);
     	Connect.insertUser("database.db", "Tutu", "tutu123456789", 3);
-    	Connect.insertUserLUC("database.db", 1, "ip-de-Toto");
-    	Connect.insertUserLUC("database.db", 2, "ip-de-Tata");
-    	Connect.insertUserLUC("database.db", 3, "ip-de-Tutu");
+    	Connect.insertUserLUCbyPseudo("database.db", "Toto", "ip-de-Toto");
+    	Connect.insertUserLUCbyPseudo("database.db", "Tata", "ip-de-Tata");
+    	Connect.insertUserLUCbyPseudo("database.db", "Tutu", "ip-de-Tutu");
     	
     	// Test du processus d'insertion de message
     	System.out.println("Bonjour");
     		
-    	String ip1 = Connect.queryUserLUC("database.db", 1);
-    	String ip2 = Connect.queryUserLUC("database.db", 2);
-    	String ip3 = Connect.queryUserLUC("database.db", 3);
+    	String ip1 = Connect.queryUserLUCbyPseudo("database.db", "Toto");
+    	String ip2 = Connect.queryUserLUCbyPseudo("database.db", "Tata");
+    	String ip3 = Connect.queryUserLUCbyPseudo("database.db", "Tutu");
     	
     	System.out.println("l'adresse ip de Toto est : " + ip1 + "\n");
     	System.out.println("l'adresse ip de Tata est : " + ip2 + "\n");
     	System.out.println("l'adresse ip de Tutu est : " + ip3 + "\n");
     	
 
-    	Connect.deleteTable("database","User");
-    	Connect.deleteTable("database","ListUserConnected");
+    	Connect.deleteTable("database.db","User");
+    	Connect.deleteTable("database.db","ListUserConnected");
     	System.out.println("delete ok");
     	
     	}

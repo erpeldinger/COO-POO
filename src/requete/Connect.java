@@ -418,8 +418,8 @@ public class Connect {
               
               // loop through the result set
               while (rs.next()) {
-                  resInter = rs.getStrin
-                          System.out.println("[CONNECT] end queryUser");g(("pseudo"));
+                  resInter = rs.getString(("pseudo"));
+                          System.out.println("[CONNECT] end queryUser");
                   resultat.add(resInter);
               }
               resultat.add("end");
