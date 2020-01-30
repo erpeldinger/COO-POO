@@ -36,7 +36,6 @@ public class DemoLUC {
     	System.out.println("l'adresse ip de Tata est : " + ip2 + "\n");
     	System.out.println("l'adresse ip de Tutu est : " + ip3 + "\n");
     	
-    	
 
     	Connect.deleteTable("database","User");
     	Connect.deleteTable("database","ListUserConnected");

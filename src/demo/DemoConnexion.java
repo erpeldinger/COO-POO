@@ -18,7 +18,7 @@ public class DemoConnexion {
     	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
     	
     	// Test du processus de Connexion
-    	System.out.println("Bonjour");
+    	System.out.println("Bonjour [usitlisateur Toto a été ajouté à la base de données. Mot de passe : titi123456789]");
     	// Demande du pseudo
     	Scanner scPseudo = new Scanner(System.in);
     	System.out.println("Veuillez saisir votre pseudo :");
