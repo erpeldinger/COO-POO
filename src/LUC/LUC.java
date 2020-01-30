@@ -149,7 +149,7 @@ public class LUC implements ActionListener {
     				}
     			}
 				ListUser.setText(ListUser.getText() + "\n");
-
+				
 		    	String idDest="";
 		    	InetAddress idDestInet;
 				//creation des TCPServer pour les nouveaux
@@ -163,7 +163,7 @@ public class LUC implements ActionListener {
 			    		String parts[] = idDest.split("/");
 			    		System.out.println("[CONNECT] IP recupere dans la BD : " + parts[1] + "pour le pseudo " + courant);
 			    		idDestInet = InetAddress.getByName(parts[1]);
-			    		manager.addTCPServer(user.getId(), idDestInet);
+			    		manager.addTCPServer(user.getId(), courant ,idDestInet);
 		    		}
 		    	}
 
@@ -327,7 +327,7 @@ public class LUC implements ActionListener {
 		    		idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
 		    		idDestInet = InetAddress.getByName(idDest);
 		    		System.out.println("[CONNECT] IP recupere dans la BD : " + idDest);
-		    		manager.addTCPServer(user.getId(), idDestInet);
+		    		manager.addTCPServer(user.getId(), courant,idDestInet);
 	    		}
 	    	}
     	}				

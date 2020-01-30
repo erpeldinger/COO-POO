@@ -35,10 +35,11 @@ public class ChatManager {
 	public static ArrayList<Boolean> getPorts() {return ports;}
 	public static ArrayList<TCPServer> getServers() {return servers;}
 	
-	public void addTCPServer(int id,InetAddress localAddr) throws IOException {
+	public void addTCPServer(int id,String pseudo ,InetAddress localAddr) throws IOException {
 		System.out.println("[ChatManager] IN addTCPServer");
 		int indCurrentPort, port;
 		indCurrentPort = 0;
+		/*
 		while(!ports.get(indCurrentPort)) {
 			indCurrentPort++;
 		}
@@ -51,6 +52,11 @@ public class ChatManager {
 		System.out.println("[ChatManager] addTCPServer -> après add ");
 
 		System.out.println("[ChatManager] IN addTCPServer");
+		*/
+		
+		//recuperation du port dans la BD
+		port = Connect.queryPortLUC("database.db", pseudo);
+		servers.add(new TCPServer(id, localAddr, port)); 
 	}
 	
 	public void stopCommunication(){

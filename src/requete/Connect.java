@@ -696,6 +696,32 @@ public class Connect {
           }
           return resultat.get(0).intValue();
       }
+   // Récupération d'un port A PARTIR D'UN PSEUDO
+      public static int queryPortLUC(String filename, String pseudo) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "SELECT ListUserConnected.port FROM ListUserConnected WHERE ListUserConnected.pseudo = " + pseudo + ";";
+          ArrayList<Integer> resultat = new ArrayList<Integer>();
+          Integer resInter;
+
+          System.out.println("Tentative de requete sql : " + sql );
+          try (Connection conn = DriverManager.getConnection(url);
+               Statement stmt  = conn.createStatement();
+               ResultSet rs    = stmt.executeQuery(sql)){
+              
+              // loop through the result set
+              while (rs.next()) {
+                  resInter = rs.getInt(("port"));
+                  resultat.add(resInter);
+              }
+              resultat.add(-1);
+              return resultat.get(0);
+          } catch (SQLException e) {
+              System.out.println("[ERROR QUERY PORT]" + e.getMessage());
+          }
+          return resultat.get(0).intValue();
+      }
+      
+      
       // all ports id
       public static ArrayList <Integer> queryAllPortLUC(String filename) {
           String url = "jdbc:sqlite:./database/"+filename;
