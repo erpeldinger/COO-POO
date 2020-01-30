@@ -95,7 +95,7 @@ public class ChatManager {
 	}
 	
 	public Boolean isDispo(int port) {
-		int indPort = port - 2000;
+		int indPort = port - 2100;
 		return ports.get(indPort);
 	}
 	
@@ -108,7 +108,7 @@ public class ChatManager {
 		while (!isDispo) {
 			if (ports.get(i) == true) {
 				isDispo = true;
-				res = i + 2000;
+				res = i + 2100;
 			}
 			else if (i>(ports.size())){
 				isDispo = true;
