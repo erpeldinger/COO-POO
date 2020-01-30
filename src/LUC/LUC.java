@@ -149,15 +149,20 @@ public class LUC implements ActionListener {
     				}
     			}
 				ListUser.setText(ListUser.getText() + "\n");
-				
+
+		    	String idDest="";
+		    	InetAddress idDestInet;
 				//creation des TCPServer pour les nouveaux
 				for (String courant : newUsers) {
 	    			System.out.println("[LUC]" + courant + "\n");
 		    		// Ouverture d'un Thread TCP Server par utilisateur connectes
 		    		if(!courant.contains("end")) {
 			    		ListUser.setText(ListUser.getText() + "\n" + courant );
-			    		System.out.println("[LUC] IN if");
-		    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
+		    			//manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
+			    		idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
+			    		idDestInet = InetAddress.getByName(idDest);
+			    		System.out.println("[CONNECT] IP recupere dans la BD : " + idDest);
+			    		manager.addTCPServer(user.getId(), idDestInet);
 		    		}
 		    	}
 
@@ -320,11 +325,11 @@ public class LUC implements ActionListener {
 	    			//manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
 		    		idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
 		    		idDestInet = InetAddress.getByName(idDest);
-		    		System.out.println("[LUC] IP recupere dans la BD : " + idDest);
+		    		System.out.println("[CONNECT] IP recupere dans la BD : " + idDest);
 		    		manager.addTCPServer(user.getId(), idDestInet);
 	    		}
 	    	}
-    	}
+    	}				
 		catch (Exception e) {
 			System.out.println("[LUC] ERREUR Creation TCP Server ou ChatManager impossible");
 		}
