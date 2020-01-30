@@ -167,7 +167,7 @@ public class LUC implements ActionListener {
 		    	}
 
 				//fermeture des TCPServer pour les anciens
-    			manager.stopCommunication(disconnectedUsers);
+    			//manager.stopCommunication(disconnectedUsers);
     			
     			
 			} catch (Exception e1) {
