@@ -355,6 +355,21 @@ public class Connect {
               System.out.println(e.getMessage());
           }
       }
+   // update un port dans LUC
+      public static void updatePortLUC(String filename, String pseudo, int port) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "UPDATE ListUserConnected SET port = ? WHERE ipseudo = ?;";
+          
+          try (Connection conn = DriverManager.getConnection(url);
+                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                      pstmt.setInt(1, port);
+                      pstmt.setString(2, pseudo);
+              // update 
+              pstmt.executeUpdate();
+          } catch (SQLException e) {
+              System.out.println(e.getMessage());
+          }
+      }
 
       
       /* ------------------------------------------QUERY--------------------------------------*/

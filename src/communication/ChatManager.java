@@ -94,6 +94,11 @@ public class ChatManager {
 		 */
 	}
 	
+	public Boolean isDispo(int port) {
+		int indPort = port - 2000;
+		return ports.get(indPort);
+	}
+	
 	public int portDispo() {
 		Boolean isDispo = false;
 		int res = -1;
