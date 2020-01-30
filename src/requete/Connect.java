@@ -699,7 +699,7 @@ public class Connect {
    // Récupération d'un port A PARTIR D'UN PSEUDO
       public static int queryPortLUC(String filename, String pseudo) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT ListUserConnected.port FROM ListUserConnected WHERE ListUserConnected.pseudo = " + pseudo + ";";
+          String sql = "SELECT ListUserConnected.port FROM ListUserConnected WHERE ListUserConnected.pseudo = '" + pseudo + "';";
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter;
 
