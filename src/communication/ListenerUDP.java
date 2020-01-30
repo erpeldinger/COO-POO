@@ -105,7 +105,7 @@ public class ListenerUDP extends Thread {
 		    	
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés : id # pseudo # BROADCAST : Hello, who is there ?
 				if (inPacket.getAddress().equals(BroadcastingClient.getIpAddress())) {
-					System.out.println("[LISTENER UDP] NOTRE BROADCAST --> on ne fait rien")
+					System.out.println("[LISTENER UDP] NOTRE BROADCAST --> on ne fait rien");
 				}
 				else if (isBroadcastPacket(msg)) {
 		    		System.out.println("[LISTENER UDP] If -> debut");
