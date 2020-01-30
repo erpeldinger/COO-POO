@@ -19,11 +19,11 @@ public class AlerteMessage {
     
     // L'etat de l'envoi du message
 	private JFrame frame;
-	private static String pseudoExpediteur="";
-	private static String message = "Vous avez reçu un nouveau message de ";
-    final static JLabel labelMessage = new JLabel(message + pseudoExpediteur + " !");
+	private  String pseudoExpediteur="";
+	private  String message = "Vous avez reçu un nouveau message de ";
+    final  JLabel labelMessage = new JLabel(message + pseudoExpediteur + " !");
 
-    final static String LOOKANDFEEL = null;
+    final  String LOOKANDFEEL = null;
     
     public Component createComponents() {
         JPanel pane = new JPanel(new GridLayout(0, 1));
@@ -38,7 +38,7 @@ public class AlerteMessage {
         return pane;
     }
     
-    private static void initLookAndFeel() {
+    private  void initLookAndFeel() {
         
         String lookAndFeel = null;
         if (LOOKANDFEEL != null) {
