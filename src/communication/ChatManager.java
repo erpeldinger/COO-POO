@@ -36,6 +36,7 @@ public class ChatManager {
 	public static ArrayList<TCPServer> getServers() {return servers;}
 	
 	public void addTCPServer(int id,InetAddress localAddr) throws IOException {
+		System.out.println("[ChatManager] IN addTCPServer");
 		int indCurrentPort, port;
 		indCurrentPort = 0;
 		while(!ports.get(indCurrentPort)) {
@@ -48,6 +49,8 @@ public class ChatManager {
 		System.out.println("[ChatManager] addTCPServer -> après updatePortLUC ");
 		servers.add(new TCPServer(id, localAddr, port)); 
 		System.out.println("[ChatManager] addTCPServer -> après add ");
+
+		System.out.println("[ChatManager] IN addTCPServer");
 	}
 	
 	public void stopCommunication(){

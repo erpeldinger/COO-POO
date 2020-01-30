@@ -69,7 +69,6 @@ public class BroadcastingClient {
     	}
     	return broadcast; 
     }
-
     
     //Envoie d'un message de deconnexion en Broadcast
     public static void sendDisconnected(InetAddress addrbr) throws Exception { // id # pseudo # message

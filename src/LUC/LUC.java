@@ -149,7 +149,19 @@ public class LUC implements ActionListener {
     			}
 				ListUser.setText(ListUser.getText() + "\n");
 				
-    			manager.stopCommunication(disconnectedUsers); 
+				//creation des TCPServer pour les nouveaux
+				for (String courant : newUsers) {
+	    			System.out.println("[LUC]" + courant + "\n");
+		    		// Ouverture d'un Thread TCP Server par utilisateur connectes
+		    		if(!courant.contains("end")) {
+			    		ListUser.setText(ListUser.getText() + "\n" + courant );
+			    		System.out.println("[LUC] IN if");
+		    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
+		    		}
+		    	}
+
+				//fermeture des TCPServer pour les anciens
+    			manager.stopCommunication(disconnectedUsers);
     			
     			
 			} catch (Exception e1) {
@@ -293,7 +305,7 @@ public class LUC implements ActionListener {
     	//on reset l'espace de texte
 		ListUser.setText("");
 
-		System.out.println("[LUC] affichage da la LUC \n");
+		System.out.println("[LUC] !!!!!!!!!!!!!!!!!!! AFFICHAGE DE LA LUC !!!!!!!!!!!!! \n");
     	try {
 	    	this.manager = new ChatManager();
 	    	for (String courant : Users) {
@@ -301,6 +313,7 @@ public class LUC implements ActionListener {
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
 	    		if(!courant.contains("end")) {
 		    		ListUser.setText(ListUser.getText() + "\n" + courant );
+		    		System.out.println("[LUC] IN if");
 	    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
 	    		}
 	    	}
