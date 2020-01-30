@@ -168,6 +168,7 @@ public class LUC implements ActionListener {
     		// Envoi d'un message de deconnexion en Broadcast
     		try {
 				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
+				this.manager.stopCommunication();
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
 			}
