@@ -62,6 +62,15 @@ public class ListenerUDP extends Thread {
 		return msg.contains(s);
 	}
 	
+	private boolean isOKPacket(String msg) {
+		CharSequence s =  "YES";
+		return msg.contains(s);
+	}
+	private boolean isNOPPacket(String msg) {
+		CharSequence s =  "NOP";
+		return msg.contains(s);
+	}
+	
 	public void stopUDPListener() {
 		this.running = false;
 		try {
@@ -126,10 +135,39 @@ public class ListenerUDP extends Thread {
 		    		Connect.deleteUserLUC("database.db", pseudoDisconnected);
 		    		System.out.println("[LISTERNER UDP] Suppression dans la LUC de : " + pseudoDisconnected);
 		    	}
-		    	else {
+		    	else if (isOKPacket(msg)) {
+		    		//rien à faire
+		    	}
+		    	else if (isNOPPacket(msg)) {
 		    		portrecup = Message.toMessageBdcPort(msg).getPort();
-		    		if (manager.isDispo(portrecup)) {
-		    		Connect.createNewTableUser("database.db");
+		    		if (manager.isDispo(portrecup)) { //DISPO ---> envoi d'un "YES PACKET"
+			    		Connect.updatePortLUC("database.db", Message.toMessageBdcPort(msg).getPseudo(), portrecup);
+				    	//Affiche la liste des utilisateurs connectes
+				    	for(int id: this.userLUC) {
+				        	 System.out.println("[LISTENER UDP] User connecte : \n" +id + " \n");
+				        }
+				    	//envoi d'un OK Packet
+				    	String r = this.userId + "#" + this.pseudo + "# NOP !"; 
+			    		response = r.getBytes();
+			    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
+			    		socket.send(outPacket);
+		    		}
+		    		else { // PAS DISPO ---> envoi d'un "NOP PACKET"
+		    			//demande d'un autre numero de port
+			    		int recupPort = this.manager.portDispo();
+			    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "# NOP !"; 
+			    		response = r.getBytes();		    				
+			    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
+			    		socket.send(outPacket);
+			    		System.out.println("[LISTENER UDP] apres luc");
+			    		//update Port dans bdd
+			    		Connect.updatePortLUC("database.db", Message.toMessageBdcPort(msg).getPseudo(), recupPort);
+		    		}
+		    	}
+		    	else { //verification du port (libre ?)
+		    		portrecup = Message.toMessageBdcPort(msg).getPort();
+		    		if (manager.isDispo(portrecup)) { //DISPO ---> envoi d'un "YES PACKET"
+		    			Connect.createNewTableUser("database.db");
 			    		Connect.createNewTableLUC("database.db");
 			        	Connect.insertUser("database.db", Message.toMessageBdcPort(msg).getPseudo() ,"XXXX", Message.toMessageBdcPort(msg).getId());
 			    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdcPort(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdcPort(msg).getId(), Message.toMessageBdcPort(msg).getPort());
@@ -138,11 +176,16 @@ public class ListenerUDP extends Thread {
 				    	for(int id: this.userLUC) {
 				        	 System.out.println("[LISTENER UDP] User connecte : \n" +id + " \n");
 				        }
+				    	//envoi d'un OK Packet
+				    	String r = this.userId + "#" + this.pseudo + "# NOP !"; 
+			    		response = r.getBytes();
+			    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
+			    		socket.send(outPacket);
 		    		}
-		    		else {
+		    		else { // PAS DISPO ---> envoi d'un "NOP PACKET"
 		    			//demande d'un autre numero de port
 			    		int recupPort = this.manager.portDispo();
-			    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "#est connecte !"; 
+			    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "# NOP !"; 
 			    		response = r.getBytes();		    				
 			    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 			    		socket.send(outPacket);
@@ -150,8 +193,9 @@ public class ListenerUDP extends Thread {
 			    		//update Port dans bdd
 			    		Connect.updatePortLUC("database.db", Message.toMessageBdcPort(msg).getPseudo(), recupPort);
 		    		}
-				}		    		
-    		}
+				}	
+
+	    	}
     		catch (Exception e) {
     			System.out.println("[LISTENER UDP] Erreur run " + e);
     		}
