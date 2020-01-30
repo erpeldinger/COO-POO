@@ -12,6 +12,7 @@ import communication.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class LUC implements ActionListener {
@@ -308,13 +309,18 @@ public class LUC implements ActionListener {
 		System.out.println("[LUC] !!!!!!!!!!!!!!!!!!! AFFICHAGE DE LA LUC !!!!!!!!!!!!! \n");
     	try {
 	    	this.manager = new ChatManager();
+	    	String idDest="";
+	    	InetAddress idDestInet;
 	    	for (String courant : Users) {
     			System.out.println("[LUC]" + courant + "\n");
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
 	    		if(!courant.contains("end")) {
 		    		ListUser.setText(ListUser.getText() + "\n" + courant );
 		    		System.out.println("[LUC] IN if");
-	    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
+	    			//manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
+		    		idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
+		    		idDestInet = InetAddress.getByName(idDest);
+		    		manager.addTCPServer(user.getId(), idDestInet);
 	    		}
 	    	}
     	}
