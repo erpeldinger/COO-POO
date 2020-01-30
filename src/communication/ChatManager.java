@@ -67,7 +67,7 @@ public class ChatManager {
 		//TODO
 		// PROCEDURE -> recuperation de l'id a partir du pseudo. Dans les TCP Server on a id et monPort. ---> parcours des TCPServers pour trouver le bon
 		/*
-		 * String pseudo = XXXX;
+		 * String pseudo = "XXXX";
 		 * ArrayList <Integer> mesPorts = new ArrayList<Integer>();
 		 * int id = Connect.queryUserPseudo("database.db", pseudo);
 		 * ArrayList <TCPServer> mesServers= this.manager.getServers();
