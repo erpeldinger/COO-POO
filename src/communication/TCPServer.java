@@ -86,6 +86,7 @@ public class TCPServer extends Thread {
 	        	System.out.println("avant insert \n");
 	        	System.out.println("id recupere dans le message : " + m.getId());
 	        	String pseudoExpediteur = Connect.queryUserPseudo("database.db", m.getId(), Connect.queryUserPseudo("database.db", this.id));
+	        	System.out.println("On va enregistrer le message dans la BD : \n");
 	    		Connect.insertConversation("database.db",m.getId(), this.id, Connect.queryUserPseudo("database.db", m.getId(), Connect.queryUserPseudo("database.db", this.id)) + " : " + m.getContent(),DateMsg.toString(m.getDate()));
 	    		System.out.println("[TCPServer] message enregistre dans la db : " + m.getContent() + "\n");
 	    		AlerteMessage monAlerte = new AlerteMessage(pseudoExpediteur);

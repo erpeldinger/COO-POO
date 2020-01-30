@@ -139,6 +139,7 @@ public class Connect {
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
             idCourant++;
+            System.out.println("[CONNECT] Insertion dans User de : " + pseudo + " de id : " + id);
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] User " + e.getMessage());
         }
@@ -214,9 +215,10 @@ public class Connect {
 
     //Insertion d'un nouveau message dans la table Conversation
       public static void insertConversation(String filename, int id1, int id2, String content, String date) {
-      	String url = "jdbc:sqlite:./database/"+filename;
+    	  String url = "jdbc:sqlite:./database/"+filename;
           String sql = "INSERT INTO Conversation (idUser1, idUser2, content, date) VALUES (?, ?, ?, ?);";
-
+          
+          System.out.println("Tentative de requete sql : " + sql);
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id1);
@@ -224,7 +226,7 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
-              System.out.println("On a add le message : " + content + " de date : " + date);
+              System.out.println("[CONNECT] On a add le message : " + content + " de date : " + date);
           } catch (SQLException e) {
               System.out.println("[ERROR INSERT] Conv " + e.getMessage());
           }
