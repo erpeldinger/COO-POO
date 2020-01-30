@@ -1,8 +1,5 @@
 package requete;
 
-import java.lang.Object.*;
-import java.net.InetAddress;
-
 public class TableSQL {
 
     //attributs

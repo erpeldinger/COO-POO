@@ -8,10 +8,7 @@ import java.sql.Statement;
 import java.util.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-/**
- *
- * @author sqlitetutorial.net
- */
+
 public class Connect {
 	private static int idCourant=1;
 	
@@ -25,9 +22,7 @@ public class Connect {
 		idCourant=id2+1; 
 	}
 	
-	
-	
-    //connect to the database, and create it if it doesn't exist
+	//connect to the database, and create it if it doesn't exist
     public static void createNewDatabase(String fileName) {
     	 
         String url = "jdbc:sqlite:./database/" + fileName;
@@ -43,32 +38,6 @@ public class Connect {
         }
     }
     
-    /*create a new table in the database
-    public static void createNewTable(String filename, String tableName, ArrayList <TableSQL> data) {
-        // SQLite connection string
-        String url = "jdbc:sqlite:./database/"+filename;
-        
-        // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS " + tableName + "(\n"
-                + "    id integer PRIMARY KEY,\n"
-                + "    name text NOT NULL,\n"
-                + "    capacity real\n"
-                + ");";
-        // EXPLOITER ARRAY LIST TABLSQL POUR REMPLIR LA REQUETE SQL
-        for (TableSQL courant : data) {
-        	sql += courant.getName() + " " + courant.getType() + " " + courant.getOption(); // Y A T IL TJRS OPTION ?
-        }
-        
-        try (Connection conn = DriverManager.getConnection(url);
-                Statement stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
-            System.out.println("A new table has been created");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    */
     
     /* ------------------------------------------CREATION DES TABLES--------------------------------------*/
     //creation de la table User
@@ -134,7 +103,6 @@ public class Connect {
 
             // create a new table
             stmt.execute(sql);
-            //System.out.println("A new table Conversation has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -171,8 +139,6 @@ public class Connect {
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
             idCourant++;
-            //System.out.println("incrementation id ok : " + id );
-            //System.out.println("A User has been created in User");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] User " + e.getMessage());
         }
@@ -251,7 +217,6 @@ public class Connect {
       	String url = "jdbc:sqlite:./database/"+filename;
           String sql = "INSERT INTO Conversation (idUser1, idUser2, content, date) VALUES (?, ?, ?, ?);";
 
-          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id1);
@@ -268,7 +233,6 @@ public class Connect {
       /* ------------------------------------------SUPPRESSION--------------------------------------*/
 
       // Suppression d'un utilisateur dans la table User
-      //System.out.println("Tentative de requete sql : " + sql );
       public static void deleteUser(String filename, int id) {
           String url = "jdbc:sqlite:./database/"+filename;
           String sql = "DELETE FROM User WHERE id = ?;";
@@ -277,7 +241,6 @@ public class Connect {
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id);
               pstmt.executeUpdate();
-              //System.out.println("An user has been deleted");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -292,7 +255,6 @@ public class Connect {
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id);
               pstmt.executeUpdate();
-              //System.out.println("A user has been deleted in LUC");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -307,7 +269,6 @@ public class Connect {
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setString(1, pseudo);
               pstmt.executeUpdate();
-              //System.out.println("A user has been deleted in LUC");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -338,7 +299,6 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
-              //System.out.println("A message has been deleted in Conversation");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -357,7 +317,6 @@ public class Connect {
                       pstmt.setInt(3, id);
               // update 
               pstmt.executeUpdate();
-              //System.out.println("Table User has been updated");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -374,7 +333,6 @@ public class Connect {
                       pstmt.setInt(2, id);
               // update 
               pstmt.executeUpdate();
-              //System.out.println("Table User has been updated");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -391,7 +349,6 @@ public class Connect {
                       pstmt.setInt(2, id);
               // update 
               pstmt.executeUpdate();
-              //System.out.println("Table User has been updated");
           } catch (SQLException e) {
               System.out.println(e.getMessage());
           }
@@ -421,7 +378,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryUser");
           return resultat.get(0).intValue();
       }
       
@@ -446,7 +402,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryUser");
           return resultat.get(0);
       }
    // Recuperation d'un pseudo si different de notre pseudo
@@ -463,7 +418,8 @@ public class Connect {
               
               // loop through the result set
               while (rs.next()) {
-                  resInter = rs.getString(("pseudo"));
+                  resInter = rs.getStrin
+                          System.out.println("[CONNECT] end queryUser");g(("pseudo"));
                   resultat.add(resInter);
               }
               resultat.add("end");
@@ -502,7 +458,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryUser");
           resultat.add("end");
           return resultat.get(0);
       }
@@ -514,7 +469,6 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -542,7 +496,6 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -558,7 +511,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] verif password " + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryUserPassword");
           return resultat;
       }
 
@@ -584,8 +536,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] Max Id " + e.getMessage());
           }
-          System.out.println("return2" );
-          System.out.println("[CONNECT] end queryMaxId");
           return resultat.get(0).intValue();
       }
       
@@ -596,7 +546,6 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -612,7 +561,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user LUC " + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryUserLUC");
           return resultat.get(0);
       }
       
@@ -623,7 +571,6 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -639,7 +586,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user LUC " + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryUserLUCbyPseudo");
           return resultat.get(0);
       }
       
@@ -650,7 +596,6 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -668,7 +613,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] All User " + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryAllUserLUC");
           return resultat;
       }
       
@@ -679,7 +623,6 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -699,7 +642,6 @@ public class Connect {
           Set set = new HashSet() ;
           set.addAll(resultat);
           ArrayList<String> res = new ArrayList(set);
-          //System.out.println("[CONNECT] end queryAllUserLUCbyPseudo");
           return res;
       }
       
@@ -725,7 +667,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryUserIdLUC");
           return resultat.get(0).intValue();
       }
       
@@ -751,7 +692,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY PORT]" + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryPortLUC");
           return resultat.get(0).intValue();
       }
       // all ports id
@@ -776,7 +716,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY PORT]" + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryPortLUC");
           return resultat;
       }
    // all ports num
@@ -801,7 +740,6 @@ public class Connect {
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY PORT]" + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryPortLUC");
           return resultat;
       }
       
@@ -842,7 +780,6 @@ public class Connect {
     	  for (String message : id1id2 ) {
     		  id1id2.set(iter, Integer.valueOf(id1) + message);
     	  }
-    	  System.out.println("[CONNECT] end queryHistorique");
     	  return id1id2;
       }
       
