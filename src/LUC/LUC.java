@@ -160,7 +160,8 @@ public class LUC implements ActionListener {
 			    		ListUser.setText(ListUser.getText() + "\n" + courant );
 		    			//manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
 			    		idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
-			    		idDestInet = InetAddress.getByName(idDest);
+			    		String parts[] = idDest.split("/");
+			    		idDestInet = InetAddress.getByName(parts[1]);
 			    		System.out.println("[CONNECT] IP recupere dans la BD : " + idDest);
 			    		manager.addTCPServer(user.getId(), idDestInet);
 		    		}
