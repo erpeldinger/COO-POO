@@ -8,11 +8,7 @@ import java.io.IOException;
 import requete.Connect;
 
 public class ChatManager { 
-//2user, on lance 2 tcp server
-	//gestion attribution port
-
-	//private User u1;
-	//private User u2;
+	
 	private static ArrayList<Boolean> ports;
 	private static ArrayList<TCPServer> servers;
 	
@@ -107,11 +103,4 @@ public class ChatManager {
 		}
 		return res;
 	}
-	
-	//Demo
-	// Creer une fois cette classe (ça initialise le tableau des ports)
-	// Appeler une methode addServer(....) qui ajouteriait un TCPServer dans l'ArrayList (en appellant le constructeur TCPServer)
-	
-	
-	
 }

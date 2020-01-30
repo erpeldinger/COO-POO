@@ -3,9 +3,6 @@ package communication;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.io.IOException;
@@ -21,12 +18,10 @@ public class TCPServer extends Thread {
 	private ServerSocket socket = null;
 	private boolean running;
 	private int id;
-	//private static ArrayList<Boolean> ports = Collections.fill(new ArrayList<Boolean>(Arrays.asList(new Boolean[10])), Boolean.TRUE);
 	private int monPort;
 	
 	//Constructeurs
 	public TCPServer(int id,InetAddress localAddr, int port) throws IOException {
-		//System.out.println("Constructeur Server TCP");
 		this.id=id;
 		this.running = true;
 		int monPort=port;
@@ -53,7 +48,8 @@ public class TCPServer extends Thread {
 		System.out.println("[TCPServer] Erreur readMessage ");
     	}
     }
-	// fermer les ports !
+	
+	//Fermer les ports
 	public void stopTCPServer() {
 		this.running = false;
 		try {
@@ -77,21 +73,15 @@ public class TCPServer extends Thread {
 				System.out.println("[TCPServer ] apres inputstream ");
 				OutputStream out = server.getOutputStream();
 				System.out.println("[TCPServer ] apres outputstream ");
-				receiveMessage(server,in,buff);	 // PROBLEME ICI
+				receiveMessage(server,in,buff);	
 				System.out.println("[TCPServer ] apres receive ");
 	    		Message m = Message.readMessage(buff);
 				System.out.println("[TCPServer ] message recu " + m.getContent());
-	    		/*ti
-	    		String s="";
-	            BufferedReader inB = new BufferedReader(new InputStreamReadecr(in));
-	            PrintStream outP = new PrintStream(out);
-	            s = inB.readLine();*/
-
-	            //server.close();
 	    		
 	    		//Stockage dans la bd
 	    		Connect.createNewDatabase("database.db");
 	        	Connect.createNewTableConv("database.db");
+	        	
 	        	//ajout du nom de l'exp�diteur du message dans la BD
 	        	System.out.println("avant insert \n");
 	        	System.out.println("id recupere dans le message : " + m.getId());

@@ -60,7 +60,6 @@ public class BroadcastingClient {
     
     public static InetAddress getBroadcastAddress()  throws SocketException {
     	InetAddress broadcast = null;
-    	// INTERFACE EN DUR
     	Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
     	while (interfaces.hasMoreElements()) {
     	    NetworkInterface networkInterface = interfaces.nextElement();
@@ -69,35 +68,8 @@ public class BroadcastingClient {
 	        }
     	}
     	return broadcast; 
-    	/*
-    	System.out.println("debut");
-    	InetAddress monAddr = socket.getInetAddress();
-    	System.out.println("get Inet Address");
-    	String addrBr = "";
-    	String monAddrString = monAddr.toString();
-    	String[] parts = monAddrString.split(".");
-    	System.out.println("split" + parts[0] + parts[1] + parts[2]);
-    	Integer ipClasse = Integer.valueOf(parts[0]);
-    	System.out.println("valueOf");
-    	if ( ipClasse < 127) {
-    		addrBr += parts[0] + ".255.255.255";
-    	} 
-    	else if ( ipClasse < 192) {
-    		addrBr += parts[0] + "." + parts[1] + ".255.255";
-    	}
-    	else if ( ipClasse < 224 ) {
-    		addrBr += parts[0] + "." + parts[1] + "." + parts[2] + ".255";
-    	}
-    	return InetAddress.getByName(addrBr);
-    	*/
     }
-    
-    
-    
-    /*
-    public static InetAddress getLocalAddr() {
-    	return socket.getLocalAddress();
-    }*/
+
     
     //Envoie d'un message de deconnexion en Broadcast
     public static void sendDisconnected(InetAddress addrbr) throws Exception { // id # pseudo # message
@@ -132,36 +104,11 @@ public class BroadcastingClient {
     	System.out.println("[BROADCASTING CLIENT] Message : " + msg);
     	
     	try {
-    		//System.out.println("[BROADCASTING CLIENT] debut send");
-	    	//socket.setBroadcast(true);
-    		
-	    	//System.out.println("set broadcast ok");
-	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
-	    	//System.out.println("[BROADCASTING CLIENT] creation dtg packet");
+	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   
 	    	socket.send(packet);
     		System.out.println("[BROADCASTING CLIENT] sendBroadcast");
-	    	//System.out.println("socket.send(packet)");
 			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
-	    	
-	    	//socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
-			/*
-	    	String rep = new String(outPacket.geServertData(), 0, outPacket.getLength());
-
-    		//socket.setSoTimeout(500); //attend une reponse pendant 2000 ms
-        	System.out.println("[BROADCASTING CLIENT] setsotime out\n"); 
-			socket.receive(outPacket);				
-        	System.out.println("[BROADCASTING CLIENT] receive\n"); 
-			System.out.println(rep);
-			
-    		
-    		//Ajoute l'id de la personne qui répond
-    		user.getListIdUserConnected().add(Message.toMessage(rep).getId());
-        	System.out.println("[BROADCASTING CLIENT] Ajout users dans liste des users connectes ok.\n"); 
-        	*/
-
-			//socket.close();
-			//System.out.println("[BROADCASTING CLIENT] Socket.close()");
     	}
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast : " + e );

@@ -40,6 +40,7 @@ public class TCPClient {
     		//Stockage dans la bd
     		Connect.createNewDatabase("database.db");
         	Connect.createNewTableConv("database.db");
+        	
         	//ajout du pseudo de l'expediteur du message dans la BD
         	String dateMessage = DateMsg.toString(toSend.getDate());
         	System.out.println("[TCP Client] Message à enregistrer, date : " + dateMessage + " de id : " + this.user.getId());
@@ -69,6 +70,8 @@ public class TCPClient {
         }		
 		
 	/*
+	 * POUR L'ENVOI DE FICHIERS
+	 * 
 	public void sendFile(String path) {
 		        File file = new File (file);							//gets the file corresponding to path
 		        String fileString = file.getName();							//retrieves the file name

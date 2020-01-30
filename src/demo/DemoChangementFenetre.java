@@ -1,16 +1,6 @@
 package demo;
-import java.lang.Object.*;
-import java.net.*;
 import java.io.IOException;
 
-import java.util.Scanner;
-
-import LUC.*;
-import requete.Connect;
-import connexion.*;
-import clavardage.*;
-import profil.*;
-import user.User;
 import inscription.*;
 
 public class DemoChangementFenetre {

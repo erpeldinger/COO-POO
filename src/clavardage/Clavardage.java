@@ -1,14 +1,7 @@
 
 package clavardage;
-
-
-/*
- * SwingApplication.java is a 1.4 example that requires
- * no other files.
- */
 import javax.swing.*;
 
-import connexion.Connexion;
 import profil.Profil;
 import requete.Connect;
 
@@ -18,7 +11,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import communication.*;
 import LUC.*;
 import user.*;
@@ -48,9 +40,7 @@ public class Clavardage implements ActionListener {
     
     // Le champ permettant d'ecrire le message
     JTextField messageField = new JTextField(2);
-    
-    //Specify the look and feel to use.  Valid values:
-    //null (use the default), "Metal", "System", "Motif", "GTK+"
+
     final static String LOOKANDFEEL = null;
     
     
@@ -81,6 +71,8 @@ public class Clavardage implements ActionListener {
     	//creation du button d'envoie de message
         JButton button = new JButton("Envoyer le message");
         button.setMnemonic(KeyEvent.VK_I);
+        //Specify the look and feel to use.  Valid values:
+        //null (use the default), "Metal", "System", "Motif", "GTK+"
         button.addActionListener(this);
         labelMessage.setLabelFor(button);
         button.setPreferredSize(new Dimension(10,50));
@@ -98,12 +90,7 @@ public class Clavardage implements ActionListener {
         raffraichir.addActionListener(this);
         labelMessage.setLabelFor(raffraichir);
         raffraichir.setPreferredSize(new Dimension(10,50));
-        
-        /*
-         * An easy way to put space between a top-level container
-         * and its contents is to put the contents in a JPanel
-         * that has an "empty" border.
-         */
+
         JPanel pane = new JPanel(new GridLayout(0, 1));
         pane.add(retour);
         pane.add(Conversation);
@@ -157,8 +144,7 @@ public class Clavardage implements ActionListener {
 	    	try {
 				LUC pageLUC = new LUC(user);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				System.out.println("[CLAVARDAGE] eRREUR : " + e1);
 			}
     		frame.setVisible(false);
 	    }
@@ -193,19 +179,15 @@ public class Clavardage implements ActionListener {
     		// on va chercher les messages dans la BD
     		ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
         	for ( String courant : Users) {
-        		//System.out.println("message recupere : " + courant);
         		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
         			ConvArea.setText(ConvArea.getText() + "\n" + courant );
         		}
         	}
     	}
-    }
-   
+    }   
     
     private static void initLookAndFeel() {
         
-        // Swing allows you to specify which look and feel your program uses--Java,
-        // GTK+, Windows, and so on as shown below.
         String lookAndFeel = null;
         if (LOOKANDFEEL != null) {
             if (LOOKANDFEEL.equals("Metal")) {
@@ -252,30 +234,13 @@ public class Clavardage implements ActionListener {
      * @throws UnknownHostException 
      */
     public Clavardage(User user, int id2, String pseudoDest) throws UnknownHostException, Exception {
-    	//init user
+    	
     	this.user = user;
     	this.id2=id2;
     	Connect.createNewTableLUC("database.db");
-    	//int port = Connect.queryPortLUC("database.db", id2);
-    	//System.out.println("port recupere : " + port);
     	String ipS = Connect.queryUserLUCbyPseudo("database.db", pseudoDest);
     	System.out.println("[CLAVARDAGE] ip recupere string : " + ipS + " a partir de id = " + pseudoDest);
     	
-    	// POSSIBILITE : Mettre le port en dur pour tester ---> j'ai pas pu tester parce que j'arrive pas à lancer l'appli depuis le terminal (seulemen depuis eclipse)
-    	// int port = 2007;
-    	/* ---- VERIF METHODES OK ----
-    	System.out.println("Ports id : ");
-    	ArrayList <Integer> Ports = Connect.queryAllPortLUC("database.db");
-    	for (Integer courant : Ports) {
-    		System.out.println(courant + "\n");
-    	}
-
-    	System.out.println("Ports num : ");
-    	ArrayList <Integer> PortsNum = Connect.queryAllPortLUC2("database.db");
-    	for (Integer courant : PortsNum) {
-    		System.out.println(courant + "\n");
-    	}
-    	*/
     	
     	int port = Connect.queryPortLUC("database.db",id2);
     	System.out.println("port recupere : " + port);
@@ -283,6 +248,7 @@ public class Clavardage implements ActionListener {
     	String parts[] = ipS.split("/");
     	System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
     	this.client = new TCPClient(InetAddress.getByName(parts[1]), port, user, id2);
+    	
         //Set the look and feel.
         initLookAndFeel();
         
@@ -298,7 +264,7 @@ public class Clavardage implements ActionListener {
 			public void windowClosing(WindowEvent e){
 		    	
 		    		System.out.println("[PROFIL] fermeture appli");
-					// Envoie d'un message de deconnexion en Broadcast
+					// Envoi d'un message de deconnexion en Broadcast
 					try {
 						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 					} catch (Exception e1) {
@@ -320,15 +286,13 @@ public class Clavardage implements ActionListener {
 			public void windowDeactivated(WindowEvent e){}
 		});
         
-        ConvArea.setEditable(false);
-        
+        ConvArea.setEditable(false);        
 
         // afficher l'historique des message
         Connect.createNewTableConv("database.db");
         System.out.println("User : " + user.getId() + " user 2 " + id2);
     	ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
     	for ( String courant : Users) {
-    		//System.out.println("message recupere : " + courant);
     		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
     			ConvArea.setText(ConvArea.getText() + "\n" + courant );
     		}
@@ -341,16 +305,4 @@ public class Clavardage implements ActionListener {
         frame.pack();
         frame.setVisible(true);
     }
-    
-    /*
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
-    */
 }

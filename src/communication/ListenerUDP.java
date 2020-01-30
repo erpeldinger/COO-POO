@@ -6,7 +6,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.lang.Exception;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import format.Message;
@@ -17,7 +16,6 @@ public class ListenerUDP extends Thread {
     //Attributs
     private DatagramSocket socket;
     private boolean running ;
-    //private ArrayList <String> messages;
     private static byte[] response = null; //Message comme quoi on est connecté
     private InetAddress addrBroadcast;
 	private int userId;
@@ -46,7 +44,6 @@ public class ListenerUDP extends Thread {
     }
 
     //Methodes
-
     private InetAddress getAddr (DatagramPacket inPacket) throws UnknownHostException {
     	return inPacket.getAddress(); 
     }
@@ -57,15 +54,11 @@ public class ListenerUDP extends Thread {
     
 	private boolean isBroadcastPacket(String msg) {
 		CharSequence s =  "BROADCAST";
-		//System.out.println(msg);
-		//System.out.println(msg.contains(s));
 		return msg.contains(s);
 	}
 	
 	private boolean isEndPacket(String msg) {
 		CharSequence s =  "DISCONNECTED";
-		//System.out.println(msg);
-		//System.out.println(msg.contains(s));
 		return msg.contains(s);
 	}
 	
@@ -82,22 +75,17 @@ public class ListenerUDP extends Thread {
 
     public void run() {
   
-    	//Boolean connected = true;
 		int iter = 0;
 		int iterDEBUG = 1;
 		this.running = true;
-		//j'ai change la condition pour que ce soit plus propre, avant : while (connected)
+		
     	while (running) {
-
-    		//System.out.println("[LISTENER UDP] iter while : " + iterDEBUG + "\n");
     		iterDEBUG++;
     		try {
-    			//System.out.println("[LISTENER UDP] Nb iteration try : " + iter + "\n");
 				iter++;
     			
 		    	byte[] buff = new byte[256];
 		    	DatagramPacket inPacket = new DatagramPacket(buff, buff.length);
-		    	//System.out.println("[LISTENER UDP] Création inPacket ok");
 		    	socket.receive(inPacket);
 		    	System.out.println("[LISTENER UDP] Réception inPacket ok");
 		    	
@@ -108,29 +96,21 @@ public class ListenerUDP extends Thread {
 		    	// S'il s'agit d'un message broadcast pour récupérer la liste des users connectés : id # pseudo # BROADCAST : Hello, who is there ?
 		    	if (isBroadcastPacket(msg)) {
 		    		System.out.println("[LISTENER UDP] If -> debut");
-		    		//int recupPort = 2333;
 		    		int recupPort = this.manager.portDispo();
-		    		//System.out.println("[LISTENER UDP]recuperation port");
 		    		String r = this.userId + "#" + this.pseudo + "#" +  Integer.valueOf(recupPort)+ "#est connecte !"; 
-		    		//System.out.println("[LISTENER UDP] valeur port : "+ Integer.valueOf(recupPort));
-		    		//System.out.println("[LISTENER UDP] valeur msg string : "+ r);
 		    		response = r.getBytes();		    				
 		    		DatagramPacket outPacket = new DatagramPacket(response,response.length, getAddr(inPacket), getPort(inPacket));
 		    		socket.send(outPacket);
-		    		//System.out.println("[LISTENER UDP] If -> end");
-		    		
-		    		//System.out.println("[LISTENER UDP] avant luc ");
 		    		System.out.println("[LISTENER UDP] apres luc");
+		    		
 		    		//Ajout de l'adresse IP de user dans la bdd 
 		    		Connect.createNewDatabase("database.db");
 		        	Connect.createNewTableLUC("database.db");
 		        	System.out.println("[LISTENER UDP] ip trouve : "+inPacket.getAddress());
 		        	Connect.insertUser("database.db", Message.toMessageBdc(msg).getPseudo() ,"XXXX", Message.toMessageBdc(msg).getId());
 		    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdc(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdc(msg).getId(), recupPort);
+		    		System.out.println("[LISTENER UDP] Add ok");
 		    		
-		    		//ON NOTIFIE au user qui a ce listener !!!!!
-		    		
-			    	System.out.println("[LISTENER UDP] Add ok");
 			    	//Affiche la liste des utilisateurs connectes
 			    	System.out.println("[LISTENER UDP] User connecte : \n");
 			    	for(int id: this.userLUC) {
@@ -145,15 +125,9 @@ public class ListenerUDP extends Thread {
 		    		Connect.deleteUserLUC("database.db", pseudoDisconnected);
 		    		System.out.println("[LISTERNER UDP] Suppression dans la LUC de : " + pseudoDisconnected);
 		    	}
-		    	else { // id # pseudo # port # est connecte
-		    		//c'est un message de réponse de Broadcast
-		    		//System.out.println("[LISTENER UDP] Else -> debut");
-		    		//ajout de l'user dans la LUC
-		    		//this.userLUC.add(Message.toMessageBdc(msg).getId());
+		    	else {
 		    		Connect.createNewTableUser("database.db");
 		    		Connect.createNewTableLUC("database.db");
-		    		//System.out.println("[LISTENER UDP] Pseudo : " + Message.toMessageBdcPort(msg).getPseudo());
-		    		//System.out.println("[LISTENER UDP] is : " + Message.toMessageBdcPort(msg).getId());
 		        	Connect.insertUser("database.db", Message.toMessageBdcPort(msg).getPseudo() ,"XXXX", Message.toMessageBdcPort(msg).getId());
 		    		Connect.insertUserLUCbyAllPort("database.db", Message.toMessageBdcPort(msg).getPseudo(), inPacket.getAddress().toString(), Message.toMessageBdcPort(msg).getId(), Message.toMessageBdcPort(msg).getPort());
 			    	System.out.println("[LISTENER UDP] Add ok");
@@ -167,7 +141,5 @@ public class ListenerUDP extends Thread {
     			System.out.println("[LISTENER UDP] Erreur run " + e);
     		}
     	}
-    	//socket.close();
-    }
-    
+    }    
 }
