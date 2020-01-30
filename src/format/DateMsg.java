@@ -1,9 +1,6 @@
 package format;
 
-import java.lang.Object.*;
 import java.util.Calendar;
-import java.util.Date;
-// https://docs.oracle.com/javase/7/docs/api/java/util/Date.html
 
 public class DateMsg {
 

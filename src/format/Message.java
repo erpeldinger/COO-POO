@@ -60,7 +60,7 @@ public class Message {
 
     //Methodes
     
-    // On suppose qu'on a un message de la forme "8#coucou#17:26:00:00:00:00"
+    // On suppose qu'on a un message de la forme "id#content#date" avec date de la forme 17:26:00:00:00:00
     public static DateMsg toDateMsg(String s) {
     	
     	String[] other = s.split("#"); 
@@ -100,7 +100,7 @@ public class Message {
         return new String(Integer.toString(id) + "#" + content.toString());
     }
     
-    // On suppose qu'on a un message de la forme "8#coucou#17:26:00:00:00:00"
+    // On suppose qu'on a un message de la forme "id#content#date" avec date de la forme 17:26:00:00:00:00
     public static Message toMessage(String s){
     	String[] parts = s.split("#");
         String c= "",d="",i="";
@@ -118,9 +118,8 @@ public class Message {
         return m;
     }
     
- // On suppose qu'on a un message de la forme "8#pseudo#coucou"
+    // On suppose qu'on a un message de la forme "id#content#date" avec date de la forme 17:26:00:00:00:00
     public static Message toMessageBdc(String s){
-    	//System.out.println("[Message] toMessageBdc, print s : " +s +"\n");
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="";
         Message m = null;        
@@ -137,9 +136,8 @@ public class Message {
         return m;
     }   
     
- // On suppose qu'on a un message de la forme "8#pseudo#coucou" ???????????
+    // On suppose qu'on a un message de la forme "id#content#date" avec date de la forme 17:26:00:00:00:00
     public static Message toMessageDisc(String s){
-    	//System.out.println("[Message] toMessageDisc, print s : " +s +"\n");
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="";
         Message m = null;        
@@ -156,8 +154,7 @@ public class Message {
         return m;
     }   
     
-    public static Message toMessageBdcPort(String s){
-    	//System.out.println("[Message] toMessageBdcPort, print s : " +s +"\n");       
+    public static Message toMessageBdcPort(String s){      
     	String[] parts = s.split("#");
         String c= "",i="", pseudo="", port="";
         Message m = null;
@@ -217,7 +214,6 @@ public class Message {
     	try {
 	    	String s = new String(buff);
 			Message m = Message.toMessage(s);	    	
-			//System.out.println("Message recu : " + Message.toString(m.getId(),m.getContent(),m.getDate()));
 			return m;
     	}
     	catch (Exception e) {

@@ -1,21 +1,14 @@
 
 package inscription;
 
-/*
- * SwingApplication.java is a 1.4 example that requires
- * no other files.
- */
-import javax.swing.*;
-
 import LUC.LUC;
 import communication.BroadcastingClient;
 import requete.Connect;
 import user.User;
-import connexion.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.concurrent.TimeUnit;
 
 public class Inscription implements ActionListener {
     
@@ -48,8 +41,6 @@ public class Inscription implements ActionListener {
     JTextField pseudoField = new JTextField(2);
     JTextField passwordField = new JTextField(2);
     
-    //Specify the look and feel to use.  Valid values:
-    //null (use the default), "Metal", "System", "Motif", "GTK+"
     final static String LOOKANDFEEL = null;
     
     public Component createComponents() {
@@ -65,11 +56,6 @@ public class Inscription implements ActionListener {
         buttonConnect.addActionListener(this);
         labelConnect.setLabelFor(buttonConnect);
         
-        /*
-         * An easy way to put space between a top-level container
-         * and its contents is to put the contents in a JPanel
-         * that has an "empty" border.
-         */
         JPanel pane = new JPanel(new GridLayout(0, 1));
         pane.add(labelError);
         pane.add(labelPseudo);
@@ -93,8 +79,6 @@ public class Inscription implements ActionListener {
     
     public void actionPerformed(ActionEvent e) {
     	if (e.getActionCommand().equals("Se connecter")){
-    		//Connexion pageConnexion = new Connexion();
-    		//frame.setVisible(false);
     		if (pseudoField.getText().equals("")) {
                 labelError.setText(incorrectPseudoCo);
             }
@@ -134,7 +118,6 @@ public class Inscription implements ActionListener {
             	}
             	else {
             		//mauvais pseudo/mot de passe
-    	        	//System.out.println("mauvais user!" + pseudoField.getText() + " " + passwordField.getText());
                     labelError.setText(incorrectUser);
             	}
             }
@@ -144,7 +127,7 @@ public class Inscription implements ActionListener {
 		    	
 		    	Connect.createNewDatabase("database.db");
 		    	Connect.createNewTableUser("database.db");
-		        //Si le message est vide on ne l'envoie pas , n affiche l'erreur
+		        //Si le message est vide on ne l'envoie pas, on affiche l'erreur
 		        if (pseudoField.getText().equals("")) {
 		            labelError.setText(emptyPseudo);
 		        }
@@ -154,7 +137,7 @@ public class Inscription implements ActionListener {
 		        //Sinon on test la validite du pseudo/password
 		        else {
 		        	if (Connect.checkPseudo("database.db", pseudoField.getText()) && Connect.checkPassword("database.db", pseudoField.getText(), passwordField.getText())) {
-		        		// on inscris la personne
+		        		// on inscrit la personne
 		            	System.out.println("Bonjour");
 		            	Connect.insertUser("database.db",pseudoField.getText(), passwordField.getText(), Connect.getId());
 		            	System.out.println("Vous êtes maintenant inscrit !");
@@ -182,8 +165,6 @@ public class Inscription implements ActionListener {
     
     private static void initLookAndFeel() {
         
-        // Swing allows you to specify which look and feel your program uses--Java,
-        // GTK+, Windows, and so on as shown below.
         String lookAndFeel = null;
         
         if (LOOKANDFEEL != null) {
@@ -228,15 +209,13 @@ public class Inscription implements ActionListener {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    //private static void createAndShowGUI() {
+    
     public Inscription() {
-        //Set the look and feel.
         initLookAndFeel();
 
         //mettre a jour le id de la database
         Connect.createNewDatabase("database.db");
         Connect.createNewTableUser("database.db");
-        //Connect.insertUser("database.db", "Titou", "1246789123456789",56);
         Connect.updateId();
         System.out.println("update de l'id : " + Connect.getId());
         
@@ -255,15 +234,4 @@ public class Inscription implements ActionListener {
         frame.pack();
         frame.setVisible(true);
     }
-    
-    /*public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
-    */
 }

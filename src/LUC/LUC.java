@@ -1,16 +1,11 @@
 
 package LUC;
 
-/*
- * SwingApplication.java is a 1.4 example that requires
- * no other files.
- */
 import javax.swing.*;
 import user.*;
 
 import clavardage.Clavardage;
 import requete.Connect;
-import connexion.*;
 import profil.Profil;
 import communication.*;
 
@@ -18,7 +13,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class LUC implements ActionListener {
     
@@ -38,9 +32,7 @@ public class LUC implements ActionListener {
   //Affichage des différents messages
     private static JTextArea ListUser = new JTextArea(10, 20);
     private static JScrollPane Users = new JScrollPane(ListUser);
-    
-    //Specify the look and feel to use.  Valid values:
-    //null (use the default), "Metal", "System", "Motif", "GTK+"
+
     final static String LOOKANDFEEL = null;
     
     public Component createComponents() {
@@ -78,18 +70,6 @@ public class LUC implements ActionListener {
         buttonRefresh.addActionListener(this);
         labelButtonRefresh.setLabelFor(buttonRefresh);
         
-        /*creation du button de redirection vers la page de connexion
-        JButton buttonConnect = new JButton("Se connecter");
-        buttonConnect.setMnemonic(KeyEvent.VK_I);
-        buttonConnect.addActionListener(this);
-        labelConnect.setLabelFor(buttonConnect);
-        */
-        
-        /*
-         * An easy way to put space between a top-level container
-         * and its contents is to put the contents in a JPanel
-         * that has an "empty" border.
-         */
         JPanel pane = new JPanel(new GridLayout(0, 1));
         pane.add(Users);
         pane.add(labelError);
@@ -110,7 +90,7 @@ public class LUC implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 		labelError.setText("");
     	if (e.getActionCommand().equals("Demarrer une conversation")){
-    		//check si User bien dans la LUC (pseuod ==> id ==> LUC)
+    		//check si User bien dans la LUC (pseudo ==> id ==> LUC)
     		Connect.createNewTableLUC("database.db");
     		System.out.println("[LUC] print debconv.gettext() :" + debutConv.getText());
     		String userPseudo = debutConv.getText();
@@ -121,8 +101,7 @@ public class LUC implements ActionListener {
         		try {
 					Clavardage pageClavardage = new Clavardage(user,userId, userPseudo);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println("[LUC] Erreur : " + e1);
 				}
         		System.out.println("connexion");
         		frame.setVisible(false);
@@ -133,22 +112,11 @@ public class LUC implements ActionListener {
         	}
     	}
     	else if (e.getActionCommand().equals("Raffraichir")) {
-    		try {
-    			/*test de raffraichissement numero 2
-    			ArrayList <String> users = Connect.queryAllUserLUC("database.db");
-    			ListUser.setText("");
-    			for (String courant : users) {
-    				if (!courant.contains("end")) {
-    					System.out.println(courant + " ");
-    					ListUser.setText(ListUser.getText() + "\n" + courant);
-    				}
-    			}*/
-    			
+    		try {    			
     			//rafraichir la lite des user connectes
     			String luc = ListUser.getText();
     			String[] lucSplit = luc.split("\n");
     			System.out.println("[LUC] texte : " + luc);
-    			//System.out.println(lucSplit[0] + " et " + lucSplit[1] + " et " + lucSplit[2]);
     			ArrayList <String> newUsers = Connect.queryNewUser("database.db", lucSplit);
     			ArrayList <String> oldUsers = Connect.queryOldUser("database.db", lucSplit);
     			ArrayList <String> disconnectedUsers = Connect.queryDisconnectedUser("database.db", lucSplit);
@@ -181,16 +149,12 @@ public class LUC implements ActionListener {
     			}
 				ListUser.setText(ListUser.getText() + "\n");
 				
-				//ouvrir TCP pour les news
-
-				//fermeture des connections TCP des users deconnectes
-    			manager.stopCommunication(disconnectedUsers); //!!!!!!!!!!!!!!!!!A CODER ---> retrouver port � partir du pseudo :
+    			manager.stopCommunication(disconnectedUsers); 
     			
     			
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC]refresh " + e1);
 			}
-    		//frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Liste des utilisateurs connectes")) {
     		try {
@@ -201,7 +165,7 @@ public class LUC implements ActionListener {
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
-    		// Envoie d'un message de deconnexion en Broadcast
+    		// Envoi d'un message de deconnexion en Broadcast
     		try {
 				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 			} catch (Exception e1) {
@@ -231,8 +195,6 @@ public class LUC implements ActionListener {
     
     private static void initLookAndFeel() {
         
-        // Swing allows you to specify which look and feel your program uses--Java,
-        // GTK+, Windows, and so on as shown below.
         String lookAndFeel = null;
         
         if (LOOKANDFEEL != null) {
@@ -278,8 +240,8 @@ public class LUC implements ActionListener {
      * event-dispatching thread.
      * @throws IOException 
      */
+    
     public LUC(User user) throws IOException {
-    //public void createAndShowGUI() {
         System.out.println("debut constructeur");
         //init le user
         this.user = user;
@@ -298,7 +260,7 @@ public class LUC implements ActionListener {
 			public void windowClosing(WindowEvent e){
 		    	
 		    		System.out.println("[PROFIL] fermeture appli");
-					// Envoie d'un message de deconnexion en Broadcast
+					// Envoi d'un message de deconnexion en Broadcast
 					try {
 						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 					} catch (Exception e1) {
@@ -321,31 +283,10 @@ public class LUC implements ActionListener {
 		});
         
         ListUser.setEditable(false);
-        //Connect.deleteTable("database.db", "ListUserConnected"); // PROBLEME LORS DU RETOUR
-        
+      
         // afficher les User connectes
-        Connect.createNewTableLUC("database.db");
-        /* Verification du delete (OK)
-    	ArrayList <String> UsersNull = Connect.queryAllUserLUC("database.db");
-		System.out.println("USERS NULL \n");
-    	for (String courant : UsersNull) {
-    		System.out.println(courant + "\n");
-    	}
-        */
-        
-        /* ------- TEST INSERTION DE USERS / CONV -------
-    	Connect.insertUser("database.db", "Tata", "titi123456790" , 19999);
-    	Connect.insertUser("database.db", "Tutu", "titi123456790" , 29999);
-    	Connect.insertUserLUC("database.db", 19999, "2.3.4.5");
-    	Connect.insertUserLUC("database.db", 29999, "1.2.3.4");*/
-        
+        Connect.createNewTableLUC("database.db");        
     	Connect.createNewTableConv("database.db");
-    	/*
-    	Connect.insertConversation("database.db", 1, 29999, "Bonjour", "1:1:1:1");
-    	Connect.insertConversation("database.db", 29999, 1, "Bonjour toi !", "1:2:1:1");
-    	Connect.insertConversation("database.db", 1, 29999, "Comment va ?", "1:3:1:1");
-    	Connect.insertConversation("database.db", 29999, 1, "Bien et toi ? !", "1:4:1:1");
-    	*/
         
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
     	//on reset l'espace de texte
@@ -354,18 +295,12 @@ public class LUC implements ActionListener {
 		System.out.println("[LUC] affichage da la LUC \n");
     	try {
 	    	this.manager = new ChatManager();
-	    	//System.out.println("USERS \n");
 	    	for (String courant : Users) {
     			System.out.println("[LUC]" + courant + "\n");
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
-	    		if(courant.contains("end")) {
-	    			//System.out.println("[LUC] if equals \"end\" ");
-	    		}
-	    		else{
+	    		if(!courant.contains("end")) {
 		    		ListUser.setText(ListUser.getText() + "\n" + courant );
-		    		//System.out.println("[LUC] Constructeur -> apres set text");
 	    			manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
-	    			//System.out.println("[LUC] Constructeur -> addTCPServer, id : "+user.getId()+", ip : "+BroadcastingClient.getIpAddress());
 	    		}
 	    	}
     	}
@@ -374,7 +309,6 @@ public class LUC implements ActionListener {
 		}
     	
         //a modifier pour le main
-        //LUC app = new LUC();
         Component contents = createComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
         
@@ -382,20 +316,5 @@ public class LUC implements ActionListener {
         frame.pack();
         frame.setVisible(true);
         System.out.println("fin constructeur LUC");
-    }
-    
-    /*
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	LUC pageLUC = new LUC();
-                pageLUC.createAndShowGUI();
-            }
-        });
-    }
-    */
-    
-    
+    }    
 }
