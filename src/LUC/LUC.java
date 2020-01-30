@@ -157,7 +157,7 @@ public class LUC implements ActionListener {
 	    			System.out.println("[LUC]" + courant + "\n");
 		    		// Ouverture d'un Thread TCP Server par utilisateur connectes
 		    		if(!courant.contains("end") && !courant.contains(this.user.getPseudo())) {
-			    		ListUser.setText(ListUser.getText() + "\n" + courant );
+			    		//ListUser.setText(ListUser.getText() + "\n" + courant );
 		    			//manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
 			    		idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
 			    		String parts[] = idDest.split("/");
