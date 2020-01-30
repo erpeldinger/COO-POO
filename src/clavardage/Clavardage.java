@@ -164,7 +164,7 @@ public class Clavardage implements ActionListener {
     		// Envoie d'un message de deconnexion en Broadcast
     		try {
 				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
-				this.manager.stopCommunication();
+				//this.manager.stopCommunication();
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
 			}
