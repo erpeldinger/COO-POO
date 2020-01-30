@@ -330,7 +330,7 @@ public class LUC implements ActionListener {
 		    		manager.addTCPServer(user.getId(), courant,idDestInet);
 	    		}
 	    	}
-    	}				
+    	}
 		catch (Exception e) {
 			System.out.println("[LUC] ERREUR Creation TCP Server ou ChatManager impossible");
 		}

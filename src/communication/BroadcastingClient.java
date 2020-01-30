@@ -56,7 +56,6 @@ public class BroadcastingClient {
         }
         return res;
     }
-
     
     public static InetAddress getBroadcastAddress()  throws SocketException {
     	InetAddress broadcast = null;

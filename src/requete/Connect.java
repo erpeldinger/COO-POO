@@ -150,6 +150,7 @@ public class Connect {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (id, ip) VALUES (?, ?);";
         
+        System.out.println("tentative de requete sql : " + sql);
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, id);
@@ -165,7 +166,8 @@ public class Connect {
     public static void insertUserLUCbyPseudo(String filename, String pseudo, String ip) {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (pseudo, ip) VALUES (?, ?);";
-        
+
+        System.out.println("tentative de requete sql : " + sql);
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, pseudo);
@@ -181,7 +183,8 @@ public class Connect {
     public static void insertUserLUCbyAll(String filename, String pseudo, String ip, int id) {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (pseudo, ip, id) VALUES (?, ?, ?);";
-        
+
+        System.out.println("tentative de requete sql : " + sql);
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, pseudo);
@@ -609,7 +612,7 @@ public class Connect {
    // Récupération de tous les pseudo correspondant aux ids
       public static ArrayList <String> queryAllUserLUC(String filename) {
           String url = "jdbc:sqlite:./database/"+filename;
-          String sql = "SELECT user.pseudo FROM User, ListUserConnected WHERE ListUserConnected.id = User.id ;";
+          String sql = "SELECT user.pseudo FROM User, ListUserConnected WHERE ListUserConnected.pseudo = User.pseudo ;";
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
