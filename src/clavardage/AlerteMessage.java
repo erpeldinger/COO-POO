@@ -20,7 +20,7 @@ public class AlerteMessage {
     // L'etat de l'envoi du message
 	private JFrame frame;
 	private  String pseudoExpediteur="";
-	private  String message = "Vous avez reçu un nouveau message";
+	private  String message = "Vous avez reçu un nouveau message de";
 	private String envoieEchec = "L'envoi a echoue, veuillez ressayer";
 	private  String decoUser = " s'est deconnecté(e) !";
     final  JLabel labelMessage = new JLabel("");

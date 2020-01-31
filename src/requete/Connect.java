@@ -660,9 +660,9 @@ public class Connect {
               System.out.println("[ERROR QUERY] All User " + e.getMessage());
           }
           //Enlever les doublons
-          Set set = new HashSet() ;
+          Set<String> set = new HashSet<String>() ;
           set.addAll(resultat);
-          ArrayList<String> res = new ArrayList(set);
+          ArrayList<String> res = new ArrayList<String>(set);
           return res;
       }
       
