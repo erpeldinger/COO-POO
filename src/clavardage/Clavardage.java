@@ -139,6 +139,12 @@ public class Clavardage implements ActionListener {
 	                labelMessage.setText(labelPrefix + etatEnvoiEnCours);
 	            }
 	        }
+	        //reset du TCPClient
+        	try {
+				this.client = new TCPClient(InetAddress.getByName(this.ipTCP), this.port, user, id2);
+			} catch (Exception e1) {
+				System.out.println("reset du TCPClient");
+			}
     	}
 	    else if (e.getActionCommand().contentEquals("Retour")) {
 	    	messageField.setText("");
