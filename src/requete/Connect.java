@@ -817,6 +817,9 @@ public class Connect {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
           System.out.println("[CONNECT] end queryConversation");
+          for ( String courant : resultat) {
+      		System.out.println("[QUERY] resultat courant : " + courant);
+          }
           return resultat;
       }
       
