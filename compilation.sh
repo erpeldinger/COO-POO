@@ -1,1 +1,1 @@
-find -name "*.java" | xargs javac -d classes -Xlint:unchecked
+find -name "*.java" | xargs javac -d classes
