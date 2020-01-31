@@ -812,11 +812,14 @@ public class Connect {
                   System.out.println("Message trouve : " + resInter);
                   }
               resultat.add("end");
-              return resultat;
+              //return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
           System.out.println("[CONNECT] end queryConversation");
+          for ( String courant : resultat) {
+      		System.out.println("courant : " + courant + "\n");
+          }
           return resultat;
       }
       
