@@ -20,6 +20,7 @@ public class Clavardage implements ActionListener {
     // L'etat de l'envoi du message
 	private User user;
 	private int id2;
+	private int port;
 	private JFrame frame;
 	private TCPClient client;
     private static String labelPrefix = "Etat du message : ";
@@ -143,17 +144,20 @@ public class Clavardage implements ActionListener {
 	    	ConvArea.setText("");
 	    	try {
 				LUC pageLUC = new LUC(user);
+				this.client.stopClavardage();
 			} catch (IOException e1) {
 				System.out.println("[CLAVARDAGE] eRREUR : " + e1);
 			}
     		frame.setVisible(false);
 	    }
     	else if (e.getActionCommand().equals("Profil")) {
+			this.client.stopClavardage();
     		Profil monProfil = new Profil(this.user);
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Liste des utilisateurs connectes")) {
     		try {
+				this.client.stopClavardage();
 				LUC maLUC = new LUC(this.user);
 			} catch (IOException e1) {
 				System.out.println("[ERROR PROFIL] Creation de la page LUC impossible : " + e);
@@ -163,6 +167,7 @@ public class Clavardage implements ActionListener {
     	else if (e.getActionCommand().equals("Se deconnecter")) {
     		// Envoie d'un message de deconnexion en Broadcast
     		try {
+				this.client.stopClavardage();
 				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 				//this.manager.stopCommunication();
 			} catch (Exception e1) {
@@ -246,12 +251,12 @@ public class Clavardage implements ActionListener {
     	System.out.println("[CLAVARDAGE] ip recupere string : " + ipS + " a partir de id = " + pseudoDest);
     	
     	
-    	int port = Connect.queryPortLUC("database.db",id2);
-    	System.out.println("port recupere : " + port);
+    	this.port = Connect.queryPortLUC("database.db",id2);
+    	System.out.println("port recupere : " + this.port);
     	
     	String parts[] = ipS.split("/");
     	System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
-    	this.client = new TCPClient(InetAddress.getByName(parts[1]), port, user, id2);
+    	this.client = new TCPClient(InetAddress.getByName(parts[1]), this.port, user, id2);
     	
         //Set the look and feel.
         initLookAndFeel();

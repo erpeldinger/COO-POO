@@ -1,4 +1,5 @@
 package communication;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -63,11 +64,19 @@ public class TCPClient {
 			System.out.println("[TCP CLIENT] sendMessage -> apres writeM \n");
 			out.flush();
 			out.close();
-			this.socket.close();
 		}			
         catch (Exception e){
             System.out.println("[TCPClient ] Erreur sendMessage, write ");
         }		
+		
+	}
+	public void stopClavardage() {
+		try {
+			this.socket.close();
+		} catch (IOException e) {
+			System.out.println("[TCP CLient] Erreur fermeture socket");
+		}
+	}
 		
 	/*
 	 * POUR L'ENVOI DE FICHIERS
@@ -92,6 +101,5 @@ public class TCPClient {
 		    }
 	}	
 	*/
-	}
 	
 }

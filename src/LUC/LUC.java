@@ -100,7 +100,7 @@ public class LUC implements ActionListener {
         	if (userId != -1) {
     		//ouvrir la page de conv
         		try {
-					Clavardage pageClavardage = new Clavardage(user,userId, userPseudo);
+					Clavardage pageClavardage = new Clavardage(user,userId, userPseudo, this.manager);
 				} catch (Exception e1) {
 					System.out.println("[LUC] Erreur : " + e1);
 				}
