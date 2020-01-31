@@ -178,9 +178,9 @@ public class Clavardage implements ActionListener {
     		// on reset l'affichage
     		ConvArea.setText("");
     		// on va chercher les messages dans la BD
-    		ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
+    		ArrayList <String> historiqueRecup = Connect.queryHistorique("database.db", user.getId(), id2);
     		System.out.println("apres la requete \n");
-        	for ( String courant : Users) {
+        	for ( String courant : historiqueRecup) {
         		System.out.println("message courant : " + courant);
         		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
         			ConvArea.setText(ConvArea.getText() + "\n" + courant );
@@ -295,8 +295,8 @@ public class Clavardage implements ActionListener {
         // afficher l'historique des message
         Connect.createNewTableConv("database.db");
         System.out.println("User : " + user.getId() + " user 2 " + id2);
-    	ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
-    	for ( String courant : Users) {
+    	ArrayList <String> Users1 = Connect.queryHistorique("database.db", user.getId(), id2);
+    	for ( String courant : Users1) {
     		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
     			ConvArea.setText(ConvArea.getText() + "\n" + courant );
     		}
