@@ -62,8 +62,6 @@ public class TCPClient {
 			System.out.println("[TCP CLIENT] sendMessage -> avant writeM \n");
 			writeM(out, m);
 			System.out.println("[TCP CLIENT] sendMessage -> apres writeM \n");
-			out.flush();
-			out.close();
 		}			
         catch (Exception e){
             System.out.println("[TCPClient ] Erreur sendMessage, write ");

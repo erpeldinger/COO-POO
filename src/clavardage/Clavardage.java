@@ -21,6 +21,7 @@ public class Clavardage implements ActionListener {
 	private User user;
 	private int id2;
 	private int port;
+	private String ipTCP;
 	private JFrame frame;
 	private TCPClient client;
     private static String labelPrefix = "Etat du message : ";
@@ -192,6 +193,11 @@ public class Clavardage implements ActionListener {
         		}
         	}
     		System.out.println("apres le for \n");
+        	try {
+				this.client = new TCPClient(InetAddress.getByName(this.ipTCP), this.port, user, id2);
+			} catch (Exception e1) {
+				System.out.println("reset du TCPClient");
+			}
     	}
     }   
     
@@ -255,6 +261,8 @@ public class Clavardage implements ActionListener {
     	System.out.println("port recupere : " + this.port);
     	
     	String parts[] = ipS.split("/");
+
+    	this.ipTCP = parts[1];
     	System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
     	this.client = new TCPClient(InetAddress.getByName(parts[1]), this.port, user, id2);
     	
@@ -295,8 +303,8 @@ public class Clavardage implements ActionListener {
 			public void windowDeactivated(WindowEvent e){}
 		});
         
-        ConvArea.setEditable(false);        
-
+        ConvArea.setEditable(false);
+        
         // afficher l'historique des message
         Connect.createNewTableConv("database.db");
         System.out.println("User : " + user.getId() + " user 2 " + id2);
