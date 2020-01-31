@@ -53,24 +53,10 @@ public class DemoHistorique {
     	Connect.insertConversation("database.db",1,2,msgHorodate3.getContent(),DateMsg.toString(msgHorodate3.getDate()));
     	System.out.println("Message insere : " + msgHorodate3.getContent() + " " + DateMsg.toString(msgHorodate3.getDate()));
     	
-    	/*
-    	//Recuperation des messages
-    	ArrayList <String> msg12 = Connect.queryConversation("database.db",1, 2);
-    	ArrayList <String> msg21 = Connect.queryConversation("database.db",2, 1);
-    	//Affichage des messages
-    	System.out.println("les messages de Toto vers Tata : ");
-    	for (String courant : msg12) {
-        	System.out.println(courant + "\n");
-    	}
-    	System.out.println("les messages de tata vers Toto : ");
-    	for (String courant : msg21) {
-        	System.out.println(courant + "\n");
-    	}*/
-    	
     	//Recuperation d'un historique : 
     	ArrayList <String> msg = Connect.queryConversation("database.db",1, 2);
     	msg.remove(msg.size()-1); // on supprime le "end"
-    	System.out.println("Les messages ordonnes : \n");
+    	System.out.println("Récuperation des messages (ordre chronologique) : \n");
     	for (String courant : msg) {
         	System.out.println(courant + "\n");
     	}

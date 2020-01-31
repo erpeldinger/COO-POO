@@ -18,6 +18,7 @@ public class DemoLUC {
     	Connect.createNewDatabase("database.db");
     	Connect.createNewTableUser("database.db");
     	Connect.createNewTableLUC("database.db");
+    	System.out.println("Ajout de trois utilisateurs : Toto, Tata, Tutu");
     	Connect.insertUser("database.db", "Toto", "titi123456789", 1);
     	Connect.insertUser("database.db", "Tata", "tutu123456789", 2);
     	Connect.insertUser("database.db", "Tutu", "tutu123456789", 3);
@@ -31,15 +32,12 @@ public class DemoLUC {
     	String ip1 = Connect.queryUserLUCbyPseudo("database.db", "Toto");
     	String ip2 = Connect.queryUserLUCbyPseudo("database.db", "Tata");
     	String ip3 = Connect.queryUserLUCbyPseudo("database.db", "Tutu");
-    	
+    	System.out.println("Recuperation des adresses ip dans la abse de données : ");
     	System.out.println("l'adresse ip de Toto est : " + ip1 + "\n");
     	System.out.println("l'adresse ip de Tata est : " + ip2 + "\n");
     	System.out.println("l'adresse ip de Tutu est : " + ip3 + "\n");
     	
 
-    	Connect.deleteTable("database.db","User");
-    	Connect.deleteTable("database.db","ListUserConnected");
-    	System.out.println("delete ok");
     	
     	}
 }

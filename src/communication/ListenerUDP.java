@@ -4,6 +4,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+
+import clavardage.AlerteMessage;
+
 import java.io.IOException;
 import java.lang.Exception;
 import java.net.UnknownHostException;
@@ -138,6 +141,8 @@ public class ListenerUDP extends Thread {
 		    		String pseudoDisconnected = Connect.queryUserPseudo("database.db", idDisconnected, this.pseudo);
 		    		Connect.deleteUserLUC("database.db", pseudoDisconnected);
 		    		System.out.println("[LISTERNER UDP] Suppression dans la LUC de : " + pseudoDisconnected);
+		    		//On previens l'utilisateur
+		            AlerteMessage alerte = new AlerteMessage(pseudoDisconnected, 2);
 		    	}
 		    	else if (isOKPacket(msg)) {
 		    		//rien à faire

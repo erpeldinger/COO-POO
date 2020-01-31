@@ -30,7 +30,7 @@ public class Connect {
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("A new database has been created.");
+                //System.out.println("A new database has been created.");
             }
  
         } catch (SQLException e) {
@@ -56,7 +56,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            System.out.println("[CONNECT] A new table User has been created");
+            //System.out.println("[CONNECT] A new table User has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -79,7 +79,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            System.out.println("A new table LUC has been created");
+            //System.out.println("A new table LUC has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -119,7 +119,7 @@ public class Connect {
                 Statement stmt = conn.createStatement()) {
             // delete the table
             stmt.execute(sql);
-            System.out.println("A table has been deleted");
+            //System.out.println("A table has been deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -139,7 +139,7 @@ public class Connect {
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
             idCourant++;
-            System.out.println("[CONNECT] Insertion dans User de : " + pseudo + " de id : " + id);
+            //System.out.println("[CONNECT] Insertion dans User de : " + pseudo + " de id : " + id);
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] User " + e.getMessage());
         }
@@ -150,13 +150,13 @@ public class Connect {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (id, ip) VALUES (?, ?);";
         
-        System.out.println("tentative de requete sql : " + sql);
+        //System.out.println("tentative de requete sql : " + sql);
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, id);
                     pstmt.setString(2, ip);
             pstmt.executeUpdate();
-            System.out.println("A User has been created in UserLUC");
+            //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
         }
@@ -167,13 +167,13 @@ public class Connect {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (pseudo, ip) VALUES (?, ?);";
 
-        System.out.println("tentative de requete sql : " + sql);
+        //System.out.println("tentative de requete sql : " + sql);
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, pseudo);
                     pstmt.setString(2, ip);
             pstmt.executeUpdate();
-            System.out.println("A User has been created in UserLUC");
+            //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
         }
@@ -184,14 +184,14 @@ public class Connect {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (pseudo, ip, id) VALUES (?, ?, ?);";
 
-        System.out.println("tentative de requete sql : " + sql);
+        //System.out.println("tentative de requete sql : " + sql);
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, pseudo);
                     pstmt.setString(2, ip);
                     pstmt.setInt(3, id);
             pstmt.executeUpdate();
-            System.out.println("A User has been created in UserLUC");
+            //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
         } 
@@ -202,7 +202,7 @@ public class Connect {
     	String url = "jdbc:sqlite:./database/"+filename;
         String sql = "INSERT INTO ListUserConnected (pseudo, ip, id, port) VALUES (?, ?, ?, ?);";
 
-        System.out.println("Tentative de requete sql : " + sql  + " pseudo : " + pseudo + "\n");
+        //System.out.println("Tentative de requete sql : " + sql  + " pseudo : " + pseudo + "\n");
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, pseudo);
@@ -210,7 +210,7 @@ public class Connect {
                     pstmt.setInt(3, id);
                     pstmt.setInt(4, port);
             pstmt.executeUpdate();
-            System.out.println("A User has been created in UserLUC");
+            //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
         }
@@ -221,7 +221,7 @@ public class Connect {
     	  String url = "jdbc:sqlite:./database/"+filename;
           String sql = "INSERT INTO Conversation (idUser1, idUser2, content, date) VALUES (?, ?, ?, ?);";
           
-          System.out.println("Tentative de requete sql : " + sql);
+          //System.out.println("Tentative de requete sql : " + sql);
           try (Connection conn = DriverManager.getConnection(url);
                   PreparedStatement pstmt = conn.prepareStatement(sql)) {
                       pstmt.setInt(1, id1);
@@ -229,7 +229,7 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
-              System.out.println("[CONNECT] On a add le message : " + content + " de date : " + date + " avec id1 = " + id1 + " et id2 = " + id2);
+              //System.out.println("[CONNECT] On a add le message : " + content + " de date : " + date + " avec id1 = " + id1 + " et id2 = " + id2);
           } catch (SQLException e) {
               System.out.println("[ERROR INSERT] Conv " + e.getMessage());
           }
@@ -439,14 +439,15 @@ public class Connect {
               // loop through the result set
               while (rs.next()) {
                   resInter = rs.getString(("pseudo"));
-                          System.out.println("[CONNECT] end queryUser");
+                  //System.out.println("[CONNECT] end queryUser");
                   resultat.add(resInter);
               }
               resultat.add("end");
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
           }
-          System.out.println("[CONNECT] end queryUser");
+          
+          //System.out.println("[CONNECT] end queryUser");
           for (String courant : resultat) {
         	  if (!courant.equals(pseudo) && !courant.equals("end")) {
         		  res= courant;
@@ -541,7 +542,7 @@ public class Connect {
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter ;
           	
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -550,7 +551,7 @@ public class Connect {
                   resInter = Integer.valueOf(rs.getInt(("id")));
                   resultat.add(resInter);
               }
-              System.out.println("add du 0" );
+              //System.out.println("add du 0" );
               resultat.add(0);
               return resultat.get(0).intValue();
           } catch (SQLException e) {
@@ -672,7 +673,7 @@ public class Connect {
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter;
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -697,7 +698,7 @@ public class Connect {
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter;
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -721,7 +722,7 @@ public class Connect {
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter;
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -747,7 +748,7 @@ public class Connect {
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter;
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -771,7 +772,7 @@ public class Connect {
           ArrayList<Integer> resultat = new ArrayList<Integer>();
           Integer resInter;
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -798,7 +799,7 @@ public class Connect {
           ArrayList<String> resultat = new ArrayList<String>();
           String resInter = "";
 
-          System.out.println("Tentative de requete sql : " + sql );
+          //System.out.println("Tentative de requete sql : " + sql );
           try (Connection conn = DriverManager.getConnection(url);
                Statement stmt  = conn.createStatement();
                ResultSet rs    = stmt.executeQuery(sql)){
@@ -820,7 +821,7 @@ public class Connect {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
           resultat.add("!!end");
-          System.out.println("[CONNECT] end queryConversation");
+          //System.out.println("[CONNECT] end queryConversation");
           /*
           System.out.println("APRES ADD \n");
           for (String iter : resultat) {
@@ -897,10 +898,11 @@ public class Connect {
       public static ArrayList <String> queryNewUser(String filename, String[] luc) {
     	  ArrayList <String> res = new ArrayList <String>();
     	  ArrayList <String> newLUC = queryAllUserLUC(filename);
-    	  System.out.println("new LUC : ");
+    	  /*System.out.println("new LUC : ");
     	  for (String courant : newLUC) {
     		  System.out.println(courant + " - ");
     	  }
+    	  */
     	  
     	  ArrayList <String> oldLUC = new ArrayList<String>(Arrays.asList(luc));
     	  for (String courant : newLUC) {

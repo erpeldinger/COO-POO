@@ -38,8 +38,7 @@ public class DemoServerTCP {
     	int port = 1234;
 		System.out.println("lancement du server tcp ");
 		ChatManager manager = new ChatManager();
-		manager.addTCPServer(u1.getId(), "ClientTom",ip); //MODIF AJOUT DU PSEUDO EN ARGUMENT N°2
-    	//TCPServer server = new TCPServer(u1.getId(),ip,1288);
+		manager.addTCPServer(u1.getId(), "ClientTom",ip);
 		System.out.println("tcp server lancé ");
 		
     	

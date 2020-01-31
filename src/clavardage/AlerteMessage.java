@@ -22,6 +22,7 @@ public class AlerteMessage {
 	private  String pseudoExpediteur="";
 	private  String message = "Vous avez reçu un nouveau message";
 	private String envoieEchec = "L'envoi a echoue, veuillez ressayer";
+	private  String decoUser = " s'est deconnecté(e) !";
     final  JLabel labelMessage = new JLabel("");
 
     final  String LOOKANDFEEL = null;
@@ -92,8 +93,11 @@ public class AlerteMessage {
     	if (type == 0) {
 	    	labelMessage.setText(message + " " + pseudoExpediteur + " !");
     	}
-    	else {
+    	else if (type == 1) {
 	    	labelMessage.setText(envoieEchec);
+    	}
+    	else if (type == 2) {
+	    	labelMessage.setText(pseudoExpediteur + decoUser);
     	}
     	//Set the look and feel.
         initLookAndFeel();
