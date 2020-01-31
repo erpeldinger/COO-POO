@@ -22,7 +22,6 @@ public class DemoClientTCP {
     	//Thread.sleep(500);
         //u2.allowBroadcast(new BroadcastingClient(u2.getListener().getDatagramSocket(),1234, u2)); //port du Server ListenerUDP (1234 pour tous)
         
-        
         //Partie TCP
         InetAddress ip = InetAddress.getByName("10.1.5.20"); // en dur [celle du serveur]
         System.out.println("IP Client : " +ip);

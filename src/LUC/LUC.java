@@ -158,12 +158,13 @@ public class LUC implements ActionListener {
 		    		// Ouverture d'un Thread TCP Server par utilisateur connectes
 		    		if(!courant.contains("end") && !courant.contains(this.user.getPseudo())) {
 			    		//ListUser.setText(ListUser.getText() + "\n" + courant );
-		    			//manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
-			    		idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
-			    		String parts[] = idDest.split("/");
-			    		System.out.println("[LUC] IP recupere dans la BD : " + parts[1] + " pour le pseudo " + courant);
-			    		idDestInet = InetAddress.getByName(parts[1]);
-			    		manager.addTCPServer(user.getId(), courant ,idDestInet);
+		    			//ERREUR
+			    		//idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
+			    		//String parts[] = idDest.split("/");
+			    		//System.out.println("[LUC] IP recupere dans la BD : " + parts[1] + " pour le pseudo " + courant);
+			    		//idDestInet = InetAddress.getByName(parts[1]);
+			    		//CORRECTION
+		    			manager.addTCPServer(user.getId(), courant ,BroadcastingClient.getIpAddress());
 		    		}
 		    	}
 
@@ -311,7 +312,7 @@ public class LUC implements ActionListener {
     	ArrayList <String> Users = Connect.queryAllUserLUC("database.db");
     	//on reset l'espace de texte
 		ListUser.setText("");
-
+		
 		System.out.println("[LUC] !!!!!!!!!!!!!!!!!!! AFFICHAGE DE LA LUC !!!!!!!!!!!!! \n");
     	try {
 	    	this.manager = new ChatManager();
@@ -324,12 +325,15 @@ public class LUC implements ActionListener {
 		    		ListUser.setText(ListUser.getText() + "\n" + courant );
 		    		System.out.println("[LUC] IN if");
 	    			//manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
-		    		System.out.println("[LUC] avant query");
-		    		idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
-		    		System.out.println("[LUC] Iapres query");
-		    		idDestInet = InetAddress.getByName(idDest);
-		    		System.out.println("[LUC] IP recupere dans la BD : " + idDest);
-		    		manager.addTCPServer(user.getId(), courant,idDestInet);
+		    		//System.out.println("[LUC] avant query");
+		    		//idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
+		    		//System.out.println("[LUC] Iapres query");
+		    		//idDestInet = InetAddress.getByName(idDest);
+		    		//System.out.println("[LUC] IP recupere dans la BD : " + idDest);
+		    		//ERREUR
+		    		//manager.addTCPServer(user.getId(), courant,idDestInet);
+		    		//CORRECTION
+	    			manager.addTCPServer(user.getId(), courant ,BroadcastingClient.getIpAddress());
 	    		}
 	    	}
     	}
