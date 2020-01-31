@@ -809,6 +809,7 @@ public class Connect {
                           resInter += rs.getString("date") + " ----- ";
                           resInter += rs.getString("content");
                           resultat.add(resInter);
+                  System.out.println("Message trouve : " + resInter);
                   }
               resultat.add("end");
               return resultat;
