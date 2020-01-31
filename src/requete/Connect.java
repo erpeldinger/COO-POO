@@ -229,7 +229,7 @@ public class Connect {
                       pstmt.setString(3, content);
                       pstmt.setString(4, date);
               pstmt.executeUpdate();
-              System.out.println("[CONNECT] On a add le message : " + content + " de date : " + date);
+              System.out.println("[CONNECT] On a add le message : " + content + " de date : " + date + " avec id1 = " + id1 + " et id2 = " + id2);
           } catch (SQLException e) {
               System.out.println("[ERROR INSERT] Conv " + e.getMessage());
           }
