@@ -810,11 +810,19 @@ public class Connect {
                           resInter += rs.getString("content");
                           resultat.add(resInter);
                   }
+              System.out.println("AVANT ADD \n");
+              for (String iter : resultat) {
+            	  System.out.println("[CONNECT] iter : " + iter + "\n");
+              }
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
           }
           resultat.add("!!end");
           System.out.println("[CONNECT] end queryConversation");
+          System.out.println("APRES ADD \n");
+          for (String iter : resultat) {
+        	  System.out.println("[CONNECT] iter : " + iter + "\n");
+          }
           return resultat;
       }
       

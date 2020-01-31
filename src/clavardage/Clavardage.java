@@ -194,7 +194,7 @@ public class Clavardage implements ActionListener {
     		System.out.println("[CLAVARDAGE] premier element :" + historiqueRecup.get(0));
         	for ( String courant : historiqueRecup) {
         		System.out.println("[CLAVARDAGE] message courant : " + courant);
-        		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
+        		if (!courant.contains("end")) {
         			ConvArea.setText(ConvArea.getText() + "\n" + courant );
         		}
         	}
@@ -316,7 +316,7 @@ public class Clavardage implements ActionListener {
         System.out.println("User : " + user.getId() + " user 2 " + id2);
     	ArrayList <String> Users1 = Connect.queryHistorique("database.db", user.getId(), id2);
     	for ( String courant : Users1) {
-    		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
+    		if (!courant.contains("end")) {
     			ConvArea.setText(ConvArea.getText() + "\n" + courant );
     		}
     	}
