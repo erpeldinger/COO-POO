@@ -3,10 +3,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
+
 import user.User;
 import format.Message;
 import requete.Connect;
 import format.*;
+import clavardage.AlerteMessage;
 
 public class TCPClient {
 
@@ -55,7 +58,7 @@ public class TCPClient {
     }
 	
 	//Envoie le message
-	public void sendMessage(String m) {
+	public void sendMessage(String m) throws UnknownHostException, Exception {
 		try {
 			System.out.println("[TCP CLIENT] sendMessage -> debut \n");
 			OutputStream out = this.socket.getOutputStream();
@@ -66,6 +69,7 @@ public class TCPClient {
 		}			
         catch (Exception e){
             System.out.println("[TCPClient ] Erreur sendMessage, write ");
+            AlerteMessage alerte = new AlerteMessage( "null", 1);
         }		
 		
 	}

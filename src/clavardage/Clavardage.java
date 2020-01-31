@@ -191,9 +191,9 @@ public class Clavardage implements ActionListener {
     		ConvArea.setText("");
     		// on va chercher les messages dans la BD
     		ArrayList <String> historiqueRecup = Connect.queryHistorique("database.db", user.getId(), id2);
-    		System.out.println("[CLAVARDAGE] premier element :" + historiqueRecup.get(0));
+    		//System.out.println("[CLAVARDAGE] premier element :" + historiqueRecup.get(0));
         	for ( String courant : historiqueRecup) {
-        		System.out.println("[CLAVARDAGE] message courant : " + courant);
+        		//System.out.println("[CLAVARDAGE] message courant : " + courant);
         		if (!courant.contains("end")) {
         			ConvArea.setText(ConvArea.getText() + "\n" + courant );
         		}

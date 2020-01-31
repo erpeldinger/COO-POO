@@ -21,7 +21,8 @@ public class AlerteMessage {
 	private JFrame frame;
 	private  String pseudoExpediteur="";
 	private  String message = "Vous avez reçu un nouveau message";
-    final  JLabel labelMessage = new JLabel(message);
+	private String envoieEchec = "L'envoi a echoue, veuillez ressayer";
+    final  JLabel labelMessage = new JLabel("");
 
     final  String LOOKANDFEEL = null;
     
@@ -39,7 +40,6 @@ public class AlerteMessage {
     }
     
     private  void initLookAndFeel() {
-        
         String lookAndFeel = null;
         if (LOOKANDFEEL != null) {
             if (LOOKANDFEEL.equals("Metal")) {
@@ -85,10 +85,16 @@ public class AlerteMessage {
      * @throws Exception 
      * @throws UnknownHostException 
      */
-    public AlerteMessage(String pseudoExpediteur) throws UnknownHostException, Exception {
-        
+    public AlerteMessage(String pseudoExpediteur, int type) throws UnknownHostException, Exception {
+
     	this.pseudoExpediteur = pseudoExpediteur;
-    	labelMessage.setText(message + " " + pseudoExpediteur + " !");
+    	
+    	if (type == 0) {
+	    	labelMessage.setText(message + " " + pseudoExpediteur + " !");
+    	}
+    	else {
+	    	labelMessage.setText(envoieEchec);
+    	}
     	//Set the look and feel.
         initLookAndFeel();
         
