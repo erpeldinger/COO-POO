@@ -57,6 +57,7 @@ public class ChatManager {
 		//recuperation du port dans la BD
 		port = Connect.queryPortLUC("database.db", pseudo);
 		servers.add(new TCPServer(id, localAddr, port)); 
+		System.out.println("[ChatManager] OUT addTCPServer");
 	}
 	
 	public void stopCommunication(){

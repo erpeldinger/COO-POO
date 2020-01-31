@@ -18,10 +18,15 @@ public class DemoServerTCP {
         Connect.insertUser("database.db", "Paul", "12456789123", 12);
         Connect.insertUser("database.db", "Tom", "12456789123", 13);
         Connect.insertUser("database.db", "Thibault", "12456789123", 14);
-    	
+        
     	Connect.insertUserLUC("database.db", 12, "10.1.5.88");
     	Connect.insertUserLUC("database.db", 13, "10.1.5.183" );
     	Connect.insertUserLUC("database.db", 14, "addrIP3" );
+
+    	Connect.insertUser("database.db", "ServerPaul", "mdp", 2);
+    	
+    	Connect.insertUserLUCbyAllPort("database.db", "ClientTom", "10.1.5.15",1, 2100 );
+    	Connect.insertUserLUCbyAllPort("database.db", "ServerPaul", "10.1.5.20",2, 2100 );
     	
     	//Broadcast
     	//InetAddress addrBr = BroadcastingClient.getBroadcastAddress();
@@ -33,7 +38,7 @@ public class DemoServerTCP {
     	int port = 1234;
 		System.out.println("lancement du server tcp ");
 		ChatManager manager = new ChatManager();
-		//!!!!!!!!!!!!!!!!!!! manager.addTCPServer(u1.getId(), ip); //MODIF AJOUT DU PSEUDO EN ARGUMENT N°2
+		manager.addTCPServer(u1.getId(), "ClientTom",ip); //MODIF AJOUT DU PSEUDO EN ARGUMENT N°2
     	//TCPServer server = new TCPServer(u1.getId(),ip,1288);
 		System.out.println("tcp server lancé ");
 		

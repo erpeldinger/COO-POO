@@ -13,7 +13,10 @@ public class DemoClientTCP {
     	
     	Connect.createNewDatabase("database.db");
     	Connect.createNewTableUser("database.db");
-    	Connect.insertUser("database.db", "ClientTom", "mdp", 13);
+    	
+    	Connect.insertUserLUCbyAllPort("database.db", "ClientTom", "10.1.5.15",1, 2100 );
+    	Connect.insertUserLUCbyAllPort("database.db", "ServerPaul", "10.1.5.20",2, 2100 );
+    	Connect.insertUser("database.db", "ClientTom", "mdp", 1);
     	//Broadcast
     	User u2 = new User(13,"ClientTom","mdp",1234);
     	//Thread.sleep(500);
@@ -21,10 +24,10 @@ public class DemoClientTCP {
         
         
         //Partie TCP
-        InetAddress ip = InetAddress.getByName("10.1.5.183"); // en dur [celle du serveur]
+        InetAddress ip = InetAddress.getByName("10.1.5.20"); // en dur [celle du serveur]
         System.out.println("IP Client : " +ip);
     	int port = 2010;
-    	TCPClient client = new TCPClient(ip,2000,u2, 12);
+    	TCPClient client = new TCPClient(ip,2100,u2, 12);
     	client.sendMessage("Coucou c'est client, ca boom ?");
     	
         
