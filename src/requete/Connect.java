@@ -797,6 +797,7 @@ public class Connect {
           String sql = "SELECT content, date FROM Conversation WHERE idUser1 = " + Integer.valueOf(id1) + " AND idUser2 = " + Integer.valueOf(id2) 
           + " OR idUser1 = " + Integer.valueOf(id2) + " AND idUser2 = " + Integer.valueOf(id1) + " ORDER BY date ;";
           ArrayList<String> resultat = new ArrayList<String>();
+          resultat.add("debut -- end");
           String resInter = "";
 
           //System.out.println("Tentative de requete sql : " + sql );
