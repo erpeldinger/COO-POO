@@ -179,11 +179,14 @@ public class Clavardage implements ActionListener {
     		ConvArea.setText("");
     		// on va chercher les messages dans la BD
     		ArrayList <String> Users = Connect.queryHistorique("database.db", user.getId(), id2);
+    		System.out.println("apres la requete \n");
         	for ( String courant : Users) {
+        		System.out.println("message courant : " + courant);
         		if (!courant.contentEquals("end") && !courant.contentEquals("1end")) {
         			ConvArea.setText(ConvArea.getText() + "\n" + courant );
         		}
         	}
+    		System.out.println("apres le for \n");
     	}
     }   
     
