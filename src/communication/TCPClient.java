@@ -69,7 +69,7 @@ public class TCPClient {
 		}			
         catch (Exception e){
             System.out.println("[TCPClient ] Erreur sendMessage, write ");
-            AlerteMessage alerte = new AlerteMessage( "null", 1);
+            AlerteMessage alerte = new AlerteMessage( "null", "", 1);
         }		
 		
 	}

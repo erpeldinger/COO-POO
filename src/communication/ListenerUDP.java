@@ -73,6 +73,11 @@ public class ListenerUDP extends Thread {
 		CharSequence s =  "NOP";
 		return msg.contains(s);
 	}
+
+	private boolean isMODIFPacket(String msg) {
+		CharSequence s =  "PSEUDO";
+		return msg.contains(s);
+	}
 	
 	public void stopUDPListener() {
 		this.running = false;
@@ -133,6 +138,11 @@ public class ListenerUDP extends Thread {
 			        	 System.out.println(id + " \n");
 			        }
 		    	}
+				else if (isMODIFPacket(msg)) { // un utilisateur a changé de pseudonyme
+					String ancienPseudo = Message.toMessageBdcPseudo(msg).getPseudo();
+					String nouveauPseudo = Message.toMessageBdcPseudo(msg).getNewPseudo();
+					AlerteMessage alerte = new AlerteMessage(ancienPseudo, nouveauPseudo, 3);
+				}
 		    	else if (isEndPacket(msg)) { // Message de deconnexion --------- id # pseudo # "DISCONNECTED : Goodbye
 		    		//on supprime la personne de la BD + on ferme de TCP Server
 		    		System.out.println("[LISTENER UPD] END-PACKET");
@@ -142,7 +152,7 @@ public class ListenerUDP extends Thread {
 		    		Connect.deleteUserLUC("database.db", pseudoDisconnected);
 		    		System.out.println("[LISTERNER UDP] Suppression dans la LUC de : " + pseudoDisconnected);
 		    		//On previens l'utilisateur
-		            AlerteMessage alerte = new AlerteMessage(pseudoDisconnected, 2);
+		            AlerteMessage alerte = new AlerteMessage(pseudoDisconnected,"" , 2);
 		    	}
 		    	else if (isOKPacket(msg)) {
 		    		//rien à faire

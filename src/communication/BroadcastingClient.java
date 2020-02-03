@@ -88,6 +88,26 @@ public class BroadcastingClient {
     		System.out.println("[BROADCASTING CLIENT] Erreur sendDisconnected : " + e );
     	}
     }
+    
+    // Envoie d'un message de modification de pseudo en Broadcast
+    public static void sendModifPseudo(InetAddress addrbr, String ancien, String nouveau) throws Exception { // id # pseudo # message
+    	String mBr = "PSEUDO : modification du pseudo";
+    	Message m = new Message(mBr, user.getPseudo() ,user.getId());
+
+    	String msg = Integer.valueOf(user.getId()) + "#" + ancien + "#" + nouveau + "#" + mBr ;
+    	System.out.println("[BROADCASTING CLIENT] Message de modification de pseudo : " + msg);
+    	
+    	try {    		
+	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
+	    	socket.send(packet);
+    		System.out.println("[BROADCASTING CLIENT] sendModifPseudo");
+	    	byte[] buff = new byte[256];
+	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);	    	
+    	}
+    	catch (Exception e) {
+    		System.out.println("[BROADCASTING CLIENT] Erreur sendModifPseudo : " + e );
+    	}
+    }
     	
     
     //Envoie un message broadcast pour récupérer une liste des ids des utilisateurs connectés

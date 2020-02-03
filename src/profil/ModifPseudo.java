@@ -102,10 +102,17 @@ public class ModifPseudo implements ActionListener {
 	                labelError.setText(incorrectPseudo);
 	    		}
 	    		else {
+	    			String newPseudo = newPseudoField.getText();
+	    			String ancien = this.user.getPseudo();
 	    			Connect.updateUser("database.db",newPseudoField.getText(), this.user.getPassword(), this.user.getId());
 	    			this.user.setPseudo(newPseudoField.getText());
 	            	System.out.println("Pseudo bien modifie en : USER " + this.user.getPseudo() + " DB : " + Connect.queryUserPseudo("database.db", this.user.getId()));
-	            	
+
+	                try {
+						BroadcastingClient.sendModifPseudo(BroadcastingClient.getBroadcastAddress(), ancien, newPseudo);
+					} catch (Exception e1) {
+						System.out.println("[ERROR PROFIL] sendModifBroadcast error");
+					}
 	                labelError.setText("");
 	                pseudoField.setText(this.user.getPseudo());
 	                newPseudoField.setText("");

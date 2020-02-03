@@ -9,6 +9,7 @@ public class Message {
     private byte[] packet;
     private String pseudo;
     private int port;
+    private String newPseudo;
 
     //Constructeurs
     public Message(String content) {
@@ -43,10 +44,18 @@ public class Message {
         this.content=content;
         this.id=id;
     }
+    
+    public Message (String content, String pseudo, String newPseudo, int id) {
+        this.content=content;
+        this.pseudo=pseudo;
+        this.newPseudo = newPseudo;
+        this.id=id;
+    }
 
     //Getters
     public String getContent() {return this.content;}
     public String getPseudo() {return this.pseudo;}
+    public String getNewPseudo() {return this.newPseudo;}
     public DateMsg getDate() {return this.date;}
     public byte[] getPacket() {return this.packet;}
     public int getId() {return this.id;}
@@ -135,6 +144,25 @@ public class Message {
         }
         return m;
     }   
+
+    
+    public static Message toMessageBdcPseudo(String s){ // id#ancien#nouveau#message
+    	String[] parts = s.split("#");
+        String c= "",i="", ancien="", nouveau="";
+        Message m = null;        
+        
+        try {
+            c = parts[2];
+            i = parts[0];
+            ancien = parts[1];
+            nouveau = parts[2];
+            m = new Message(c, ancien , nouveau, Integer.parseInt(i));
+        }
+        catch (Exception e) {
+        	System.out.println("[Message] Erreur toMessageBdc ");
+        }
+        return m;
+    }  
     
     // On suppose qu'on a un message de la forme "id#content#date" avec date de la forme 17:26:00:00:00:00
     public static Message toMessageDisc(String s){

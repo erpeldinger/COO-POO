@@ -22,6 +22,7 @@ public class AlerteMessage {
 	private  String pseudoExpediteur="";
 	private  String message = "Vous avez reçu un nouveau message de";
 	private String envoieEchec = "L'envoi a echoue, veuillez ressayer";
+	private  String modifPseudo = " a change son pseudo en ";
 	private  String decoUser = " s'est deconnecté(e) !";
     final  JLabel labelMessage = new JLabel("");
 
@@ -86,7 +87,7 @@ public class AlerteMessage {
      * @throws Exception 
      * @throws UnknownHostException 
      */
-    public AlerteMessage(String pseudoExpediteur, int type) throws UnknownHostException, Exception {
+    public AlerteMessage(String pseudoExpediteur, String option, int type) throws UnknownHostException, Exception {
 
     	this.pseudoExpediteur = pseudoExpediteur;
     	
@@ -99,6 +100,9 @@ public class AlerteMessage {
     	else if (type == 2) {
 	    	labelMessage.setText(pseudoExpediteur + decoUser);
     	}
+    	else if (type==3) {
+	    	labelMessage.setText(pseudoExpediteur + modifPseudo + option);
+    		}
     	//Set the look and feel.
         initLookAndFeel();
         
