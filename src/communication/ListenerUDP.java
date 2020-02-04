@@ -141,7 +141,13 @@ public class ListenerUDP extends Thread {
 				else if (isMODIFPacket(msg)) { // un utilisateur a changé de pseudonyme
 					String ancienPseudo = Message.toMessageBdcPseudo(msg).getPseudo();
 					String nouveauPseudo = Message.toMessageBdcPseudo(msg).getNewPseudo();
+					
 					String ip = Connect.queryUserLUCbyPseudo("database.db", ancienPseudo);
+					ArrayList <String> Ares = Connect.queryAllUserLUC("database.db");
+					System.out.println("Avant update : ");
+					for (String c : Ares ) {
+						System.out.println(c);
+					}
 					//maj bdd
 					Connect.updatePseudoLUC("database.db",nouveauPseudo,ip);
 					ArrayList <String> res = Connect.queryAllUserLUC("database.db");
