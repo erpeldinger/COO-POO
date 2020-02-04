@@ -101,10 +101,10 @@ public class AlerteMessage {
     	else if (type == 2) {
 	    	labelMessage.setText(pseudoExpediteur + decoUser);
     	}
-    	else if (type==3) {
+    	else if (type==4) {
 	    	labelMessage.setText(pseudoExpediteur + modifPseudo + option);
     		}
-    	else if (type==4) {
+    	else if (type==3) {
     		labelMessage.setText(error);
     	}
     	//Set the look and feel.

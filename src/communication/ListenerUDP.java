@@ -138,7 +138,7 @@ public class ListenerUDP extends Thread {
 					Connect.insertUserLUCbyPseudo("database.db",nouveauPseudo,ip);
 					
 					//prevenir l'utilisateur
-					AlerteMessage alerte = new AlerteMessage(ancienPseudo, nouveauPseudo, 3);
+					AlerteMessage alerte = new AlerteMessage(ancienPseudo, nouveauPseudo, 4);
 				}
 		    	else if (isEndPacket(msg)) { // Message de deconnexion --------- id # pseudo # "DISCONNECTED : Goodbye
 		    		//on supprime la personne de la BD + on ferme de TCP Server

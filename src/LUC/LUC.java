@@ -122,19 +122,6 @@ public class LUC implements ActionListener {
     			ArrayList <String> oldUsers = Connect.queryOldUser("database.db", lucSplit);
     			ArrayList <String> disconnectedUsers = Connect.queryDisconnectedUser("database.db", lucSplit);
     			
-				System.out.println("new users : ");
-    			for (String courant : newUsers) {
-    				System.out.println(courant + " \n");
-    			}
-				System.out.println("old users : ");
-    			for (String courant : oldUsers) {
-    				System.out.println(courant + " \n");
-    			}
-				System.out.println("disconnected users : ");
-    			for (String courant : disconnectedUsers) {
-    				System.out.println(courant + " \n");
-    			}
-    			
     			//affichage de la nouvelle liste
     			ListUser.setText("");
     			for (String courant : newUsers) {
@@ -157,17 +144,9 @@ public class LUC implements ActionListener {
 	    			System.out.println("[LUC]" + courant + "\n");
 		    		// Ouverture d'un Thread TCP Server par utilisateur connectes
 		    		if(!courant.contains("end") && !courant.contains(this.user.getPseudo())) {
-			    		//ListUser.setText(ListUser.getText() + "\n" + courant );
-		    			//ERREUR
-			    		//idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
-			    		//String parts[] = idDest.split("/");
-			    		//System.out.println("[LUC] IP recupere dans la BD : " + parts[1] + " pour le pseudo " + courant);
-			    		//idDestInet = InetAddress.getByName(parts[1]);
-			    		//CORRECTION
 		    			manager.addTCPServer(user.getId(), courant ,BroadcastingClient.getIpAddress());
 		    		}
 		    	}
-
 				//fermeture des TCPServer pour les anciens
     			//manager.stopCommunication(disconnectedUsers);
     			

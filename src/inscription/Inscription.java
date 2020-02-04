@@ -1,4 +1,3 @@
-
 package inscription;
 
 import LUC.LUC;
@@ -210,7 +209,6 @@ public class Inscription implements ActionListener {
         Connect.createNewDatabase("database.db");
         Connect.createNewTableUser("database.db");
         Connect.updateId();
-        System.out.println("update de l'id : " + Connect.getId());
         
         //Make sure we have nice window decorations.
         JFrame.setDefaultLookAndFeelDecorated(true);
