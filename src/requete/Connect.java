@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
 import java.sql.Statement;
 import java.util.*;
+
+import clavardage.AlerteMessage;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -35,6 +38,7 @@ public class Connect {
  
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
     
@@ -59,6 +63,7 @@ public class Connect {
             //System.out.println("[CONNECT] A new table User has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
     
@@ -82,6 +87,7 @@ public class Connect {
             //System.out.println("A new table LUC has been created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
 
@@ -105,6 +111,7 @@ public class Connect {
             stmt.execute(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
     
@@ -122,6 +129,7 @@ public class Connect {
             //System.out.println("A table has been deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
     
@@ -142,6 +150,7 @@ public class Connect {
             //System.out.println("[CONNECT] Insertion dans User de : " + pseudo + " de id : " + id);
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] User " + e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
     
@@ -159,6 +168,7 @@ public class Connect {
             //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
     
@@ -176,6 +186,7 @@ public class Connect {
             //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
     
@@ -194,6 +205,7 @@ public class Connect {
             //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         } 
     }
     
@@ -213,6 +225,7 @@ public class Connect {
             //System.out.println("A User has been created in UserLUC");
         } catch (SQLException e) {
             System.out.println("[ERROR INSERT] userLUC " + e.getMessage());
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
     }
 
@@ -232,6 +245,7 @@ public class Connect {
               //System.out.println("[CONNECT] On a add le message : " + content + " de date : " + date + " avec id1 = " + id1 + " et id2 = " + id2);
           } catch (SQLException e) {
               System.out.println("[ERROR INSERT] Conv " + e.getMessage());
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
 
@@ -248,6 +262,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
 
@@ -262,6 +277,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
       
@@ -276,6 +292,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
       
@@ -289,6 +306,7 @@ public class Connect {
 	              pstmt.executeUpdate();
 	          } catch (SQLException e) {
 	              System.out.println(e.getMessage());
+	              AlerteMessage error = new AlerteMessage("null", "null", 3);
 	          }
 	      }
 
@@ -306,6 +324,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
       /* ------------------------------------------UPDATE--------------------------------------*/
@@ -324,6 +343,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
    // update un pseudo dans LUC
@@ -339,6 +359,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
       
@@ -355,6 +376,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
       
@@ -371,6 +393,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
    // update un port dans LUC
@@ -386,6 +409,7 @@ public class Connect {
               pstmt.executeUpdate();
           } catch (SQLException e) {
               System.out.println(e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
 
@@ -412,6 +436,7 @@ public class Connect {
               return resultat.get(0).intValue();
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat.get(0).intValue();
       }
@@ -436,6 +461,7 @@ public class Connect {
               return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat.get(0);
       }
@@ -460,6 +486,7 @@ public class Connect {
               resultat.add("end");
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           
           //System.out.println("[CONNECT] end queryUser");
@@ -493,6 +520,7 @@ public class Connect {
               return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           resultat.add("end");
           return resultat.get(0);
@@ -519,6 +547,7 @@ public class Connect {
               return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] verif pseudo " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat;
       }
@@ -546,6 +575,7 @@ public class Connect {
               return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] verif password " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat;
       }
@@ -571,6 +601,7 @@ public class Connect {
               return resultat.get(0).intValue();
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] Max Id " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat.get(0).intValue();
       }
@@ -596,6 +627,7 @@ public class Connect {
               return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user LUC " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat.get(0);
       }
@@ -621,6 +653,7 @@ public class Connect {
               return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] user LUC " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat.get(0);
       }
@@ -648,6 +681,7 @@ public class Connect {
               return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] All User " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat;
       }
@@ -673,6 +707,7 @@ public class Connect {
               //return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY] All User " + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           //Enlever les doublons
           Set<String> set = new HashSet<String>() ;
@@ -702,6 +737,7 @@ public class Connect {
               return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat.get(0).intValue();
       }
@@ -727,6 +763,7 @@ public class Connect {
               return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY PORT]" + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat.get(0).intValue();
       }
@@ -751,6 +788,7 @@ public class Connect {
               return resultat.get(0);
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY PORT]" + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat.get(0).intValue();
       }
@@ -777,6 +815,7 @@ public class Connect {
               return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY PORT]" + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat;
       }
@@ -801,6 +840,7 @@ public class Connect {
               return resultat;
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY PORT]" + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           return resultat;
       }
@@ -827,22 +867,11 @@ public class Connect {
                           resInter += rs.getString("content");
                           resultat.add(resInter);
                   }
-              /*
-              System.out.println("AVANT ADD \n");
-              for (String iter : resultat) {
-            	  System.out.println("[CONNECT] iter : " + iter + "\n");
-              }
-              */
           } catch (SQLException e) {
               System.out.println("[ERROR QUERY]" + e.getMessage());
+              AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
           resultat.add("!!end");
-          //System.out.println("[CONNECT] end queryConversation");
-          /*
-          System.out.println("APRES ADD \n");
-          for (String iter : resultat) {
-        	  System.out.println("[CONNECT] iter : " + iter + "\n");
-          } */
           return resultat;
       }
       
@@ -914,11 +943,6 @@ public class Connect {
       public static ArrayList <String> queryNewUser(String filename, String[] luc) {
     	  ArrayList <String> res = new ArrayList <String>();
     	  ArrayList <String> newLUC = queryAllUserLUC(filename);
-    	  System.out.println("new LUC : ");
-    	  for (String courant : newLUC) {
-    		  System.out.println(courant + " - ");
-    	  }
-    	  
     	  
     	  ArrayList <String> oldLUC = new ArrayList<String>(Arrays.asList(luc));
     	  for (String courant : newLUC) {

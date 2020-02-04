@@ -75,7 +75,6 @@ public class ChatManager {
 		int res = -1;
 		int i = 0;
 		int size = ports.size();
-		System.out.println("[ChAT MANAGER] size de port : " + size);
 		while (!isDispo) {
 			if (ports.get(i) == true) {
 				isDispo = true;
