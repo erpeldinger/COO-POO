@@ -35,11 +35,9 @@ public class TCPClient {
 	//Ecrit un message
 	public void writeM(OutputStream out, String msg) {
     	try {
-    		System.out.println("[TCP CLIENT] Message a envoyer : " + msg);
     		Message toSend = Message.toSend(this.user.getId(), msg);
     		byte[] buff = Message.readyToSend(toSend);
     		out.write(buff);    		
-    		System.out.println("[TCP CLIENT] Message envoye : " + msg);
 
     		//Stockage dans la bd
     		Connect.createNewDatabase("database.db");
@@ -47,24 +45,20 @@ public class TCPClient {
         	
         	//ajout du pseudo de l'expediteur du message dans la BD
         	String dateMessage = DateMsg.toString(toSend.getDate());
-        	System.out.println("[TCP Client] Message à enregistrer, date : " + dateMessage + " de id : " + this.user.getId());
     		Connect.insertConversation("database.db", this.user.getId(), this.destId, Connect.queryUserPseudo("database.db", this.user.getId()) + " : " + toSend.getContent() , dateMessage);
-    		System.out.println("[TCP CLIENT] message enregistre dans la db \n");
     		
     	}
     	catch (Exception e) {
     		System.out.println("[TCPClient] Erreur writeM");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
     	}    			
     }
 	
 	//Envoie le message
 	public void sendMessage(String m) throws UnknownHostException, Exception {
 		try {
-			System.out.println("[TCP CLIENT] sendMessage -> debut \n");
 			OutputStream out = this.socket.getOutputStream();
-			System.out.println("[TCP CLIENT] sendMessage -> avant writeM \n");
 			writeM(out, m);
-			System.out.println("[TCP CLIENT] sendMessage -> apres writeM \n");
 			this.socket.close();
 		}			
         catch (Exception e){
@@ -78,6 +72,7 @@ public class TCPClient {
 			this.socket.close();
 		} catch (IOException e) {
 			System.out.println("[TCP CLient] Erreur fermeture socket");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
 		}
 	}
 		

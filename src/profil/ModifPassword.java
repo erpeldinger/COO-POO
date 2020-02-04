@@ -3,6 +3,7 @@ package profil;
 
 import user.*;
 import LUC.LUC;
+import clavardage.AlerteMessage;
 import communication.BroadcastingClient;
 import requete.Connect;
 
@@ -104,7 +105,6 @@ public class ModifPassword implements ActionListener {
 	    		else {
 	    			Connect.updateUser("database.db", this.user.getPseudo(), newPasswordField.getText(), this.user.getId());
 	    			this.user.setPassword(newPasswordField.getText());
-	            	System.out.println("Password bien modifie  en " + this.user.getPseudo());
 	            	
 	                labelError.setText("");
 	                passwordField.setText(this.user.getPassword());
@@ -118,11 +118,11 @@ public class ModifPassword implements ActionListener {
 				LUC maLUC = new LUC(this.user);
 			} catch (IOException e1) {
 				System.out.println("[ERROR PROFIL] Creation de la page LUC impossible : " + e);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
-    		// TODO
     		Connect.deleteAllUserLUC("database.db");
     		frame.setVisible(false);
     	}
@@ -207,14 +207,12 @@ public class ModifPassword implements ActionListener {
 						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 					} catch (Exception e1) {
 						System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+						AlerteMessage error = new AlerteMessage("null", "null", 3);
 					}
 					
 					//delete ma LUC
-					System.out.println("debut ");
 					Connect.deleteAllUserLUC("database.db");
 					Connect.deleteTable("database.db", "ListUserConnected");
-					
-					System.out.println("fermeture de l'application \n");
 					frame.setVisible(false);
 			}
 			public void windowClosed(WindowEvent e){}

@@ -9,6 +9,7 @@ import java.net.SocketException;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 
+import clavardage.AlerteMessage;
 import user.User;
 import format.Message;
 
@@ -30,9 +31,10 @@ public class BroadcastingClient {
     	this.user = user;
     	System.out.println("[BROADCASTING CLIENT] User : " + user.getPseudo() + " ; Socket BroadcastingClient : " + port + "\n");
     	try {
-	        BroadcastingClient.sendBroadcast(BroadcastingClient.getBroadcastAddress());
-	        System.out.println("[BROADCASTING CLIENT] send broadcast ok");}
-    	catch (Exception e) {}
+	        BroadcastingClient.sendBroadcast(BroadcastingClient.getBroadcastAddress());}
+    	catch (Exception e) {
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
+    	}
     }
     
     //getters
@@ -75,17 +77,16 @@ public class BroadcastingClient {
     	Message m = new Message(mBr, user.getPseudo() ,user.getId());
 
     	String msg = Integer.valueOf(user.getId()) + "#" + user.getPseudo() + "#" + mBr ;
-    	System.out.println("[BROADCASTING CLIENT] Message de deconnexion : " + msg);
     	
     	try {    		
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
 	    	socket.send(packet);
-    		System.out.println("[BROADCASTING CLIENT] sendDisconnected");
 	    	byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);	    	
     	}
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT] Erreur sendDisconnected : " + e );
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
     	}
     }
     
@@ -95,17 +96,16 @@ public class BroadcastingClient {
     	Message m = new Message(mBr, user.getPseudo() ,user.getId());
 
     	String msg = Integer.valueOf(user.getId()) + "#" + ancien + "#" + nouveau + "#" + mBr ;
-    	System.out.println("[BROADCASTING CLIENT] Message de modification de pseudo : " + msg);
     	
     	try {    		
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   	
 	    	socket.send(packet);
-    		System.out.println("[BROADCASTING CLIENT] sendModifPseudo");
 	    	byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);	    	
     	}
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT] Erreur sendModifPseudo : " + e );
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
     	}
     }
     	
@@ -116,20 +116,17 @@ public class BroadcastingClient {
     	String mBr = "BROADCAST : Hello, who is there ?";
     	Message m = new Message(mBr, user.getPseudo() ,user.getId());
     	
-    	// Création d'un paquet de format : "id sender | pseudo | message "
-    	//String msg = Message.toString(m.getId(),mBr, user.getPseudo());
     	String msg = Integer.valueOf(user.getId()) + "#" + user.getPseudo() + "#" + mBr ;
-    	System.out.println("[BROADCASTING CLIENT] Message : " + msg);
     	
     	try {
 	    	packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length,addrbr, port);   
 	    	socket.send(packet);
-    		System.out.println("[BROADCASTING CLIENT] sendBroadcast");
 			byte[] buff = new byte[256];
 	    	DatagramPacket outPacket = new DatagramPacket(buff, buff.length);
     	}
     	catch (Exception e) {
     		System.out.println("[BROADCASTING CLIENT - sendBroadcast] Erreur sendBroadcast : " + e );
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
     	}
     }
 }

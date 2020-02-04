@@ -137,6 +137,7 @@ public class Clavardage implements ActionListener {
 	            }
 	            catch (Exception ex){
 	                labelMessage.setText(labelPrefix + etatEnvoiEnCours);
+					AlerteMessage error = new AlerteMessage("null", "null", 3);
 	            }
 	        }
 	        //reset du TCPClient
@@ -144,6 +145,7 @@ public class Clavardage implements ActionListener {
 				this.client = new TCPClient(InetAddress.getByName(this.ipTCP), this.port, user, id2);
 			} catch (Exception e1) {
 				System.out.println("reset du TCPClient");
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     	}
 	    else if (e.getActionCommand().contentEquals("Retour")) {
@@ -154,6 +156,7 @@ public class Clavardage implements ActionListener {
 				this.client.stopClavardage();
 			} catch (IOException e1) {
 				System.out.println("[CLAVARDAGE] eRREUR : " + e1);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		frame.setVisible(false);
 	    }
@@ -168,6 +171,7 @@ public class Clavardage implements ActionListener {
 				LUC maLUC = new LUC(this.user);
 			} catch (IOException e1) {
 				System.out.println("[ERROR PROFIL] Creation de la page LUC impossible : " + e);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		frame.setVisible(false);
     	}
@@ -179,6 +183,7 @@ public class Clavardage implements ActionListener {
 				//this.manager.stopCommunication();
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		
     		//delete ma LUC
@@ -191,18 +196,16 @@ public class Clavardage implements ActionListener {
     		ConvArea.setText("");
     		// on va chercher les messages dans la BD
     		ArrayList <String> historiqueRecup = Connect.queryHistorique("database.db", user.getId(), id2);
-    		//System.out.println("[CLAVARDAGE] premier element :" + historiqueRecup.get(0));
         	for ( String courant : historiqueRecup) {
-        		//System.out.println("[CLAVARDAGE] message courant : " + courant);
         		if (!courant.contains("end")) {
         			ConvArea.setText(ConvArea.getText() + "\n" + courant );
         		}
         	}
-    		System.out.println("apres le for \n");
         	try {
 				this.client = new TCPClient(InetAddress.getByName(this.ipTCP), this.port, user, id2);
 			} catch (Exception e1) {
 				System.out.println("reset du TCPClient");
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     	}
     }   
@@ -260,16 +263,12 @@ public class Clavardage implements ActionListener {
     	this.id2=id2;
     	Connect.createNewTableLUC("database.db");
     	String ipS = Connect.queryUserLUCbyPseudo("database.db", pseudoDest);
-    	System.out.println("[CLAVARDAGE] ip recupere string : " + ipS + " a partir de id = " + pseudoDest);
-    	
     	
     	this.port = Connect.queryPortLUC("database.db",id2);
-    	System.out.println("port recupere : " + this.port);
     	
     	String parts[] = ipS.split("/");
 
     	this.ipTCP = parts[1];
-    	System.out.println("[CLAVARDAGE] ip recupere split : " + parts[1]);
     	this.client = new TCPClient(InetAddress.getByName(parts[1]), this.port, user, id2);
     	
         //Set the look and feel.
@@ -292,14 +291,12 @@ public class Clavardage implements ActionListener {
 						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 					} catch (Exception e1) {
 						System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+						AlerteMessage error = new AlerteMessage("null", "null", 3);
 					}
 					
 					//delete ma LUC
-					System.out.println("debut ");
 					Connect.deleteAllUserLUC("database.db");
 					Connect.deleteTable("database.db", "ListUserConnected");
-					
-					System.out.println("fermeture de l'application \n");
 					frame.setVisible(false);
 			}
 			public void windowClosed(WindowEvent e){}
@@ -313,7 +310,6 @@ public class Clavardage implements ActionListener {
         
         // afficher l'historique des message
         Connect.createNewTableConv("database.db");
-        System.out.println("User : " + user.getId() + " user 2 " + id2);
     	ArrayList <String> Users1 = Connect.queryHistorique("database.db", user.getId(), id2);
     	for ( String courant : Users1) {
     		if (!courant.contains("end")) {

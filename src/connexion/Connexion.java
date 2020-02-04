@@ -7,6 +7,7 @@ import java.awt.event.*;
 
 import requete.Connect;
 import LUC.*;
+import clavardage.AlerteMessage;
 import communication.BroadcastingClient;
 import user.*;
 public class Connexion implements ActionListener {
@@ -75,25 +76,21 @@ public class Connexion implements ActionListener {
         }
         //Sinon on se connecte
         else {
-        	System.out.println("[CONNEXION] else on se connecte ");
         	Connect.createNewDatabase("database.db");
         	Connect.createNewTableUser("database.db");
        
         	if (Connect.checkIsUser("database.db", pseudoField.getText(), passwordField.getText())) {
-        		System.out.println("[CONNEXION] if connexion ok ");
         		// connexion ok
         		try {
 	            User user = new User( Connect.queryUser("database.db", pseudoField.getText(), passwordField.getText()),pseudoField.getText(), passwordField.getText(), 1234);
 
 	            //lancement du broadcast
-	            System.out.println("[CONNEXION] avant allowbdc ");
 	            user.allowBroadcast(new BroadcastingClient(user.getListener().getDatagramSocket(),1234, user));
-	            System.out.println("[CONNEXION] Broadcats sur le port 1234");
-	            System.out.println("[CONNEXION] Listener sur le port " + user.getMonPort());
 	            LUC pageLUC = new LUC(user);
         		}
         		catch (Exception j) {
         			System.out.println("[CONNEXION] ERROR Creation user impossible " + j);
+					AlerteMessage error = new AlerteMessage("null", "null", 3);
         		}
 
 	            labelError.setText("");
@@ -102,7 +99,6 @@ public class Connexion implements ActionListener {
 	            labelSuccess.setText(connected);
 	            
 	    		frame.setVisible(false);
-	    		System.out.println("LUC ouvert");
         	}
         	else {
         		//mauvais pseudo/mot de passe
@@ -112,6 +108,7 @@ public class Connexion implements ActionListener {
             }
             catch (Exception ex) {
                 labelError.setText(errorConnect);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
             }            
         }
     }

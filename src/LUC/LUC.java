@@ -3,7 +3,7 @@ package LUC;
 
 import javax.swing.*;
 import user.*;
-
+import clavardage.AlerteMessage;
 import clavardage.Clavardage;
 import requete.Connect;
 import profil.Profil;
@@ -174,6 +174,7 @@ public class LUC implements ActionListener {
     			
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC]refresh " + e1);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     	}
     	else if (e.getActionCommand().equals("Liste des utilisateurs connectes")) {
@@ -181,6 +182,7 @@ public class LUC implements ActionListener {
 				LUC maLUC = new LUC(this.user);
 			} catch (IOException e1) {
 				System.out.println("[ERROR LUC] Creation de la page LUC impossible : " + e);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		frame.setVisible(false);
     	}
@@ -191,20 +193,14 @@ public class LUC implements ActionListener {
 				this.manager.stopCommunication();
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		
     		//delete ma LUC
-    		System.out.println("debut ");
     		Connect.deleteAllUserLUC("database.db");
     		Connect.deleteTable("database.db", "ListUserConnected");
-    		System.out.println("apres delete all User LUC");
     		ArrayList<String> users = Connect.queryAllUserLUC("database.db");
-    		System.out.println("contenu de users : ");
-    		for (String courant : users) {
-    			System.out.println(courant + " - ");
-    		}
     		frame.setVisible(false);
-    		System.out.println("fermeture de l'application \n");
             System.exit(0);
     	}
     	else if (e.getActionCommand().equals("Profil")) {
@@ -263,7 +259,6 @@ public class LUC implements ActionListener {
      */
     
     public LUC(User user) throws IOException {
-        System.out.println("debut constructeur");
         //init le user
         this.user = user;
         //Set the look and feel.
@@ -280,20 +275,17 @@ public class LUC implements ActionListener {
 			public void windowOpened(WindowEvent e){}
 			public void windowClosing(WindowEvent e){
 		    	
-		    		System.out.println("[PROFIL] fermeture appli");
 					// Envoi d'un message de deconnexion en Broadcast
 					try {
 						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 					} catch (Exception e1) {
 						System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+						AlerteMessage error = new AlerteMessage("null", "null", 3);
 					}
 					
 					//delete ma LUC
-					System.out.println("debut ");
 					Connect.deleteAllUserLUC("database.db");
 					Connect.deleteTable("database.db", "ListUserConnected");
-					
-					System.out.println("fermeture de l'application \n");
 					frame.setVisible(false);
 			}
 			public void windowClosed(WindowEvent e){}
@@ -313,7 +305,6 @@ public class LUC implements ActionListener {
     	//on reset l'espace de texte
 		ListUser.setText("");
 		
-		System.out.println("[LUC] !!!!!!!!!!!!!!!!!!! AFFICHAGE DE LA LUC !!!!!!!!!!!!! \n");
     	try {
 	    	this.manager = new ChatManager();
 	    	String idDest="";
@@ -323,22 +314,13 @@ public class LUC implements ActionListener {
 	    		// Ouverture d'un Thread TCP Server par utilisateur connectes
 	    		if(!courant.contains("end") && !courant.contains(this.user.getPseudo())) {
 		    		ListUser.setText(ListUser.getText() + "\n" + courant );
-		    		System.out.println("[LUC] IN if");
-	    			//manager.addTCPServer(user.getId(), BroadcastingClient.getIpAddress());
-		    		//System.out.println("[LUC] avant query");
-		    		//idDest = Connect.queryUserLUCbyPseudo("database.db", courant);
-		    		//System.out.println("[LUC] Iapres query");
-		    		//idDestInet = InetAddress.getByName(idDest);
-		    		//System.out.println("[LUC] IP recupere dans la BD : " + idDest);
-		    		//ERREUR
-		    		//manager.addTCPServer(user.getId(), courant,idDestInet);
-		    		//CORRECTION
 	    			manager.addTCPServer(user.getId(), courant ,BroadcastingClient.getIpAddress());
 	    		}
 	    	}
     	}
 		catch (Exception e) {
 			System.out.println("[LUC] ERREUR Creation TCP Server ou ChatManager impossible");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
 		}
     	
         //a modifier pour le main
@@ -348,6 +330,5 @@ public class LUC implements ActionListener {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
-        System.out.println("fin constructeur LUC");
     }    
 }

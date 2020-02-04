@@ -3,6 +3,7 @@ package profil;
 
 import user.*;
 import LUC.LUC;
+import clavardage.AlerteMessage;
 import communication.BroadcastingClient;
 import requete.Connect;
 
@@ -112,6 +113,7 @@ public class ModifPseudo implements ActionListener {
 						BroadcastingClient.sendModifPseudo(BroadcastingClient.getBroadcastAddress(), ancien, newPseudo);
 					} catch (Exception e1) {
 						System.out.println("[ERROR PROFIL] sendModifBroadcast error");
+						AlerteMessage error = new AlerteMessage("null", "null", 3);
 					}
 	                labelError.setText("");
 	                pseudoField.setText(this.user.getPseudo());
@@ -125,11 +127,11 @@ public class ModifPseudo implements ActionListener {
 				LUC maLUC = new LUC(this.user);
 			} catch (IOException e1) {
 				System.out.println("[ERROR PROFIL] Creation de la page LUC impossible : " + e);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		frame.setVisible(false);
     	}
     	else if (e.getActionCommand().equals("Se deconnecter")) {
-    		// TODO
     		Connect.deleteAllUserLUC("database.db");
     		frame.setVisible(false);
     	}

@@ -1,5 +1,7 @@
 package format;
 
+import clavardage.AlerteMessage;
+
 public class Message {
 
     //Attributs
@@ -82,6 +84,7 @@ public class Message {
     	}
         catch (Exception e) {
         	System.out.println("[Message] Erreur toDateMsg -> split 1");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
         try {
         	year = Integer.parseInt(parts[0]);
@@ -94,6 +97,7 @@ public class Message {
         }
         catch (Exception e) {
         	System.out.println("[Message] Erreur toDateMsg -> split 2");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }        
         return date;
     }
@@ -122,6 +126,7 @@ public class Message {
         }
         catch (Exception e) {
         	System.out.println("[Message] Erreur toMessage ");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
 
         return m;
@@ -141,6 +146,7 @@ public class Message {
         }
         catch (Exception e) {
         	System.out.println("[Message] Erreur toMessageBdc ");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
         return m;
     }   
@@ -160,6 +166,7 @@ public class Message {
         }
         catch (Exception e) {
         	System.out.println("[Message] Erreur toMessageBdc ");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
         return m;
     }  
@@ -178,6 +185,7 @@ public class Message {
         }
         catch (Exception e) {
         	System.out.println("[Message] Erreur toMessageBdc ");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
         return m;
     }   
@@ -196,6 +204,7 @@ public class Message {
         }
         catch (Exception e) {
         	System.out.println("[Message] Erreur toMessageBdcPort " +e);
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
         }
         return m;
     }      
@@ -209,6 +218,7 @@ public class Message {
 	    }
 		catch (Exception e) {
 			System.out.println("[Message] Erreur toSend ");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
 			return null;
 		} 
     }
@@ -222,6 +232,7 @@ public class Message {
     	}
     	catch (Exception e) {
     		System.out.println("[Message] Erreur readyToSend(id,content)");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
     		return null;
     	}
     }
@@ -234,6 +245,7 @@ public class Message {
     	}
     	catch (Exception e) {
     		System.out.println("[Message] Erreur readyToSend(message)");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
     		return null;
     	}
     }
@@ -246,6 +258,7 @@ public class Message {
     	}
     	catch (Exception e) {
     		System.out.println("[Message] Erreur readMessage ");
+			AlerteMessage error = new AlerteMessage("null", "null", 3);
     		return null;
     	}
     }

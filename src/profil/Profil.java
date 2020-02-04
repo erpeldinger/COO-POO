@@ -4,6 +4,7 @@ package profil;
 import user.*;
 import requete.Connect;
 import LUC.*;
+import clavardage.AlerteMessage;
 import communication.BroadcastingClient;
 
 import java.awt.*;
@@ -112,6 +113,7 @@ public class Profil implements ActionListener {
 				LUC maLUC = new LUC(this.user);
 			} catch (IOException e1) {
 				System.out.println("[ERROR PROFIL] Creation de la page LUC impossible : " + e);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		frame.setVisible(false);
     	}
@@ -121,6 +123,7 @@ public class Profil implements ActionListener {
 				BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 			} catch (Exception e1) {
 				System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
 			}
     		
     		//delete ma LUC
@@ -205,14 +208,12 @@ public class Profil implements ActionListener {
 						BroadcastingClient.sendDisconnected(BroadcastingClient.getBroadcastAddress());
 					} catch (Exception e1) {
 						System.out.println("[ERROR LUC] Broadcast de Deconnexion" + e1);
+						AlerteMessage error = new AlerteMessage("null", "null", 3);
 					}
 					
 					//delete ma LUC
-					System.out.println("debut ");
 					Connect.deleteAllUserLUC("database.db");
 					Connect.deleteTable("database.db", "ListUserConnected");
-					
-					System.out.println("fermeture de l'application \n");
 					frame.setVisible(false);
 			}
 			public void windowClosed(WindowEvent e){}
