@@ -265,6 +265,21 @@ public class Connect {
 				AlerteMessage error = new AlerteMessage("null", "null", 3);
           }
       }
+      
+      // Suppression d'un utilisateur dans la table User
+      public static void deleteUserbyPseudo(String filename, String pseudo) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "DELETE FROM User WHERE pseudo = ?;";
+          
+          try (Connection conn = DriverManager.getConnection(url);
+                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                      pstmt.setString(1, pseudo);
+              pstmt.executeUpdate();
+          } catch (SQLException e) {
+              System.out.println(e.getMessage());
+				AlerteMessage error = new AlerteMessage("null", "null", 3);
+          }
+      }
 
       // Suppression d'un utilisateur dans la table ListUserConnected
       public static void deleteUserLUC(String filename, int id) {

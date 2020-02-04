@@ -105,7 +105,8 @@ public class ModifPseudo implements ActionListener {
 	    		else {
 	    			String newPseudo = newPseudoField.getText();
 	    			String ancien = this.user.getPseudo();
-	    			Connect.updateUser("database.db",newPseudoField.getText(), this.user.getPassword(), this.user.getId());
+	    			//Connect.updateUser("database.db",newPseudoField.getText(), this.user.getPassword(), this.user.getId());
+	    			Connect.deleteUserbyPseudo("database.db",ancien);
 	    			Connect.insertUser("database.db",newPseudoField.getText(), this.user.getPassword(), this.user.getId());
 	    			this.user.setPseudo(newPseudoField.getText());
 	                try {
