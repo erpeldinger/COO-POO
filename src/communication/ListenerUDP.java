@@ -141,6 +141,10 @@ public class ListenerUDP extends Thread {
 				else if (isMODIFPacket(msg)) { // un utilisateur a changé de pseudonyme
 					String ancienPseudo = Message.toMessageBdcPseudo(msg).getPseudo();
 					String nouveauPseudo = Message.toMessageBdcPseudo(msg).getNewPseudo();
+					String ip = Connect.queryUserLUCbyPseudo("database.db", ancienPseudo);
+					//maj bdd
+					Connect.updatePseudoLUC("database.db",nouveauPseudo,ip);
+					//prevenir l'utilisateur
 					AlerteMessage alerte = new AlerteMessage(ancienPseudo, nouveauPseudo, 3);
 				}
 		    	else if (isEndPacket(msg)) { // Message de deconnexion --------- id # pseudo # "DISCONNECTED : Goodbye

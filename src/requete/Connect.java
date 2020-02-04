@@ -326,6 +326,21 @@ public class Connect {
               System.out.println(e.getMessage());
           }
       }
+   // update un pseudo dans LUC
+      public static void updatePseudoLUC(String filename, String pseudo, String ip) {
+          String url = "jdbc:sqlite:./database/"+filename;
+          String sql = "UPDATE ListUserConnected SET pseudo = ? WHERE ip = ?;";
+          
+          try (Connection conn = DriverManager.getConnection(url);
+                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                      pstmt.setString(1, pseudo);
+                      pstmt.setString(2, ip);
+              // update
+              pstmt.executeUpdate();
+          } catch (SQLException e) {
+              System.out.println(e.getMessage());
+          }
+      }
       
       // update une ip dans LUC
       public static void updateIpLUC(String filename, int id, String ip) {
