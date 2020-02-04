@@ -144,6 +144,11 @@ public class ListenerUDP extends Thread {
 					String ip = Connect.queryUserLUCbyPseudo("database.db", ancienPseudo);
 					//maj bdd
 					Connect.updatePseudoLUC("database.db",nouveauPseudo,ip);
+					ArrayList <String> res = Connect.queryAllUserLUC("database.db");
+					System.out.println("Apres update : ");
+					for (String c : res ) {
+						System.out.println(c);
+					}
 					//prevenir l'utilisateur
 					AlerteMessage alerte = new AlerteMessage(ancienPseudo, nouveauPseudo, 3);
 				}

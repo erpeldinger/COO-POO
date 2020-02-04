@@ -910,15 +910,15 @@ public class Connect {
     	  return res;
       }
       
-    //pseudo seulement dans a nouvelle liste
+      //pseudo seulement dans a nouvelle liste
       public static ArrayList <String> queryNewUser(String filename, String[] luc) {
     	  ArrayList <String> res = new ArrayList <String>();
     	  ArrayList <String> newLUC = queryAllUserLUC(filename);
-    	  /*System.out.println("new LUC : ");
+    	  System.out.println("new LUC : ");
     	  for (String courant : newLUC) {
     		  System.out.println(courant + " - ");
     	  }
-    	  */
+    	  
     	  
     	  ArrayList <String> oldLUC = new ArrayList<String>(Arrays.asList(luc));
     	  for (String courant : newLUC) {
@@ -928,8 +928,9 @@ public class Connect {
     	  }
     	  return res;
       }
+      
       /*------------------------------------------METHODES GENERALISTES-------------------------------------
-
+      
       //INSERTIOn de données dans la bd
       public static void insert(String tableName, String filename, ArrayList<TableSQL> data) {
           String url = "jdbc:sqlite:./database/"+filename;
