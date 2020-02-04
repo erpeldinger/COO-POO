@@ -149,7 +149,13 @@ public class ListenerUDP extends Thread {
 						System.out.println(c);
 					}
 					//maj bdd
-					Connect.updatePseudoLUC("database.db",nouveauPseudo,ip);
+					int id = Message.toMessageBdcPseudo(msg).getId();
+	    			Connect.updateUser("database.db",nouveauPseudo, "XXXX", id); 
+	    			//verif
+	    			System.out.println("recup id apres udpateUser " + Connect.queryUser("database.db", nouveauPseudo, "XXXX"));
+	    			
+					Connect.updatePseudoLUC("database.db",nouveauPseudo,ip); // apparement fait un delete et non un udpate
+					Connect.insertUserLUCbyPseudo("database.db",nouveauPseudo,ip);
 					ArrayList <String> res = Connect.queryAllUserLUC("database.db");
 					System.out.println("Apres update : ");
 					for (String c : res ) {
